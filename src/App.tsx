@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TableBase from "./components/tableBase";
 import TableAnomali, { AnomaliData } from "./components/tableAnomali";
 import { TableOptions, createColumnHelper } from "@tanstack/react-table";
-import { DEFAULT_TABLE_CONFIG } from "./config/table.config";
+import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 
 function App() {
   const columnHelper = createColumnHelper<AnomaliData>();

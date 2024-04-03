@@ -1,5 +1,6 @@
 import { Table, flexRender } from "@tanstack/react-table";
 import "./tableAnomali.css";
+import { gridGenerator } from "../utils";
 
 export type AnomaliData = {
   name: string;
@@ -9,17 +10,6 @@ export type AnomaliData = {
 };
 
 type Props = Table<AnomaliData>;
-
-const gridGenerator = (table: Table<AnomaliData>) => {
-  const visibleColumns = table.getVisibleFlatColumns();
-  return visibleColumns
-    .map((i, idx) =>
-      visibleColumns.length === idx + 1
-        ? `minmax(${i.getSize()}px ,auto)`
-        : `${i.getSize()}px`
-    )
-    .join(" ");
-};
 
 export default function TableAnomali(table: Props) {
   if (!table) {
