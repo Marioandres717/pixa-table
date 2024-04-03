@@ -5,4 +5,5 @@ export const DEFAULT_TABLE_CONFIG: TableOptions<any> = {
   columns: [],
   data: [],
   getCoreRowModel: getCoreRowModel(),
+  columnResizeMode: "onChange",
 };

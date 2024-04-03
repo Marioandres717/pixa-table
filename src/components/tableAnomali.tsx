@@ -56,6 +56,15 @@ export default function TableAnomali(table: Props) {
                       header.column.columnDef.header,
                       header.getContext()
                     )}
+                <div
+                  {...{
+                    onMouseDown: header.getResizeHandler(),
+                    onTouchStart: header.getResizeHandler(),
+                    className: `resizer ${
+                      header.column.getIsResizing() ? "isResizing" : ""
+                    }`,
+                  }}
+                />
               </div>
             ))}
           </div>
