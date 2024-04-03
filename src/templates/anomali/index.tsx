@@ -1,6 +1,6 @@
 import { Table, flexRender } from "@tanstack/react-table";
-import "./tableAnomali.css";
-import { gridGenerator } from "../utils";
+import "./index.css";
+import { gridGenerator } from "../../utils";
 
 export type AnomaliData = {
   name: string;
