@@ -1,13 +1,16 @@
 import { Table, TableOptions, useReactTable } from "@tanstack/react-table";
 
-type Props<T> = TableOptions<T> & {
-  children: (props: RenderProps<T>) => JSX.Element;
+type Props<TData> = TableOptions<TData> & {
+  children: (props: RenderProps<TData>) => JSX.Element;
 };
 
-type RenderProps<T> = Table<T>;
+type RenderProps<TData> = Table<TData>;
 
-export default function TableBase<T>({ children, ...options }: Props<T>) {
-  const table = useReactTable<T>(options);
+export default function TableBase<TData>({
+  children,
+  ...options
+}: Props<TData>) {
+  const table = useReactTable<TData>(options);
 
   if (!children || typeof children !== "function") {
     throw new Error("TableBase requires a render function as its child");
