@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TableBase from "./components/tableBase";
-import TableAnomali, { AnomaliData } from "./components/tableAnomali";
+import TableAnomali, { AnomaliData } from "./templates/anomali";
 import { TableOptions, createColumnHelper } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 
