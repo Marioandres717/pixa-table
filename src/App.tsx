@@ -13,6 +13,22 @@ function App() {
       columnHelper.accessor("name", {
         cell: (info) => info.getValue(),
         footer: (props) => props.column.id,
+        header: "Name",
+      }),
+      columnHelper.accessor("company", {
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        header: "Company",
+      }),
+      columnHelper.accessor("location", {
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        header: "Location",
+      }),
+      columnHelper.accessor("date", {
+        cell: (info) => info.getValue(),
+        footer: (props) => props.column.id,
+        header: "Date",
       }),
     ],
   });
