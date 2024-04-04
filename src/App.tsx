@@ -1,40 +1,58 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TableBase from "./components/tableBase";
 import TableAnomali, { AnomaliData } from "./templates/anomali";
-import { TableOptions, createColumnHelper } from "@tanstack/react-table";
+import {
+  PaginationState,
+  TableOptions,
+  createColumnHelper,
+  getPaginationRowModel,
+} from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 
 function App() {
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [data, setData] = useState<AnomaliData[]>([]);
+
   const columnHelper = createColumnHelper<AnomaliData>();
 
-  const [config, setConfig] = useState<TableOptions<AnomaliData>>({
-    ...DEFAULT_TABLE_CONFIG,
-    columns: [
-      columnHelper.accessor("name", {
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-        header: "Name",
-      }),
-      columnHelper.accessor("company", {
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-        header: "Company",
-      }),
-      columnHelper.accessor("location", {
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-        header: "Location",
-      }),
-      columnHelper.accessor("date", {
-        cell: (info) => info.getValue(),
-        footer: (props) => props.column.id,
-        header: "Date",
-      }),
-    ],
-  });
+  const config = useMemo<TableOptions<AnomaliData>>(
+    () => ({
+      ...DEFAULT_TABLE_CONFIG,
+      state: { pagination },
+      onPaginationChange: setPagination,
+      getPaginationRowModel: getPaginationRowModel(),
+      columns: [
+        columnHelper.accessor("name", {
+          cell: (info) => info.getValue(),
+          footer: (props) => props.column.id,
+          header: "Name",
+        }),
+        columnHelper.accessor("company", {
+          cell: (info) => info.getValue(),
+          footer: (props) => props.column.id,
+          header: "Company",
+        }),
+        columnHelper.accessor("location", {
+          cell: (info) => info.getValue(),
+          footer: (props) => props.column.id,
+          header: "Location",
+        }),
+        columnHelper.accessor("date", {
+          cell: (info) => info.getValue(),
+          footer: (props) => props.column.id,
+          header: "Date",
+        }),
+      ],
+      data: data,
+    }),
+    [pagination, data, columnHelper]
+  );
 
   useEffect(() => {
-    fetchData().then((data) => setConfig((config) => ({ ...config, data })));
+    fetchData().then((data) => setData(data));
   }, []);
 
   return (

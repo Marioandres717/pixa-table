@@ -8,14 +8,12 @@ import { worker } from "./mocks/browser";
 
 async function enableMocking() {
   await worker.start();
-  console.log("Mocking enabled");
 }
 
 const container = document.getElementById("root")!;
 
 enableMocking()
   .then(() => {
-    console.info("Mocking enabled");
     render(
       <React.StrictMode>
         <App />
@@ -25,7 +23,4 @@ enableMocking()
   })
   .catch((error) => {
     console.error("Error enabling mocking", error);
-  })
-  .finally(() => {
-    console.log("Finally");
   });
