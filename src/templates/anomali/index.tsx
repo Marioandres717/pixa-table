@@ -2,6 +2,8 @@ import { Table, flexRender } from "@tanstack/react-table";
 import "./index.css";
 import { gridGenerator } from "../../utils";
 import PageOptions from "../../components/pagination";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import React from "react";
 
 export type AnomaliData = {
   name: string;
@@ -13,12 +15,17 @@ export type AnomaliData = {
 type Props = Table<AnomaliData>;
 
 export default function TableAnomali(table: Props) {
-  if (!table) {
-    throw new Error("TableAnomali requires a table object");
-  }
+  const parentRef = React.useRef<HTMLDivElement>(null);
+
+  const rowVirtualizer = useVirtualizer({
+    count: table.getRowModel().rows.length,
+    estimateSize: () => 40,
+    getScrollElement: () => parentRef.current,
+  });
+  const rows = table.getRowModel().rows;
 
   return (
-    <div className="table-container" style={{ width: "100%" }}>
+    <div ref={parentRef} className="table-container" style={{ width: "100%" }}>
       <div
         {...{
           className: "table",
@@ -62,21 +69,31 @@ export default function TableAnomali(table: Props) {
             </div>
           ))}
         </div>
-        <div className="tbody">
-          {table.getRowModel().rows.map((row) => (
+        <div
+          className="tbody"
+          style={{
+            position: "relative",
+            height: `${rowVirtualizer.getTotalSize()}px`,
+          }}
+        >
+          {rowVirtualizer.getVirtualItems().map((virtualItem) => (
             <div
               {...{
-                key: row.id,
+                key: virtualItem.key,
                 className: "tr",
                 style: {
-                  position: "relative",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
                   display: "grid",
                   gridTemplateColumns: gridGenerator(table),
                   minWidth: "100%",
+                  height: `${virtualItem.size}px`,
+                  transform: `translateY(${virtualItem.start}px)`,
                 },
               }}
             >
-              {row.getVisibleCells().map((cell) => (
+              {rows[virtualItem.index].getVisibleCells().map((cell) => (
                 <div className="td" key={cell.id}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </div>

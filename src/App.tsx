@@ -12,7 +12,7 @@ import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 function App() {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 50000,
   });
   const [data, setData] = useState<AnomaliData[]>([]);
 
