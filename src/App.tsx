@@ -6,6 +6,7 @@ import {
   TableOptions,
   createColumnHelper,
   getPaginationRowModel,
+  getSortedRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 
@@ -24,6 +25,7 @@ function App() {
       state: { pagination },
       onPaginationChange: setPagination,
       getPaginationRowModel: getPaginationRowModel(),
+      getSortedRowModel: getSortedRowModel(),
       columns: [
         columnHelper.accessor("name", {
           cell: (info) => info.getValue(),

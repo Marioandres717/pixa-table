@@ -51,7 +51,11 @@ export default function TableAnomali(table: Props) {
               }}
             >
               {headerGroup.headers.map((header) => (
-                <div className="th" key={header.id}>
+                <div
+                  className="th"
+                  key={header.id}
+                  onClick={header.column.getToggleSortingHandler()}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
