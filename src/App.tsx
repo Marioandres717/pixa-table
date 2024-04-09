@@ -1,8 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { HTMLProps, useEffect, useMemo, useRef, useState } from "react";
 import TableBase from "./components/tableBase";
 import TableAnomali, { AnomaliData } from "./templates/anomali";
 import {
   PaginationState,
+  RowSelectionState,
   TableOptions,
   createColumnHelper,
   getPaginationRowModel,
@@ -16,17 +17,47 @@ function App() {
     pageSize: 10,
   });
   const [data, setData] = useState<AnomaliData[]>([]);
-
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const columnHelper = createColumnHelper<AnomaliData>();
 
   const config = useMemo<TableOptions<AnomaliData>>(
     () => ({
       ...DEFAULT_TABLE_CONFIG,
-      state: { pagination },
-      onPaginationChange: setPagination,
       getPaginationRowModel: getPaginationRowModel(),
       getSortedRowModel: getSortedRowModel(),
+      enableRowSelection: true,
+      state: { pagination, rowSelection },
+      onPaginationChange: setPagination,
+      onRowSelectionChange: setRowSelection,
+
       columns: [
+        columnHelper.display({
+          id: "selection",
+          maxSize: 40,
+          header({ table }) {
+            return (
+              <IndeterminateCheckbox
+                {...{
+                  checked: table.getIsAllRowsSelected(),
+                  indeterminate: table.getIsSomeRowsSelected(),
+                  onChange: table.getToggleAllRowsSelectedHandler(),
+                }}
+              />
+            );
+          },
+          cell({ row }) {
+            return (
+              <IndeterminateCheckbox
+                {...{
+                  checked: row.getIsSelected(),
+                  disabled: !row.getCanSelect(),
+                  indeterminate: row.getIsSomeSelected(),
+                  onChange: row.getToggleSelectedHandler(),
+                }}
+              />
+            );
+          },
+        }),
         columnHelper.accessor("name", {
           cell: (info) => info.getValue(),
           footer: (props) => props.column.id,
@@ -50,7 +81,7 @@ function App() {
       ],
       data: data,
     }),
-    [pagination, data, columnHelper]
+    [pagination, data, columnHelper, rowSelection]
   );
 
   useEffect(() => {
@@ -69,3 +100,26 @@ const fetchData = async () => {
 };
 
 export default App;
+
+function IndeterminateCheckbox({
+  indeterminate,
+  className = "",
+  ...rest
+}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
+  const ref = useRef<HTMLInputElement>(null!);
+
+  useEffect(() => {
+    if (typeof indeterminate === "boolean") {
+      ref.current.indeterminate = !rest.checked && indeterminate;
+    }
+  }, [ref, indeterminate, rest.checked]);
+
+  return (
+    <input
+      type="checkbox"
+      ref={ref}
+      className={className + " cursor-pointer"}
+      {...rest}
+    />
+  );
+}
