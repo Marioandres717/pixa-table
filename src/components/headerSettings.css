@@ -1,0 +1,16 @@
+.settingsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--ml-component-spacing-3);
+  font-family: inherit;
+}
+
+.settingsHeader .hasResults {
+  justify-content: flex-end;
+}
+
+.settingsHeader .actions {
+  display: flex;
+  gap: var(--ml-component-spacing-2);
+}

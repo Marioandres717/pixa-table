@@ -4,6 +4,7 @@ import { gridGenerator } from "../../utils";
 import PageOptions from "../../components/pagination";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
+import HeaderSettings from "../../components/headerSettings";
 
 export type AnomaliData = {
   name: string;
@@ -16,16 +17,18 @@ type Props = Table<AnomaliData>;
 
 export default function TableAnomali(table: Props) {
   const parentRef = React.useRef<HTMLDivElement>(null);
-
+  const rows = table.getRowModel().rows;
   const rowVirtualizer = useVirtualizer({
-    count: table.getRowModel().rows.length,
+    count: rows.length,
     estimateSize: () => 40,
     getScrollElement: () => parentRef.current,
   });
-  const rows = table.getRowModel().rows;
 
   return (
     <div ref={parentRef} className="table-container" style={{ width: "100%" }}>
+      <div className="headerSettings">
+        <HeaderSettings tableInstance={table} />
+      </div>
       <div
         {...{
           className: "table",
@@ -102,14 +105,7 @@ export default function TableAnomali(table: Props) {
           ))}
         </div>
         <div className="tfooter">
-          <PageOptions
-            tableInstance={table}
-            onPaginationChange={({ pageIndex, pageSize }) => {
-              table.setPagination({ pageIndex, pageSize });
-            }}
-            pageIndex={table.getState().pagination.pageIndex}
-            pageSize={table.getState().pagination.pageSize}
-          />
+          <PageOptions tableInstance={table} />
         </div>
       </div>
     </div>

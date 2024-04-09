@@ -2,27 +2,17 @@ import { Table } from "@tanstack/react-table";
 import "./pagination.css";
 
 type Props<TData> = {
-  pageSize: number;
-  pageIndex: number;
-  onPaginationChange: (pagination: {
-    pageIndex: number;
-    pageSize: number;
-  }) => void;
   tableInstance: Table<TData>;
 };
 
-function PageOptions<TData>({
-  tableInstance,
-  pageIndex,
-  onPaginationChange,
-  pageSize,
-}: Props<TData>) {
+function PageOptions<TData>({ tableInstance }: Props<TData>) {
+  const pageIndex = tableInstance.getState().pagination.pageIndex;
   const { getPageOptions, getCanPreviousPage, getCanNextPage } = tableInstance;
   const { start, end } = pageRange(pageIndex, getPageOptions().length);
   const pageOptionsState = nextPages(start, end);
 
   function onPageChange(index: number) {
-    onPaginationChange({ pageIndex: index, pageSize });
+    tableInstance.setPageIndex(index);
   }
 
   function nextPages(page: number, limit: number) {
