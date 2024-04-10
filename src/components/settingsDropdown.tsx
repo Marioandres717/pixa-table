@@ -2,6 +2,7 @@ import { Table } from "@tanstack/react-table";
 import "./settingsDropdown.css";
 import Icon from "./icon";
 import { useRef, useState } from "react";
+import ColumnOrdering from "./columnOrdering";
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -38,7 +39,7 @@ export default function SettingsDropdown<T>({
           <div>
             <span className="subtitle">Column Position & Visibility</span>
             <div className="contentList">
-              <div>DND COLUMNS POISTION</div>
+              <ColumnOrdering tableInstance={tableInstance} />
             </div>
           </div>
           <div className="option">

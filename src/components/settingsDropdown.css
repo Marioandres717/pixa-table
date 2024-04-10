@@ -40,12 +40,8 @@
 .contentList {
   border-radius: 3px;
   max-height: 300px;
-  overflow: hidden;
   overflow-y: auto;
   border: 1px solid var(--ml-theme-gray-300);
   background-color: var(--ml-theme-gray-050);
-  display: flex;
-  flex-flow: column;
   padding: var(--ml-component-spacing-3);
-  gap: var(--ml-component-spacing-2);
 }

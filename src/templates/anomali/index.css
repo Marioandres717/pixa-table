@@ -4,7 +4,7 @@
   filter: drop-shadow(0px 0px 7px rgba(0, 0, 0, 0.06));
   font-family: "Hind", sans-serif;
   border: 1px solid var(--ml-gray-200);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .table {

@@ -73,7 +73,7 @@ export default function TableAnomali<T>(table: Props<T>) {
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
-                {row.getIsExpanded() && <h1>LOOOOOL</h1>}
+                {row.getIsExpanded() && <h1>EXPANDABLE ROW</h1>}
               </div>
             );
           })}
