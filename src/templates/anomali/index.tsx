@@ -11,6 +11,10 @@ export type AnomaliData = {
   company: string;
   location: string;
   date: string;
+  nested: {
+    foo: string;
+    bar: string;
+  };
 };
 
 type Props = Table<AnomaliData>;
@@ -22,7 +26,13 @@ export default function TableAnomali(table: Props) {
     count: rows.length,
     estimateSize: () => 40,
     getScrollElement: () => parentRef.current,
+    measureElement:
+      typeof window !== "undefined" &&
+      navigator.userAgent.indexOf("Firefox") === -1
+        ? (element) => element?.getBoundingClientRect().height
+        : undefined,
   });
+  const viRows = rowVirtualizer.getVirtualItems();
 
   return (
     <div ref={parentRef} className="table-container" style={{ width: "100%" }}>
@@ -83,30 +93,36 @@ export default function TableAnomali(table: Props) {
             height: `${rowVirtualizer.getTotalSize()}px`,
           }}
         >
-          {rowVirtualizer.getVirtualItems().map((virtualItem) => (
-            <div
-              {...{
-                key: virtualItem.key,
-                className: "tr",
-                style: {
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  display: "grid",
-                  gridTemplateColumns: gridGenerator(table),
-                  minWidth: "100%",
-                  height: `${virtualItem.size}px`,
-                  transform: `translateY(${virtualItem.start}px)`,
-                },
-              }}
-            >
-              {rows[virtualItem.index].getVisibleCells().map((cell) => (
-                <div className="td" key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </div>
-              ))}
-            </div>
-          ))}
+          {viRows.map((virtualItem) => {
+            const row = rows[virtualItem.index];
+            return (
+              <div
+                key={virtualItem.key}
+                data-index={virtualItem.index}
+                ref={(node) => rowVirtualizer.measureElement(node)}
+                {...{
+                  className: "tr",
+                  style: {
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    display: "grid",
+                    gridTemplateColumns: gridGenerator(table),
+                    minWidth: "100%",
+                    minHeight: "40px", // Added 'minHeight: 40px' to fix 'min-height: 0px
+                    transform: `translateY(${virtualItem.start}px)`,
+                  },
+                }}
+              >
+                {row.getVisibleCells().map((cell) => (
+                  <div className="td" key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </div>
+                ))}
+                {row.getIsExpanded() && <h1>LOOOOOL</h1>}
+              </div>
+            );
+          })}
         </div>
         <div className="tfooter">
           <PageOptions tableInstance={table} />
