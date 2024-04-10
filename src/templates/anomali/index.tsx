@@ -5,21 +5,11 @@ import PageOptions from "../../components/pagination";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import React from "react";
 import HeaderSettings from "../../components/headerSettings";
+import TableHeader from "../../components/tableHeader";
 
-export type AnomaliData = {
-  name: string;
-  company: string;
-  location: string;
-  date: string;
-  nested: {
-    foo: string;
-    bar: string;
-  };
-};
+type Props<T> = Table<T>;
 
-type Props = Table<AnomaliData>;
-
-export default function TableAnomali(table: Props) {
+export default function TableAnomali<T>(table: Props<T>) {
   const parentRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
   const rowVirtualizer = useVirtualizer({
@@ -48,43 +38,7 @@ export default function TableAnomali(table: Props) {
         }}
       >
         <div className="thead">
-          {table.getHeaderGroups().map((headerGroup) => (
-            <div
-              {...{
-                key: headerGroup.id,
-                className: "tr",
-                style: {
-                  display: "grid",
-                  gridTemplateColumns: gridGenerator(table),
-                  minWidth: "100%",
-                },
-              }}
-            >
-              {headerGroup.headers.map((header) => (
-                <div
-                  className="th"
-                  key={header.id}
-                  onClick={header.column.getToggleSortingHandler()}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                  <div
-                    {...{
-                      onMouseDown: header.getResizeHandler(),
-                      onTouchStart: header.getResizeHandler(),
-                      className: `resizer ${
-                        header.column.getIsResizing() ? "isResizing" : ""
-                      }`,
-                    }}
-                  />
-                </div>
-              ))}
-            </div>
-          ))}
+          <TableHeader tableInstance={table} />
         </div>
         <div
           className="tbody"
