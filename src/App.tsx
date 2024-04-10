@@ -6,6 +6,7 @@ import {
   PaginationState,
   RowSelectionState,
   TableOptions,
+  VisibilityState,
   createColumnHelper,
   getExpandedRowModel,
   getPaginationRowModel,
@@ -32,6 +33,8 @@ function App() {
   const [data, setData] = useState<AnomaliData[]>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [expanded, setExpanded] = useState<ExpandedState>({});
+  const [columnOrder, setColumnOrder] = useState<string[]>([]);
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -45,10 +48,19 @@ function App() {
       getExpandedRowModel: getExpandedRowModel(),
       enableRowSelection: true,
       enableExpanding: true,
-      state: { pagination, rowSelection, expanded },
+      enableHiding: true,
+      state: {
+        pagination,
+        rowSelection,
+        expanded,
+        columnOrder,
+        columnVisibility,
+      },
       onPaginationChange: setPagination,
       onRowSelectionChange: setRowSelection,
       onExpandedChange: setExpanded,
+      onColumnOrderChange: setColumnOrder,
+      onColumnVisibilityChange: setColumnVisibility,
       columns: [
         columnHelper.display({
           id: "expander",
@@ -68,6 +80,7 @@ function App() {
           maxSize: 40,
           enableSorting: false,
           enableResizing: false,
+          enableHiding: false,
           header({ table }) {
             return (
               <IndeterminateCheckbox
@@ -115,7 +128,7 @@ function App() {
       ],
       data: data,
     }),
-    [pagination, data, rowSelection, expanded]
+    [pagination, data, rowSelection, expanded, columnOrder, columnVisibility]
   );
 
   useEffect(() => {
