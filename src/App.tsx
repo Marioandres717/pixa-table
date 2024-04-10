@@ -1,36 +1,55 @@
-import { HTMLProps, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import TableBase from "./components/tableBase";
 import TableAnomali, { AnomaliData } from "./templates/anomali";
 import {
+  ExpandedState,
   PaginationState,
   RowSelectionState,
   TableOptions,
   createColumnHelper,
+  getExpandedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
+import IndeterminateCheckbox from "./components/checkbox";
+import ExpandableRow from "./components/expandableRow";
+
+const columnHelper = createColumnHelper<AnomaliData>();
 
 function App() {
+  const [data, setData] = useState<AnomaliData[]>([]);
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [expanded, setExpanded] = useState<ExpandedState>({});
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   });
-  const [data, setData] = useState<AnomaliData[]>([]);
-  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const columnHelper = createColumnHelper<AnomaliData>();
 
   const config = useMemo<TableOptions<AnomaliData>>(
     () => ({
       ...DEFAULT_TABLE_CONFIG,
       getPaginationRowModel: getPaginationRowModel(),
       getSortedRowModel: getSortedRowModel(),
+      getExpandedRowModel: getExpandedRowModel(),
       enableRowSelection: true,
-      state: { pagination, rowSelection },
+      enableExpanding: true,
+      state: { pagination, rowSelection, expanded },
       onPaginationChange: setPagination,
       onRowSelectionChange: setRowSelection,
-
+      onExpandedChange: setExpanded,
       columns: [
+        columnHelper.display({
+          id: "expander",
+          maxSize: 20,
+          header: () => <div style={{ width: 15 }} />,
+          cell: ({ row }) => (
+            <ExpandableRow
+              isExpanded={row.getIsExpanded()}
+              toggleExpanded={() => row.toggleExpanded()}
+            />
+          ),
+        }),
         columnHelper.display({
           id: "selection",
           maxSize: 40,
@@ -81,7 +100,7 @@ function App() {
       ],
       data: data,
     }),
-    [pagination, data, columnHelper, rowSelection]
+    [pagination, data, rowSelection, expanded]
   );
 
   useEffect(() => {
@@ -100,26 +119,3 @@ const fetchData = async () => {
 };
 
 export default App;
-
-function IndeterminateCheckbox({
-  indeterminate,
-  className = "",
-  ...rest
-}: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
-  const ref = useRef<HTMLInputElement>(null!);
-
-  useEffect(() => {
-    if (typeof indeterminate === "boolean") {
-      ref.current.indeterminate = !rest.checked && indeterminate;
-    }
-  }, [ref, indeterminate, rest.checked]);
-
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      className={className + " cursor-pointer"}
-      {...rest}
-    />
-  );
-}

@@ -1,0 +1,13 @@
+.arrowRight {
+  transform: rotate(-90deg);
+  position: relative;
+  top: 4px;
+}
+
+.arrowDown {
+  transform: rotate(0deg);
+}
+
+.expandableRowIcon {
+  cursor: pointer;
+}
