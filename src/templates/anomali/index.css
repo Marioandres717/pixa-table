@@ -65,12 +65,10 @@
 .th {
   font-size: 12px;
   font-family: "Hind", sans-serif;
-  font-weight: normal;
   text-transform: uppercase;
   text-align: left;
   border-bottom: 1px solid var(--ml-gray-200);
   background-color: var(--ml-off-white);
-  font-weight: 600;
   line-height: 19px;
   letter-spacing: 0.15em;
   color: var(--ml-text-color);

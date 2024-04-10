@@ -1,0 +1,30 @@
+.sortContent {
+  position: relative;
+  display: flex;
+}
+
+.arrowUp,
+.arrowDown {
+  top: 5px;
+  width: 0;
+  height: 0;
+  position: absolute;
+  margin-left: var(--ml-component-spacing-3);
+}
+.arrowUp {
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-bottom: 4px solid var(--ml-gray-200);
+}
+.arrowUp.selected {
+  border-bottom: 4px solid var(--ml-text-color);
+}
+.arrowDown {
+  top: 10px;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid var(--ml-gray-200);
+}
+.arrowDown.selected {
+  border-top: 4px solid var(--ml-text-color);
+}

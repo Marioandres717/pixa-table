@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import TableBase from "./components/tableBase";
-import TableAnomali, { AnomaliData } from "./templates/anomali";
+import TableAnomali from "./templates/anomali";
 import {
   ExpandedState,
   PaginationState,
@@ -16,6 +16,17 @@ import IndeterminateCheckbox from "./components/checkbox";
 import ExpandableRow from "./components/expandableRow";
 
 const columnHelper = createColumnHelper<AnomaliData>();
+
+export type AnomaliData = {
+  name: string;
+  company: string;
+  location: string;
+  date: string;
+  nested: {
+    foo: string;
+    bar: string;
+  };
+};
 
 function App() {
   const [data, setData] = useState<AnomaliData[]>([]);
