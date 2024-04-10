@@ -40,7 +40,7 @@ export default function TableHeader<T>({ tableInstance }: Props<T>) {
                       header.getContext()
                     )}
               </ColumnSort>
-              <ColumnResize header={header} />
+              {header.column.getCanResize() && <ColumnResize header={header} />}
             </div>
           ))}
         </div>
