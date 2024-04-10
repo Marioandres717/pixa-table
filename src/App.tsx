@@ -53,6 +53,8 @@ function App() {
         columnHelper.display({
           id: "expander",
           maxSize: 20,
+          enableSorting: false,
+          enableResizing: false,
           header: () => <div style={{ width: 15 }} />,
           cell: ({ row }) => (
             <ExpandableRow
@@ -64,6 +66,8 @@ function App() {
         columnHelper.display({
           id: "selection",
           maxSize: 40,
+          enableSorting: false,
+          enableResizing: false,
           header({ table }) {
             return (
               <IndeterminateCheckbox
