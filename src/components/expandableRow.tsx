@@ -13,7 +13,11 @@ export default function ExpandableRow({ isExpanded, toggleExpanded }: Props) {
         icon="arrow"
         size="15px"
         color="transparent"
-        className={isExpanded ? "arrowRight arrowDown" : "arrowRight"}
+        className={
+          isExpanded
+            ? "expandable-arrowRight expandable-arrowDown"
+            : "expandable-arrowRight"
+        }
       />
     </span>
   );

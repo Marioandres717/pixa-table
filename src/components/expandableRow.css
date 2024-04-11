@@ -1,10 +1,10 @@
-.arrowRight {
+.expandable-arrowRight {
   transform: rotate(-90deg);
   position: relative;
   top: 4px;
 }
 
-.arrowDown {
+.expandable-arrowDown {
   transform: rotate(0deg);
 }
 
