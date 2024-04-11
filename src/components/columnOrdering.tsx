@@ -2,21 +2,33 @@ import {
   DndContext,
   DragEndEvent,
   PointerSensor,
-  useDraggable,
-  useDroppable,
+  closestCorners,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
 import { Column, Table } from "@tanstack/react-table";
-import { CSSProperties, PropsWithChildren } from "react";
 import "./columnOrdering.css";
 import IndeterminateCheckbox from "./checkbox";
+import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 
 type Props<T> = {
   tableInstance: Table<T>;
 };
 
 export default function ColumnOrdering<T>({ tableInstance }: Props<T>) {
+  const columns = tableInstance
+    .getAllColumns()
+    .filter((col) => col.id !== "selection" && col.id !== "expander");
+
+  const { columnOrder } = tableInstance.getState();
+
+  const sortedColumns: Column<T, unknown>[] =
+    columnOrder.length > 0
+      ? columnOrder
+          .map((colId) => columns.find((col) => col.id === colId))
+          .filter((col): col is Column<T, unknown> => !!col)
+      : columns;
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -24,43 +36,38 @@ export default function ColumnOrdering<T>({ tableInstance }: Props<T>) {
       },
     })
   );
+
   function handleDragEnd(event: DragEndEvent) {
-    if (event.over && event.over.id === "droppable") {
-      return;
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      const { setColumnOrder } = tableInstance;
+      setColumnOrder((items) => {
+        if (items.length === 0) {
+          items = tableInstance.getAllColumns().map((col) => col.id.toString());
+        }
+        if (!over) {
+          return items;
+        }
+        const oldIndex = items.indexOf(active.id.toString());
+        const newIndex = items.indexOf(over.id.toString());
+        const t = arrayMove(items, oldIndex, newIndex);
+        return t;
+      });
     }
   }
+
   return (
-    <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-      <Droppable>
-        {tableInstance
-          .getAllColumns()
-          .filter(
-            (col) =>
-              col.columnDef.id !== "expander" &&
-              col.columnDef.id !== "selection"
-          )
-          .map((col) => (
-            <DraggableColumn key={col.id} column={col} />
-          ))}
-      </Droppable>
+    <DndContext
+      onDragEnd={handleDragEnd}
+      sensors={sensors}
+      collisionDetection={closestCorners}
+    >
+      <SortableContext items={sortedColumns}>
+        {sortedColumns.map((col) => (
+          <DraggableColumn key={col.id} column={col} />
+        ))}
+      </SortableContext>
     </DndContext>
-  );
-}
-
-type DroppableColumnProps = PropsWithChildren<object>;
-
-function Droppable({ children }: DroppableColumnProps) {
-  const { setNodeRef } = useDroppable({
-    id: "column",
-  });
-  const style: CSSProperties = {
-    width: "100%",
-    height: "100%",
-  };
-  return (
-    <div ref={setNodeRef} style={style}>
-      {children}
-    </div>
   );
 }
 
@@ -68,13 +75,15 @@ type DraggableColumnProps<T> = { column: Column<T> };
 
 function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
   const { getCanHide, getIsVisible, getToggleVisibilityHandler } = column;
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: column.id,
-  });
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: column.id,
+    });
 
   const style = transform
     ? {
         transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        transition,
       }
     : undefined;
 
