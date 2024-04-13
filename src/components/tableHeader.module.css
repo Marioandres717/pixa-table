@@ -1,0 +1,45 @@
+.thead {
+  display: grid;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-width: 100%;
+  border-bottom: 1px solid var(--ml-gray-200);
+  background-color: var(--ml-off-white);
+  font-size: 12px;
+
+  .tr {
+    display: grid;
+    min-width: 100%;
+
+    .th {
+      padding: var(--ml-component-spacing-3);
+      overflow-wrap: break-word;
+      border-right: 1px solid var(--ml-gray-200);
+      min-width: fit-content;
+      text-transform: uppercase;
+      background-color: var(--ml-off-white);
+      line-height: 19px;
+      letter-spacing: 0.15em;
+      color: var(--ml-text-color);
+      font-weight: 500;
+      position: relative;
+
+      &:last-child,
+      &:last-child {
+        border-right: none;
+      }
+
+      & .ellipsis {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+      }
+
+      & .context-menu {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+.pagination-content {
+  font-size: 15px;
+
+  .number-item {
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 5px 10px 3px;
+    display: inline-block;
+    text-align: center;
+    font-weight: 100;
+    color: var(--ml-blue);
+    font-size: 15px;
+    min-width: 16px;
+    margin-right: 4px;
+
+    &:hover {
+      background-color: var(--ml-off-white);
+    }
+
+    &.number-color {
+      font-weight: bold;
+      color: var(--ml-gray-900);
+      background-color: var(--ml-off-white);
+    }
+  }
+
+  .prev-button,
+  .next-button {
+    border: none;
+    background: none;
+    color: var(--ml-blue);
+    cursor: pointer;
+    &:disabled {
+      opacity: 0.4;
+      cursor: unset;
+    }
+  }
+}

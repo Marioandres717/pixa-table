@@ -1,0 +1,19 @@
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--ml-component-spacing-3);
+
+  .results {
+    font-size: 15px;
+  }
+
+  .has-results {
+    justify-content: flex-end;
+  }
+
+  .actions {
+    display: flex;
+    gap: var(--ml-component-spacing-2);
+  }
+}

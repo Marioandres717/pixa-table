@@ -1,5 +1,5 @@
 import Icon from "./icon";
-import "./expandableRow.css";
+import styles from "./expandableRow.module.css";
 
 type Props = {
   isExpanded: boolean;
@@ -8,15 +8,15 @@ type Props = {
 
 export default function ExpandableRow({ isExpanded, toggleExpanded }: Props) {
   return (
-    <span className="expandableRowIcon" onClick={toggleExpanded}>
+    <span className={styles["expandable-row-icon"]} onClick={toggleExpanded}>
       <Icon
         icon="arrow"
         size="15px"
         color="transparent"
         className={
           isExpanded
-            ? "expandable-arrowRight expandable-arrowDown"
-            : "expandable-arrowRight"
+            ? `${styles["arrow-right"]} ${styles["arrow-down"]}`
+            : styles["arrow-right"]
         }
       />
     </span>

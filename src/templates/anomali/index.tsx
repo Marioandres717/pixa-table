@@ -1,11 +1,13 @@
+import React from "react";
 import { Table, flexRender } from "@tanstack/react-table";
-import "./index.css";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { gridGenerator } from "../../utils";
 import PageOptions from "../../components/pagination";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import React from "react";
 import HeaderSettings from "../../components/headerSettings";
 import TableHeader from "../../components/tableHeader";
+
+import "./variables.css";
+import styles from "./index.module.css";
 
 type Props<T> = Table<T>;
 
@@ -25,25 +27,20 @@ export default function TableAnomali<T>(table: Props<T>) {
   const viRows = rowVirtualizer.getVirtualItems();
 
   return (
-    <div ref={parentRef} className="table-container" style={{ width: "100%" }}>
-      <div className="headerSettings">
+    <div ref={parentRef} className={styles["table-container"]}>
+      <div className={styles["header-settings"]}>
         <HeaderSettings tableInstance={table} />
       </div>
       <div
         {...{
-          className: "table",
-          style: {
-            width: "100%",
-          },
+          className: styles["table"],
         }}
       >
-        <div className="thead">
-          <TableHeader tableInstance={table} />
-        </div>
+        <TableHeader tableInstance={table} />
+
         <div
-          className="tbody"
+          className={styles.tbody}
           style={{
-            position: "relative",
             height: `${rowVirtualizer.getTotalSize()}px`,
           }}
         >
@@ -55,21 +52,15 @@ export default function TableAnomali<T>(table: Props<T>) {
                 data-index={virtualItem.index}
                 ref={(node) => rowVirtualizer.measureElement(node)}
                 {...{
-                  className: "tr",
+                  className: styles.tr,
                   style: {
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    display: "grid",
                     gridTemplateColumns: gridGenerator(table),
-                    minWidth: "100%",
-                    minHeight: "40px", // Added 'minHeight: 40px' to fix 'min-height: 0px
                     transform: `translateY(${virtualItem.start}px)`,
                   },
                 }}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <div className="td" key={cell.id}>
+                  <div className={styles.td} key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
@@ -78,7 +69,7 @@ export default function TableAnomali<T>(table: Props<T>) {
             );
           })}
         </div>
-        <div className="tfooter">
+        <div className={styles.tfooter}>
           <PageOptions tableInstance={table} />
         </div>
       </div>

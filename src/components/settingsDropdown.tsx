@@ -1,8 +1,9 @@
 import { Table } from "@tanstack/react-table";
-import "./settingsDropdown.css";
-import Icon from "./icon";
 import { useRef, useState } from "react";
+import Icon from "./icon";
 import ColumnOrdering from "./columnOrdering";
+
+import styles from "./settingsDropdown.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -21,12 +22,12 @@ export default function SettingsDropdown<T>({
   }
 
   return (
-    <div ref={dropdownRef} className="settingsDropdown">
+    <div ref={dropdownRef} className={styles["settings-dropdown-container"]}>
       <div
         role="button"
         tabIndex={0}
-        className={`settingsDropdownBtn ${
-          toggleSettings ? "buttonOpened" : ""
+        className={`${styles["setting-dropdown-btn"]} ${
+          toggleSettings ? styles["button-opened"] : ""
         }`}
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
@@ -34,16 +35,18 @@ export default function SettingsDropdown<T>({
         <Icon icon="settings" color="var(--ml-text-color)" size={16} />
       </div>
       {toggleSettings && (
-        <div className="dropdown">
-          <span className="title">Table Settings</span>
-          <div>
-            <span className="subtitle">Column Position & Visibility</span>
-            <div className="contentList">
+        <div className={styles.dropdown}>
+          <span className={styles.title}>Table Settings</span>
+          <div className={styles["column-ordering-setting"]}>
+            <span className={styles.subtitle}>
+              Column Position & Visibility
+            </span>
+            <div className={styles["content-list"]}>
               <ColumnOrdering tableInstance={tableInstance} />
             </div>
           </div>
-          <div className="option">
-            <span className="subtitle">Rows per page</span>
+          <div className={styles.option}>
+            <span className={styles.subtitle}>Rows per page</span>
             <select
               onChange={(e) =>
                 tableInstance.setPageSize(Number(e.target.value))
