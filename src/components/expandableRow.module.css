@@ -1,0 +1,13 @@
+.expandable-row-icon {
+  cursor: pointer;
+
+  .arrow-right {
+    transform: rotate(-90deg);
+    position: relative;
+    top: 4px;
+  }
+
+  .arrow-down {
+    transform: rotate(0deg);
+  }
+}

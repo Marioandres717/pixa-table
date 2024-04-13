@@ -1,5 +1,7 @@
 import { Header } from "@tanstack/react-table";
 
+import styles from "./columnResize.module.css";
+
 type Props<T> = {
   header: Header<T, unknown>;
 };
@@ -10,8 +12,8 @@ export default function ColumnResize<T>({ header }: Props<T>) {
       {...{
         onMouseDown: header.getResizeHandler(),
         onTouchStart: header.getResizeHandler(),
-        className: `resizer ${
-          header.column.getIsResizing() ? "isResizing" : ""
+        className: `${styles.resizer} ${
+          header.column.getIsResizing() ? styles["is-resizing"] : ""
         }`,
       }}
     />

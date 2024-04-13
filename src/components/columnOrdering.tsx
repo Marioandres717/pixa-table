@@ -7,9 +7,12 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { Column, Table } from "@tanstack/react-table";
-import "./columnOrdering.css";
-import IndeterminateCheckbox from "./checkbox";
 import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
+
+import IndeterminateCheckbox from "./checkbox";
+import styles from "./columnOrdering.module.css";
+
+
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -90,12 +93,12 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
   return (
     <div
       ref={setNodeRef}
-      className="draggable-column"
+      className={styles["draggable-column"]}
       style={style}
       {...listeners}
       {...attributes}
     >
-      <div className="column-visibility">
+      <div className={styles["column-visibility"]}>
         <IndeterminateCheckbox
           {...{
             disabled: !getCanHide(),
@@ -105,7 +108,7 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
         />
         <span>{column.columnDef.header?.toString()}</span>
       </div>
-      <span className="drag"></span>
+      <span className={styles["drag"]}></span>
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { gridGenerator } from "../utils";
 import ColumnResize from "./columnResize";
 import ColumnSort from "./columnSort";
 
-import "../index.css";
+import styles from "./tableHeader.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -13,38 +13,38 @@ export default function TableHeader<T>({ tableInstance }: Props<T>) {
   const headerGroups = tableInstance.getHeaderGroups();
 
   return (
-    <>
+    <div className={styles.thead}>
       {headerGroups.map((headerGroup) => (
         <div
           {...{
             key: headerGroup.id,
-            className: "tr",
+            className: styles.tr,
             style: {
-              display: "grid",
               gridTemplateColumns: gridGenerator(tableInstance),
-              minWidth: "100%",
             },
           }}
         >
           {headerGroup.headers.map((header) => (
             <div
-              className="th"
+              className={styles.th}
               key={header.id}
               onClick={header.column.getToggleSortingHandler()}
             >
               <ColumnSort header={header}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                <span className={styles.ellipsis}>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                </span>
               </ColumnSort>
               {header.column.getCanResize() && <ColumnResize header={header} />}
             </div>
           ))}
         </div>
       ))}
-    </>
+    </div>
   );
 }

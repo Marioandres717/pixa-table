@@ -1,4 +1,4 @@
-import "./pagination.css";
+import styles from "./headerSettings.module.css";
 
 type Props = {
   totalItems: number;
@@ -7,7 +7,7 @@ type Props = {
 
 export default function PageResults({ totalItems, approximateCount }: Props) {
   return totalItems ? (
-    <div className="results">
+    <div className={styles.results}>
       {totalItems}
       {approximateCount && "+"} Results
     </div>

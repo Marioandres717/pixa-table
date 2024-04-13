@@ -1,5 +1,6 @@
 import { Table } from "@tanstack/react-table";
-import "./pagination.css";
+
+import styles from "./pagination.module.css";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -43,9 +44,9 @@ export default function PageOptions<TData>({ tableInstance }: Props<TData>) {
   }
 
   return (
-    <div className="paginationContent">
+    <div className={styles["pagination-content"]}>
       <button
-        className="prev-button"
+        className={styles["prev-button"]}
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex - 1);
@@ -54,32 +55,28 @@ export default function PageOptions<TData>({ tableInstance }: Props<TData>) {
       >
         {"Previous"}
       </button>
-      <span>
-        <strong>
-          {pageOptionsState.map((option) => {
-            return (
-              <span
-                key={option}
-                className={
-                  option - 1 === pageIndex
-                    ? "numberItem numberColor"
-                    : "numberItem"
-                }
-                role="button"
-                tabIndex={0}
-                onKeyDown={() => {}}
-                onClick={() => {
-                  onPageChange(option - 1);
-                }}
-              >
-                {option}
-              </span>
-            );
-          })}
-        </strong>
-      </span>
+      {pageOptionsState.map((option) => {
+        return (
+          <span
+            key={option}
+            className={
+              option - 1 === pageIndex
+                ? `${styles["number-item"]} ${styles["number-color"]}`
+                : styles["number-item"]
+            }
+            role="button"
+            tabIndex={0}
+            onKeyDown={() => {}}
+            onClick={() => {
+              onPageChange(option - 1);
+            }}
+          >
+            {option}
+          </span>
+        );
+      })}
       <button
-        className="next-button"
+        className={styles["next-button"]}
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex + 1);

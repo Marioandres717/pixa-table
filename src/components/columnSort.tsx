@@ -1,6 +1,7 @@
 import { Header } from "@tanstack/react-table";
 import { PropsWithChildren } from "react";
-import "./columnSort.css";
+
+import styles from "./columnSort.module.css";
 
 type Props<T> = PropsWithChildren<{
   header: Header<T, unknown>;
@@ -11,16 +12,22 @@ export default function ColumnSort<T>({ header, children }: Props<T>) {
   const sortDirection = column.getIsSorted();
 
   return (
-    <div className="sortContent" title={column.columnDef.id}>
+    <div className={styles["sort-content"]} title={column.columnDef.id}>
       {children}
       {column.getCanSort() && (
         <span>
           <span
-            className={sortDirection === "asc" ? "arrowUp selected" : "arrowUp"}
+            className={
+              sortDirection === "asc"
+                ? `${styles["arrow-up"]} ${styles.selected}`
+                : styles["arrow-up"]
+            }
           ></span>
           <span
             className={
-              sortDirection === "desc" ? "arrowDown selected" : "arrowDown"
+              sortDirection === "desc"
+                ? `${styles["arrow-down"]} ${styles.selected}`
+                : styles["arrow-down"]
             }
           ></span>
         </span>
