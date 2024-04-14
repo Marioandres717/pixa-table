@@ -27,6 +27,9 @@
     display: flex;
     gap: var(--ml-component-spacing-2);
     align-items: center;
+    .label {
+      color: var(--ml-black);
+    }
   }
 
   .drag {

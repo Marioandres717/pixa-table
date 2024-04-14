@@ -17,3 +17,30 @@
     gap: var(--ml-component-spacing-2);
   }
 }
+
+[data-ml-theme="dark"] {
+  .settings-header {
+    width: 100%;
+    background-color: var(--ml-gray);
+    border-bottom: 1px solid var(--ml-gray-900);
+  }
+  .settings-dropdown {
+    .dropdown {
+      background-color: var(--ml-gray-900);
+      .item {
+        &:hover {
+          background-color: var(--ml-gray-800);
+        }
+      }
+      .content-list {
+        background-color: var(--ml-gray-800);
+        border: 1px solid var(--ml-gray-700);
+      }
+    }
+  }
+  .button {
+    &.button-opened {
+      background-color: var(--ml-gray-900);
+    }
+  }
+}

@@ -15,5 +15,5 @@ function generateMockData(n: number) {
 }
 
 export const handlers = [
-  http.get("/api", () => HttpResponse.json([...generateMockData(10000)])),
+  http.get("/api", () => HttpResponse.json([...generateMockData(100)])),
 ];

@@ -12,8 +12,6 @@ import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 import IndeterminateCheckbox from "./checkbox";
 import styles from "./columnOrdering.module.css";
 
-
-
 type Props<T> = {
   tableInstance: Table<T>;
 };
@@ -106,7 +104,9 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
             onChange: getToggleVisibilityHandler(),
           }}
         />
-        <span>{column.columnDef.header?.toString()}</span>
+        <span className={styles.label}>
+          {column.columnDef.header?.toString()}
+        </span>
       </div>
       <span className={styles["drag"]}></span>
     </div>

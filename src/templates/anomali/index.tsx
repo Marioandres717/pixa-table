@@ -27,7 +27,11 @@ export default function TableAnomali<T>(table: Props<T>) {
   const viRows = rowVirtualizer.getVirtualItems();
 
   return (
-    <div ref={parentRef} className={styles["table-container"]}>
+    <div
+      data-ml-theme="dark"
+      ref={parentRef}
+      className={styles["table-container"]}
+    >
       <div className={styles["header-settings"]}>
         <HeaderSettings tableInstance={table} />
       </div>
