@@ -5,11 +5,14 @@ type Props = {
   approximateCount: boolean;
 };
 
-export default function PageResults({ totalItems, approximateCount }: Props) {
-  return totalItems ? (
+export default function PageResults({
+  totalItems = 0,
+  approximateCount,
+}: Props) {
+  return (
     <div className={styles.results}>
       {totalItems}
       {approximateCount && "+"} Results
     </div>
-  ) : null;
+  );
 }

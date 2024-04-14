@@ -93,7 +93,7 @@
   --ml-component-spacing-9: 48px;
 }
 
-html[data-ml-theme="light"] {
+div[data-ml-theme="light"] {
   --ml-background-color: var(--ml-white);
   --ml-text-color: var(--ml-gray);
   --ml-text-color-secondary: var(--ml-gray-600);
@@ -106,7 +106,7 @@ html[data-ml-theme="light"] {
   --ml-theme-gray-900: var(--ml-gray-900);
 }
 
-html[data-ml-theme="dark"] {
+div[data-ml-theme="dark"] {
   --ml-background-color: var(--ml-gray);
   --ml-text-color: var(--ml-white);
   --ml-text-color-secondary: var(--ml-gray-300);

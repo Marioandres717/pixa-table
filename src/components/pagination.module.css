@@ -36,3 +36,19 @@
     }
   }
 }
+
+[data-ml-theme="dark"] {
+  .number-item {
+    &:hover {
+      background-color: var(--ml-gray-900);
+    }
+
+    &.number-color {
+      color: var(--ml-white);
+      background-color: var(--ml-gray-900);
+      &:hover {
+        color: var(--ml-white);
+      }
+    }
+  }
+}

@@ -43,3 +43,15 @@
     }
   }
 }
+
+[data-ml-theme="dark"] .thead {
+  border: none;
+  border-bottom: 1px solid var(--ml-gray-900);
+
+  .tr {
+    .th {
+      background-color: var(--ml-gray);
+      border-right: 1px solid var(--ml-gray-900);
+    }
+  }
+}

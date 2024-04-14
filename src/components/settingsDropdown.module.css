@@ -55,3 +55,16 @@
     }
   }
 }
+
+[data-ml-theme="dark"] {
+  .settings-dropdown-container {
+    .dropdown {
+      background-color: var(--ml-theme-gray-200);
+    }
+    .content-list {
+      label {
+        color: var(--ml-black);
+      }
+    }
+  }
+}
