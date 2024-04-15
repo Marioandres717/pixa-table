@@ -56,7 +56,7 @@
   }
 }
 
-[data-ml-theme="dark"] {
+[data-pixa-theme="dark"] {
   .settings-dropdown-container {
     .dropdown {
       background-color: var(--ml-theme-gray-200);

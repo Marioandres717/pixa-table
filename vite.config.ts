@@ -16,6 +16,7 @@ export default defineConfig({
         "src/templates",
         "src/utils",
         "src/main.ts",
+        "src/assets",
       ],
     }),
   ],

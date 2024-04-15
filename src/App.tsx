@@ -9,8 +9,6 @@ import {
   VisibilityState,
   createColumnHelper,
   getExpandedRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 import IndeterminateCheckbox from "./components/checkbox";
@@ -43,12 +41,9 @@ function App() {
   const config = useMemo<TableOptions<AnomaliData>>(
     () => ({
       ...DEFAULT_TABLE_CONFIG,
-      getPaginationRowModel: getPaginationRowModel(),
-      getSortedRowModel: getSortedRowModel(),
       getExpandedRowModel: getExpandedRowModel(),
       enableRowSelection: true,
       enableExpanding: true,
-      enableHiding: true,
       state: {
         pagination,
         rowSelection,

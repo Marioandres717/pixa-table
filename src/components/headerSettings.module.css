@@ -18,7 +18,7 @@
   }
 }
 
-[data-ml-theme="dark"] {
+[data-pixa-theme="dark"] {
   .settings-header {
     width: 100%;
     background-color: var(--ml-gray);

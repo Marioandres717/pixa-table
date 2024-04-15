@@ -82,7 +82,7 @@
   }
 }
 
-[data-ml-theme="dark"].table-container {
+[data-pixa-theme="dark"].table-container {
   border: 1px solid var(--ml-gray-900);
 
   .header-settings {
