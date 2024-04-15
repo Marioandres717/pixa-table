@@ -37,7 +37,7 @@
   }
 }
 
-[data-ml-theme="dark"] {
+[data-pixa-theme="dark"] {
   .number-item {
     &:hover {
       background-color: var(--ml-gray-900);

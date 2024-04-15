@@ -6,7 +6,7 @@ import PageOptions from "../../components/pagination";
 import HeaderSettings from "../../components/headerSettings";
 import TableHeader from "../../components/tableHeader";
 
-import "./variables.css";
+import "../../index.css";
 import styles from "./index.module.css";
 
 type Props<T> = Table<T>;
@@ -28,7 +28,7 @@ export default function TableAnomali<T>(table: Props<T>) {
 
   return (
     <div
-      data-ml-theme="dark"
+      data-pixa-theme="dark"
       ref={parentRef}
       className={styles["table-container"]}
     >
