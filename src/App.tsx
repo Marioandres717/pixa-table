@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import TableBase from "./components/tableBase";
-import TableAnomali from "./templates/anomali";
+import { TableBase } from "./components/tableBase";
+import { TableAnomali } from "./templates/anomali";
 import {
   ExpandedState,
   PaginationState,
@@ -11,8 +11,8 @@ import {
   getExpandedRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
-import IndeterminateCheckbox from "./components/checkbox";
-import ExpandableRow from "./components/expandableRow";
+import { IndeterminateCheckbox } from "./components/checkbox";
+import { ExpandableRow } from "./components/expandableRow";
 
 const columnHelper = createColumnHelper<AnomaliData>();
 
@@ -131,7 +131,9 @@ function App() {
   }, []);
 
   return (
-    <TableBase {...config}>{(table) => <TableAnomali {...table} />}</TableBase>
+    <TableBase options={config}>
+      {(table) => <TableAnomali theme={"light"} tableInstance={table} />}
+    </TableBase>
   );
 }
 

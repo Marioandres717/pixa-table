@@ -6,7 +6,7 @@ type Props<T> = {
   header: Header<T, unknown>;
 };
 
-export default function ColumnResize<T>({ header }: Props<T>) {
+export function ColumnResize<T>({ header }: Props<T>) {
   return (
     <div
       {...{

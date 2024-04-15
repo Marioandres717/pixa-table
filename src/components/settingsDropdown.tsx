@@ -1,7 +1,7 @@
 import { Table } from "@tanstack/react-table";
 import { useRef, useState } from "react";
-import Icon from "./icon";
-import ColumnOrdering from "./columnOrdering";
+import { Icon } from "./icon";
+import { ColumnOrdering } from "./columnOrdering";
 
 import styles from "./settingsDropdown.module.css";
 

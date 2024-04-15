@@ -1,4 +1,4 @@
-import Icon from "./icon";
+import { Icon } from "./icon";
 import styles from "./expandableRow.module.css";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   toggleExpanded: () => void;
 };
 
-export default function ExpandableRow({ isExpanded, toggleExpanded }: Props) {
+export function ExpandableRow({ isExpanded, toggleExpanded }: Props) {
   return (
     <span className={styles["expandable-row-icon"]} onClick={toggleExpanded}>
       <Icon

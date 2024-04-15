@@ -1,7 +1,7 @@
 import { Table, flexRender } from "@tanstack/react-table";
 import { gridGenerator } from "../utils";
-import ColumnResize from "./columnResize";
-import ColumnSort from "./columnSort";
+import { ColumnResize } from "./columnResize";
+import { ColumnSort } from "./columnSort";
 
 import styles from "./tableHeader.module.css";
 
@@ -9,7 +9,7 @@ type Props<T> = {
   tableInstance: Table<T>;
 };
 
-export default function TableHeader<T>({ tableInstance }: Props<T>) {
+export function TableHeader<T>({ tableInstance }: Props<T>) {
   const headerGroups = tableInstance.getHeaderGroups();
 
   return (

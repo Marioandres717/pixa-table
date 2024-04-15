@@ -2,16 +2,22 @@ import React from "react";
 import { Table, flexRender } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { gridGenerator } from "../../utils";
-import PageOptions from "../../components/pagination";
-import HeaderSettings from "../../components/headerSettings";
-import TableHeader from "../../components/tableHeader";
+import { PageOptions } from "../../components/pagination";
+import { HeaderSettings } from "../../components/headerSettings";
+import { TableHeader } from "../../components/tableHeader";
 
 import "../../index.css";
 import styles from "./index.module.css";
 
-type Props<T> = Table<T>;
+type Props<T> = {
+  tableInstance: Table<T>;
+  theme: "light" | "dark";
+};
 
-export default function TableAnomali<T>(table: Props<T>) {
+export function TableAnomali<T>({
+  tableInstance: table,
+  theme = "light",
+}: Props<T>) {
   const parentRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
   const rowVirtualizer = useVirtualizer({
@@ -28,7 +34,7 @@ export default function TableAnomali<T>(table: Props<T>) {
 
   return (
     <div
-      data-pixa-theme="dark"
+      data-pixa-theme={theme}
       ref={parentRef}
       className={styles["table-container"]}
     >
