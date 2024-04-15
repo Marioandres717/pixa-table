@@ -6,7 +6,7 @@ type Props<TData> = {
   tableInstance: Table<TData>;
 };
 
-export default function PageOptions<TData>({ tableInstance }: Props<TData>) {
+export function PageOptions<TData>({ tableInstance }: Props<TData>) {
   const pageIndex = tableInstance.getState().pagination.pageIndex;
   const { getPageOptions, getCanPreviousPage, getCanNextPage } = tableInstance;
   const { start, end } = pageRange(pageIndex, getPageOptions().length);

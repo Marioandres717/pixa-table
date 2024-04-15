@@ -4,7 +4,7 @@ function getSvg(
   icon: unknown,
   styles: React.CSSProperties,
   size: number | string,
-  className: string,
+  className: string
 ) {
   const currentIcon = getIcon(icon);
 
@@ -40,7 +40,7 @@ type IconProps = {
   style?: React.CSSProperties;
 };
 
-export default function Icon(props: IconProps) {
+export function Icon(props: IconProps) {
   const { color, size = "100%", icon, className = "", style = {} } = props;
 
   const styles: React.CSSProperties = {

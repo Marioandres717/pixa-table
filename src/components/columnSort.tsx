@@ -7,7 +7,7 @@ type Props<T> = PropsWithChildren<{
   header: Header<T, unknown>;
 }>;
 
-export default function ColumnSort<T>({ header, children }: Props<T>) {
+export function ColumnSort<T>({ header, children }: Props<T>) {
   const { column } = header;
   const sortDirection = column.getIsSorted();
 

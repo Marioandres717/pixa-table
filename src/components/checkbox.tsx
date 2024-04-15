@@ -1,6 +1,6 @@
 import { HTMLProps, useEffect, useRef } from "react";
 
-export default function IndeterminateCheckbox({
+export function IndeterminateCheckbox({
   indeterminate,
   className = "",
   ...rest

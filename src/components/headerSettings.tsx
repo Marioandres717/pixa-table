@@ -1,4 +1,4 @@
-import PageResults from "./results";
+import { PageResults } from "./results";
 import { Table } from "@tanstack/react-table";
 import SettingsDropdown from "./settingsDropdown";
 
@@ -8,7 +8,7 @@ type Props<T> = {
   tableInstance: Table<T>;
 };
 
-export default function HeaderSettings<T>({ tableInstance }: Props<T>) {
+export function HeaderSettings<T>({ tableInstance }: Props<T>) {
   const totalItems = tableInstance.getRowCount();
 
   return (

@@ -9,14 +9,14 @@ import {
 import { Column, Table } from "@tanstack/react-table";
 import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
 
-import IndeterminateCheckbox from "./checkbox";
+import { IndeterminateCheckbox } from "./checkbox";
 import styles from "./columnOrdering.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
 };
 
-export default function ColumnOrdering<T>({ tableInstance }: Props<T>) {
+export function ColumnOrdering<T>({ tableInstance }: Props<T>) {
   const columns = tableInstance
     .getAllColumns()
     .filter((col) => col.id !== "selection" && col.id !== "expander");
