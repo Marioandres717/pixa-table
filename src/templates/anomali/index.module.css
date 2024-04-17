@@ -16,6 +16,7 @@
   .table {
     background-color: var(--ml-background-color);
     font-size: 14px;
+    overflow: auto;
 
     .tbody {
       position: relative;
@@ -74,7 +75,7 @@
     }
 
     .tfooter {
-      height: 48px;
+      height: 58px;
       padding: 8px var(--ml-component-spacing-3) 7px;
       display: flex;
       justify-content: flex-end;
@@ -92,7 +93,6 @@
 
   .table {
     border: none;
-
     .tr {
       &:last-child {
         border-bottom: none;
@@ -109,6 +109,9 @@
         &:first-child,
         &:last-child {
           border-right: none;
+        }
+        &:hover {
+          background-color: rgba(0, 151, 227, 1);
         }
       }
     }

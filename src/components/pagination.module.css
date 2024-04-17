@@ -1,6 +1,6 @@
 .pagination-content {
   font-size: 15px;
-
+  position: fixed;
   .number-item {
     cursor: pointer;
     border-radius: 3px;
