@@ -16,7 +16,6 @@
       padding: var(--ml-component-spacing-3);
       overflow-wrap: break-word;
       border-right: 1px solid var(--ml-gray-200);
-      min-width: fit-content;
       text-transform: uppercase;
       background-color: var(--ml-off-white);
       line-height: 19px;
