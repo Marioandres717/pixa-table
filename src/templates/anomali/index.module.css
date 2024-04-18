@@ -75,7 +75,7 @@
     }
 
     .tfooter {
-      height: 58px;
+      height: 48px;
       padding: 8px var(--ml-component-spacing-3) 7px;
       display: flex;
       justify-content: flex-end;
@@ -87,7 +87,6 @@
   border: 1px solid var(--ml-gray-900);
 
   .header-settings {
-    border: 1px solid var(--ml-gray-900);
     border-bottom: none;
   }
 
@@ -128,10 +127,6 @@
       &:hover {
         background-color: rgba(0, 151, 227, 0.3);
       }
-    }
-    .tfooter {
-      border: 1px solid var(--ml-gray-900);
-      background-color: var(--ml-gray);
     }
   }
 }

@@ -6,9 +6,13 @@ import styles from "./headerSettings.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
+  paginationPageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
 };
 
-export function HeaderSettings<T>({ tableInstance }: Props<T>) {
+export function HeaderSettings<T>({
+  tableInstance,
+  paginationPageSizeComponent,
+}: Props<T>) {
   const totalItems = tableInstance.getRowCount();
 
   return (
@@ -16,7 +20,7 @@ export function HeaderSettings<T>({ tableInstance }: Props<T>) {
       <PageResults totalItems={totalItems} approximateCount={false} />
       <SettingsDropdown
         tableInstance={tableInstance}
-        paginationPageOptions={[10, 25, 50, 100, 250]}
+        paginationPageSizeComponent={paginationPageSizeComponent}
       />
     </div>
   );

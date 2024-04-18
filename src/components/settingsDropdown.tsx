@@ -7,12 +7,12 @@ import styles from "./settingsDropdown.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
-  paginationPageOptions: number[];
+  paginationPageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
 };
 
 export default function SettingsDropdown<T>({
   tableInstance,
-  paginationPageOptions: opts,
+  paginationPageSizeComponent: PageSizeOptions = PageSizeComponent,
 }: Props<T>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [toggleSettings, setToggleSettings] = useState(false);
@@ -45,23 +45,27 @@ export default function SettingsDropdown<T>({
               <ColumnOrdering tableInstance={tableInstance} />
             </div>
           </div>
-          <div className={styles.option}>
-            <span className={styles.subtitle}>Rows per page</span>
-            <select
-              onChange={(e) =>
-                tableInstance.setPageSize(Number(e.target.value))
-              }
-              value={tableInstance.getState().pagination.pageSize}
-            >
-              {opts.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
+          {PageSizeOptions && <PageSizeOptions table={tableInstance} />}
         </div>
       )}
+    </div>
+  );
+}
+
+export function PageSizeComponent<T>({ table }: { table: Table<T> }) {
+  return (
+    <div className={styles.option}>
+      <span className={styles.subtitle}>Rows per page</span>
+      <select
+        onChange={(e) => table.setPageSize(Number(e.target.value))}
+        value={table.getState().pagination.pageSize}
+      >
+        {[10, 25, 50, 100, 250].map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
     </div>
   );
 }
