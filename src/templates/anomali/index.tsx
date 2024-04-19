@@ -13,14 +13,16 @@ type Props<T> = {
   tableInstance: Table<T>;
   theme: "light" | "dark";
   expandableRowComponent?: React.ComponentType<{ row: Row<T> }>;
-  pageOptionsComponent?: React.ComponentType<{ table: Table<T> }>;
+  pageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
+  paginationComponent?: React.ComponentType<{ table: Table<T> }>;
 };
 
 export function TableAnomali<T>({
   tableInstance: table,
   theme = "light",
   expandableRowComponent: ExpandRow,
-  pageOptionsComponent,
+  pageSizeComponent,
+  paginationComponent: PageOptionsComponent = PageOptions,
 }: Props<T>) {
   const parentRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
@@ -45,7 +47,7 @@ export function TableAnomali<T>({
       <div className={styles["header-settings"]}>
         <HeaderSettings
           tableInstance={table}
-          paginationPageSizeComponent={pageOptionsComponent}
+          paginationPageSizeComponent={pageSizeComponent}
         />
       </div>
       <div
@@ -87,7 +89,7 @@ export function TableAnomali<T>({
           })}
         </div>
         <div className={styles.tfooter}>
-          <PageOptions tableInstance={table} />
+          <PageOptionsComponent table={table} />
         </div>
       </div>
     </div>

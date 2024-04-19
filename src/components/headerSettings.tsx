@@ -1,6 +1,6 @@
 import { PageResults } from "./results";
 import { Table } from "@tanstack/react-table";
-import SettingsDropdown from "./settingsDropdown";
+import { SettingsDropdown } from "./settingsDropdown";
 
 import styles from "./headerSettings.module.css";
 
