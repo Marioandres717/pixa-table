@@ -10,7 +10,7 @@ type Props<T> = {
   paginationPageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
 };
 
-export default function SettingsDropdown<T>({
+export function SettingsDropdown<T>({
   tableInstance,
   paginationPageSizeComponent: PageSizeOptions = PageSizeComponent,
 }: Props<T>) {
