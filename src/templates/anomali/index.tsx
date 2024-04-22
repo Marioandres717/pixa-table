@@ -86,13 +86,7 @@ export function TableAnomali<T>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
-                {table.getCanSomeRowsExpand() && (
-                  <div>
-                    {row.getIsExpanded() && ExpandRow && (
-                      <ExpandRow row={row} />
-                    )}
-                  </div>
-                )}
+                {row.getIsExpanded() && ExpandRow && <ExpandRow row={row} />}
               </div>
             );
           })}
