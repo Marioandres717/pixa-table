@@ -1,1 +1,1 @@
-export * as TableAnomali from "./anomali";
+export { TableAnomali } from "./anomali";
