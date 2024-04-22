@@ -1,10 +1,9 @@
 import React from "react";
 import { Row, Table, flexRender } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
+
 import { gridGenerator } from "../../utils";
-import { PageOptions } from "../../components/pagination";
-import { HeaderSettings } from "../../components/headerSettings";
-import { TableHeader } from "../../components/tableHeader";
+import { PageOptions, HeaderSettings, TableHeader } from "../../components";
 
 import "../../index.css";
 import styles from "./index.module.css";
