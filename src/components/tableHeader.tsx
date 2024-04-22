@@ -26,7 +26,7 @@ export function TableHeader<T>({ tableInstance }: Props<T>) {
         >
           {headerGroup.headers.map((header) => (
             <div
-              className={styles.th}
+              className={`${styles.th} ${header.id.match(/expander/i) ? styles["th-expander"] : ""} ${header.id.match(/selection/i) ? styles["th-selection"] : ""}`}
               key={header.id}
               onClick={header.column.getToggleSortingHandler()}
             >

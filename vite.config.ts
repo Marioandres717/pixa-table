@@ -10,6 +10,7 @@ export default defineConfig({
     react(),
     libInjectCss(),
     dts({
+      rollupTypes: true,
       exclude: ["src/App.tsx", "src/main.tsx"],
       include: [
         "src/components",
