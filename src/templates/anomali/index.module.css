@@ -33,7 +33,7 @@
         &:hover {
           background-color: var(--ml-off-white);
         }
-        &:hover .contextMenu {
+        &:hover .context-menu {
           display: block;
         }
 
@@ -53,6 +53,22 @@
           &:hover {
             min-width: fit-content;
             z-index: 999;
+          }
+
+          &.td-expander,
+          &.td-selection {
+            position: sticky;
+            z-index: 10;
+            box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
+          }
+
+          &.td-expander {
+            left: 0;
+            border-right: none;
+          }
+
+          &.td-selection {
+            left: 30px;
           }
 
           &:last-child,
@@ -105,24 +121,17 @@
         overflow-wrap: break-word;
         border-top: none;
         border-bottom: 1px solid var(--ml-gray-900);
-        &:first-child,
-        &:last-child {
-          border-right: none;
-        }
         &:hover {
-          background-color: rgba(0, 151, 227, 1);
+          background-color: rgba(0, 151, 227, 0.9);
+        }
+        &.td-expander:hover,
+        &.td-selection:hover {
+          background-color: rgba(0, 151, 227, 0.2);
         }
       }
     }
 
-    &.isSelectable {
-      .th:first-child,
-      .th:nth-child(2),
-      .th:last-child {
-        border-bottom: 1px solid var(--ml-gray-900);
-      }
-    }
-    .isRowSelected {
+    .is-row-selected {
       background-color: rgba(0, 151, 227, 0.3);
       &:hover {
         background-color: rgba(0, 151, 227, 0.3);

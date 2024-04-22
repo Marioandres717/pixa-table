@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "./dist/pixa-table.umd.cjs",
+  "module": "./dist/pixa-table.js",
   "files": [
     "dist"
   ],
-  "main": "./dist/pixa-table.umd.cjs",
-  "module": "./dist/pixa-table.js",
   "exports": {
     ".": {
       "import": "./dist/pixa-table.js",

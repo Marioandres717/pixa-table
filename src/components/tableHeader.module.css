@@ -4,18 +4,18 @@
   top: 0;
   z-index: 10;
   min-width: 100%;
-  border-bottom: 1px solid var(--ml-gray-200);
   background-color: var(--ml-off-white);
   font-size: 12px;
 
   .tr {
     display: grid;
-    min-width: 100%;
 
     .th {
       padding: var(--ml-component-spacing-3);
       overflow-wrap: break-word;
-      border-right: 1px solid var(--ml-gray-200);
+      border: 1px solid var(--ml-gray-200);
+      border-left: none;
+      border-top: none;
       text-transform: uppercase;
       background-color: var(--ml-off-white);
       line-height: 19px;
@@ -38,6 +38,19 @@
 
       & .context-menu {
         display: none;
+      }
+
+      &.th-expander,
+      &.th-selection {
+        position: sticky;
+        z-index: 10;
+        left: 30px;
+        box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
+      }
+      &.th-expander {
+        width: 40px;
+        border-right: none;
+        left: 0;
       }
     }
   }

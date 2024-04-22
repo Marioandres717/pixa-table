@@ -29,6 +29,7 @@ export function TableAnomali<T>({
     count: rows.length,
     estimateSize: () => 40,
     getScrollElement: () => parentRef.current,
+    overscan: 5,
     measureElement:
       typeof window !== "undefined" &&
       navigator.userAgent.indexOf("Firefox") === -1
@@ -78,11 +79,20 @@ export function TableAnomali<T>({
                 }}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <div className={styles.td} key={cell.id}>
+                  <div
+                    className={`${styles.td} ${cell.column.id.match(/expander/i) ? styles["td-expander"] : ""} ${cell.column.id.match(/selection/i) ? styles["td-selection"] : ""}`}
+                    key={cell.id}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
-                {row.getIsExpanded() && ExpandRow && <ExpandRow row={row} />}
+                {table.getCanSomeRowsExpand() && (
+                  <div>
+                    {row.getIsExpanded() && ExpandRow && (
+                      <ExpandRow row={row} />
+                    )}
+                  </div>
+                )}
               </div>
             );
           })}
