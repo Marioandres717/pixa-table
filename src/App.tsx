@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
-import { TableBase } from "./components/tableBase";
-import { TableAnomali } from "./templates/anomali";
+import { TableBase, IndeterminateCheckbox, ExpandableRow } from "./components";
+import { TableAnomali } from "./templates";
 import {
+  ColumnOrderState,
   ExpandedState,
   PaginationState,
   RowSelectionState,
@@ -11,8 +12,7 @@ import {
   getExpandedRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
-import { IndeterminateCheckbox } from "./components/checkbox";
-import { ExpandableRow } from "./components/expandableRow";
+import { cols } from "./mocks/handlers";
 
 const columnHelper = createColumnHelper<AnomaliData>();
 
@@ -31,7 +31,7 @@ function App() {
   const [data, setData] = useState<AnomaliData[]>([]);
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [expanded, setExpanded] = useState<ExpandedState>({});
-  const [columnOrder, setColumnOrder] = useState<string[]>([]);
+  const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -42,14 +42,15 @@ function App() {
     () => ({
       ...DEFAULT_TABLE_CONFIG,
       getExpandedRowModel: getExpandedRowModel(),
+      manualPagination: false,
       enableRowSelection: true,
       enableExpanding: true,
       state: {
         pagination,
         rowSelection,
+        columnVisibility,
         expanded,
         columnOrder,
-        columnVisibility,
       },
       onPaginationChange: setPagination,
       onRowSelectionChange: setRowSelection,
@@ -59,7 +60,7 @@ function App() {
       columns: [
         columnHelper.display({
           id: "expander",
-          maxSize: 20,
+          maxSize: 30,
           enableSorting: false,
           enableResizing: false,
           header: () => <div style={{ width: 15 }} />,
@@ -100,45 +101,38 @@ function App() {
             );
           },
         }),
-        columnHelper.accessor("name", {
-          cell: (info) => info.getValue(),
-          footer: (props) => props.column.id,
-          header: "Name",
-        }),
-        columnHelper.accessor("company", {
-          cell: (info) => info.getValue(),
-          footer: (props) => props.column.id,
-          header: "Company",
-        }),
-        columnHelper.accessor("location", {
-          cell: (info) => info.getValue(),
-          footer: (props) => props.column.id,
-          header: "Location",
-        }),
-        columnHelper.accessor("date", {
-          cell: (info) => info.getValue(),
-          footer: (props) => props.column.id,
-          header: "Date",
-        }),
+        ...cols,
       ],
       data: data,
     }),
-    [pagination, data, rowSelection, expanded, columnOrder, columnVisibility]
+    [pagination, data, rowSelection, columnVisibility, expanded, columnOrder]
   );
 
   useEffect(() => {
-    fetchData().then((data) => setData(data));
+    fetchData({ skip: 0, limit: 100 }).then((data) => setData(data));
   }, []);
 
   return (
     <TableBase options={config}>
-      {(table) => <TableAnomali theme={"light"} tableInstance={table} />}
+      {(table) => (
+        <TableAnomali
+          theme={"dark"}
+          tableInstance={table}
+          expandableRowComponent={() => <h1>FOOBAR</h1>}
+        />
+      )}
     </TableBase>
   );
 }
 
-const fetchData = async () => {
-  const response = await fetch("/api");
+const fetchData = async ({
+  skip = 0,
+  limit = 10,
+}: {
+  skip: number;
+  limit: number;
+}) => {
+  const response = await fetch("/api?skip=" + skip + "&limit=" + limit);
   const data = await response.json();
   return data;
 };

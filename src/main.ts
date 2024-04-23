@@ -16,3 +16,6 @@ export { TableHeader } from "./components/tableHeader";
 
 export { getIcon, getIconList } from "./utils/icons";
 export { gridGenerator } from "./utils/gridGenerator";
+
+export { useOnclickOutside } from "./hooks/useOnClickOutside";
+export { useOnCloseEscape } from "./hooks/useOnCloseEscape";

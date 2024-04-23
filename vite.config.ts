@@ -19,6 +19,7 @@ export default defineConfig({
         "src/utils",
         "src/main.ts",
         "src/assets",
+        "src/hooks",
       ],
     }),
   ],
