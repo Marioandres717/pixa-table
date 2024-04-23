@@ -4,6 +4,8 @@ import { Icon } from "./icon";
 import { ColumnOrdering } from "./columnOrdering";
 
 import styles from "./settingsDropdown.module.css";
+import { useOnclickOutside } from "../hooks/useOnClickOutside";
+import { useOnCloseEscape } from "../hooks/useOnCloseEscape";
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -16,6 +18,9 @@ export function SettingsDropdown<T>({
 }: Props<T>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [toggleSettings, setToggleSettings] = useState(false);
+
+  useOnclickOutside(dropdownRef, () => setToggleSettings(false));
+  useOnCloseEscape(toggleSettings, () => setToggleSettings(false));
 
   function toggleSettingsHandler() {
     setToggleSettings(!toggleSettings);
