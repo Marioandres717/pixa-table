@@ -15,6 +15,5 @@ export const getIcon = (icon: any) => {
     iconEl.properties.name.split(", ").includes(icon);
 
   const currentIcon = iconSet.icons.filter(find)[0];
-
   return currentIcon;
 };
