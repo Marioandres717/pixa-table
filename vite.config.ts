@@ -25,6 +25,8 @@ export default defineConfig({
   ],
   build: {
     copyPublicDir: false,
+    sourcemap: "inline",
+    minify: false,
     lib: {
       entry: resolve(__dirname, "src/main.ts"),
       formats: ["es"],
