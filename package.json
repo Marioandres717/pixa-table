@@ -1,6 +1,6 @@
 {
   "name": "pixa-table",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "./dist/pixa-table.umd.cjs",
   "module": "./dist/pixa-table.js",
@@ -45,6 +45,11 @@
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.8.1",
     "vite-plugin-lib-inject-css": "^2.0.1"
+  },
+  "externals": {
+    "react": "React",
+    "react-dom": "ReactDOM",
+    "tanstack/react-table": "ReactTable"
   },
   "msw": {
     "workerDirectory": [
