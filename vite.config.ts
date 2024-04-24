@@ -35,7 +35,7 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
-        "tanstack/react-table",
+        "@tanstack/react-table",
         "react/jsx-runtime",
         "react/jsx-dev-runtime",
       ],
@@ -43,7 +43,7 @@ export default defineConfig({
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          "tanstack/react-table": "ReactTable",
+          "@tanstack/react-table": "ReactTable",
           "react/jsx-runtime": "jsx",
           "react/jsx-dev-runtime": "jsx",
         },
