@@ -86,7 +86,11 @@ export function TableAnomali<T>({
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </div>
                 ))}
-                {row.getIsExpanded() && ExpandRow && <ExpandRow row={row} />}
+                {row.getIsExpanded() && ExpandRow && (
+                  <div className={styles["tr-expandable"]}>
+                    <ExpandRow row={row} />
+                  </div>
+                )}
               </div>
             );
           })}

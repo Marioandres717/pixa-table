@@ -27,6 +27,7 @@ export default defineConfig({
     copyPublicDir: false,
     lib: {
       entry: resolve(__dirname, "src/main.ts"),
+      formats: ["es"],
       name: "pixaTable",
       fileName: "pixa-table",
     },
@@ -36,12 +37,15 @@ export default defineConfig({
         "react-dom",
         "tanstack/react-table",
         "react/jsx-runtime",
+        "react/jsx-dev-runtime",
       ],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
           "tanstack/react-table": "ReactTable",
+          "react/jsx-runtime": "jsx",
+          "react/jsx-dev-runtime": "jsx",
         },
       },
     },
