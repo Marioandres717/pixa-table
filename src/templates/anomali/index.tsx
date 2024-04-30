@@ -10,7 +10,10 @@ import styles from "./index.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
+  width?: string;
+  heigth?: string;
   theme: "light" | "dark";
+  hideHeader?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<T> }>;
   pageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
   paginationComponent?: React.ComponentType<{ table: Table<T> }>;
@@ -18,7 +21,10 @@ type Props<T> = {
 
 export function TableAnomali<T>({
   tableInstance: table,
+  width,
+  heigth,
   theme = "light",
+  hideHeader = false,
   expandableRowComponent: ExpandRow,
   pageSizeComponent,
   paginationComponent: PageOptionsComponent = PageOptions,
@@ -37,26 +43,32 @@ export function TableAnomali<T>({
         : undefined,
   });
   const viRows = rowVirtualizer.getVirtualItems();
+  // const headerHeight = hideHeader ? 0 : 41 + 36;
 
   return (
     <div
       data-pixa-theme={theme}
       ref={parentRef}
       className={styles["table-container"]}
+      style={{
+        width: width || "100%",
+        height: heigth || "100%",
+      }}
     >
-      <div className={styles["header-settings"]}>
-        <HeaderSettings
-          tableInstance={table}
-          paginationPageSizeComponent={pageSizeComponent}
-        />
-      </div>
+      {!hideHeader && (
+        <div className={styles["header-settings"]}>
+          <HeaderSettings
+            tableInstance={table}
+            paginationPageSizeComponent={pageSizeComponent}
+          />
+        </div>
+      )}
       <div
         {...{
           className: styles["table"],
         }}
       >
-        <TableHeader tableInstance={table} />
-
+        {!hideHeader && <TableHeader tableInstance={table} />}
         <div
           className={styles.tbody}
           style={{
