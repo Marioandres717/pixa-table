@@ -49,8 +49,7 @@
       }
 
       &.th-expander {
-        width: 30px;
-        border-right: none;
+        border-right: none !important;
         left: 0;
       }
     }
