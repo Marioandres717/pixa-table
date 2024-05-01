@@ -52,7 +52,6 @@ export function TableAnomali<T>({
       className={styles["table-container"]}
       style={{
         width: width || "100%",
-        height: height || "100%",
         overflow: "hidden",
       }}
     >

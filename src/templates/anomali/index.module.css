@@ -114,6 +114,7 @@
     padding: 8px var(--ml-component-spacing-3) 7px;
     display: flex;
     justify-content: flex-end;
+    border-top: 1px solid var(--ml-gray-200);
   }
 }
 
@@ -162,5 +163,8 @@
         background-color: var(--ml-gray-700);
       }
     }
+  }
+  .tfooter {
+    border-top: 1px solid var(--ml-gray-900);
   }
 }
