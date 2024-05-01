@@ -4,15 +4,10 @@
   top: 0;
   height: 100%;
   width: 5px;
-  background: rgba(0, 0, 0, 0.5);
+  background-color: var(--ml-blue);
   cursor: col-resize;
   user-select: none;
   touch-action: none;
-
-  .is-resizing {
-    background: blue;
-    opacity: 1;
-  }
 }
 
 @media (hover: hover) {

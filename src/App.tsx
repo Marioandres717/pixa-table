@@ -116,9 +116,8 @@ function App() {
     <TableBase options={config}>
       {(table) => (
         <TableAnomali
-          theme={"dark"}
+          theme={"light"}
           tableInstance={table}
-          height={320}
           expandableRowComponent={() => <h1>FOOBAR</h1>}
         />
       )}

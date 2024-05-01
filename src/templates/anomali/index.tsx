@@ -96,6 +96,9 @@ export function TableAnomali<T>({
                 {row.getVisibleCells().map((cell) => (
                   <div
                     className={`${styles.td} ${cell.column.id.match(/expander/i) ? styles["td-expander"] : ""} ${cell.column.id.match(/selection/i) ? styles["td-selection"] : ""}`}
+                    style={{
+                      textAlign: cell.column.columnDef.meta?.align,
+                    }}
                     key={cell.id}
                   >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
