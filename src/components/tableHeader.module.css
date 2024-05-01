@@ -44,18 +44,25 @@
       &.th-selection {
         position: sticky;
         z-index: 10;
-        left: 30px;
+        left: 0px;
         box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
       }
+
       &.th-expander {
-        width: 40px;
+        width: 30px;
         border-right: none;
         left: 0;
       }
     }
+
+    .th:nth-child(2) {
+      &.th-expander,
+      &.th-selection {
+        left: 30px;
+      }
+    }
   }
 }
-
 [data-pixa-theme="dark"] .thead {
   border: none;
 

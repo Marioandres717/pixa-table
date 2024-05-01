@@ -59,16 +59,12 @@
           &.td-selection {
             position: sticky;
             z-index: 10;
+            left: 0;
             box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
           }
 
           &.td-expander {
-            left: 0;
             border-right: none;
-          }
-
-          &.td-selection {
-            left: 30px;
           }
 
           &:last-child,
@@ -103,6 +99,13 @@
           grid-column: 1 / -1;
           border-bottom: 1px solid var(--ml-gray-200);
         }
+
+        .td:nth-child(2) {
+          &.td-expander,
+          &.td-selection {
+            left: 30px;
+          }
+        }
       }
     }
 
@@ -129,7 +132,7 @@
         border-bottom: none;
       }
       &:hover {
-        background-color: var(--ml-gray-900);
+        background-color: var(--ml-gray-700);
         & > a {
           color: var(--ml-text-color);
         }
@@ -143,7 +146,7 @@
 
         &.td-expander:hover,
         &.td-selection:hover {
-          background-color: var(--ml-gray-900);
+          background-color: var(--ml-gray-700);
         }
       }
 
@@ -154,10 +157,10 @@
       }
     }
 
-    .is-row-selected {
-      background-color: rgba(0, 151, 227, 0.3);
+    .tr-selected {
+      background-color: var(--ml-gray-700);
       &:hover {
-        background-color: rgba(0, 151, 227, 0.3);
+        background-color: var(--ml-gray-700);
       }
     }
   }
