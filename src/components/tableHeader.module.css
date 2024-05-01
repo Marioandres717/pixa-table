@@ -11,6 +11,7 @@
     display: grid;
 
     .th {
+      position: relative;
       padding: var(--ml-component-spacing-3);
       overflow-wrap: break-word;
       border: 1px solid var(--ml-gray-200);
@@ -18,11 +19,9 @@
       border-top: none;
       text-transform: uppercase;
       background-color: var(--ml-off-white);
-      line-height: 19px;
       letter-spacing: 0.15em;
       color: var(--ml-text-color);
       font-weight: 500;
-      position: relative;
       box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
 
       &:last-child,
