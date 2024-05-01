@@ -10,8 +10,8 @@ import styles from "./index.module.css";
 
 type Props<T> = {
   tableInstance: Table<T>;
-  width?: string;
-  heigth?: string;
+  width?: number;
+  height?: number;
   theme: "light" | "dark";
   hideHeader?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<T> }>;
@@ -22,7 +22,7 @@ type Props<T> = {
 export function TableAnomali<T>({
   tableInstance: table,
   width,
-  heigth,
+  height,
   theme = "light",
   hideHeader = false,
   expandableRowComponent: ExpandRow,
@@ -52,7 +52,7 @@ export function TableAnomali<T>({
       className={styles["table-container"]}
       style={{
         width: width || "100%",
-        height: heigth || "100%",
+        height: height || "100%",
         overflow: "hidden",
       }}
     >
@@ -74,7 +74,7 @@ export function TableAnomali<T>({
           className={styles.tbody}
           style={{
             height: `${rowVirtualizer.getTotalSize()}px`,
-            maxHeight: `calc(100% - ${headerHeight}px)`,
+            maxHeight: hideHeader ? height : height && height - headerHeight,
           }}
         >
           {viRows.map((virtualItem) => {
