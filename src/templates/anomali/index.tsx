@@ -43,7 +43,7 @@ export function TableAnomali<T>({
         : undefined,
   });
   const viRows = rowVirtualizer.getVirtualItems();
-  // const headerHeight = hideHeader ? 0 : 41 + 36;
+  const headerHeight = hideHeader ? 0 : 41 + 36;
 
   return (
     <div
@@ -53,6 +53,7 @@ export function TableAnomali<T>({
       style={{
         width: width || "100%",
         height: heigth || "100%",
+        overflow: "hidden",
       }}
     >
       {!hideHeader && (
@@ -65,7 +66,7 @@ export function TableAnomali<T>({
       )}
       <div
         {...{
-          className: styles["table"],
+          className: styles.table,
         }}
       >
         {!hideHeader && <TableHeader tableInstance={table} />}
@@ -73,6 +74,7 @@ export function TableAnomali<T>({
           className={styles.tbody}
           style={{
             height: `${rowVirtualizer.getTotalSize()}px`,
+            maxHeight: `calc(100% - ${headerHeight}px)`,
           }}
         >
           {viRows.map((virtualItem) => {
@@ -109,9 +111,9 @@ export function TableAnomali<T>({
             );
           })}
         </div>
-        <div className={styles.tfooter}>
-          <PageOptionsComponent table={table} />
-        </div>
+      </div>
+      <div className={styles.tfooter}>
+        <PageOptionsComponent table={table} />
       </div>
     </div>
   );
