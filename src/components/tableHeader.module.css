@@ -23,6 +23,7 @@
       color: var(--ml-text-color);
       font-weight: 500;
       position: relative;
+      box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
 
       &:last-child,
       &:last-child {

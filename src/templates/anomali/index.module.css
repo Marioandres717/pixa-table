@@ -57,10 +57,10 @@
 
           &.td-expander,
           &.td-selection {
+            box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
             position: sticky;
             z-index: 10;
             left: 0;
-            box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
           }
 
           &.td-expander {
