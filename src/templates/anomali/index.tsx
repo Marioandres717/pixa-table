@@ -83,7 +83,9 @@ export function TableAnomali<T>({
                 data-index={virtualItem.index}
                 ref={(node) => rowVirtualizer.measureElement(node)}
                 {...{
-                  className: styles.tr,
+                  className:
+                    styles.tr +
+                    (row.getIsSelected() ? ` ${styles["tr-selected"]}` : ""),
                   style: {
                     gridTemplateColumns: gridGenerator(table),
                     transform: `translateY(${virtualItem.start}px)`,
