@@ -98,6 +98,7 @@ export function TableAnomali<T>({
                     className={`${styles.td} ${cell.column.id.match(/expander/i) ? styles["td-expander"] : ""} ${cell.column.id.match(/selection/i) ? styles["td-selection"] : ""}`}
                     style={{
                       textAlign: cell.column.columnDef.meta?.align,
+                      padding: cell.column.columnDef.meta?.padding,
                     }}
                     key={cell.id}
                   >
