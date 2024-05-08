@@ -35,6 +35,9 @@ export function TableHeader<TData>({
             <div
               className={`${styles.th} ${header.id.match(/expander/i) ? styles["th-expander"] : ""} ${header.id.match(/selection/i) ? styles["th-selection"] : ""}`}
               key={header.id}
+              style={{
+                justifyContent: header.column.columnDef.meta?.align || "left",
+              }}
             >
               <ColumnSort header={header}>
                 <span className={styles.ellipsis}>

@@ -28,6 +28,7 @@ export default defineConfig((env) => ({
         "src/main.ts",
         "src/assets",
         "src/hooks",
+        "src/typeDefs",
       ],
     }),
   ],
