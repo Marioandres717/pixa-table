@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Table, flexRender } from "@tanstack/react-table";
+import { Header, Row, Table, flexRender } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
 import { gridGenerator } from "../../utils";
@@ -8,18 +8,21 @@ import { PageOptions, HeaderSettings, TableHeader } from "../../components";
 import "../../index.css";
 import styles from "./index.module.css";
 
-type Props<T> = {
-  tableInstance: Table<T>;
+type Props<TData> = {
+  tableInstance: Table<TData>;
   width?: number;
   height?: number;
   theme: "light" | "dark";
   hideHeader?: boolean;
-  expandableRowComponent?: React.ComponentType<{ row: Row<T> }>;
-  pageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
-  paginationComponent?: React.ComponentType<{ table: Table<T> }>;
+  expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
+  pageSizeComponent?: React.ComponentType<{ table: Table<TData> }>;
+  paginationComponent?: React.ComponentType<{ table: Table<TData> }>;
+  filterColumnComponent?: React.ComponentType<{
+    header: Header<TData, unknown>;
+  }>;
 };
 
-export function TableAnomali<T>({
+export function TableAnomali<TData>({
   tableInstance: table,
   width,
   height,
@@ -28,7 +31,8 @@ export function TableAnomali<T>({
   expandableRowComponent: ExpandRow,
   pageSizeComponent,
   paginationComponent: PageOptionsComponent = PageOptions,
-}: Props<T>) {
+  filterColumnComponent,
+}: Props<TData>) {
   const parentRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
   const rowVirtualizer = useVirtualizer({
@@ -68,7 +72,12 @@ export function TableAnomali<T>({
           className: styles.table,
         }}
       >
-        {!hideHeader && <TableHeader tableInstance={table} />}
+        {!hideHeader && (
+          <TableHeader
+            tableInstance={table}
+            filterColumnComponent={filterColumnComponent}
+          />
+        )}
         <div
           className={styles.tbody}
           style={{
