@@ -36,7 +36,7 @@ function getSvg(
 
 type IconProps = {
   color: string;
-  icon: unknown;
+  icon: string;
   size?: string | number;
   className?: string;
   style?: React.CSSProperties;

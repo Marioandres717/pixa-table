@@ -11,6 +11,9 @@
     display: grid;
 
     .th {
+      display: flex;
+      align-items: center;
+      gap: var(--ml-component-spacing-2);
       position: relative;
       padding: var(--ml-component-spacing-3);
       overflow-wrap: break-word;

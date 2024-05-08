@@ -22,6 +22,7 @@ export function ColumnSort<TData>({ header, children }: Props<TData>) {
         justifyContent: align,
       }}
       title={columnDef.id}
+      onClick={header.column.getToggleSortingHandler()}
     >
       {children}
       {column.getCanSort() && (
