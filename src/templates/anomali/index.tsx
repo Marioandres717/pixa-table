@@ -33,13 +33,14 @@ export function TableAnomali<TData>({
   paginationComponent: PageOptionsComponent = PageOptions,
   filterColumnComponent,
 }: Props<TData>) {
+  const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
   const rows = table.getRowModel().rows;
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     estimateSize: () => 40,
     getScrollElement: () => parentRef.current,
-    overscan: 5,
+    overscan: rows.length,
     measureElement:
       typeof window !== "undefined" &&
       navigator.userAgent.indexOf("Firefox") === -1
@@ -47,7 +48,13 @@ export function TableAnomali<TData>({
         : undefined,
   });
   const viRows = rowVirtualizer.getVirtualItems();
-  const headerHeight = hideHeader ? 0 : 41 + 36;
+  const headerHeight = hideHeader
+    ? !isPaginationEnabled
+      ? 0
+      : 40
+    : isPaginationEnabled
+      ? 132
+      : 40;
 
   return (
     <div
@@ -55,8 +62,8 @@ export function TableAnomali<TData>({
       ref={parentRef}
       className={styles["table-container"]}
       style={{
-        width: width || "100%",
-        overflow: "hidden",
+        width: width,
+        height: height,
       }}
     >
       {!hideHeader && (
@@ -70,6 +77,9 @@ export function TableAnomali<TData>({
       <div
         {...{
           className: styles.table,
+          style: {
+            maxHeight: height && height - headerHeight,
+          },
         }}
       >
         {!hideHeader && (
@@ -82,7 +92,6 @@ export function TableAnomali<TData>({
           className={styles.tbody}
           style={{
             height: `${rowVirtualizer.getTotalSize()}px`,
-            maxHeight: hideHeader ? height : height && height - headerHeight,
           }}
         >
           {viRows.map((virtualItem) => {
@@ -124,9 +133,11 @@ export function TableAnomali<TData>({
           })}
         </div>
       </div>
-      <div className={styles.tfooter}>
-        <PageOptionsComponent table={table} />
-      </div>
+      {isPaginationEnabled && (
+        <div className={styles.tfooter}>
+          <PageOptionsComponent table={table} />
+        </div>
+      )}
     </div>
   );
 }

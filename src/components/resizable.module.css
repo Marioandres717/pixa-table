@@ -1,0 +1,16 @@
+.resizable-div {
+  position: relative;
+  border: 1px solid #ccc;
+  overflow: visible;
+}
+
+.resizer {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #3498db;
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+  z-index: 2;
+}

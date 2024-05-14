@@ -15,6 +15,7 @@ import {
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
 import { MockData } from "./mocks/handlers";
+import ResizableDiv from "./components/resizable";
 
 const columnHelper = createColumnHelper<MockData>();
 
@@ -27,7 +28,7 @@ function App() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 100,
   });
 
   const config = useMemo<TableOptions<MockData>>(
@@ -160,15 +161,22 @@ function App() {
   }, []);
 
   return (
-    <TableBase options={config}>
-      {(table) => (
-        <TableAnomali
-          theme={"dark"}
-          tableInstance={table}
-          expandableRowComponent={() => <h1>FOOBAR</h1>}
-        />
+    <ResizableDiv
+      renderProps={({ width, height }) => (
+        <TableBase options={config}>
+          {(table) => (
+            <TableAnomali
+              hideHeader={false}
+              height={height}
+              width={width}
+              theme={"dark"}
+              tableInstance={table}
+              expandableRowComponent={() => <h1>FOOBAR</h1>}
+            />
+          )}
+        </TableBase>
       )}
-    </TableBase>
+    />
   );
 }
 
