@@ -16,9 +16,7 @@ enableMocking()
   .then(() => {
     render(
       <React.StrictMode>
-        <div style={{ width: 780 }}>
-          <App />
-        </div>
+        <App />
       </React.StrictMode>,
       container
     );
