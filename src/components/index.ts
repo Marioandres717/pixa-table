@@ -9,6 +9,8 @@ import { PageOptions } from "./pagination";
 import { PageResults } from "./results";
 import { TableBase } from "./tableBase";
 import { TableHeader } from "./tableHeader";
+import { VirtualizedTableBody } from "./virtualizedTableBody";
+import { TableBody } from "./tableBody";
 
 export {
   ColumnOrdering,
@@ -22,4 +24,6 @@ export {
   PageResults,
   TableBase,
   TableHeader,
+  VirtualizedTableBody,
+  TableBody,
 };

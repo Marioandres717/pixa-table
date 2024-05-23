@@ -75,7 +75,8 @@ export function ColumnOrdering<T>({ tableInstance }: Props<T>) {
 type DraggableColumnProps<T> = { column: Column<T> };
 
 function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
-  const { getCanHide, getIsVisible, getToggleVisibilityHandler } = column;
+  const { getCanHide, getIsVisible, getToggleVisibilityHandler, columnDef } =
+    column;
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
       id: column.id,
@@ -87,6 +88,9 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
         transition,
       }
     : undefined;
+
+  const columnLabel =
+    typeof columnDef.header === "string" ? columnDef.header : columnDef.id;
 
   return (
     <div
@@ -104,9 +108,7 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
             onChange: getToggleVisibilityHandler(),
           }}
         />
-        <span className={styles.label}>
-          {column.columnDef.header?.toString()}
-        </span>
+        <span className={styles.label}>{columnLabel}</span>
       </div>
       <span className={styles["drag"]}></span>
     </div>

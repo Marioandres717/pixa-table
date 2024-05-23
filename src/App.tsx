@@ -109,7 +109,14 @@ function App() {
         }),
         columnHelper.accessor("name", {
           id: "name",
-          header: "Name",
+          header: () => {
+            return (
+              <div>
+                <span>Name</span>
+                <span>👋</span>
+              </div>
+            );
+          },
           maxSize: 200,
           enableSorting: true,
           enableResizing: true,
@@ -172,6 +179,7 @@ function App() {
               theme={"dark"}
               tableInstance={table}
               expandableRowComponent={() => <h1>FOOBAR</h1>}
+              useVirtualizer={true}
             />
           )}
         </TableBase>
