@@ -13,7 +13,7 @@ export default function ColumnFilter<TData>({ header }: Props<TData>) {
   return (
     <Icon
       icon="filter"
-      color="var(--ml-text-color)"
+      color="var(--ml-gray-400)"
       size={16}
       className={styles.filter}
     />

@@ -13,6 +13,7 @@
     .th {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: var(--ml-component-spacing-2);
       position: relative;
       padding: var(--ml-component-spacing-3);
@@ -37,6 +38,12 @@
         white-space: nowrap;
         overflow: hidden;
         display: block;
+      }
+
+      div.filter-wrapper {
+        display: flex;
+        align-items: center;
+        gap: var(--ml-component-spacing-3);
       }
 
       & .context-menu {

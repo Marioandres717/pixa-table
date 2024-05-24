@@ -21,7 +21,7 @@ function getSvg(
         style={styles}
         width={size}
         height={size}
-        viewBox={`0 0 ${currentIcon.icon.width || "1024"} 1024`}
+        viewBox={`0 0 ${currentIcon.icon.width || "1024"} ${currentIcon.icon.height || "1024"}`}
         xmlns="http://www.w3.org/2000/svg"
       >
         {currentIcon.icon.paths.map(
@@ -49,6 +49,8 @@ export function Icon(props: IconProps) {
     display: "inline-block",
     ...style,
     fill: color,
+    width: size,
+    height: size,
   };
 
   return getSvg(icon, styles, size, className);

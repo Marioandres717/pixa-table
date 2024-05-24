@@ -52,7 +52,6 @@ export function TableAnomali<TData>({
   return (
     <div
       data-pixa-theme={theme}
-      ref={parentRef}
       className={styles["table-container"]}
       style={{
         width: width,
@@ -69,6 +68,7 @@ export function TableAnomali<TData>({
       )}
       <div
         {...{
+          ref: parentRef,
           className: styles.table,
           style: {
             maxHeight: height && height - headerHeight,

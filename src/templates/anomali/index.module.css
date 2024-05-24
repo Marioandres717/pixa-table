@@ -49,10 +49,10 @@
           color: var(--ml-text-color);
           position: relative;
 
-          &:hover {
+          /* &:hover {
             min-width: fit-content;
             z-index: 999;
-          }
+          } */
 
           &.td-expander,
           &.td-selection {
