@@ -1,4 +1,4 @@
-import { Row, Table, flexRender } from "@tanstack/react-table";
+import { Cell, Row, Table, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
 import styles from "../templates/anomali/index.module.css";
 import { gridGenerator } from "../utils";
@@ -21,7 +21,7 @@ export function VirtualizedTableBody<TData>({
     count: rows.length,
     estimateSize: () => 40,
     getScrollElement: () => parentRef.current,
-    overscan: rows.length,
+    overscan: 5,
     measureElement:
       typeof window !== "undefined" &&
       navigator.userAgent.indexOf("Firefox") === -1
@@ -35,6 +35,17 @@ export function VirtualizedTableBody<TData>({
 
   const viRows = rowVirtualizer.getVirtualItems();
 
+  function getCellClassNames<TData>(cell: Cell<TData, unknown>) {
+    let classNames = styles.td;
+    if (cell.column.id.match(/expander/i)) {
+      classNames += ` ${styles["td-expander"]}`;
+    }
+    if (cell.column.id.match(/selection/i)) {
+      classNames += ` ${styles["td-selection"]}`;
+    }
+    return classNames;
+  }
+
   return (
     <div
       className={styles.tbody}
@@ -44,15 +55,17 @@ export function VirtualizedTableBody<TData>({
     >
       {viRows.map((virtualItem) => {
         const row = rows[virtualItem.index];
+        const rowClassNames = `${styles.tr} ${
+          row.getIsSelected() ? styles["tr-selected"] : ""
+        }`;
+
         return (
           <div
             key={virtualItem.key}
             data-index={virtualItem.index}
             ref={(node) => rowVirtualizer.measureElement(node)}
             {...{
-              className:
-                styles.tr +
-                (row.getIsSelected() ? ` ${styles["tr-selected"]}` : ""),
+              className: rowClassNames,
               style: {
                 gridTemplateColumns: gridGenerator(table),
                 transform: `translateY(${virtualItem.start}px)`,
@@ -61,7 +74,7 @@ export function VirtualizedTableBody<TData>({
           >
             {row.getVisibleCells().map((cell) => (
               <div
-                className={`${styles.td} ${cell.column.id.match(/expander/i) ? styles["td-expander"] : ""} ${cell.column.id.match(/selection/i) ? styles["td-selection"] : ""}`}
+                className={getCellClassNames(cell)}
                 style={{
                   textAlign: cell.column.columnDef.meta?.align,
                   padding: cell.column.columnDef.meta?.padding,

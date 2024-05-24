@@ -36,20 +36,20 @@ export function TableHeader<TData>({
               className={`${styles.th} ${header.id.match(/expander/i) ? styles["th-expander"] : ""} ${header.id.match(/selection/i) ? styles["th-selection"] : ""}`}
               key={header.id}
               style={{
-                justifyContent: header.column.columnDef.meta?.align || "left",
+                justifyContent: header.column.columnDef.meta?.align,
               }}
             >
               <ColumnSort header={header}>
-                <span className={styles.ellipsis}>
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                </span>
+                {header.isPlaceholder
+                  ? null
+                  : flexRender(
+                      header.column.columnDef.header,
+                      header.getContext()
+                    )}
               </ColumnSort>
-              {header.column.getCanFilter() && <Filter header={header} />}
+              <div className={styles["filter-wrapper"]}>
+                {header.column.getCanFilter() && <Filter header={header} />}
+              </div>
               {header.column.getCanResize() && <ColumnResize header={header} />}
             </div>
           ))}

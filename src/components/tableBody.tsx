@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Table, flexRender } from "@tanstack/react-table";
+import { Cell, Row, Table, flexRender } from "@tanstack/react-table";
 
 import styles from "../templates/anomali/index.module.css";
 import { gridGenerator } from "../utils";
@@ -15,42 +15,53 @@ export function TableBody<TData>({
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
 
+  function getCellClassNames<TData>(cell: Cell<TData, unknown>) {
+    let classNames = styles.td;
+    if (cell.column.id.match(/expander/i)) {
+      classNames += ` ${styles["td-expander"]}`;
+    }
+    if (cell.column.id.match(/selection/i)) {
+      classNames += ` ${styles["td-selection"]}`;
+    }
+    return classNames;
+  }
+
   return (
     <div className={styles.tbody}>
-      {rows.map((row) => (
-        <div
-          key={row.id}
-          className={
-            styles.tr + (row.getIsSelected() ? ` ${styles["tr-selected"]}` : "")
-          }
-          style={{
-            position: "static",
-            gridTemplateColumns: gridGenerator(table),
-          }}
-        >
-          {row.getVisibleCells().map((cell) => (
-            <div
-              key={cell.column.id}
-              style={{
-                textAlign: cell.column.columnDef.meta?.align,
-                padding: cell.column.columnDef.meta?.padding,
-              }}
-              className={`${styles.td} ${
-                cell.column.id.match(/expander/i) ? styles["td-expander"] : ""
-              } ${
-                cell.column.id.match(/selection/i) ? styles["td-selection"] : ""
-              }`}
-            >
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
-            </div>
-          ))}
-          {row.getIsExpanded() && ExpandRow && (
-            <div className={styles["tr-expandable"]}>
-              <ExpandRow row={row} />
-            </div>
-          )}
-        </div>
-      ))}
+      {rows.map((row) => {
+        const rowClassNames = `${styles.tr} ${
+          row.getIsSelected() ? styles["tr-selected"] : ""
+        }`;
+
+        return (
+          <div
+            key={row.id}
+            className={rowClassNames}
+            style={{
+              position: "static",
+              gridTemplateColumns: gridGenerator(table),
+            }}
+          >
+            {row.getVisibleCells().map((cell) => (
+              <div
+                key={cell.column.id}
+                style={{
+                  textAlign: cell.column.columnDef.meta?.align,
+                  padding: cell.column.columnDef.meta?.padding,
+                }}
+                className={getCellClassNames(cell)}
+              >
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </div>
+            ))}
+            {row.getIsExpanded() && ExpandRow && (
+              <div className={styles["tr-expandable"]}>
+                <ExpandRow row={row} />
+              </div>
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 }
