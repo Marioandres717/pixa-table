@@ -7,11 +7,13 @@ import { gridGenerator } from "../utils";
 type Props<TData> = {
   tableInstance: Table<TData>;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
+  disableRowHover?: boolean;
 };
 
 export function TableBody<TData>({
   tableInstance: table,
   expandableRowComponent: ExpandRow,
+  disableRowHover,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
 
@@ -31,7 +33,7 @@ export function TableBody<TData>({
       {rows.map((row) => {
         const rowClassNames = `${styles.tr} ${
           row.getIsSelected() ? styles["tr-selected"] : ""
-        }`;
+        } ${disableRowHover ? styles["tr-disable-hover"] : ""}`;
 
         return (
           <div

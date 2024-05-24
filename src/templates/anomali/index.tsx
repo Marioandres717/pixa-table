@@ -14,6 +14,7 @@ import styles from "./index.module.css";
 type Props<TData> = {
   tableInstance: Table<TData>;
   theme: "light" | "dark";
+  disableRowHover?: boolean;
   width?: number;
   height?: number;
   hideHeader?: boolean;
@@ -36,6 +37,7 @@ export function TableAnomali<TData>({
   pageSizeComponent,
   paginationComponent: PageOptionsComponent = PageOptions,
   filterColumnComponent,
+  disableRowHover,
   useVirtualizer,
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
@@ -85,10 +87,15 @@ export function TableAnomali<TData>({
           <VirtualizedTableBody
             tableInstance={table}
             parentRef={parentRef}
+            disableRowHover={disableRowHover}
             expandableRowComponent={ExpandRow}
           />
         ) : (
-          <TableBody tableInstance={table} expandableRowComponent={ExpandRow} />
+          <TableBody
+            tableInstance={table}
+            expandableRowComponent={ExpandRow}
+            disableRowHover={disableRowHover}
+          />
         )}
       </div>
       {isPaginationEnabled && (

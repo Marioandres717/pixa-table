@@ -8,12 +8,14 @@ type Props<TData> = {
   tableInstance: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
+  disableRowHover?: boolean;
 };
 
 export function VirtualizedTableBody<TData>({
   tableInstance: table,
   parentRef,
   expandableRowComponent: ExpandRow,
+  disableRowHover,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
 
@@ -57,7 +59,7 @@ export function VirtualizedTableBody<TData>({
         const row = rows[virtualItem.index];
         const rowClassNames = `${styles.tr} ${
           row.getIsSelected() ? styles["tr-selected"] : ""
-        }`;
+        } ${disableRowHover ? styles["tr-disable-hover"] : ""}`;
 
         return (
           <div
