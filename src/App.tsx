@@ -179,7 +179,8 @@ function App() {
               theme={"dark"}
               tableInstance={table}
               expandableRowComponent={() => <h1>FOOBAR</h1>}
-              useVirtualizer={true}
+              useVirtualizer={false}
+              disableRowHover={true}
             />
           )}
         </TableBase>
