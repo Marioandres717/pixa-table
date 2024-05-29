@@ -39,7 +39,10 @@ export function TableHeader<TData>({
                 justifyContent: header.column.columnDef.meta?.align,
               }}
             >
-              <ColumnSort header={header}>
+              <ColumnSort
+                header={header}
+                multiSort={tableInstance.getState().sorting.length > 1}
+              >
                 {header.isPlaceholder
                   ? null
                   : flexRender(
