@@ -1,10 +1,8 @@
 .sort-content {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  gap: var(--ml-component-spacing-2);
   cursor: pointer;
-  width: 100%;
 
   & .ellipsis {
     text-overflow: ellipsis;

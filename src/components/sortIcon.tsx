@@ -58,6 +58,8 @@ function SortIconBase(options: sortIconOptions) {
       icon.properties.name === `sort-base-index-max`
   );
 
+  const maxIndex = 8;
+
   return (
     <svg
       width={36}
@@ -76,7 +78,7 @@ function SortIconBase(options: sortIconOptions) {
         renderPath(sortIndex.icon as { attrs: unknown[] })
       )}
 
-      {options.index > 2 && (
+      {options.index > maxIndex && (
         <>
           {plusIcon?.icon.paths.map(
             renderPath(plusIcon.icon as { attrs: unknown[] })
