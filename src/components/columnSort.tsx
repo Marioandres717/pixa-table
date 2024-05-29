@@ -1,4 +1,4 @@
-import { ColumnMeta, Header } from "@tanstack/react-table";
+import { Header } from "@tanstack/react-table";
 import { PropsWithChildren } from "react";
 
 import styles from "./columnSort.module.css";
@@ -17,10 +17,8 @@ export function ColumnSort<TData>({
 }: Props<TData>) {
   const { column } = header;
   const { columnDef } = column;
-  const { meta } = columnDef;
 
   const sortDirection = column.getIsSorted();
-  const align = getColumnAlignment(meta);
 
   return (
     <div
@@ -28,9 +26,7 @@ export function ColumnSort<TData>({
       title={columnDef.id}
       onClick={header.column.getToggleSortingHandler()}
     >
-      <span className={styles.ellipsis} style={align}>
-        {children}
-      </span>
+      <span className={styles.ellipsis}>{children}</span>
       {column.getCanSort() && (
         <>
           {multiSort && getSortIcon(column)}
@@ -46,22 +42,4 @@ export function ColumnSort<TData>({
       )}
     </div>
   );
-}
-
-function getColumnAlignment<TData>(column?: ColumnMeta<TData, unknown>) {
-  const align = column?.align;
-  const defaultMargin = { margin: "0 0 0 0" };
-
-  if (!align) return defaultMargin;
-
-  switch (align) {
-    case "left":
-      return defaultMargin;
-    case "right":
-      return { margin: "0 0 0 auto" };
-    case "center":
-      return { margin: "0 auto" };
-    default:
-      return defaultMargin;
-  }
 }
