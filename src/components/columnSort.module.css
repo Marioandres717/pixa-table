@@ -13,3 +13,8 @@
     display: block;
   }
 }
+
+.sort-icon {
+  width: 32px !important;
+  height: 12px !important;
+}
