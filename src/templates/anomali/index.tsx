@@ -10,10 +10,12 @@ import {
 
 import "../../index.css";
 import styles from "./index.module.css";
+import TableSkeleton from "../../components/tableSkeleton";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
   theme: "light" | "dark";
+  loading?: boolean;
   disableRowHover?: boolean;
   width?: number;
   height?: number;
@@ -39,6 +41,7 @@ export function TableAnomali<TData>({
   filterColumnComponent,
   disableRowHover,
   useVirtualizer,
+  loading = false,
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
@@ -48,18 +51,26 @@ export function TableAnomali<TData>({
       ? 0
       : 40
     : isPaginationEnabled
-      ? 132
+      ? 131
       : 40;
 
+  if (loading) {
+    return (
+      <div
+        data-pixa-theme={theme}
+        className={styles["table-container"]}
+        style={{
+          width: width || "100%",
+          height: height || "100%",
+        }}
+      >
+        <TableSkeleton theme={theme} />
+      </div>
+    );
+  }
+
   return (
-    <div
-      data-pixa-theme={theme}
-      className={styles["table-container"]}
-      style={{
-        width: width,
-        height: height,
-      }}
-    >
+    <div data-pixa-theme={theme} className={styles["table-container"]}>
       {!hideHeader && (
         <div className={styles["header-settings"]}>
           <HeaderSettings

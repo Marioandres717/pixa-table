@@ -104,6 +104,8 @@ div[data-pixa-theme="light"] {
   --ml-theme-gray-200: var(--ml-gray-200);
   --ml-theme-gray-300: var(--ml-gray-300);
   --ml-theme-gray-900: var(--ml-gray-900);
+  --skeleton-light-color: #e5e7e8;
+  --skeleton-color: #ced1d3;
 }
 
 div[data-pixa-theme="dark"] {
@@ -117,6 +119,8 @@ div[data-pixa-theme="dark"] {
   --ml-theme-gray-200: var(--ml-gray-900);
   --ml-theme-gray-300: var(--ml-gray-600);
   --ml-theme-gray-900: var(--ml-gray-500);
+  --skeleton-light-color: #3e4a52;
+  --skeleton-color: #25333c;
 }
 
 *,

@@ -7,6 +7,10 @@
   color: var(--ml-text-color);
   border: 1px solid var(--ml-gray-200);
   border-radius: 4px;
+  /* min-height: 250px; */
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
 
   .header-settings {
     background-color: var(--ml-gray-100);
@@ -17,8 +21,10 @@
   .table {
     font-size: 14px;
     overflow: auto;
+    flex-grow: 1;
     .tbody {
       position: relative;
+      min-height: 400px;
 
       .tr {
         position: absolute;
@@ -56,6 +62,7 @@
 
           &.td-expander,
           &.td-selection {
+            background-color: var(--ml-background-color);
             box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
             position: sticky;
             z-index: 10;
@@ -173,5 +180,18 @@
   }
   .tfooter {
     border-top: 1px solid var(--ml-gray-900);
+  }
+}
+
+.tbody-no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  color: var(--ml-gray-400);
+
+  .no-data {
+    font-size: 6rem;
+    font-weight: 500;
   }
 }

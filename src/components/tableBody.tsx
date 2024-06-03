@@ -28,6 +28,14 @@ export function TableBody<TData>({
     return classNames;
   }
 
+  if (rows.length === 0) {
+    return (
+      <div className={styles["tbody-no-data"]}>
+        <div className={styles["no-data"]}>No Results</div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.tbody}>
       {rows.map((row) => {
