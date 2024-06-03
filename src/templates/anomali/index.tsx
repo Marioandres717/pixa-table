@@ -64,7 +64,7 @@ export function TableAnomali<TData>({
           height: height || "100%",
         }}
       >
-        <TableSkeleton theme={theme} />
+        <TableSkeleton />
       </div>
     );
   }
