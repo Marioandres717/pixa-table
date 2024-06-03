@@ -98,8 +98,8 @@
         "attrs": [
           {
             "fill": "#5FEAD9",
-            "fill-rule": "evenodd",
-            "clip-rule": "evenodd"
+            "fillRule": "evenodd",
+            "clipRule": "evenodd"
           }
         ],
         "width": 12,
@@ -118,8 +118,8 @@
         "attrs": [
           {
             "fill": "#5FEAD9",
-            "fill-rule": "evenodd",
-            "clip-rule": "evenodd"
+            "fillRule": "evenodd",
+            "clipRule": "evenodd"
           }
         ],
         "width": 12,
