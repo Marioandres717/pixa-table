@@ -11,6 +11,7 @@ import {
 import "../../index.css";
 import styles from "./index.module.css";
 import TableSkeleton from "../../components/tableSkeleton";
+import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -88,12 +89,18 @@ export function TableAnomali<TData>({
           },
         }}
       >
-        {!hideHeader && (
-          <TableHeader
-            tableInstance={table}
-            filterColumnComponent={filterColumnComponent}
-          />
-        )}
+        {!hideHeader &&
+          (useVirtualizer ? (
+            <VirtualizedTableHeader
+              tableInstance={table}
+              filterColumnComponent={filterColumnComponent}
+            />
+          ) : (
+            <TableHeader
+              tableInstance={table}
+              filterColumnComponent={filterColumnComponent}
+            />
+          ))}
         {useVirtualizer ? (
           <VirtualizedTableBody
             tableInstance={table}
