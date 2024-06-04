@@ -48,7 +48,7 @@ export function TableBody<TData>({
             key={row.id}
             className={rowClassNames}
             style={{
-              position: "static",
+              position: "unset",
               gridTemplateColumns: gridGenerator(table),
             }}
           >
