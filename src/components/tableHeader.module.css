@@ -2,7 +2,7 @@
   display: grid;
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 3;
   min-width: 100%;
   background-color: var(--ml-off-white);
   font-size: 12px;
@@ -50,7 +50,7 @@
       &.th-expander,
       &.th-selection {
         position: sticky;
-        z-index: 10;
+        z-index: 2;
         left: 0px;
         box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.06);
       }
