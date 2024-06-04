@@ -3,6 +3,8 @@
   justify-content: flex-start;
   align-items: center;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   & .ellipsis {
     text-overflow: ellipsis;
@@ -15,4 +17,5 @@
 .sort-icon {
   width: 32px !important;
   height: 12px !important;
+  flex-shrink: 0;
 }

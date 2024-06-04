@@ -9,17 +9,15 @@
 
   .tr {
     display: grid;
+    border-bottom: 1px solid var(--ml-gray-200);
 
     .th {
       display: flex;
       align-items: center;
       position: relative;
-      overflow: hidden;
       padding: var(--ml-component-spacing-3);
-      overflow-wrap: break-word;
-      border: 1px solid var(--ml-gray-200);
-      border-left: none;
-      border-top: none;
+      border: none;
+      border-right: 1px solid var(--ml-gray-200);
       text-transform: uppercase;
       background-color: var(--ml-off-white);
       letter-spacing: 0.15em;
@@ -29,7 +27,7 @@
 
       &:last-child,
       &:last-child {
-        border-right: none;
+        border-right: none !important;
       }
 
       & .ellipsis {
@@ -75,10 +73,11 @@
   border: none;
 
   .tr {
+    border-bottom: 1px solid var(--ml-gray-900);
+
     .th {
-      background-color: var(--ml-gray);
       border-right: 1px solid var(--ml-gray-900);
-      border-bottom: 1px solid var(--ml-gray-900);
+      background-color: var(--ml-gray);
     }
   }
 }
