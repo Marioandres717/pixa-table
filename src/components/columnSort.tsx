@@ -23,7 +23,7 @@ export function ColumnSort<TData>({
   return (
     <div
       className={styles["sort-content"]}
-      title={columnDef.id}
+      title={columnDef.header?.toString()}
       onClick={header.column.getToggleSortingHandler()}
     >
       <span className={styles.ellipsis}>{children}</span>
