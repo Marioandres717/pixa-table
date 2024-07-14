@@ -13,13 +13,5 @@ export function IndeterminateCheckbox({
     }
   }, [ref, indeterminate, rest.checked]);
 
-  return (
-    <input
-      type="checkbox"
-      ref={ref}
-      className={className}
-      style={{ cursor: "pointer" }}
-      {...rest}
-    />
-  );
+  return <input type="checkbox" ref={ref} className={className} {...rest} />;
 }
