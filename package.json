@@ -32,6 +32,7 @@
   "devDependencies": {
     "@ngneat/falso": "^7.2.0",
     "@svgr/plugin-svgo": "^8.1.0",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react": "17",
     "@types/react-dom": "17",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
