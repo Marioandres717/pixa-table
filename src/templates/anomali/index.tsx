@@ -7,11 +7,10 @@ import {
   VirtualizedTableBody,
   TableBody,
 } from "../../components";
-
-import "../../index.css";
-import styles from "./index.module.css";
 import TableSkeleton from "../../components/tableSkeleton";
 import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
+
+import "./index.css";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -59,7 +58,7 @@ export function TableAnomali<TData>({
     return (
       <div
         data-pixa-theme={theme}
-        className={styles["table-container"]}
+        className="table-container"
         style={{
           width: width || "100%",
           height: height || "100%",
@@ -71,9 +70,9 @@ export function TableAnomali<TData>({
   }
 
   return (
-    <div data-pixa-theme={theme} className={styles["table-container"]}>
+    <div data-pixa-theme={theme} className="table-container">
       {!hideHeader && (
-        <div className={styles["header-settings"]}>
+        <div className="header-settings">
           <HeaderSettings
             tableInstance={table}
             paginationPageSizeComponent={pageSizeComponent}
@@ -83,7 +82,7 @@ export function TableAnomali<TData>({
       <div
         {...{
           ref: parentRef,
-          className: styles.table,
+          // className: styles.table,
           style: {
             maxHeight: height && height - headerHeight,
           },
@@ -117,7 +116,8 @@ export function TableAnomali<TData>({
         )}
       </div>
       {isPaginationEnabled && (
-        <div className={styles.tfooter}>
+        // <div className={styles.tfooter}>
+        <div className="tfooter">
           <PageOptionsComponent table={table} />
         </div>
       )}

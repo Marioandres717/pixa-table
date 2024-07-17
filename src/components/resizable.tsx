@@ -38,7 +38,7 @@ const ResizableDiv = ({ renderProps }: PropsWithChildren<Props>) => {
   return (
     <div
       className={styles["resizable-div"]}
-      style={{ width: `${width}px`, height: `${height}px` }}
+      style={{ width: `${width}px`, height: `${height}px`, padding: "8px" }}
     >
       <div className={styles.resizer} onMouseDown={handleMouseDown}></div>
       {renderProps({

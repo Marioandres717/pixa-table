@@ -58,7 +58,7 @@
   }
 }
 
-:root {
+/* :root {
   --ml-white: #ffffff;
   --ml-off-white: #f5f5f5;
   --ml-white-rgb: #{hexToRGB(#ffffff)};
@@ -155,9 +155,9 @@
   --ml-component-spacing-7: 32px;
   --ml-component-spacing-8: 40px;
   --ml-component-spacing-9: 48px;
-}
+} */
 
-div[data-pixa-theme="light"] {
+/* div[data-pixa-theme="light"] {
   --ml-background-color: var(--ml-white);
   --ml-text-color: var(--ml-gray);
   --ml-text-color-secondary: var(--ml-gray-600);
@@ -187,4 +187,4 @@ div[data-pixa-theme="dark"] {
   --ml-skeleton-light-color: #22333f;
   --ml-skeleton-color: #1a2832;
   --ml-sort-icon: #5fead9;
-}
+} */
