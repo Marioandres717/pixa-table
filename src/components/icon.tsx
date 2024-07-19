@@ -4,7 +4,7 @@ function getSvg(
   icon: unknown,
   styles: React.CSSProperties,
   size: number | string,
-  className: string
+  className: string,
 ) {
   const currentIcon = getIcon(icon);
 
@@ -25,7 +25,7 @@ function getSvg(
         xmlns="http://www.w3.org/2000/svg"
       >
         {currentIcon.icon.paths.map(
-          renderPath(currentIcon.icon as { attrs: unknown[] })
+          renderPath(currentIcon.icon as { attrs: unknown[] }),
         )}
       </svg>
     );
@@ -35,8 +35,8 @@ function getSvg(
 }
 
 type IconProps = {
-  color: string;
   icon: string;
+  color?: string;
   size?: string | number;
   className?: string;
   style?: React.CSSProperties;

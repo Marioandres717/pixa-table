@@ -2,7 +2,7 @@ import React from "react";
 import { Header, Row, Table } from "@tanstack/react-table";
 import {
   PageOptions,
-  HeaderSettings,
+  TableToolbar,
   TableHeader,
   VirtualizedTableBody,
   TableBody,
@@ -72,12 +72,10 @@ export function TableAnomali<TData>({
   return (
     <div data-pixa-theme={theme} className="table-container">
       {!hideHeader && (
-        <div className="header-settings">
-          <HeaderSettings
-            tableInstance={table}
-            paginationPageSizeComponent={pageSizeComponent}
-          />
-        </div>
+        <TableToolbar
+          tableInstance={table}
+          paginationPageSizeComponent={pageSizeComponent}
+        />
       )}
       <div
         {...{

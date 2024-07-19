@@ -2,6 +2,6 @@
 
 @layer components {
   .table-container {
-    @apply relative flex flex-col overflow-hidden rounded-[4px] border-[1px] border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10;
+    @apply relative flex flex-col overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10;
   }
 }

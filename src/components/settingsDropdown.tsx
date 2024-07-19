@@ -37,7 +37,7 @@ export function SettingsDropdown<T>({
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
       >
-        <Icon icon="settings" color="var(--ml-text-color)" size={16} />
+        <Icon icon="settings" size={16} color="" className="fill-white" />
       </div>
       {toggleSettings && (
         <div className={styles.dropdown}>

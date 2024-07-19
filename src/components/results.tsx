@@ -1,5 +1,3 @@
-import styles from "./headerSettings.module.css";
-
 type Props = {
   totalItems: number;
   approximateCount: boolean;
@@ -7,9 +5,9 @@ type Props = {
 
 export function PageResults({ totalItems = 0, approximateCount }: Props) {
   return (
-    <div className={styles.results}>
+    <span className="text-nowrap font-medium leading-normal">
       {totalItems}
       {approximateCount && "+"} Results
-    </div>
+    </span>
   );
 }

@@ -2,7 +2,7 @@ import { ColumnOrdering } from "./columnOrdering";
 import { ColumnResize } from "./columnResize";
 import { ColumnSort } from "./columnSort";
 import { ExpandableRow } from "./expandableRow";
-import { HeaderSettings } from "./headerSettings";
+import { TableToolbar } from "./tableToolbar";
 import { Icon } from "./icon";
 import { IndeterminateCheckbox } from "./checkbox";
 import { PageOptions } from "./pagination";
@@ -17,7 +17,7 @@ export {
   ColumnResize,
   ColumnSort,
   ExpandableRow,
-  HeaderSettings,
+  TableToolbar,
   Icon,
   IndeterminateCheckbox,
   PageOptions,
