@@ -34,7 +34,6 @@
         min-width: 100%;
         min-height: 40px; /* Added 'minHeight: 40px' to fix 'min-height: 0px */
         background-color: var(--ml-background-color);
-        border-bottom: 1px solid var(--ml-gray-200);
 
         /* height: 30px; THE HEIGHT WILL BE SET ON THE TABLE BY USING VIRTUALIZATION */
         &:hover {
@@ -51,6 +50,7 @@
           background-color: inherit;
           padding: var(--ml-component-spacing-3);
           border-right: 1px solid var(--ml-gray-200);
+          border-bottom: 1px solid var(--ml-gray-200);
         }
 
         .td {
@@ -141,7 +141,6 @@
   .table {
     border: none;
     .tr {
-      border-bottom: 1px solid var(--ml-gray-900);
 
       &:hover {
         background-color: var(--ml-gray-700);
@@ -153,6 +152,7 @@
         border: none;
         border-right: 1px solid var(--ml-gray-900);
         overflow-wrap: break-word;
+        border-bottom: 1px solid var(--ml-gray-900);
 
         &.td-expander:hover,
         &.td-selection:hover {
