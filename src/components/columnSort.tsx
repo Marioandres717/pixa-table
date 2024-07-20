@@ -26,7 +26,9 @@ export function ColumnSort<TData>({
       title={columnDef.header?.toString()}
       onClick={header.column.getToggleSortingHandler()}
     >
-      <span className={styles.ellipsis}>{children}</span>
+      <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+        {children}
+      </span>
       {column.getCanSort() && (
         <>
           {multiSort && getSortIcon(column)}

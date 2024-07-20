@@ -56,7 +56,7 @@ function App() {
       columns: [
         columnHelper.display({
           id: "expander",
-          maxSize: 30,
+          maxSize: 50,
           enableSorting: false,
           enableResizing: false,
           header: () => <div style={{ width: 15 }} />,
@@ -69,7 +69,7 @@ function App() {
         }),
         columnHelper.display({
           id: "selection",
-          maxSize: 40,
+          maxSize: 50,
           enableSorting: false,
           enableResizing: false,
           enableHiding: false,
@@ -153,7 +153,7 @@ function App() {
       expanded,
       columnOrder,
       columnFilters,
-    ]
+    ],
   );
 
   useEffect(() => {

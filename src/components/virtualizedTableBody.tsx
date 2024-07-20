@@ -1,8 +1,8 @@
-import { Cell, Row, Table, flexRender } from "@tanstack/react-table";
+import { Row, Table, flexRender } from "@tanstack/react-table";
 import React, { useEffect } from "react";
 import styles from "../templates/anomali/index.module.css";
-import { gridGenerator } from "../utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import { gridGenerator } from "../utils";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -15,20 +15,15 @@ export function VirtualizedTableBody<TData>({
   tableInstance: table,
   parentRef,
   expandableRowComponent: ExpandRow,
-  disableRowHover,
+  // disableRowHover,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 40,
+    estimateSize: () => 36,
     getScrollElement: () => parentRef.current,
     overscan: 5,
-    measureElement:
-      typeof window !== "undefined" &&
-      navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element?.getBoundingClientRect().height
-        : undefined,
   });
 
   useEffect(() => {
@@ -37,46 +32,25 @@ export function VirtualizedTableBody<TData>({
 
   const viRows = rowVirtualizer.getVirtualItems();
 
-  function getCellClassNames<TData>(cell: Cell<TData, unknown>) {
-    let classNames = styles.td;
-    if (cell.column.id.match(/expander/i)) {
-      classNames += ` ${styles["td-expander"]}`;
-    }
-    if (cell.column.id.match(/selection/i)) {
-      classNames += ` ${styles["td-selection"]}`;
-    }
-    return classNames;
-  }
-
-  if (rows.length === 0) {
-    return (
-      <div className={styles["tbody-no-data"]}>
-        <div className={styles["no-data"]}>No Results</div>
-      </div>
-    );
-  }
-
   return (
     <div
-      className={styles.tbody}
+      className="relative"
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
       }}
     >
       {viRows.map((virtualItem) => {
         const row = rows[virtualItem.index];
-        const rowClassNames = `${styles.tr} ${
-          row.getIsSelected() ? styles["tr-selected"] : ""
-        } ${disableRowHover ? styles["tr-disable-hover"] : ""}`;
-
         return (
           <div
+            role="row"
+            className="absolute left-0 top-0 grid w-full"
             key={virtualItem.key}
             data-index={virtualItem.index}
             ref={(node) => rowVirtualizer.measureElement(node)}
             {...{
-              className: rowClassNames,
               style: {
+                height: `${virtualItem.size}px`,
                 gridTemplateColumns: gridGenerator(table),
                 transform: `translateY(${virtualItem.start}px)`,
               },
@@ -84,14 +58,17 @@ export function VirtualizedTableBody<TData>({
           >
             {row.getVisibleCells().map((cell) => (
               <div
-                className={getCellClassNames(cell)}
+                role="cell"
+                className="flex min-h-9 items-center overflow-hidden border-b border-r px-3 py-2 last:border-r-0 dark:border-black-92.5 dark:bg-black-100"
                 style={{
                   textAlign: cell.column.columnDef.meta?.align,
                   padding: cell.column.columnDef.meta?.padding,
                 }}
                 key={cell.id}
               >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </span>
               </div>
             ))}
             {row.getIsExpanded() && ExpandRow && (

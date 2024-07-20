@@ -3,11 +3,10 @@ import { Header, Row, Table } from "@tanstack/react-table";
 import {
   PageOptions,
   TableToolbar,
-  TableHeader,
+  // TableHeader,
   VirtualizedTableBody,
-  TableBody,
+  // TableBody,
 } from "../../components";
-import TableSkeleton from "../../components/tableSkeleton";
 import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
 
 import "./index.css";
@@ -31,8 +30,8 @@ type Props<TData> = {
 
 export function TableAnomali<TData>({
   tableInstance: table,
-  width,
-  height,
+  // width,
+  // height,
   theme = "light",
   hideHeader = false,
   expandableRowComponent: ExpandRow,
@@ -40,37 +39,17 @@ export function TableAnomali<TData>({
   paginationComponent: PageOptionsComponent = PageOptions,
   filterColumnComponent,
   disableRowHover,
-  useVirtualizer,
-  loading = false,
+  // useVirtualizer,
+  // loading = false,
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
 
-  const headerHeight = hideHeader
-    ? !isPaginationEnabled
-      ? 0
-      : 40
-    : isPaginationEnabled
-      ? 131
-      : 40;
-
-  if (loading) {
-    return (
-      <div
-        data-pixa-theme={theme}
-        className="table-container"
-        style={{
-          width: width || "100%",
-          height: height || "100%",
-        }}
-      >
-        <TableSkeleton />
-      </div>
-    );
-  }
-
   return (
-    <div data-pixa-theme={theme} className="table-container">
+    <div
+      data-pixa-theme={theme}
+      className="grid h-full w-full grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
+    >
       {!hideHeader && (
         <TableToolbar
           tableInstance={table}
@@ -78,44 +57,26 @@ export function TableAnomali<TData>({
         />
       )}
       <div
+        className="overflow-auto"
         {...{
           ref: parentRef,
-          // className: styles.table,
-          style: {
-            maxHeight: height && height - headerHeight,
-          },
         }}
       >
-        {!hideHeader &&
-          (useVirtualizer ? (
-            <VirtualizedTableHeader
-              tableInstance={table}
-              filterColumnComponent={filterColumnComponent}
-            />
-          ) : (
-            <TableHeader
-              tableInstance={table}
-              filterColumnComponent={filterColumnComponent}
-            />
-          ))}
-        {useVirtualizer ? (
-          <VirtualizedTableBody
-            tableInstance={table}
-            parentRef={parentRef}
-            disableRowHover={disableRowHover}
-            expandableRowComponent={ExpandRow}
-          />
-        ) : (
-          <TableBody
-            tableInstance={table}
-            expandableRowComponent={ExpandRow}
-            disableRowHover={disableRowHover}
-          />
-        )}
+        <VirtualizedTableHeader
+          tableInstance={table}
+          filterColumnComponent={filterColumnComponent}
+        />
+
+        <VirtualizedTableBody
+          tableInstance={table}
+          parentRef={parentRef}
+          disableRowHover={disableRowHover}
+          expandableRowComponent={ExpandRow}
+        />
       </div>
       {isPaginationEnabled && (
         // <div className={styles.tfooter}>
-        <div className="tfooter">
+        <div className="h-11 border-t dark:border-black-92.5">
           <PageOptionsComponent table={table} />
         </div>
       )}

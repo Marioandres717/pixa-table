@@ -13,5 +13,13 @@ export function IndeterminateCheckbox({
     }
   }, [ref, indeterminate, rest.checked]);
 
-  return <input type="checkbox" ref={ref} className={className} {...rest} />;
+  return (
+    <input
+      name="selectable-col"
+      type="checkbox"
+      ref={ref}
+      className={className}
+      {...rest}
+    />
+  );
 }
