@@ -14,10 +14,11 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
-import { MockData } from "./mocks/handlers";
+import { MockData, MockDataManyCols } from "./mocks/handlers";
 import ResizableDiv from "./components/resizable";
 
-const columnHelper = createColumnHelper<MockData>();
+// const columnHelper = createColumnHelper<MockData>();
+const columnHelper = createColumnHelper<MockDataManyCols>();
 
 function App() {
   const [data, setData] = useState<MockData[]>([]);
@@ -31,7 +32,7 @@ function App() {
     pageSize: 100,
   });
 
-  const config = useMemo<TableOptions<MockData>>(
+  const config = useMemo<TableOptions<MockDataManyCols>>(
     () => ({
       ...DEFAULT_TABLE_CONFIG,
       getExpandedRowModel: getExpandedRowModel(),
@@ -97,51 +98,15 @@ function App() {
             );
           },
         }),
-        columnHelper.accessor("id", {
-          id: "id",
-          header: "ID",
-          maxSize: 100,
-          enableSorting: true,
-          enableResizing: true,
-          meta: {
-            align: "right",
-          },
-        }),
-        columnHelper.accessor("name", {
-          id: "name",
-          header: "Name",
-          maxSize: 200,
-          enableSorting: true,
-          enableResizing: true,
-        }),
-        columnHelper.accessor("email", {
-          id: "email",
-          header: "Email",
-          maxSize: 200,
-          enableSorting: true,
-          enableResizing: true,
-        }),
-        columnHelper.accessor("address", {
-          id: "address",
-          header: "Address",
-          maxSize: 200,
-          enableSorting: true,
-          enableResizing: true,
-        }),
-        columnHelper.accessor("date", {
-          id: "date",
-          header: "Date",
-          maxSize: 200,
-          enableSorting: true,
-          enableResizing: true,
-        }),
-        columnHelper.accessor("subscription", {
-          id: "subscription",
-          header: "Subscription",
-          maxSize: 200,
-          enableSorting: true,
-          enableResizing: true,
-        }),
+        ...Array.from({ length: 100 }).map((_, i) =>
+          columnHelper.accessor(`col${i}`, {
+            id: `col${i}`,
+            header: `Col ${i}`,
+            maxSize: 200,
+            enableSorting: true,
+            enableResizing: true,
+          }),
+        ),
       ],
       data: data,
     }),
@@ -156,8 +121,138 @@ function App() {
     ],
   );
 
+  // const config = useMemo<TableOptions<MockData>>(
+  //   () => ({
+  //     ...DEFAULT_TABLE_CONFIG,
+  //     getExpandedRowModel: getExpandedRowModel(),
+  //     getFilteredRowModel: getFilteredRowModel(),
+  //     manualPagination: false,
+  //     enableRowSelection: true,
+  //     enableExpanding: true,
+  //     state: {
+  //       pagination,
+  //       rowSelection,
+  //       columnVisibility,
+  //       expanded,
+  //       columnOrder,
+  //       columnFilters,
+  //     },
+  //     onPaginationChange: setPagination,
+  //     onRowSelectionChange: setRowSelection,
+  //     onExpandedChange: setExpanded,
+  //     onColumnOrderChange: setColumnOrder,
+  //     onColumnVisibilityChange: setColumnVisibility,
+  //     onColumnFiltersChange: setColumnFilters,
+  //     columns: [
+  //       columnHelper.display({
+  //         id: "expander",
+  //         maxSize: 50,
+  //         enableSorting: false,
+  //         enableResizing: false,
+  //         header: () => <div style={{ width: 15 }} />,
+  //         cell: ({ row }) => (
+  //           <ExpandableRow
+  //             isExpanded={row.getIsExpanded()}
+  //             toggleExpanded={() => row.toggleExpanded()}
+  //           />
+  //         ),
+  //       }),
+  //       columnHelper.display({
+  //         id: "selection",
+  //         maxSize: 50,
+  //         enableSorting: false,
+  //         enableResizing: false,
+  //         enableHiding: false,
+  //         header({ table }) {
+  //           return (
+  //             <IndeterminateCheckbox
+  //               {...{
+  //                 checked: table.getIsAllRowsSelected(),
+  //                 indeterminate: table.getIsSomeRowsSelected(),
+  //                 onChange: table.getToggleAllRowsSelectedHandler(),
+  //               }}
+  //             />
+  //           );
+  //         },
+  //         cell({ row }) {
+  //           return (
+  //             <IndeterminateCheckbox
+  //               {...{
+  //                 checked: row.getIsSelected(),
+  //                 disabled: !row.getCanSelect(),
+  //                 indeterminate: row.getIsSomeSelected(),
+  //                 onChange: row.getToggleSelectedHandler(),
+  //               }}
+  //             />
+  //           );
+  //         },
+  //       }),
+  //       columnHelper.accessor("id", {
+  //         id: "id",
+  //         header: "ID",
+  //         maxSize: 100,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //         meta: {
+  //           align: "right",
+  //         },
+  //       }),
+  //       columnHelper.accessor("name", {
+  //         id: "name",
+  //         header: "Name",
+  //         maxSize: 200,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //       }),
+  //       columnHelper.accessor("email", {
+  //         id: "email",
+  //         header: "Email",
+  //         maxSize: 200,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //       }),
+  //       columnHelper.accessor("address", {
+  //         id: "address",
+  //         header: "Address",
+  //         maxSize: 200,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //       }),
+  //       columnHelper.accessor("date", {
+  //         id: "date",
+  //         header: "Date",
+  //         maxSize: 200,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //       }),
+  //       columnHelper.accessor("subscription", {
+  //         id: "subscription",
+  //         header: "Subscription",
+  //         maxSize: 200,
+  //         enableSorting: true,
+  //         enableResizing: true,
+  //       }),
+  //     ],
+  //     data: data,
+  //   }),
+  //   [
+  //     pagination,
+  //     data,
+  //     rowSelection,
+  //     columnVisibility,
+  //     expanded,
+  //     columnOrder,
+  //     columnFilters,
+  //   ],
+  // );
+
   useEffect(() => {
-    fetchData({ skip: 0, limit: 100 }).then((data) => setData(data));
+    // fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
+    //   setData(data),
+    // );
+    fetchManyColsData({ skip: 0, limit: 100, cols: 100, rows: 100 }).then(
+      (data) => setData(data),
+    );
   }, []);
 
   return (
@@ -186,11 +281,40 @@ function App() {
 const fetchData = async ({
   skip = 0,
   limit = 10,
+  fetchSize = 100,
 }: {
   skip: number;
   limit: number;
+  fetchSize: number;
 }) => {
-  const response = await fetch("/api?skip=" + skip + "&limit=" + limit);
+  const response = await fetch(
+    "/api?skip=" + skip + "&limit=" + limit + "&fetchSize=" + fetchSize,
+  );
+  const data = await response.json();
+  return data;
+};
+
+const fetchManyColsData = async ({
+  skip = 0,
+  limit = 10,
+  cols = 10,
+  rows = 10,
+}: {
+  skip: number;
+  limit: number;
+  cols: number;
+  rows: number;
+}) => {
+  const response = await fetch(
+    "/api-many-cols?skip=" +
+      skip +
+      "&limit=" +
+      limit +
+      "&cols=" +
+      cols +
+      "&rows=" +
+      rows,
+  );
   const data = await response.json();
   return data;
 };
