@@ -64,6 +64,7 @@ export function TableAnomali<TData>({
       >
         <VirtualizedTableHeader
           tableInstance={table}
+          parentRef={parentRef}
           filterColumnComponent={filterColumnComponent}
         />
 

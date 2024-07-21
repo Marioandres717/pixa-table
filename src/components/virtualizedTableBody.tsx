@@ -22,7 +22,7 @@ export function VirtualizedTableBody<TData>({
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 36,
+    estimateSize: () => 37,
     getScrollElement: () => parentRef.current,
     overscan: 5,
   });
@@ -73,7 +73,7 @@ export function VirtualizedTableBody<TData>({
               return (
                 <div
                   role="cell"
-                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-b border-r px-3 py-2 last:border-r-0 dark:border-black-92.5 dark:bg-black-100"
+                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:bg-black-100"
                   key={viCol.key}
                   data-index={viCol.index}
                   style={{
