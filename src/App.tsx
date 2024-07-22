@@ -68,36 +68,36 @@ function App() {
             />
           ),
         }),
-        // columnHelper.display({
-        //   id: "selection",
-        //   maxSize: 50,
-        //   enableSorting: false,
-        //   enableResizing: false,
-        //   enableHiding: false,
-        //   header({ table }) {
-        //     return (
-        //       <IndeterminateCheckbox
-        //         {...{
-        //           checked: table.getIsAllRowsSelected(),
-        //           indeterminate: table.getIsSomeRowsSelected(),
-        //           onChange: table.getToggleAllRowsSelectedHandler(),
-        //         }}
-        //       />
-        //     );
-        //   },
-        //   cell({ row }) {
-        //     return (
-        //       <IndeterminateCheckbox
-        //         {...{
-        //           checked: row.getIsSelected(),
-        //           disabled: !row.getCanSelect(),
-        //           indeterminate: row.getIsSomeSelected(),
-        //           onChange: row.getToggleSelectedHandler(),
-        //         }}
-        //       />
-        //     );
-        //   },
-        // }),
+        columnHelper.display({
+          id: "selection",
+          maxSize: 50,
+          enableSorting: false,
+          enableResizing: false,
+          enableHiding: false,
+          header({ table }) {
+            return (
+              <IndeterminateCheckbox
+                {...{
+                  checked: table.getIsAllRowsSelected(),
+                  indeterminate: table.getIsSomeRowsSelected(),
+                  onChange: table.getToggleAllRowsSelectedHandler(),
+                }}
+              />
+            );
+          },
+          cell({ row }) {
+            return (
+              <IndeterminateCheckbox
+                {...{
+                  checked: row.getIsSelected(),
+                  disabled: !row.getCanSelect(),
+                  indeterminate: row.getIsSomeSelected(),
+                  onChange: row.getToggleSelectedHandler(),
+                }}
+              />
+            );
+          },
+        }),
         ...Array.from({ length: 22 }).map((_, i) =>
           columnHelper.accessor(`col${i}`, {
             id: `col${i}`,
@@ -250,8 +250,8 @@ function App() {
     // fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
     //   setData(data),
     // );
-    fetchManyColsData({ skip: 0, limit: 10, cols: 22, rows: 10 }).then((data) =>
-      setData(data),
+    fetchManyColsData({ skip: 0, limit: 10000, cols: 22, rows: 10000 }).then(
+      (data) => setData(data),
     );
   }, []);
 

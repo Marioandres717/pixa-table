@@ -2,7 +2,6 @@ import { Row, Table, flexRender } from "@tanstack/react-table";
 import React from "react";
 import styles from "../templates/anomali/index.module.css";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { gridGenerator } from "../utils";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -22,14 +21,14 @@ export function VirtualizedTableBody<TData>({
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 37,
+    estimateSize: React.useCallback(() => 37, []),
     getScrollElement: () => parentRef.current,
     overscan: 5,
   });
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
-    estimateSize: (i) => cols[i].getSize(),
+    estimateSize: React.useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     overscan: 5,
     horizontal: true,
@@ -52,13 +51,12 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className="absolute left-0 top-0 grid w-full border-b dark:border-black-92.5"
+            className="absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5"
             key={viRow.key}
             data-index={viRow.index}
             {...{
               style: {
                 height: `${viRow.size}px`,
-                gridTemplateColumns: gridGenerator(table),
                 transform: `translateY(${viRow.start}px)`,
               },
             }}
@@ -68,8 +66,10 @@ export function VirtualizedTableBody<TData>({
                 column: { columnDef },
                 getContext,
               } = cell;
-              const viCol = viCols[i];
+              const viCol = viCols.find((c) => c.index === i);
+
               if (!viCol) return null;
+
               return (
                 <div
                   role="cell"
