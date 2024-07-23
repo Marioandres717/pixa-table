@@ -7,5 +7,6 @@ declare module "@tanstack/react-table" {
   interface ColumnMeta<TData, TValue> {
     align?: AlignValue;
     padding?: string | number;
+    className?: string;
   }
 }

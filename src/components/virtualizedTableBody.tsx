@@ -1,6 +1,7 @@
 import { Row, Table, flexRender } from "@tanstack/react-table";
 import React from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import classNames from "classnames";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -71,7 +72,10 @@ export function VirtualizedTableBody<TData>({
               return (
                 <div
                   role="cell"
-                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5"
+                  className={classNames(
+                    "absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5",
+                    columnDef.meta?.className,
+                  )}
                   key={viCol.key}
                   data-index={viCol.index}
                   style={{

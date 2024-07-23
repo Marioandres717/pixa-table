@@ -6,6 +6,7 @@ import styles from "./tableHeader.module.css";
 import ColumnFilter from "./columnFilter";
 import { gridGenerator } from "../utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import classNames from "classnames";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -56,14 +57,21 @@ export function VirtualizedTableHeader<TData>({
           {headerGroup.headers.map((header, i) => {
             const viCol = viCols.find((viCol) => viCol.index === i);
             if (!viCol) return null;
+            const {
+              column: { columnDef, getCanFilter, getCanResize },
+              getContext,
+            } = header;
             return (
               <div
                 role="columnheader"
-                className="absolute left-0 top-0 flex max-h-8 min-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40"
+                className={classNames(
+                  "absolute left-0 top-0 flex max-h-8 min-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+                  columnDef.meta?.className,
+                )}
                 key={viCol.key}
                 data-index={viCol.index}
                 style={{
-                  justifyContent: header.column.columnDef.meta?.align,
+                  justifyContent: columnDef.meta?.align,
                   width: `${viCol.size}px`,
                   transform: `translateX(${viCol.start}px)`,
                 }}
@@ -74,17 +82,12 @@ export function VirtualizedTableHeader<TData>({
                 >
                   {header.isPlaceholder
                     ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
+                    : flexRender(columnDef.header, getContext())}
                 </ColumnSort>
                 <div className={styles["filter-wrapper"]}>
-                  {header.column.getCanFilter() && <Filter header={header} />}
+                  {getCanFilter() && <Filter header={header} />}
                 </div>
-                {header.column.getCanResize() && (
-                  <ColumnResize header={header} />
-                )}
+                {getCanResize() && <ColumnResize header={header} />}
               </div>
             );
           })}

@@ -57,10 +57,12 @@ function App() {
       columns: [
         columnHelper.display({
           id: "expander",
-          maxSize: 50,
+          maxSize: 40,
           enableSorting: false,
           enableResizing: false,
-          header: () => <div style={{ width: 15 }} />,
+          meta: {
+            className: "border-r-0",
+          },
           cell: ({ row }) => (
             <ExpandableRow
               isExpanded={row.getIsExpanded()}
@@ -70,10 +72,13 @@ function App() {
         }),
         columnHelper.display({
           id: "selection",
-          maxSize: 50,
+          maxSize: 20,
           enableSorting: false,
           enableResizing: false,
           enableHiding: false,
+          meta: {
+            className: "border-r-0 px-0",
+          },
           header({ table }) {
             return (
               <IndeterminateCheckbox
@@ -267,7 +272,7 @@ function App() {
               width={width}
               theme={"dark"}
               tableInstance={table}
-              expandableRowComponent={() => <h1>FOOBAR</h1>}
+              expandableRowComponent={() => <h1></h1>}
               useVirtualizer={true}
               disableRowHover={false}
             />
