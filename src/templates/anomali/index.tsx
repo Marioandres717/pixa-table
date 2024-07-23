@@ -76,8 +76,7 @@ export function TableAnomali<TData>({
         />
       </div>
       {isPaginationEnabled && (
-        // <div className={styles.tfooter}>
-        <div className="h-11 border-t dark:border-black-92.5">
+        <div className="flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
           <PageOptionsComponent table={table} />
         </div>
       )}

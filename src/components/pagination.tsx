@@ -1,6 +1,6 @@
 import { Table } from "@tanstack/react-table";
-
-import styles from "./pagination.module.css";
+import Button from "./button";
+import { Icon } from "./icon";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -27,6 +27,7 @@ export function PageOptions<TData>({ table }: Props<TData>) {
 
     return pages;
   }
+
   function pageRange(page: number, pageCount: number) {
     let start = page - 2,
       end = page + 2;
@@ -44,47 +45,38 @@ export function PageOptions<TData>({ table }: Props<TData>) {
   }
 
   return (
-    <div className={styles["pagination-content"]}>
-      <button
-        className={styles["prev-button"]}
+    <div className="flex gap-1">
+      <Button
+        className="dark:focus:bg-black-85"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex - 1);
         }}
         disabled={!getCanPreviousPage()}
       >
-        {"Previous"}
-      </button>
-      {pageOptionsState.map((option) => {
-        return (
-          <span
-            key={option}
-            className={
-              option - 1 === pageIndex
-                ? `${styles["number-item"]} ${styles["number-color"]}`
-                : styles["number-item"]
-            }
-            role="button"
-            tabIndex={0}
-            onKeyDown={() => {}}
-            onClick={() => {
-              onPageChange(option - 1);
-            }}
-          >
-            {option}
-          </span>
-        );
-      })}
-      <button
-        className={styles["next-button"]}
+        <Icon icon="arrow-new" size={12} className="rotate-180 transform" />
+      </Button>
+      {pageOptionsState.map((option) => (
+        <Button
+          key={option}
+          className={
+            pageIndex === option - 1 ? "bg-aqua-120 text-black-100" : ""
+          }
+          onClick={() => onPageChange(option - 1)}
+        >
+          {option}
+        </Button>
+      ))}
+      <Button
+        className="peer dark:focus:bg-black-85"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex + 1);
         }}
         disabled={!getCanNextPage()}
       >
-        {"Next"}
-      </button>
+        <Icon icon="arrow-new" size={12} />
+      </Button>
     </div>
   );
 }

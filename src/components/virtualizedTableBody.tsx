@@ -1,6 +1,5 @@
 import { Row, Table, flexRender } from "@tanstack/react-table";
 import React from "react";
-import styles from "../templates/anomali/index.module.css";
 import { useVirtualizer } from "@tanstack/react-virtual";
 
 type Props<TData> = {
@@ -73,7 +72,7 @@ export function VirtualizedTableBody<TData>({
               return (
                 <div
                   role="cell"
-                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:bg-black-100"
+                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5 dark:bg-black-100"
                   key={viCol.key}
                   data-index={viCol.index}
                   style={{
@@ -91,7 +90,7 @@ export function VirtualizedTableBody<TData>({
             })}
 
             {row.getIsExpanded() && ExpandRow && (
-              <div className={styles["tr-expandable"]}>
+              <div className="">
                 <ExpandRow row={row} />
               </div>
             )}
