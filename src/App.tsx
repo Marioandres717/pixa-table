@@ -272,7 +272,7 @@ function App() {
               width={width}
               theme={"dark"}
               tableInstance={table}
-              expandableRowComponent={() => <h1></h1>}
+              expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
               useVirtualizer={true}
               disableRowHover={false}
             />

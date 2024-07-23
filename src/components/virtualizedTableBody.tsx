@@ -1,5 +1,5 @@
 import { Row, Table, flexRender } from "@tanstack/react-table";
-import React from "react";
+import React, { useEffect } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
 
@@ -21,7 +21,10 @@ export function VirtualizedTableBody<TData>({
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: React.useCallback(() => 37, []),
+    estimateSize: React.useCallback(
+      (i) => (rows[i].getIsExpanded() ? 400 : 36),
+      [rows],
+    ),
     getScrollElement: () => parentRef.current,
     overscan: 5,
   });
@@ -37,6 +40,10 @@ export function VirtualizedTableBody<TData>({
   const viRows = rowVirtualizer.getVirtualItems();
   const viCols = colVirtualizer.getVirtualItems();
 
+  useEffect(() => {
+    rowVirtualizer.measure();
+  }, [rows, rowVirtualizer]);
+
   return (
     <div
       className="relative"
@@ -50,7 +57,7 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className={`absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsSelected() ? "dark:bg-black-95" : ""}`}
+            className={`absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsSelected() || row.getIsExpanded() ? "dark:bg-black-95" : ""}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{
@@ -93,7 +100,12 @@ export function VirtualizedTableBody<TData>({
             })}
 
             {row.getIsExpanded() && ExpandRow && (
-              <div className="">
+              <div
+                className="absolute w-full border-t dark:border-black-92.5"
+                style={{
+                  transform: `translateY(36px)`,
+                }}
+              >
                 <ExpandRow row={row} />
               </div>
             )}
