@@ -46,11 +46,10 @@ export function VirtualizedTableBody<TData>({
     >
       {viRows.map((viRow) => {
         const row = rows[viRow.index];
-
         return (
           <div
             role="row"
-            className="absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5"
+            className={`absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsSelected() ? "dark:bg-black-95" : ""}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{
@@ -72,7 +71,7 @@ export function VirtualizedTableBody<TData>({
               return (
                 <div
                   role="cell"
-                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5 dark:bg-black-100"
+                  className="absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5"
                   key={viCol.key}
                   data-index={viCol.index}
                   style={{

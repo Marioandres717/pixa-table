@@ -45,7 +45,7 @@ export function VirtualizedTableHeader<TData>({
       {headerGroups.map((headerGroup) => (
         <div
           role="row"
-          className="grid h-8"
+          className="grid h-8 border-b dark:border-black-92.5 dark:bg-black-95"
           {...{
             key: headerGroup.id,
             style: {
@@ -59,7 +59,7 @@ export function VirtualizedTableHeader<TData>({
             return (
               <div
                 role="columnheader"
-                className="absolute left-0 top-0 flex max-h-8 min-h-8 items-center border-b border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:bg-black-95 dark:text-black-40"
+                className="absolute left-0 top-0 flex max-h-8 min-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40"
                 key={viCol.key}
                 data-index={viCol.index}
                 style={{
