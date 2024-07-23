@@ -47,20 +47,20 @@ export function PageOptions<TData>({ table }: Props<TData>) {
   return (
     <div className="flex gap-1">
       <Button
-        className="dark:focus:bg-black-85"
+        className="peer dark:focus:bg-black-85 dark:focus:text-white"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex - 1);
         }}
         disabled={!getCanPreviousPage()}
       >
-        <Icon icon="arrow-new" size={12} className="rotate-180 transform" />
+        <Icon icon="arrow-new" size={12} className="rotate-180 fill-current" />
       </Button>
       {pageOptionsState.map((option) => (
         <Button
           key={option}
           className={
-            pageIndex === option - 1 ? "bg-aqua-120 text-black-100" : ""
+            pageIndex === option - 1 ? "bg-aqua-120 !text-black-100" : ""
           }
           onClick={() => onPageChange(option - 1)}
         >
@@ -68,14 +68,14 @@ export function PageOptions<TData>({ table }: Props<TData>) {
         </Button>
       ))}
       <Button
-        className="peer dark:focus:bg-black-85"
+        className="peer dark:focus:bg-black-85 dark:focus:text-white"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex + 1);
         }}
         disabled={!getCanNextPage()}
       >
-        <Icon icon="arrow-new" size={12} />
+        <Icon icon="arrow-new" size={12} className="fill-current" />
       </Button>
     </div>
   );

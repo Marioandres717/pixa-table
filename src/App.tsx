@@ -72,7 +72,7 @@ function App() {
         }),
         columnHelper.display({
           id: "selection",
-          maxSize: 20,
+          maxSize: 50,
           enableSorting: false,
           enableResizing: false,
           enableHiding: false,
