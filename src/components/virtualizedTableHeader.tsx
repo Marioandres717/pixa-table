@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { Table, flexRender, Header } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
@@ -6,8 +6,8 @@ import classNames from "classnames";
 import { ColumnResize } from "./columnResize";
 import { ColumnSort } from "./columnSort";
 import ColumnFilter from "./columnFilter";
-import { gridGenerator } from "../utils";
 import React from "react";
+import { calculateViCols } from "../utils/gridGenerator";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -25,22 +25,28 @@ export function VirtualizedTableHeader<TData>({
   className,
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
-  const cols = table.getVisibleFlatColumns();
+  const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
   const state = table.getState();
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
-    estimateSize: React.useCallback((i) => cols[i].getSize(), [cols]),
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     overscan: 5,
     horizontal: true,
   });
 
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
+  const rowHeaderWidth =
+    parentWidth > colVirtualizer.getTotalSize()
+      ? parentWidth
+      : colVirtualizer.getTotalSize();
+
+  const viCols = calculateViCols(cols, parentWidth, colVirtualizer);
+
   useEffect(() => {
     colVirtualizer.measure();
   }, [colVirtualizer, state.columnSizingInfo]);
-
-  const viCols = colVirtualizer.getVirtualItems();
 
   return (
     <div
@@ -48,7 +54,7 @@ export function VirtualizedTableHeader<TData>({
       className={classNames("sticky top-0 z-10 h-8", className)}
       {...{
         style: {
-          width: `${colVirtualizer.getTotalSize()}px`,
+          width: `${rowHeaderWidth}px`,
         },
       }}
     >
@@ -58,9 +64,6 @@ export function VirtualizedTableHeader<TData>({
           className="grid h-8 border-b dark:border-black-92.5 dark:bg-black-95"
           {...{
             key: headerGroup.id,
-            style: {
-              gridTemplateColumns: gridGenerator(table),
-            },
           }}
         >
           {headerGroup.headers.map((header, i) => {

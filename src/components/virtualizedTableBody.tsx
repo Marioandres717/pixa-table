@@ -1,7 +1,8 @@
 import { Row, Table, flexRender } from "@tanstack/react-table";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
+import { calculateViCols } from "../utils/gridGenerator";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -18,12 +19,12 @@ export function VirtualizedTableBody<TData>({
   className,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
-  const cols = table.getVisibleFlatColumns();
+  const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
   const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: React.useCallback(
+    estimateSize: useCallback(
       (i) => (rows[i].getIsExpanded() ? 400 : 36),
       [rows],
     ),
@@ -33,14 +34,20 @@ export function VirtualizedTableBody<TData>({
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
-    estimateSize: React.useCallback((i) => cols[i].getSize(), [cols]),
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     overscan: 5,
     horizontal: true,
   });
 
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
+  const rowHeaderWidth =
+    parentWidth > colVirtualizer.getTotalSize()
+      ? parentWidth
+      : colVirtualizer.getTotalSize();
+
   const viRows = rowVirtualizer.getVirtualItems();
-  const viCols = colVirtualizer.getVirtualItems();
+  const viCols = calculateViCols(cols, parentWidth, colVirtualizer);
 
   useEffect(() => {
     rowVirtualizer.measure();
@@ -55,7 +62,7 @@ export function VirtualizedTableBody<TData>({
       className={classNames("relative", className)}
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
-        width: `${colVirtualizer.getTotalSize()}px`,
+        width: `${rowHeaderWidth}px`,
       }}
     >
       {viRows.map((viRow) => {
