@@ -12,7 +12,10 @@ export function TableToolbar<T>({
   tableInstance,
   paginationPageSizeComponent,
 }: Props<T>) {
-  const totalItems = tableInstance.getRowCount();
+  const totalItems = useMemo(
+    () => tableInstance.getRowCount(),
+    [tableInstance],
+  );
   const areItemsSelected =
     tableInstance.getIsSomeRowsSelected() ||
     tableInstance.getIsAllRowsSelected();

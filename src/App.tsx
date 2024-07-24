@@ -118,6 +118,9 @@ function App() {
         ),
       ],
       data: data,
+      debugTable: true,
+      debugHeaders: true,
+      debugColumns: true,
     }),
     [
       pagination,

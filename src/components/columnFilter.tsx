@@ -9,11 +9,8 @@ export default function ColumnFilter<TData>({ header }: Props<TData>) {
     return null;
   }
   return (
-    <Icon
-      icon="filter"
-      color="var(--ml-gray-400)"
-      size={16}
-      className="cursor-pointer"
-    />
+    <div className="cursor-pointer">
+      <Icon icon="filter" size={16} className="fill-current" />
+    </div>
   );
 }

@@ -14,10 +14,10 @@ export function VirtualizedTableBody<TData>({
   tableInstance: table,
   parentRef,
   expandableRowComponent: ExpandRow,
-  // disableRowHover,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
   const cols = table.getVisibleFlatColumns();
+  const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
@@ -43,6 +43,10 @@ export function VirtualizedTableBody<TData>({
   useEffect(() => {
     rowVirtualizer.measure();
   }, [rows, rowVirtualizer]);
+
+  useEffect(() => {
+    colVirtualizer.measure();
+  }, [colVirtualizer, state.columnSizingInfo]);
 
   return (
     <div

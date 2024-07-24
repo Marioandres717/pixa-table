@@ -1,12 +1,12 @@
+import { useEffect } from "react";
 import { Table, flexRender, Header } from "@tanstack/react-table";
-import { ColumnResize } from "./columnResize";
-import { ColumnSort } from "./columnSort";
-
-import styles from "./tableHeader.module.css";
-import ColumnFilter from "./columnFilter";
-import { gridGenerator } from "../utils";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
+
+import { ColumnResize } from "./columnResize";
+import { ColumnSort } from "./columnSort";
+import ColumnFilter from "./columnFilter";
+import { gridGenerator } from "../utils";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -23,6 +23,8 @@ export function VirtualizedTableHeader<TData>({
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
   const cols = table.getVisibleFlatColumns();
+  const state = table.getState();
+
   const colVirtualizer = useVirtualizer({
     count: cols.length,
     estimateSize: (i) => cols[i].getSize(),
@@ -30,6 +32,10 @@ export function VirtualizedTableHeader<TData>({
     overscan: 5,
     horizontal: true,
   });
+
+  useEffect(() => {
+    colVirtualizer.measure();
+  }, [colVirtualizer, state.columnSizingInfo]);
 
   const viCols = colVirtualizer.getVirtualItems();
 
@@ -58,14 +64,14 @@ export function VirtualizedTableHeader<TData>({
             const viCol = viCols.find((viCol) => viCol.index === i);
             if (!viCol) return null;
             const {
-              column: { columnDef, getCanFilter, getCanResize },
+              column: { columnDef, getCanFilter, getCanResize, getCanSort },
               getContext,
             } = header;
             return (
               <div
                 role="columnheader"
                 className={classNames(
-                  "absolute left-0 top-0 flex max-h-8 min-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+                  "absolute left-0 top-0 flex max-h-8 min-h-8 items-center overflow-hidden border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
                   columnDef.meta?.className,
                 )}
                 key={viCol.key}
@@ -76,17 +82,17 @@ export function VirtualizedTableHeader<TData>({
                   transform: `translateX(${viCol.start}px)`,
                 }}
               >
-                <ColumnSort
-                  header={header}
-                  multiSort={table.getState().sorting.length > 1}
+                <span
+                  className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
+                  onClick={header.column.getToggleSortingHandler()}
+                  title={columnDef.header?.toString()}
                 >
                   {header.isPlaceholder
                     ? null
                     : flexRender(columnDef.header, getContext())}
-                </ColumnSort>
-                <div className={styles["filter-wrapper"]}>
-                  {getCanFilter() && <Filter header={header} />}
-                </div>
+                </span>
+                {getCanSort() && <ColumnSort header={header} />}
+                {getCanFilter() && <Filter header={header} />}
                 {getCanResize() && <ColumnResize header={header} />}
               </div>
             );
