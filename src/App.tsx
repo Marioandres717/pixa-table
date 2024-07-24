@@ -1,5 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { TableBase, IndeterminateCheckbox, ExpandableRow } from "./components";
+import {
+  TableBase,
+  IndeterminateCheckbox,
+  ExpandableColumn,
+} from "./components";
 import { TableAnomali } from "./templates";
 import {
   ColumnFiltersState,
@@ -64,7 +68,7 @@ function App() {
             className: "border-r-0",
           },
           cell: ({ row }) => (
-            <ExpandableRow
+            <ExpandableColumn
               isExpanded={row.getIsExpanded()}
               toggleExpanded={() => row.toggleExpanded()}
             />
@@ -156,7 +160,7 @@ function App() {
   //         enableResizing: false,
   //         header: () => <div style={{ width: 15 }} />,
   //         cell: ({ row }) => (
-  //           <ExpandableRow
+  //           <ExpandableColumn
   //             isExpanded={row.getIsExpanded()}
   //             toggleExpanded={() => row.toggleExpanded()}
   //           />
@@ -283,21 +287,21 @@ function App() {
   );
 }
 
-const fetchData = async ({
-  skip = 0,
-  limit = 10,
-  fetchSize = 100,
-}: {
-  skip: number;
-  limit: number;
-  fetchSize: number;
-}) => {
-  const response = await fetch(
-    "/api?skip=" + skip + "&limit=" + limit + "&fetchSize=" + fetchSize,
-  );
-  const data = await response.json();
-  return data;
-};
+// const fetchData = async ({
+//   skip = 0,
+//   limit = 10,
+//   fetchSize = 100,
+// }: {
+//   skip: number;
+//   limit: number;
+//   fetchSize: number;
+// }) => {
+//   const response = await fetch(
+//     "/api?skip=" + skip + "&limit=" + limit + "&fetchSize=" + fetchSize,
+//   );
+//   const data = await response.json();
+//   return data;
+// };
 
 const fetchManyColsData = async ({
   skip = 0,

@@ -5,9 +5,9 @@ type Props = {
   toggleExpanded: () => void;
 };
 
-export function ExpandableRow({ isExpanded, toggleExpanded }: Props) {
+export function ExpandableColumn({ isExpanded, toggleExpanded }: Props) {
   return (
-    <span onClick={toggleExpanded}>
+    <span className="cursor-pointer" onClick={toggleExpanded}>
       <Icon
         icon="arrow-new"
         size="12px"

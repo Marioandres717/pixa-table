@@ -1,7 +1,6 @@
 import { Header } from "@tanstack/react-table";
 import { PropsWithChildren } from "react";
 
-import styles from "./columnSort.module.css";
 import { Icon } from "./icon";
 import { getSortIcon } from "./sortIcon";
 
@@ -22,7 +21,7 @@ export function ColumnSort<TData>({
 
   return (
     <div
-      className={styles["sort-content"]}
+      className="flex cursor-pointer items-center"
       title={columnDef.header?.toString()}
       onClick={header.column.getToggleSortingHandler()}
     >
@@ -36,8 +35,7 @@ export function ColumnSort<TData>({
           {!multiSort && (
             <Icon
               icon={sortDirection ? `sort-${sortDirection}` : "sort-asc"}
-              color={column.getIsSorted() ? "" : "var(--ml-gray-400)"}
-              className={styles["sort-icon"]}
+              className={`!h-3 !w-8 flex-shrink-0 ${column.getIsSorted() ? "fill-aqua-100" : ""}`}
             />
           )}
         </>

@@ -1,7 +1,7 @@
 import { ColumnOrdering } from "./columnOrdering";
 import { ColumnResize } from "./columnResize";
 import { ColumnSort } from "./columnSort";
-import { ExpandableRow } from "./expandableRow";
+import { ExpandableColumn } from "./expandableRow";
 import { TableToolbar } from "./tableToolbar";
 import { Icon } from "./icon";
 import { IndeterminateCheckbox } from "./checkbox";
@@ -16,7 +16,7 @@ export {
   ColumnOrdering,
   ColumnResize,
   ColumnSort,
-  ExpandableRow,
+  ExpandableColumn,
   TableToolbar,
   Icon,
   IndeterminateCheckbox,
