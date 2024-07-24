@@ -5,7 +5,7 @@ export { TableAnomali } from "./templates/anomali";
 export { ColumnOrdering } from "./components/columnOrdering";
 export { ColumnResize } from "./components/columnResize";
 export { ColumnSort } from "./components/columnSort";
-export { ExpandableColumn } from "./components/expandableRow";
+export { ExpandableColumn } from "./components/expandableColumn";
 export { TableToolbar as HeaderSettings } from "./components/tableToolbar";
 export { Icon } from "./components/icon";
 export { IndeterminateCheckbox } from "./components/checkbox";
