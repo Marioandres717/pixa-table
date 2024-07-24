@@ -8,6 +8,7 @@ import {
   // TableBody,
 } from "../../components";
 import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
+import TableSidebar from "../../components/tableSidebar";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
@@ -46,16 +47,18 @@ export function TableAnomali<TData>({
   return (
     <div
       data-pixa-theme={theme}
-      className="grid h-full w-full grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
+      className="grid h-full w-full grid-cols-[1fr,44px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
     >
       {!hideHeader && (
         <TableToolbar
+          className={`col-span-full col-start-1 row-start-1`}
           tableInstance={table}
           paginationPageSizeComponent={pageSizeComponent}
         />
       )}
+      <TableSidebar className="col-start-2 row-start-2 overflow-hidden" />
       <div
-        className="overflow-auto"
+        className="col-start-1 row-start-2 overflow-auto"
         {...{
           ref: parentRef,
         }}
@@ -74,7 +77,7 @@ export function TableAnomali<TData>({
         />
       </div>
       {isPaginationEnabled && (
-        <div className="flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
+        <div className="col-span-full row-start-3 flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
           <PageOptionsComponent table={table} />
         </div>
       )}

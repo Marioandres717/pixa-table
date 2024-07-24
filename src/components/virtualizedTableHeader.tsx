@@ -7,10 +7,12 @@ import { ColumnResize } from "./columnResize";
 import { ColumnSort } from "./columnSort";
 import ColumnFilter from "./columnFilter";
 import { gridGenerator } from "../utils";
+import React from "react";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
+  className?: string;
   filterColumnComponent?: React.ComponentType<{
     header: Header<TData, unknown>;
   }>;
@@ -20,6 +22,7 @@ export function VirtualizedTableHeader<TData>({
   tableInstance: table,
   filterColumnComponent: Filter = ColumnFilter,
   parentRef,
+  className,
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
   const cols = table.getVisibleFlatColumns();
@@ -27,7 +30,7 @@ export function VirtualizedTableHeader<TData>({
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
-    estimateSize: (i) => cols[i].getSize(),
+    estimateSize: React.useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     overscan: 5,
     horizontal: true,
@@ -42,7 +45,7 @@ export function VirtualizedTableHeader<TData>({
   return (
     <div
       role="rowheader"
-      className="sticky top-0 z-10 h-8"
+      className={classNames("sticky top-0 z-10 h-8", className)}
       {...{
         style: {
           width: `${colVirtualizer.getTotalSize()}px`,

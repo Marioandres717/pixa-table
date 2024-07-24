@@ -6,6 +6,7 @@ import classNames from "classnames";
 type Props<TData> = {
   tableInstance: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
+  className?: string;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
   disableRowHover?: boolean;
 };
@@ -14,6 +15,7 @@ export function VirtualizedTableBody<TData>({
   tableInstance: table,
   parentRef,
   expandableRowComponent: ExpandRow,
+  className,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
   const cols = table.getVisibleFlatColumns();
@@ -50,7 +52,7 @@ export function VirtualizedTableBody<TData>({
 
   return (
     <div
-      className="relative"
+      className={classNames("relative", className)}
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
         width: `${colVirtualizer.getTotalSize()}px`,
