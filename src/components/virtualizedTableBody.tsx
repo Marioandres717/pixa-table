@@ -61,7 +61,7 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className={`absolute left-0 top-0 w-full overflow-hidden border-b dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsSelected() || row.getIsExpanded() ? "dark:bg-black-95" : ""}`}
+            className={`absolute left-0 top-0 w-full overflow-hidden border-b transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{

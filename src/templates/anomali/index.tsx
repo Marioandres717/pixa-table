@@ -9,8 +9,6 @@ import {
 } from "../../components";
 import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
 
-import "./index.css";
-
 type Props<TData> = {
   tableInstance: Table<TData>;
   theme: "light" | "dark";

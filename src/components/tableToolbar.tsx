@@ -25,7 +25,7 @@ export function TableToolbar<T>({
   );
   return (
     <div
-      className={`flex h-11 flex-shrink-0 items-center justify-between border-b p-2 px-3 dark:border-b-black-92.5 dark:bg-black-100 ${areItemsSelected ? "!bg-blue-100 text-black-10" : ""}`}
+      className={`flex h-11 flex-shrink-0 items-center justify-between border-b p-2 px-3 dark:border-b-black-92.5 ${areItemsSelected ? "bg-blue-100 text-black-10" : "dark:bg-black-100"}`}
     >
       {areItemsSelected ? (
         <div className="flex items-center justify-between">
