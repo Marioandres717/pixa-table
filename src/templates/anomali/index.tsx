@@ -47,7 +47,7 @@ export function TableAnomali<TData>({
   return (
     <div
       data-pixa-theme={theme}
-      className="grid h-full w-full grid-cols-[1fr,44px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
+      className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
     >
       {!hideHeader && (
         <TableToolbar
@@ -56,7 +56,7 @@ export function TableAnomali<TData>({
           paginationPageSizeComponent={pageSizeComponent}
         />
       )}
-      <TableSidebar className="col-start-2 row-start-2 overflow-hidden" />
+      <TableSidebar className="col-start-2 row-start-2" tableInstance={table} />
       <div
         className="col-start-1 row-start-2 overflow-auto"
         {...{

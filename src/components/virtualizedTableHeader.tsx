@@ -97,7 +97,12 @@ export function VirtualizedTableHeader<TData>({
                     ? null
                     : flexRender(columnDef.header, getContext())}
                 </span>
-                {getCanSort() && <ColumnSort header={header} />}
+                {getCanSort() && (
+                  <ColumnSort
+                    header={header}
+                    multiSort={state.sorting.length > 1}
+                  />
+                )}
                 {getCanFilter() && <Filter header={header} />}
                 {getCanResize() && <ColumnResize header={header} />}
               </div>

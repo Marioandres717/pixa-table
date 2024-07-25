@@ -1,7 +1,8 @@
-import { Table, flexRender, Header } from "@tanstack/react-table";
+// import { Table, flexRender, Header } from "@tanstack/react-table";
+import { Table, Header } from "@tanstack/react-table";
 import { gridGenerator } from "../utils";
 import { ColumnResize } from "./columnResize";
-import { ColumnSort } from "./columnSort";
+// import { ColumnSort } from "./columnSort";
 
 import styles from "./tableHeader.module.css";
 import ColumnFilter from "./columnFilter";
@@ -39,7 +40,7 @@ export function TableHeader<TData>({
                 justifyContent: header.column.columnDef.meta?.align,
               }}
             >
-              <ColumnSort
+              {/* <ColumnSort
                 header={header}
                 multiSort={tableInstance.getState().sorting.length > 1}
               >
@@ -49,7 +50,7 @@ export function TableHeader<TData>({
                       header.column.columnDef.header,
                       header.getContext()
                     )}
-              </ColumnSort>
+              </ColumnSort> */}
               <div className={styles["filter-wrapper"]}>
                 {header.column.getCanFilter() && <Filter header={header} />}
               </div>

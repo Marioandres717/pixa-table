@@ -1,6 +1,5 @@
 import { Table } from "@tanstack/react-table";
 import { PageResults } from "./results";
-import { SettingsDropdown } from "./settingsDropdown";
 import { useMemo } from "react";
 import classNames from "classnames";
 
@@ -13,7 +12,7 @@ type Props<T> = {
 export function TableToolbar<T>({
   className,
   tableInstance,
-  paginationPageSizeComponent,
+  // paginationPageSizeComponent,
 }: Props<T>) {
   const totalItems = useMemo(
     () => tableInstance.getRowCount(),
@@ -43,13 +42,7 @@ export function TableToolbar<T>({
           </span>
         </div>
       ) : (
-        <>
-          <PageResults totalItems={totalItems} approximateCount={false} />
-          <SettingsDropdown
-            tableInstance={tableInstance}
-            paginationPageSizeComponent={paginationPageSizeComponent}
-          />
-        </>
+        <PageResults totalItems={totalItems} approximateCount={false} />
       )}
     </div>
   );

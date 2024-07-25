@@ -8,15 +8,17 @@ import {
 } from "@dnd-kit/core";
 import { Column, Table } from "@tanstack/react-table";
 import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
+import classNames from "classnames";
 
 import { IndeterminateCheckbox } from "./checkbox";
-import styles from "./columnOrdering.module.css";
+import { Icon } from "./icon";
 
 type Props<T> = {
   tableInstance: Table<T>;
+  maxHeight?: number;
 };
 
-export function ColumnOrdering<T>({ tableInstance }: Props<T>) {
+export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
   const columns = tableInstance
     .getAllColumns()
     .filter((col) => col.id !== "selection" && col.id !== "expander");
@@ -35,7 +37,7 @@ export function ColumnOrdering<T>({ tableInstance }: Props<T>) {
       activationConstraint: {
         distance: 8,
       },
-    })
+    }),
   );
 
   function handleDragEnd(event: DragEndEvent) {
@@ -64,9 +66,14 @@ export function ColumnOrdering<T>({ tableInstance }: Props<T>) {
       collisionDetection={closestCorners}
     >
       <SortableContext items={sortedColumns}>
-        {sortedColumns.map((col) => (
-          <DraggableColumn key={col.id} column={col} />
-        ))}
+        <div
+          className="flex flex-col gap-1 overflow-y-auto overflow-x-hidden rounded border p-2 dark:border-black-90 dark:bg-black-100"
+          style={{ maxHeight }}
+        >
+          {sortedColumns.map((col) => (
+            <DraggableColumn key={col.id} column={col} />
+          ))}
+        </div>
       </SortableContext>
     </DndContext>
   );
@@ -84,7 +91,7 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
 
   const style = transform
     ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+        transform: `translate3d(0, ${transform.y}px, 0)`,
         transition,
       }
     : undefined;
@@ -95,12 +102,15 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
   return (
     <div
       ref={setNodeRef}
-      className={styles["draggable-column"]}
+      className={classNames(
+        "flex h-9 cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
+        getIsVisible() ? "dark:bg-black-92.5" : "dark:bg-black-95",
+      )}
       style={style}
       {...listeners}
       {...attributes}
     >
-      <div className={styles["column-visibility"]}>
+      <div className="flex items-center gap-2 overflow-hidden">
         <IndeterminateCheckbox
           {...{
             disabled: !getCanHide(),
@@ -108,9 +118,17 @@ function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
             onChange: getToggleVisibilityHandler(),
           }}
         />
-        <span className={styles.label}>{columnLabel}</span>
+        <span
+          title={columnLabel}
+          className="overflow-hidden text-ellipsis text-nowrap leading-[initial]"
+        >
+          {columnLabel}
+        </span>
       </div>
-      <span className={styles["drag"]}></span>
+      <Icon
+        icon="reorder"
+        className="!h-3 !w-3 flex-shrink-0 dark:fill-black-85"
+      />
     </div>
   );
 }

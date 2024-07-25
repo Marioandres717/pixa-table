@@ -107,7 +107,7 @@ function App() {
             );
           },
         }),
-        ...Array.from({ length: 3 }).map((_, i) =>
+        ...Array.from({ length: 22 }).map((_, i) =>
           columnHelper.accessor(`col${i}`, {
             id: `col${i}`,
             header: `Col ${i}`,
@@ -118,9 +118,6 @@ function App() {
         ),
       ],
       data: data,
-      debugTable: true,
-      debugHeaders: true,
-      debugColumns: true,
     }),
     [
       pagination,
@@ -262,7 +259,7 @@ function App() {
     // fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
     //   setData(data),
     // );
-    fetchManyColsData({ skip: 0, limit: 100000, cols: 22, rows: 10000 }).then(
+    fetchManyColsData({ skip: 0, limit: 100000, cols: 22, rows: 5 }).then(
       (data) => setData(data),
     );
   }, []);
