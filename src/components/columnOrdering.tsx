@@ -6,12 +6,11 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import { useRef, useState } from "react";
 import { Column, Table } from "@tanstack/react-table";
-import { SortableContext, arrayMove, useSortable } from "@dnd-kit/sortable";
-import classNames from "classnames";
-
-import { IndeterminateCheckbox } from "./checkbox";
-import { Icon } from "./icon";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { useVirtualizer, VirtualItem } from "@tanstack/react-virtual";
+import { DraggableColumn } from "./columnDraggable";
 
 type Props<T> = {
   tableInstance: Table<T>;
@@ -19,11 +18,15 @@ type Props<T> = {
 };
 
 export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
+  const scrollableRef = useRef<HTMLDivElement>(null);
+  const [draggedItem, setdraggedItem] = useState<
+    (Column<T> & VirtualItem) | null
+  >(null);
+  const { columnOrder } = tableInstance.getState();
+
   const columns = tableInstance
     .getAllColumns()
     .filter((col) => col.id !== "selection" && col.id !== "expander");
-
-  const { columnOrder } = tableInstance.getState();
 
   const sortedColumns: Column<T, unknown>[] =
     columnOrder.length > 0
@@ -31,6 +34,18 @@ export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
           .map((colId) => columns.find((col) => col.id === colId))
           .filter((col): col is Column<T, unknown> => !!col)
       : columns;
+
+  const columnVirtualizer = useVirtualizer({
+    count: sortedColumns.length,
+    getScrollElement: () => scrollableRef.current,
+    getItemKey: (index) => sortedColumns[index].id.toString(),
+    estimateSize: () => 36,
+    gap: 4,
+    paddingStart: 8,
+    paddingEnd: 8,
+  });
+
+  const viColumns = columnVirtualizer.getVirtualItems();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -57,6 +72,21 @@ export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
         return t;
       });
     }
+    setdraggedItem(null);
+  }
+
+  // Add dragged item to virtual items if it's not in virtual items, so it can be visible while dragging
+  const virtualItemIsInView = viColumns.find((c) => c.key === draggedItem?.key);
+  if (!virtualItemIsInView && draggedItem) {
+    const { key, size, start, index, end, lane } = draggedItem;
+    viColumns.push({
+      key,
+      size,
+      start,
+      index,
+      end,
+      lane,
+    });
   }
 
   return (
@@ -67,68 +97,28 @@ export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
     >
       <SortableContext items={sortedColumns}>
         <div
-          className="flex flex-col gap-1 overflow-y-auto overflow-x-hidden rounded border p-2 dark:border-black-90 dark:bg-black-100"
+          ref={scrollableRef}
+          className="overflow-y-auto overflow-x-hidden rounded border dark:border-black-90 dark:bg-black-100"
           style={{ maxHeight }}
         >
-          {sortedColumns.map((col) => (
-            <DraggableColumn key={col.id} column={col} />
-          ))}
+          <div
+            className="relative"
+            style={{ height: columnVirtualizer.getTotalSize() }}
+          >
+            {viColumns.map((c) => {
+              const col = sortedColumns.find((col) => col.id === c.key);
+              if (!col) return null;
+              return (
+                <DraggableColumn
+                  key={c.key}
+                  column={{ ...col, ...c }}
+                  setDraggedItem={setdraggedItem}
+                />
+              );
+            })}
+          </div>
         </div>
       </SortableContext>
     </DndContext>
-  );
-}
-
-type DraggableColumnProps<T> = { column: Column<T> };
-
-function DraggableColumn<T>({ column }: DraggableColumnProps<T>) {
-  const { getCanHide, getIsVisible, getToggleVisibilityHandler, columnDef } =
-    column;
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({
-      id: column.id,
-    });
-
-  const style = transform
-    ? {
-        transform: `translate3d(0, ${transform.y}px, 0)`,
-        transition,
-      }
-    : undefined;
-
-  const columnLabel =
-    typeof columnDef.header === "string" ? columnDef.header : columnDef.id;
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={classNames(
-        "flex h-9 cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
-        getIsVisible() ? "dark:bg-black-92.5" : "dark:bg-black-95",
-      )}
-      style={style}
-      {...listeners}
-      {...attributes}
-    >
-      <div className="flex items-center gap-2 overflow-hidden">
-        <IndeterminateCheckbox
-          {...{
-            disabled: !getCanHide(),
-            checked: getIsVisible(),
-            onChange: getToggleVisibilityHandler(),
-          }}
-        />
-        <span
-          title={columnLabel}
-          className="overflow-hidden text-ellipsis text-nowrap leading-[initial]"
-        >
-          {columnLabel}
-        </span>
-      </div>
-      <Icon
-        icon="reorder"
-        className="!h-3 !w-3 flex-shrink-0 dark:fill-black-85"
-      />
-    </div>
   );
 }

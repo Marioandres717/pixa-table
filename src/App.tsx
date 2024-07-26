@@ -259,8 +259,8 @@ function App() {
     // fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
     //   setData(data),
     // );
-    fetchManyColsData({ skip: 0, limit: 100000, cols: 22, rows: 5 }).then(
-      (data) => setData(data),
+    fetchManyColsData({ skip: 0, limit: 22, cols: 22, rows: 10 }).then((data) =>
+      setData(data),
     );
   }, []);
 
@@ -306,7 +306,7 @@ function App() {
 const fetchManyColsData = async ({
   skip = 0,
   limit = 10,
-  cols = 10,
+  cols = 22,
   rows = 10,
 }: {
   skip: number;

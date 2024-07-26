@@ -13,7 +13,7 @@ export default function TableSidebar<TData>({
   tableInstance,
 }: Props<TData>) {
   const ref = useRef<HTMLDivElement>(null);
-  const [tabSelected, setTabSelected] = useState<"columns" | "">("columns");
+  const [tabSelected, setTabSelected] = useState<"columns" | "">("");
 
   return (
     <div
