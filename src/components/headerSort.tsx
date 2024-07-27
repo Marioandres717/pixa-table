@@ -7,7 +7,7 @@ type Props<TData> = {
   multiSort?: boolean;
 };
 
-export function ColumnSort<TData>({ header, multiSort }: Props<TData>) {
+export function HeaderSorting<TData>({ header, multiSort }: Props<TData>) {
   const { column } = header;
   const sortDirection = column.getIsSorted();
 

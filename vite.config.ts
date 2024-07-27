@@ -22,13 +22,11 @@ export default defineConfig((env) => ({
       rollupTypes: true,
       exclude: ["src/App.tsx", "src/main.tsx"],
       include: [
+        "src/assets",
         "src/components",
-        "src/configs",
-        "src/templates",
+        "src/hooks",
         "src/utils",
         "src/main.ts",
-        "src/assets",
-        "src/hooks",
         "src/typeDefs",
       ],
     }),
@@ -51,12 +49,11 @@ export default defineConfig((env) => ({
       fileName: "pixa-table",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@tanstack/react-table"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          "@tanstack/react-table": "ReactTable",
         },
       },
     },

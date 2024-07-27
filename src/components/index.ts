@@ -1,6 +1,6 @@
-export { ColumnOrdering } from "./columnOrdering";
+export { VirtualizedColumnOrdering } from "./virtualizedColumnOrdering";
 export { ColumnResize } from "./columnResize";
-export { ColumnSort } from "./columnSort";
+export { HeaderSorting } from "./headerSort";
 export { ExpandableColumn } from "./expandableColumn";
 export { TableToolbar } from "./tableToolbar";
 export { Icon } from "./icon";

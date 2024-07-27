@@ -4,7 +4,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
 
 import { ColumnResize } from "./columnResize";
-import { ColumnSort } from "./columnSort";
+import { HeaderSorting } from "./headerSort";
 import ColumnFilter from "./columnFilter";
 import React from "react";
 import { calculateViCols } from "../utils/gridGenerator";
@@ -98,7 +98,7 @@ export function VirtualizedTableHeader<TData>({
                     : flexRender(columnDef.header, getContext())}
                 </span>
                 {getCanSort() && (
-                  <ColumnSort
+                  <HeaderSorting
                     header={header}
                     multiSort={state.sorting.length > 1}
                   />

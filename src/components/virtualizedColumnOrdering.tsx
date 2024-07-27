@@ -17,7 +17,10 @@ type Props<T> = {
   maxHeight?: number;
 };
 
-export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
+export function VirtualizedColumnOrdering<T>({
+  tableInstance,
+  maxHeight,
+}: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
     (Column<T> & VirtualItem<Element>) | null

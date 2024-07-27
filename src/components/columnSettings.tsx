@@ -1,5 +1,5 @@
 import { Table } from "@tanstack/react-table";
-import { ColumnOrdering } from "./columnOrdering";
+import { VirtualizedColumnOrdering } from "./virtualizedColumnOrdering";
 
 type Props<TData> = {
   show: boolean;
@@ -35,7 +35,7 @@ export default function ColumnSettings<TData>({
           <div className="mb-2 font-semibold">Table Settings</div>
           <div>Column order & visibility</div>
           {/*  -80 for the Table settings header */}
-          <ColumnOrdering
+          <VirtualizedColumnOrdering
             tableInstance={tableInstance}
             maxHeight={parentHeight - 80}
           />
