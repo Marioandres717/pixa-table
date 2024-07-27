@@ -3,22 +3,16 @@ import { Header, Row, Table } from "@tanstack/react-table";
 import {
   PageOptions,
   TableToolbar,
-  // TableHeader,
   VirtualizedTableBody,
-  // TableBody,
-} from "../../components";
-import { VirtualizedTableHeader } from "../../components/virtualizedTableHeader";
-import TableSidebar from "../../components/tableSidebar";
+  VirtualizedTableHeader,
+  TableSidebar,
+} from "./";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
   theme: "light" | "dark";
   loading?: boolean;
-  disableRowHover?: boolean;
-  width?: number;
-  height?: number;
   hideHeader?: boolean;
-  useVirtualizer?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
   pageSizeComponent?: React.ComponentType<{ table: Table<TData> }>;
   paginationComponent?: React.ComponentType<{ table: Table<TData> }>;
@@ -27,18 +21,14 @@ type Props<TData> = {
   }>;
 };
 
-export function TableAnomali<TData>({
+export function PixaTable<TData>({
   tableInstance: table,
-  // width,
-  // height,
   theme = "light",
   hideHeader = false,
   expandableRowComponent: ExpandRow,
   pageSizeComponent,
   paginationComponent: PageOptionsComponent = PageOptions,
   filterColumnComponent,
-  disableRowHover,
-  // useVirtualizer,
   // loading = false,
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
@@ -72,7 +62,6 @@ export function TableAnomali<TData>({
         <VirtualizedTableBody
           tableInstance={table}
           parentRef={parentRef}
-          disableRowHover={disableRowHover}
           expandableRowComponent={ExpandRow}
         />
       </div>

@@ -1,11 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import {
-  TableBase,
-  IndeterminateCheckbox,
-  ExpandableColumn,
-} from "./components";
-import { TableAnomali } from "./templates";
-import {
   ColumnFiltersState,
   ColumnOrderState,
   ExpandedState,
@@ -17,9 +11,15 @@ import {
   getExpandedRowModel,
   getFilteredRowModel,
 } from "@tanstack/react-table";
-import { DEFAULT_TABLE_CONFIG } from "./configs/table.config";
+
+import {
+  IndeterminateCheckbox,
+  ExpandableColumn,
+  PixaTable,
+  ResizableDiv,
+} from "./components";
 import { MockData, MockDataManyCols } from "./mocks/handlers";
-import ResizableDiv from "./components/resizable";
+import { usePixaTable } from "./hooks";
 
 // const columnHelper = createColumnHelper<MockData>();
 const columnHelper = createColumnHelper<MockDataManyCols>();
@@ -36,9 +36,8 @@ function App() {
     pageSize: 100,
   });
 
-  const config = useMemo<TableOptions<MockDataManyCols>>(
+  const config = useMemo<Partial<TableOptions<MockDataManyCols>>>(
     () => ({
-      ...DEFAULT_TABLE_CONFIG,
       getExpandedRowModel: getExpandedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
       manualPagination: false,
@@ -130,178 +129,51 @@ function App() {
     ],
   );
 
-  // const config = useMemo<TableOptions<MockData>>(
-  //   () => ({
-  //     ...DEFAULT_TABLE_CONFIG,
-  //     getExpandedRowModel: getExpandedRowModel(),
-  //     getFilteredRowModel: getFilteredRowModel(),
-  //     manualPagination: false,
-  //     enableRowSelection: true,
-  //     enableExpanding: true,
-  //     state: {
-  //       pagination,
-  //       rowSelection,
-  //       columnVisibility,
-  //       expanded,
-  //       columnOrder,
-  //       columnFilters,
-  //     },
-  //     onPaginationChange: setPagination,
-  //     onRowSelectionChange: setRowSelection,
-  //     onExpandedChange: setExpanded,
-  //     onColumnOrderChange: setColumnOrder,
-  //     onColumnVisibilityChange: setColumnVisibility,
-  //     onColumnFiltersChange: setColumnFilters,
-  //     columns: [
-  //       columnHelper.display({
-  //         id: "expander",
-  //         maxSize: 50,
-  //         enableSorting: false,
-  //         enableResizing: false,
-  //         header: () => <div style={{ width: 15 }} />,
-  //         cell: ({ row }) => (
-  //           <ExpandableColumn
-  //             isExpanded={row.getIsExpanded()}
-  //             toggleExpanded={() => row.toggleExpanded()}
-  //           />
-  //         ),
-  //       }),
-  //       columnHelper.display({
-  //         id: "selection",
-  //         maxSize: 50,
-  //         enableSorting: false,
-  //         enableResizing: false,
-  //         enableHiding: false,
-  //         header({ table }) {
-  //           return (
-  //             <IndeterminateCheckbox
-  //               {...{
-  //                 checked: table.getIsAllRowsSelected(),
-  //                 indeterminate: table.getIsSomeRowsSelected(),
-  //                 onChange: table.getToggleAllRowsSelectedHandler(),
-  //               }}
-  //             />
-  //           );
-  //         },
-  //         cell({ row }) {
-  //           return (
-  //             <IndeterminateCheckbox
-  //               {...{
-  //                 checked: row.getIsSelected(),
-  //                 disabled: !row.getCanSelect(),
-  //                 indeterminate: row.getIsSomeSelected(),
-  //                 onChange: row.getToggleSelectedHandler(),
-  //               }}
-  //             />
-  //           );
-  //         },
-  //       }),
-  //       columnHelper.accessor("id", {
-  //         id: "id",
-  //         header: "ID",
-  //         maxSize: 100,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //         meta: {
-  //           align: "right",
-  //         },
-  //       }),
-  //       columnHelper.accessor("name", {
-  //         id: "name",
-  //         header: "Name",
-  //         maxSize: 200,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //       }),
-  //       columnHelper.accessor("email", {
-  //         id: "email",
-  //         header: "Email",
-  //         maxSize: 200,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //       }),
-  //       columnHelper.accessor("address", {
-  //         id: "address",
-  //         header: "Address",
-  //         maxSize: 200,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //       }),
-  //       columnHelper.accessor("date", {
-  //         id: "date",
-  //         header: "Date",
-  //         maxSize: 200,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //       }),
-  //       columnHelper.accessor("subscription", {
-  //         id: "subscription",
-  //         header: "Subscription",
-  //         maxSize: 200,
-  //         enableSorting: true,
-  //         enableResizing: true,
-  //       }),
-  //     ],
-  //     data: data,
-  //   }),
-  //   [
-  //     pagination,
-  //     data,
-  //     rowSelection,
-  //     columnVisibility,
-  //     expanded,
-  //     columnOrder,
-  //     columnFilters,
-  //   ],
-  // );
+  const table = usePixaTable(config);
 
   useEffect(() => {
-    // fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
-    //   setData(data),
-    // );
-    fetchManyColsData({ skip: 0, limit: 22, cols: 22, rows: 10 }).then((data) =>
-      setData(data),
+    // eslint-disable-next-line no-constant-condition
+    if (false) {
+      fetchData({ skip: 0, limit: 100, fetchSize: 10 }).then((data) =>
+        setData(data),
+      );
+    }
+
+    fetchManyColsData({ skip: 0, limit: 2000, cols: 22, rows: 1000 }).then(
+      (data) => setData(data),
     );
   }, []);
 
   return (
     <ResizableDiv
-      renderProps={({ width, height }) => (
-        <TableBase options={config}>
-          {(table) => (
-            <TableAnomali
-              loading={false}
-              hideHeader={false}
-              height={height}
-              width={width}
-              theme={"dark"}
-              tableInstance={table}
-              expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
-              useVirtualizer={true}
-              disableRowHover={false}
-            />
-          )}
-        </TableBase>
+      renderProps={() => (
+        <PixaTable
+          loading={false}
+          hideHeader={false}
+          theme={"dark"}
+          tableInstance={table}
+          expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
+        />
       )}
     />
   );
 }
 
-// const fetchData = async ({
-//   skip = 0,
-//   limit = 10,
-//   fetchSize = 100,
-// }: {
-//   skip: number;
-//   limit: number;
-//   fetchSize: number;
-// }) => {
-//   const response = await fetch(
-//     "/api?skip=" + skip + "&limit=" + limit + "&fetchSize=" + fetchSize,
-//   );
-//   const data = await response.json();
-//   return data;
-// };
+const fetchData = async ({
+  skip = 0,
+  limit = 10,
+  fetchSize = 100,
+}: {
+  skip: number;
+  limit: number;
+  fetchSize: number;
+}) => {
+  const response = await fetch(
+    "/api?skip=" + skip + "&limit=" + limit + "&fetchSize=" + fetchSize,
+  );
+  const data = await response.json();
+  return data;
+};
 
 const fetchManyColsData = async ({
   skip = 0,

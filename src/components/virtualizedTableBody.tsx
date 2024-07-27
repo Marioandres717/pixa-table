@@ -9,7 +9,6 @@ type Props<TData> = {
   parentRef: React.RefObject<HTMLDivElement>;
   className?: string;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
-  disableRowHover?: boolean;
 };
 
 export function VirtualizedTableBody<TData>({

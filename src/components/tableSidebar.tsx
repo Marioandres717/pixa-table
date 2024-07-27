@@ -8,7 +8,7 @@ type Props<TData> = {
   className?: string;
 };
 
-export default function TableSidebar<TData>({
+export function TableSidebar<TData>({
   className,
   tableInstance,
 }: Props<TData>) {
