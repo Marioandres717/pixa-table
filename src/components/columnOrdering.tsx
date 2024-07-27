@@ -20,7 +20,7 @@ type Props<T> = {
 export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
-    (Column<T> & VirtualItem) | null
+    (Column<T> & VirtualItem<Element>) | null
   >(null);
   const { columnOrder } = tableInstance.getState();
 
@@ -86,6 +86,9 @@ export function ColumnOrdering<T>({ tableInstance, maxHeight }: Props<T>) {
       index,
       end,
       lane,
+      measureElement: function (): void {
+        throw new Error("Function not implemented.");
+      },
     });
   }
 

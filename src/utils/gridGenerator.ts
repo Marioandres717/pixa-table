@@ -16,7 +16,7 @@ export function calculateViCols<TData>(
   cols: Column<TData, unknown>[],
   parentWidth: number,
   colVirtualizer: Virtualizer<HTMLDivElement, Element>,
-): VirtualItem[] {
+): VirtualItem<Element>[] {
   const extraSpace = parentWidth - colVirtualizer.getTotalSize();
   if (extraSpace <= 0) return colVirtualizer.getVirtualItems();
   let numberOfDisplayCols = 0;
@@ -37,5 +37,5 @@ export function calculateViCols<TData>(
       });
     }
     return acc;
-  }, [] as VirtualItem[]);
+  }, [] as VirtualItem<Element>[]);
 }
