@@ -48,7 +48,7 @@ export function PixaTable<TData>({
       )}
       <TableSidebar className="col-start-2 row-start-2" tableInstance={table} />
       <div
-        className="col-start-1 row-start-2 overflow-auto"
+        className="relative col-start-1 row-start-2 overflow-auto"
         {...{
           ref: parentRef,
         }}

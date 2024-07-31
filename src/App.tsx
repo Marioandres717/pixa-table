@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import {
   ColumnFiltersState,
   ColumnOrderState,
+  ColumnPinningState,
   ExpandedState,
   PaginationState,
   RowSelectionState,
@@ -31,6 +32,10 @@ function App() {
   const [columnOrder, setColumnOrder] = useState<ColumnOrderState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({
+    left: ["expander", "selection"],
+    right: ["action"],
+  });
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 100,
@@ -50,6 +55,7 @@ function App() {
         expanded,
         columnOrder,
         columnFilters,
+        columnPinning,
       },
       onPaginationChange: setPagination,
       onRowSelectionChange: setRowSelection,
@@ -57,6 +63,7 @@ function App() {
       onColumnOrderChange: setColumnOrder,
       onColumnVisibilityChange: setColumnVisibility,
       onColumnFiltersChange: setColumnFilters,
+      onColumnPinningChange: setColumnPinning,
       columns: [
         columnHelper.display({
           id: "expander",
@@ -106,7 +113,25 @@ function App() {
             );
           },
         }),
-        ...Array.from({ length: 22 }).map((_, i) =>
+        columnHelper.display({
+          id: "action",
+          maxSize: 200,
+          enableSorting: false,
+          enableResizing: false,
+          enableHiding: false,
+          header: "actions",
+          cell: ({ row }) => (
+            <div className="flex justify-center">
+              <button
+                className="rounded bg-blue-500 px-2 py-1 text-white"
+                onClick={() => alert(row.original.id)}
+              >
+                Click
+              </button>
+            </div>
+          ),
+        }),
+        ...Array.from({ length: 5 }).map((_, i) =>
           columnHelper.accessor(`col${i}`, {
             id: `col${i}`,
             header: `Col ${i}`,
@@ -126,6 +151,7 @@ function App() {
       expanded,
       columnOrder,
       columnFilters,
+      columnPinning,
     ],
   );
 
@@ -139,7 +165,7 @@ function App() {
       );
     }
 
-    fetchManyColsData({ skip: 0, limit: 2000, cols: 22, rows: 1000 }).then(
+    fetchManyColsData({ skip: 0, limit: 2000, cols: 5, rows: 1000 }).then(
       (data) => setData(data),
     );
   }, []);

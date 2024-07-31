@@ -29,7 +29,10 @@ export function VirtualizedColumnOrdering<T>({
 
   const columns = tableInstance
     .getAllColumns()
-    .filter((col) => col.id !== "selection" && col.id !== "expander");
+    .filter(
+      (col) =>
+        col.id !== "selection" && col.id !== "expander" && col.id !== "action",
+    );
 
   const sortedColumns: Column<T, unknown>[] =
     columnOrder.length > 0
