@@ -1,8 +1,8 @@
-import { Header } from "@tanstack/react-table";
+import { Header, RowData } from "@tanstack/react-table";
 import { Icon } from "./icon";
 
 type Props<TData> = {
-  header: Header<TData, unknown>;
+  header: Header<TData, RowData>;
 };
 export default function ColumnFilter<TData>({ header }: Props<TData>) {
   if (!header.column.getCanFilter()) {

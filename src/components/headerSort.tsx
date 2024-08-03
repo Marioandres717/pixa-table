@@ -10,7 +10,7 @@ type Props<TData> = {
 export function HeaderSorting<TData>({ header, multiSort }: Props<TData>) {
   const { column } = header;
   const sortDirection = column.getIsSorted();
-
+  if (!column.getCanSort()) return null;
   return (
     <div
       className="cursor-pointer"

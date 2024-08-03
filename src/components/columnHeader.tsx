@@ -1,15 +1,24 @@
-import { flexRender, Header, RowData, TableState } from "@tanstack/react-table";
+import {
+  Column,
+  flexRender,
+  Header,
+  RowData,
+  TableState,
+} from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
 import classNames from "classnames";
 import { ColumnResize } from "./columnResize";
-import { getColumnStyles } from "../utils/gridGenerator";
 import { HeaderSorting } from "./headerSort";
+import ColumnFilter from "./columnFilter";
 
 type Props<TData> = {
   header: Header<TData, RowData>;
   virtualColumn: VirtualItem<Element>;
   state: TableState;
   className?: string;
+  filterColumnComponent?: React.ComponentType<{
+    header: Header<TData, RowData>;
+  }>;
 };
 
 export default function ColumnHeader<TData>({
@@ -17,26 +26,19 @@ export default function ColumnHeader<TData>({
   header,
   state,
   virtualColumn,
+  filterColumnComponent: Filter = ColumnFilter,
 }: Props<TData>) {
-  const { key, index } = virtualColumn;
   const {
+    column: { columnDef, getToggleSortingHandler },
     getContext,
-    column: {
-      columnDef,
-      getToggleSortingHandler,
-      getCanSort,
-      //   getCanFilter,
-      getCanResize,
-    },
   } = header;
+
   return (
     <div
-      key={key}
-      data-index={index}
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={classNames(
-        "absolute left-0 top-0 flex max-h-8 min-h-8 items-center overflow-hidden border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+        "absolute left-0 top-0 flex max-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
         className,
         columnDef.meta?.className,
       )}
@@ -50,11 +52,29 @@ export default function ColumnHeader<TData>({
           ? null
           : flexRender(columnDef.header, getContext())}
       </span>
-      {getCanSort() && (
-        <HeaderSorting header={header} multiSort={state.sorting.length > 1} />
-      )}
-      {/* {getCanFilter() && <Filter header={header} />} */}
-      {getCanResize() && <ColumnResize header={header} />}
+      <HeaderSorting header={header} multiSort={state.sorting.length > 1} />
+      <Filter header={header} />
+      <ColumnResize header={header} />
     </div>
   );
+}
+
+function getColumnStyles<TData>({
+  size,
+  start,
+  getAfter,
+  getIsPinned,
+  columnDef: { minSize, maxSize },
+}: Column<TData, RowData> & VirtualItem<Element>) {
+  const isPinned = getIsPinned();
+
+  return {
+    width: size,
+    minWidth: minSize,
+    maxWidth: maxSize,
+    transform:
+      !isPinned || isPinned === "left"
+        ? `translate3d(${start}px, 0, 0)`
+        : `translate3d(${getAfter()}px, 0, 0)`,
+  };
 }

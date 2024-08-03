@@ -34,7 +34,7 @@ function App() {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnPinning, setColumnPinning] = useState<ColumnPinningState>({
     left: ["expander", "selection"],
-    right: ["action"],
+    right: ["action", "custom"],
   });
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -113,33 +113,53 @@ function App() {
             );
           },
         }),
+
+        ...Array.from({ length: 5 }).map((_, i) =>
+          columnHelper.accessor(`col${i}`, {
+            id: `col${i}`,
+            header: `Col ${i}`,
+            minSize: 50,
+            maxSize: 200,
+            enableSorting: true,
+            enableResizing: true,
+          }),
+        ),
         columnHelper.display({
           id: "action",
-          maxSize: 200,
+          maxSize: 100,
           enableSorting: false,
           enableResizing: false,
           enableHiding: false,
           header: "actions",
           cell: ({ row }) => (
-            <div className="flex justify-center">
+            <div className="tra flex justify-center">
               <button
-                className="rounded bg-blue-500 px-2 py-1 text-white"
-                onClick={() => alert(row.original.id)}
+                className="rounded bg-transparent py-1 text-white"
+                onClick={() => alert(row.id)}
               >
                 Click
               </button>
             </div>
           ),
         }),
-        ...Array.from({ length: 5 }).map((_, i) =>
-          columnHelper.accessor(`col${i}`, {
-            id: `col${i}`,
-            header: `Col ${i}`,
-            maxSize: 200,
-            enableSorting: true,
-            enableResizing: true,
-          }),
-        ),
+        columnHelper.display({
+          id: "custom",
+          maxSize: 100,
+          enableSorting: false,
+          enableResizing: false,
+          enableHiding: false,
+          header: "custom",
+          cell: ({ row }) => (
+            <div className="flex justify-center">
+              <button
+                className="rounded bg-transparent px-2 text-white"
+                onClick={() => alert(row.id)}
+              >
+                OOBAR
+              </button>
+            </div>
+          ),
+        }),
       ],
       data: data,
     }),

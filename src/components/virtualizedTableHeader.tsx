@@ -1,46 +1,66 @@
-import { useCallback, useEffect, useMemo } from "react";
-import { Table, flexRender, Header } from "@tanstack/react-table";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Table, Header, RowData, Column } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
-
-import { ColumnResize } from "./columnResize";
-import { HeaderSorting } from "./headerSort";
-import ColumnFilter from "./columnFilter";
-import React from "react";
 import { calculateViCols } from "../utils/gridGenerator";
+import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
   tableInstance: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
   className?: string;
   filterColumnComponent?: React.ComponentType<{
-    header: Header<TData, unknown>;
+    header: Header<TData, RowData>;
   }>;
+};
+
+export type PinnedCols<TData> = {
+  left: Column<TData, RowData>[];
+  right: Column<TData, RowData>[];
 };
 
 export function VirtualizedTableHeader<TData>({
   tableInstance: table,
-  filterColumnComponent: Filter = ColumnFilter,
+  filterColumnComponent,
   parentRef,
   className,
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
   const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
+  const { left, right } = useMemo(() => {
+    return cols
+      .filter((col) => col.getIsPinned())
+      .reduce(
+        (acc, col) => {
+          if (col.getIsPinned() === "left") {
+            acc.left.push(col);
+          } else {
+            acc.right.push(col);
+          }
+          return acc;
+        },
+        { left: [], right: [] } as PinnedCols<TData>,
+      );
+  }, [cols]);
+
   const state = table.getState();
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
-    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
-    getScrollElement: () => parentRef.current,
     overscan: 5,
     horizontal: true,
+    getScrollElement: () => parentRef.current,
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
+    getItemKey: useCallback((i) => cols[i].id, [cols]),
+    debug: true,
   });
 
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
+
+  const colVirtualizerWidth = colVirtualizer.getTotalSize();
+
   const rowHeaderWidth =
-    parentWidth > colVirtualizer.getTotalSize()
-      ? parentWidth
-      : colVirtualizer.getTotalSize();
+    parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 
   const viCols = calculateViCols(cols, parentWidth, colVirtualizer);
 
@@ -61,53 +81,76 @@ export function VirtualizedTableHeader<TData>({
       {headerGroups.map((headerGroup) => (
         <div
           role="row"
-          className="grid h-8 border-b dark:border-black-92.5 dark:bg-black-95"
+          className="h-8 border-b dark:border-black-92.5 dark:bg-black-95"
           {...{
             key: headerGroup.id,
           }}
         >
-          {headerGroup.headers.map((header, i) => {
-            const viCol = viCols.find((viCol) => viCol.index === i);
-            if (!viCol) return null;
-            const {
-              column: { columnDef, getCanFilter, getCanResize, getCanSort },
-              getContext,
-            } = header;
-            return (
-              <div
-                role="columnheader"
-                className={classNames(
-                  "absolute left-0 top-0 flex max-h-8 min-h-8 items-center overflow-hidden border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
-                  columnDef.meta?.className,
-                )}
-                key={viCol.key}
-                data-index={viCol.index}
-                style={{
-                  justifyContent: columnDef.meta?.align,
-                  width: `${viCol.size}px`,
-                  transform: `translateX(${viCol.start}px)`,
-                }}
-              >
-                <span
-                  className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
-                  onClick={header.column.getToggleSortingHandler()}
-                  title={columnDef.header?.toString()}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(columnDef.header, getContext())}
-                </span>
-                {getCanSort() && (
-                  <HeaderSorting
+          {/* LEFT PINNED COLS */}
+          <div
+            className="sticky left-0 top-0 z-10 h-full bg-inherit"
+            style={{
+              width: left.reduce((acc, col) => acc + col.getSize(), 0),
+            }}
+          >
+            {headerGroup.headers
+              .filter((header) => header.column.getIsPinned() === "left")
+              .map((header) => {
+                const viCol = viCols.find((viCol) => viCol.key === header.id);
+                if (!viCol) return null;
+                return (
+                  <ColumnHeader
+                    key={viCol.key}
                     header={header}
-                    multiSort={state.sorting.length > 1}
+                    virtualColumn={viCol}
+                    state={state}
                   />
-                )}
-                {getCanFilter() && <Filter header={header} />}
-                {getCanResize() && <ColumnResize header={header} />}
-              </div>
-            );
-          })}
+                );
+              })}
+          </div>
+
+          {/* RIGHT PINNED COLS */}
+          <div
+            className="sticky left-0 top-0 z-10 h-full -translate-y-8 bg-transparent"
+            style={{
+              width: right.reduce((acc, col) => acc + col.getSize(), 0),
+              left:
+                parentWidth -
+                right.reduce((acc, col) => acc + col.getSize(), 0),
+            }}
+          >
+            {headerGroup.headers
+              .filter((header) => header.column.getIsPinned() === "right")
+              .map((header) => {
+                const viCol = viCols.find((viCol) => viCol.key === header.id);
+                if (!viCol) return null;
+                return (
+                  <ColumnHeader
+                    key={viCol.key}
+                    header={header}
+                    virtualColumn={viCol}
+                    state={state}
+                  />
+                );
+              })}
+          </div>
+
+          {/* NON-PINNED COLS */}
+          {headerGroup.headers
+            .filter((header) => !header.column.getIsPinned())
+            .map((header) => {
+              const viCol = viCols.find((viCol) => viCol.key === header.id);
+              if (!viCol) return null;
+              return (
+                <ColumnHeader
+                  key={viCol.key}
+                  header={header}
+                  virtualColumn={viCol}
+                  state={state}
+                  filterColumnComponent={filterColumnComponent}
+                />
+              );
+            })}
         </div>
       ))}
     </div>
