@@ -65,7 +65,7 @@ function getColumnStyles<TData>({
   start,
   getAfter,
   getIsPinned,
-  columnDef: { minSize, maxSize },
+  columnDef: { minSize },
 }: Column<TData, RowData> & VirtualItem<Element>) {
   const isPinned = getIsPinned();
 
@@ -76,6 +76,6 @@ function getColumnStyles<TData>({
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`
-        : `translate3d(${getAfter()}px, 0, 0)`,
+        : `translate3d(${getAfter(isPinned)}px, 0, 0)`,
   };
 }

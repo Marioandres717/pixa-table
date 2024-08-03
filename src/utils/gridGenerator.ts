@@ -23,7 +23,7 @@ export function calculateViCols<TData>(
   return colVirtualizer.getVirtualItems().reduce((acc, viCol, i) => {
     const { index, size } = viCol;
     const col = cols[index];
-    if (col.id === "selection" || col.id === "expander") {
+    if (col.getIsPinned()) {
       acc.push(viCol);
       numberOfDisplayCols++;
     } else {

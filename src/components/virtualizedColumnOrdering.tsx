@@ -26,13 +26,9 @@ export function VirtualizedColumnOrdering<T>({
     (Column<T> & VirtualItem<Element>) | null
   >(null);
   const { columnOrder } = tableInstance.getState();
-
   const columns = tableInstance
     .getAllColumns()
-    .filter(
-      (col) =>
-        col.id !== "selection" && col.id !== "expander" && col.id !== "action",
-    );
+    .filter((col) => !col.getIsPinned());
 
   const sortedColumns: Column<T, unknown>[] =
     columnOrder.length > 0

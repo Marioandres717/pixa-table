@@ -17,7 +17,12 @@ export function VirtualizedTableBody<TData>({
   expandableRowComponent: ExpandRow,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
-  const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
+  const tableState = table.getState();
+  const cols = useMemo(
+    () => table.getFlatHeaders().map((h) => h.column),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [table, tableState],
+  );
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const state = table.getState();
 
@@ -40,16 +45,20 @@ export function VirtualizedTableBody<TData>({
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
-    rangeExtractor(range) {
-      const pinnedCols = [
-        ...left.map((l) => l.getIndex()),
-        ...right.map((r) => r.getIndex()),
-      ];
-      const visibleCols = cols
-        .slice(range.startIndex, range.endIndex + 1)
-        .map((col) => col.getIndex());
-      return [...pinnedCols, ...visibleCols];
-    },
+    rangeExtractor: useCallback(
+      (range) => {
+        const pinnedCols = [
+          ...left.map((l) => cols.findIndex((col) => col.id === l.id)),
+          ...right.map((r) => cols.findIndex((col) => col.id === r.id)),
+        ];
+        const visibleCols = cols
+          .slice(range.startIndex, range.endIndex + 1)
+          .filter((col) => !col.getIsPinned())
+          .map((col) => cols.findIndex((c) => c.id === col.id));
+        return [...pinnedCols, ...visibleCols];
+      },
+      [cols, left, right],
+    ),
   });
 
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
