@@ -35,6 +35,7 @@ export default function ColumnHeader<TData>({
 
   return (
     <div
+      data-id={virtualColumn.key}
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={classNames(
@@ -71,7 +72,7 @@ function getColumnStyles<TData>({
   return {
     width: size,
     minWidth: minSize,
-    maxWidth: maxSize,
+    // maxWidth: maxSize,
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`

@@ -114,7 +114,7 @@ function App() {
           },
         }),
 
-        ...Array.from({ length: 5 }).map((_, i) =>
+        ...Array.from({ length: 22 }).map((_, i) =>
           columnHelper.accessor(`col${i}`, {
             id: `col${i}`,
             header: `Col ${i}`,
@@ -185,7 +185,7 @@ function App() {
       );
     }
 
-    fetchManyColsData({ skip: 0, limit: 2000, cols: 5, rows: 1000 }).then(
+    fetchManyColsData({ skip: 0, limit: 2000, cols: 22, rows: 1000 }).then(
       (data) => setData(data),
     );
   }, []);
@@ -194,10 +194,10 @@ function App() {
     <ResizableDiv
       renderProps={() => (
         <PixaTable
+          tableInstance={table}
           loading={false}
           hideHeader={false}
           theme={"dark"}
-          tableInstance={table}
           expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
         />
       )}

@@ -21,9 +21,9 @@ export default function ColumnCell<TData>({
   className,
 }: Props<TData>) {
   const { column, getContext } = cell;
-
   return (
     <div
+      data-id={virtualColumn.key}
       role="cell"
       style={getColumnStyles({ ...column, ...virtualColumn })}
       className={classNames(
@@ -53,7 +53,7 @@ function getColumnStyles<TData>({
     padding: columnDef.meta?.padding,
     width: size,
     minWidth: minSize,
-    maxWidth: maxSize,
+    // maxWidth: maxSize,
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`

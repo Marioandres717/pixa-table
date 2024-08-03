@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { Table, Header, RowData, Column } from "@tanstack/react-table";
+import { Table, Header, RowData } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import classNames from "classnames";
-import { calculateViCols } from "../utils/gridGenerator";
+import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
 import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
@@ -14,11 +14,6 @@ type Props<TData> = {
   }>;
 };
 
-export type PinnedCols<TData> = {
-  left: Column<TData, RowData>[];
-  right: Column<TData, RowData>[];
-};
-
 export function VirtualizedTableHeader<TData>({
   tableInstance: table,
   filterColumnComponent,
@@ -27,22 +22,7 @@ export function VirtualizedTableHeader<TData>({
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
   const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
-  const { left, right } = useMemo(() => {
-    return cols
-      .filter((col) => col.getIsPinned())
-      .reduce(
-        (acc, col) => {
-          if (col.getIsPinned() === "left") {
-            acc.left.push(col);
-          } else {
-            acc.right.push(col);
-          }
-          return acc;
-        },
-        { left: [], right: [] } as PinnedCols<TData>,
-      );
-  }, [cols]);
-
+  const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const state = table.getState();
 
   const colVirtualizer = useVirtualizer({
@@ -52,7 +32,16 @@ export function VirtualizedTableHeader<TData>({
     getScrollElement: () => parentRef.current,
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getItemKey: useCallback((i) => cols[i].id, [cols]),
-    debug: true,
+    rangeExtractor(range) {
+      const pinnedCols = [
+        ...left.map((l) => l.getIndex()),
+        ...right.map((r) => r.getIndex()),
+      ];
+      const visibleCols = cols
+        .slice(range.startIndex, range.endIndex + 1)
+        .map((col) => col.getIndex());
+      return [...pinnedCols, ...visibleCols];
+    },
   });
 
   const parentWidth = parentRef.current?.offsetWidth ?? 0;

@@ -1,6 +1,5 @@
 import { Table } from "@tanstack/react-table";
 import { PageResults } from "./results";
-import { useMemo } from "react";
 import classNames from "classnames";
 
 type Props<T> = {
@@ -14,19 +13,16 @@ export function TableToolbar<T>({
   tableInstance,
   // paginationPageSizeComponent,
 }: Props<T>) {
-  const totalItems = useMemo(
-    () => tableInstance.getRowCount(),
-    [tableInstance],
-  );
+  const totalItems = tableInstance.getRowCount();
 
   const areItemsSelected =
     tableInstance.getIsSomeRowsSelected() ||
     tableInstance.getIsAllRowsSelected();
 
-  const numOfItemsSelected = useMemo(
-    () => Object.keys(tableInstance.getState().rowSelection).length,
-    [tableInstance],
-  );
+  const numOfItemsSelected = Object.keys(
+    tableInstance.getState().rowSelection,
+  ).length;
+
   return (
     <div
       className={classNames(

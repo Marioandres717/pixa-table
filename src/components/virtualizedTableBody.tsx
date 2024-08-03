@@ -1,7 +1,7 @@
 import { Row, Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { calculateViCols } from "../utils/gridGenerator";
+import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
 import ColumnCell from "./columnCell";
 
 type Props<TData> = {
@@ -18,6 +18,7 @@ export function VirtualizedTableBody<TData>({
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
   const cols = useMemo(() => table.getVisibleFlatColumns(), [table]);
+  const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
@@ -25,6 +26,7 @@ export function VirtualizedTableBody<TData>({
     overscan: 5,
     paddingStart: 32,
     getScrollElement: () => parentRef.current,
+    getItemKey: useCallback((i) => rows[i].id, [rows]),
     estimateSize: useCallback(
       (i) => (rows[i].getIsExpanded() ? 400 : 36),
       [rows],
@@ -38,6 +40,16 @@ export function VirtualizedTableBody<TData>({
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
+    rangeExtractor(range) {
+      const pinnedCols = [
+        ...left.map((l) => l.getIndex()),
+        ...right.map((r) => r.getIndex()),
+      ];
+      const visibleCols = cols
+        .slice(range.startIndex, range.endIndex + 1)
+        .map((col) => col.getIndex());
+      return [...pinnedCols, ...visibleCols];
+    },
   });
 
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
