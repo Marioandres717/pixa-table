@@ -12,9 +12,7 @@ export default {
       serif: fontFamily.serif,
       mono: fontFamily.mono,
     },
-    extend: {
-      colors: theme.colors,
-    },
+    colors: theme.colors,
   },
   plugins: [talwindcssForms],
 };

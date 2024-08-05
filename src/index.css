@@ -1,44 +1,7 @@
+@import "@fontsource/hind";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  @font-face {
-    font-family: "Hind";
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-    src: url("./assets/fonts/ml_hind_light.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Hind";
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
-    src: url("./assets/fonts/ml_hind_regular.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Hind";
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
-    src: url("./assets/fonts/ml_hind_medium.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Hind";
-    font-style: normal;
-    font-weight: 600;
-    font-display: swap;
-    src: url("./assets/fonts/ml_hind_semibold.woff2") format("woff2");
-  }
-  @font-face {
-    font-family: "Hind";
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
-    src: url("./assets/fonts/ml_hind_bold.woff2") format("woff2");
-  }
-}
 
 @layer components {
   input[type="checkbox"] {

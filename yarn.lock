@@ -1364,6 +1364,11 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.57.0.tgz#a5417ae8427873f1dd08b70b3574b453e67b5f7f"
   integrity sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==
 
+"@fontsource/hind@^5.0.13":
+  version "5.0.13"
+  resolved "https://registry.yarnpkg.com/@fontsource/hind/-/hind-5.0.13.tgz#abea2c6400ed601a38e14e8e0d2b3eda00699eeb"
+  integrity sha512-frVDlZJNtMjnkImkKXEe9RtLFebNQbNBJ0rCUG67KH4IH7oTyjanaUlL8ACraBy0j+pFx5PLHsU8g8r6HHszaw==
+
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.14.tgz#d78e481a039f7566ecc9660b4ea7fe6b1fec442b"
