@@ -1,5 +1,5 @@
 import { Row, RowData, Table } from "@tanstack/react-table";
-import classNames from "classnames";
+import clsx from "clsx";
 
 type Props<TData> = {
   table?: Table<TData>;
@@ -11,10 +11,7 @@ export default function RowActions<TData>({ className }: Props<TData>) {
   return (
     <div
       role="group"
-      className={classNames(
-        "flex h-9 max-w-fit gap-1 dark:bg-black-95",
-        className,
-      )}
+      className={clsx("flex h-9 max-w-fit gap-1 dark:bg-black-95", className)}
     >
       <button>View</button>
       <button>Edit</button>

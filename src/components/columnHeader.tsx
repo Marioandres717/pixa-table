@@ -6,7 +6,7 @@ import {
   TableState,
 } from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
-import classNames from "classnames";
+import clsx from "clsx";
 import { ColumnResize } from "./columnResize";
 import { HeaderSorting } from "./headerSort";
 import ColumnFilter from "./columnFilter";
@@ -38,7 +38,7 @@ export default function ColumnHeader<TData>({
       data-id={virtualColumn.key}
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
-      className={classNames(
+      className={clsx(
         "absolute left-0 top-0 flex max-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
         className,
         columnDef.meta?.className,

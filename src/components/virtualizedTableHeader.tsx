@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Table, Header, RowData } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import classNames from "classnames";
+import clsx from "clsx";
 import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
 import ColumnHeader from "./columnHeader";
 
@@ -67,7 +67,7 @@ export function VirtualizedTableHeader<TData>({
   return (
     <div
       role="rowheader"
-      className={classNames("sticky top-0 z-10 h-8", className)}
+      className={clsx("sticky top-0 z-10 h-8", className)}
       {...{
         style: {
           width: `${rowHeaderWidth}px`,

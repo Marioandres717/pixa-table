@@ -1,7 +1,7 @@
 import { useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { Column } from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
-import classNames from "classnames";
+import clsx from "clsx";
 import { IndeterminateCheckbox } from "./checkbox";
 import { Icon } from "./icon";
 
@@ -51,7 +51,7 @@ export function DraggableColumn<T>({
     <div
       data-index={index}
       ref={setNodeRef}
-      className={classNames(
+      className={clsx(
         "absolute flex w-[190px] cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
         getIsVisible() ? "dark:bg-black-92.5" : "dark:bg-black-95",
       )}

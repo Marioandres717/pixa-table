@@ -1,6 +1,6 @@
 import { Table } from "@tanstack/react-table";
-import Button from "./button";
 import { Icon } from "./icon";
+import { Button } from "./button";
 
 type Props<TData> = {
   table: Table<TData>;

@@ -12,3 +12,4 @@ export { VirtualizedTableHeader } from "./virtualizedTableHeader";
 export { TableSidebar } from "./tableSidebar";
 export { PixaTable } from "./pixaTable";
 export { ResizableDiv } from "./resizable";
+export { Button } from "./button";

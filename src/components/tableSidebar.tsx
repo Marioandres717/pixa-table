@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import clsx from "clsx";
 import { useRef, useState } from "react";
 import ColumnSettings from "./columnSettings";
 import { Table } from "@tanstack/react-table";
@@ -18,7 +18,7 @@ export function TableSidebar<TData>({
   return (
     <div
       ref={ref}
-      className={classNames(
+      className={clsx(
         "relative flex flex-col border-l dark:border-black-92.5",
         className,
       )}
