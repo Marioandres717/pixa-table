@@ -3,7 +3,7 @@ import { VirtualizedColumnOrdering } from "./virtualizedColumnOrdering";
 
 type Props<TData> = {
   show: boolean;
-  tableInstance: Table<TData>;
+  table: Table<TData>;
   onClick: () => void;
   parentRef: React.RefObject<HTMLDivElement>;
 };
@@ -11,7 +11,7 @@ type Props<TData> = {
 export default function ColumnSettings<TData>({
   show = false,
   onClick,
-  tableInstance,
+  table,
   parentRef,
 }: Props<TData>) {
   const parentHeight = parentRef.current?.offsetHeight ?? 0;
@@ -36,7 +36,7 @@ export default function ColumnSettings<TData>({
           <div>Column order & visibility</div>
           {/*  -80 for the Table settings header */}
           <VirtualizedColumnOrdering
-            tableInstance={tableInstance}
+            table={table}
             maxHeight={parentHeight - 80}
           />
         </div>

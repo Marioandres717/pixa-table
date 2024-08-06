@@ -194,7 +194,7 @@ function App() {
     <ResizableDiv
       renderProps={() => (
         <PixaTable
-          tableInstance={table}
+          table={table}
           loading={false}
           hideHeader={false}
           theme={"dark"}

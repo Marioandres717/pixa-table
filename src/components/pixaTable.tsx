@@ -9,7 +9,7 @@ import {
 } from "./";
 
 type Props<TData> = {
-  tableInstance: Table<TData>;
+  table: Table<TData>;
   theme: "light" | "dark";
   loading?: boolean;
   hideHeader?: boolean;
@@ -22,7 +22,7 @@ type Props<TData> = {
 };
 
 export function PixaTable<TData>({
-  tableInstance: table,
+  table: table,
   theme = "light",
   hideHeader = false,
   expandableRowComponent: ExpandRow,
@@ -43,11 +43,11 @@ export function PixaTable<TData>({
       {!hideHeader && (
         <TableToolbar
           className={`col-span-full col-start-1 row-start-1`}
-          tableInstance={table}
+          table={table}
           paginationPageSizeComponent={pageSizeComponent}
         />
       )}
-      <TableSidebar className="col-start-2 row-start-2" tableInstance={table} />
+      <TableSidebar className="col-start-2 row-start-2" table={table} />
       <div
         className="relative col-start-1 row-start-2 overflow-auto"
         {...{
@@ -55,13 +55,13 @@ export function PixaTable<TData>({
         }}
       >
         <VirtualizedTableHeader
-          tableInstance={table}
+          table={table}
           parentRef={parentRef}
           filterColumnComponent={filterColumnComponent}
         />
 
         <VirtualizedTableBody
-          tableInstance={table}
+          table={table}
           parentRef={parentRef}
           expandableRowComponent={ExpandRow}
         />

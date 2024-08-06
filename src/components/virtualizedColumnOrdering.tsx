@@ -13,22 +13,17 @@ import { useVirtualizer, VirtualItem } from "@tanstack/react-virtual";
 import { DraggableColumn } from "./columnDraggable";
 
 type Props<T> = {
-  tableInstance: Table<T>;
+  table: Table<T>;
   maxHeight?: number;
 };
 
-export function VirtualizedColumnOrdering<T>({
-  tableInstance,
-  maxHeight,
-}: Props<T>) {
+export function VirtualizedColumnOrdering<T>({ table, maxHeight }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
     (Column<T> & VirtualItem<Element>) | null
   >(null);
-  const { columnOrder } = tableInstance.getState();
-  const columns = tableInstance
-    .getAllColumns()
-    .filter((col) => !col.getIsPinned());
+  const { columnOrder } = table.getState();
+  const columns = table.getAllColumns().filter((col) => !col.getIsPinned());
 
   const sortedColumns: Column<T, unknown>[] =
     columnOrder.length > 0
@@ -60,10 +55,10 @@ export function VirtualizedColumnOrdering<T>({
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (active.id !== over?.id) {
-      const { setColumnOrder } = tableInstance;
+      const { setColumnOrder } = table;
       setColumnOrder((items) => {
         if (items.length === 0) {
-          items = tableInstance.getAllColumns().map((col) => col.id.toString());
+          items = table.getAllColumns().map((col) => col.id.toString());
         }
         if (!over) {
           return items;

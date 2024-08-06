@@ -5,14 +5,14 @@ import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
 import ColumnCell from "./columnCell";
 
 type Props<TData> = {
-  tableInstance: Table<TData>;
+  table: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
   className?: string;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
 };
 
 export function VirtualizedTableBody<TData>({
-  tableInstance: table,
+  table: table,
   parentRef,
   expandableRowComponent: ExpandRow,
 }: Props<TData>) {

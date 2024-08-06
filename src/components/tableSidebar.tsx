@@ -4,14 +4,11 @@ import ColumnSettings from "./columnSettings";
 import { Table } from "@tanstack/react-table";
 
 type Props<TData> = {
-  tableInstance: Table<TData>;
+  table: Table<TData>;
   className?: string;
 };
 
-export function TableSidebar<TData>({
-  className,
-  tableInstance,
-}: Props<TData>) {
+export function TableSidebar<TData>({ className, table }: Props<TData>) {
   const ref = useRef<HTMLDivElement>(null);
   const [tabSelected, setTabSelected] = useState<"columns" | "">("");
 
@@ -26,7 +23,7 @@ export function TableSidebar<TData>({
       <ColumnSettings
         parentRef={ref}
         show={tabSelected === "columns"}
-        tableInstance={tableInstance}
+        table={table}
         onClick={() =>
           setTabSelected((prev) => (prev === "columns" ? "" : "columns"))
         }

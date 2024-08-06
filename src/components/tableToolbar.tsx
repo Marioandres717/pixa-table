@@ -4,24 +4,21 @@ import clsx from "clsx";
 
 type Props<T> = {
   className?: string;
-  tableInstance: Table<T>;
+  table: Table<T>;
   paginationPageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
 };
 
 export function TableToolbar<T>({
   className,
-  tableInstance,
+  table,
   // paginationPageSizeComponent,
 }: Props<T>) {
-  const totalItems = tableInstance.getRowCount();
+  const totalItems = table.getRowCount();
 
   const areItemsSelected =
-    tableInstance.getIsSomeRowsSelected() ||
-    tableInstance.getIsAllRowsSelected();
+    table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
 
-  const numOfItemsSelected = Object.keys(
-    tableInstance.getState().rowSelection,
-  ).length;
+  const numOfItemsSelected = Object.keys(table.getState().rowSelection).length;
 
   return (
     <div
