@@ -19,10 +19,10 @@ import {
   PixaTable,
   ResizableDiv,
 } from "./components";
-import { MockData, MockDataManyCols } from "./mocks/handlers";
 import { usePixaTable } from "./hooks";
+import { MockDataManyCols } from "./mocks/handlers/mockMany";
+import { MockData } from "./mocks/handlers/mockData";
 
-// const columnHelper = createColumnHelper<MockData>();
 const columnHelper = createColumnHelper<MockDataManyCols>();
 
 function App() {
