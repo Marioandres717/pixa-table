@@ -1,6 +1,7 @@
 import { Table } from "@tanstack/react-table";
 import { Icon } from "./icon";
 import { Button } from "./button";
+import clsx from "clsx";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -47,7 +48,6 @@ export function PageOptions<TData>({ table }: Props<TData>) {
   return (
     <div className="flex gap-1">
       <Button
-        className="peer dark:focus:bg-black-85 dark:focus:text-white"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex - 1);
@@ -59,16 +59,15 @@ export function PageOptions<TData>({ table }: Props<TData>) {
       {pageOptionsState.map((option) => (
         <Button
           key={option}
-          className={
-            pageIndex === option - 1 ? "bg-aqua-120 !text-black-100" : ""
-          }
+          className={clsx(
+            pageIndex === option - 1 ? "!bg-aqua-120 !text-black-100" : "",
+          )}
           onClick={() => onPageChange(option - 1)}
         >
           {option}
         </Button>
       ))}
       <Button
-        className="peer dark:focus:bg-black-85 dark:focus:text-white"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex + 1);

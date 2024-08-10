@@ -23,7 +23,7 @@ export function HeaderSorting<TData>({ header, multiSort }: Props<TData>) {
           {!multiSort && (
             <Icon
               icon={sortDirection ? `sort-${sortDirection}` : "sort-asc"}
-              className={`!h-3 !w-8 flex-shrink-0 ${column.getIsSorted() ? "fill-aqua-100" : "fill-black-70"}`}
+              className={`!h-3 !w-8 flex-shrink-0 ${column.getIsSorted() ? "fill-aqua-120 dark:fill-aqua-100" : "fill-black-70"}`}
             />
           )}
         </>

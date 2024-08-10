@@ -98,7 +98,7 @@ export function VirtualizedColumnOrdering<T>({ table, maxHeight }: Props<T>) {
       <SortableContext items={sortedColumns}>
         <div
           ref={scrollableRef}
-          className="overflow-y-auto overflow-x-hidden rounded border dark:border-black-90 dark:bg-black-100"
+          className="overflow-y-auto overflow-x-hidden rounded border bg-black-10 dark:border-black-90 dark:bg-black-100"
           style={{ maxHeight }}
         >
           <div

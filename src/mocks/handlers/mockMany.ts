@@ -36,7 +36,7 @@ export const handlerMockDataManyCols = http.get(
 
 const columnHelper = createColumnHelper<MockDataManyCols>();
 
-export const mockDataColumnDefs = [
+export const mockDataManyColumnsDefs = [
   ...Array.from({ length: 22 }).map((_, i) =>
     columnHelper.accessor(`col${i}`, {
       id: `col${i}`,
