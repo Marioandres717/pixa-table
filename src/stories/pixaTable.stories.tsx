@@ -56,7 +56,6 @@ export const InsideResizableContainer: Story = {
           table={args.table}
           loading={false}
           hideHeader={false}
-          theme={"dark"}
           expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
         />
       )}

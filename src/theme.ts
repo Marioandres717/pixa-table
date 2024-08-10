@@ -1,5 +1,9 @@
 export const theme = {
   colors: {
+    transparent: "transparent",
+    current: "currentColor",
+    inherit: "inherit",
+    white: "#ffffff",
     black: {
       170: "#04090c",
       140: "#081117",
@@ -24,7 +28,6 @@ export const theme = {
       15: "#dbdddf",
       10: "#e7e8e9",
       5: "#f3f4f4",
-      white: "#ffffff",
     },
     green: {
       130: "#1c6300",
