@@ -10,7 +10,6 @@ import {
 
 type Props<TData> = {
   table: Table<TData>;
-  theme: "light" | "dark";
   loading?: boolean;
   hideHeader?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
@@ -23,7 +22,6 @@ type Props<TData> = {
 
 export function PixaTable<TData>({
   table: table,
-  theme = "light",
   hideHeader = false,
   expandableRowComponent: ExpandRow,
   pageSizeComponent,
@@ -37,7 +35,6 @@ export function PixaTable<TData>({
   return (
     <div
       role="table"
-      data-theme={theme}
       className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
     >
       {!hideHeader && (

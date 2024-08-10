@@ -8,7 +8,7 @@ import {
 import { VirtualItem } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { ColumnResize } from "./columnResize";
-import { HeaderSorting } from "./headerSort";
+import { HeaderSorting } from "./columnSort";
 import ColumnFilter from "./columnFilter";
 
 type Props<TData> = {

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { PixaTable } from "../components";
+import { PixaTable, ResizableDiv } from "../components";
 import { Table } from "@tanstack/react-table";
 import { useMemo } from "react";
 import { usePixaTable } from "../hooks";
@@ -32,13 +32,11 @@ const meta: Meta<typeof PixaTable> = {
       );
       const table = usePixaTable<MockData>(config);
       return (
-        <div style={{ height: "80vh", width: "100vw" }}>
-          <Story
-            args={{
-              table: table as Table<unknown>,
-            }}
-          />
-        </div>
+        <Story
+          args={{
+            table: table as Table<unknown>,
+          }}
+        />
       );
     },
   ],
@@ -48,4 +46,20 @@ export default meta;
 
 export const Defaults: Story = {
   args: {},
+};
+
+export const InsideResizableContainer: Story = {
+  render: (args) => (
+    <ResizableDiv
+      renderProps={() => (
+        <PixaTable
+          table={args.table}
+          loading={false}
+          hideHeader={false}
+          theme={"dark"}
+          expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
+        />
+      )}
+    />
+  ),
 };
