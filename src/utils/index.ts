@@ -1,2 +1,2 @@
 export { getIcon, getIconList } from "./icons";
-export { gridGenerator } from "./gridGenerator";
+export { getPinnedCols } from "./gridGenerator";

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Table, Header, RowData } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
+import { getPinnedCols } from "../utils";
 import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
@@ -25,15 +25,30 @@ export function VirtualizedTableHeader<TData>({
     () => headerGroups[0].headers.map((header) => header.column),
     [headerGroups],
   );
-  const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const state = table.getState();
+  const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
+  const leftSpace = left.reduce((acc, col) => acc + col.getSize(), 0);
+  const rightSpace = right.reduce((acc, col) => acc + col.getSize(), 0);
+  const availableSpace =
+    parentRef.current?.offsetWidth ?? 0 - leftSpace - rightSpace;
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
     overscan: 5,
     horizontal: true,
     getScrollElement: () => parentRef.current,
-    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
+    estimateSize: useCallback(
+      (i) => {
+        const col = cols[i];
+        if (col.getIsPinned()) return col.getSize();
+        const colsNumber = cols.length - left.length - right.length;
+        const singleColWidth = availableSpace / colsNumber;
+        const r =
+          singleColWidth > col.getSize() ? singleColWidth : col.getSize();
+        return r;
+      },
+      [cols, availableSpace, left, right],
+    ),
     getItemKey: useCallback((i) => cols[i].id, [cols]),
     rangeExtractor: useCallback(
       (range) => {
@@ -58,7 +73,7 @@ export function VirtualizedTableHeader<TData>({
   const rowHeaderWidth =
     parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 
-  const viCols = calculateViCols(cols, parentWidth, colVirtualizer);
+  const viCols = colVirtualizer.getVirtualItems();
 
   useEffect(() => {
     colVirtualizer.measure();
@@ -77,7 +92,7 @@ export function VirtualizedTableHeader<TData>({
       {headerGroups.map((headerGroup) => (
         <div
           role="row"
-          className="h-8 border-b dark:border-black-92.5 dark:bg-black-95"
+          className="h-8 border-b bg-black-10 dark:border-black-92.5 dark:bg-black-95"
           {...{
             key: headerGroup.id,
           }}

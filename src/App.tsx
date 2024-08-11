@@ -132,30 +132,12 @@ function App() {
           enableHiding: false,
           header: "actions",
           cell: ({ row }) => (
-            <div className="tra flex justify-center">
+            <div className="flex justify-center">
               <button
                 className="rounded bg-transparent py-1 text-white"
                 onClick={() => alert(row.id)}
               >
                 Click
-              </button>
-            </div>
-          ),
-        }),
-        columnHelper.display({
-          id: "custom",
-          maxSize: 100,
-          enableSorting: false,
-          enableResizing: false,
-          enableHiding: false,
-          header: "custom",
-          cell: ({ row }) => (
-            <div className="flex justify-center">
-              <button
-                className="rounded bg-transparent px-2 text-white"
-                onClick={() => alert(row.id)}
-              >
-                OOBAR
               </button>
             </div>
           ),
@@ -185,7 +167,7 @@ function App() {
       );
     }
 
-    fetchManyColsData({ skip: 0, limit: 2000, cols: 22, rows: 1000 }).then(
+    fetchManyColsData({ skip: 0, limit: 2000, cols: 22, rows: 10 }).then(
       (data) => setData(data),
     );
   }, []);
@@ -197,7 +179,6 @@ function App() {
           table={table}
           loading={false}
           hideHeader={false}
-          theme={"dark"}
           expandableRowComponent={() => <h1 className="p-4">foobar</h1>}
         />
       )}

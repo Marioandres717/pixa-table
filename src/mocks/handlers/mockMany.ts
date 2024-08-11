@@ -42,7 +42,6 @@ export const mockDataManyColumnsDefs = [
       id: `col${i}`,
       header: `Col ${i}`,
       minSize: 50,
-      maxSize: 200,
       enableSorting: true,
       enableResizing: true,
     }),

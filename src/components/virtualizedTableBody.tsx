@@ -1,7 +1,7 @@
 import { Row, Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { calculateViCols, getPinnedCols } from "../utils/gridGenerator";
+import { getPinnedCols } from "../utils";
 import ColumnCell from "./columnCell";
 
 type Props<TData> = {
@@ -24,6 +24,10 @@ export function VirtualizedTableBody<TData>({
     [table, tableState],
   );
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
+  const leftSpace = left.reduce((acc, col) => acc + col.getSize(), 0);
+  const rightSpace = right.reduce((acc, col) => acc + col.getSize(), 0);
+  const availableSpace =
+    parentRef.current?.offsetWidth ?? 0 - leftSpace - rightSpace;
   const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
@@ -42,9 +46,20 @@ export function VirtualizedTableBody<TData>({
     count: cols.length,
     overscan: 5,
     horizontal: true,
-    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
+    estimateSize: useCallback(
+      (i) => {
+        const col = cols[i];
+        if (col.getIsPinned()) return col.getSize();
+        const colsNumber = cols.length - left.length - right.length;
+        const singleColWidth = availableSpace / colsNumber;
+        const r =
+          singleColWidth > col.getSize() ? singleColWidth : col.getSize();
+        return r;
+      },
+      [cols, availableSpace, left, right],
+    ),
     rangeExtractor: useCallback(
       (range) => {
         const pinnedCols = [
@@ -68,11 +83,11 @@ export function VirtualizedTableBody<TData>({
       : colVirtualizer.getTotalSize();
 
   const viRows = rowVirtualizer.getVirtualItems();
-  const viCols = calculateViCols(cols, parentWidth, colVirtualizer);
+  const viCols = colVirtualizer.getVirtualItems();
 
   useEffect(() => {
     rowVirtualizer.measure();
-  }, [rows, rowVirtualizer]);
+  }, [rows, rowVirtualizer, state.expanded]);
 
   useEffect(() => {
     colVirtualizer.measure();
@@ -91,7 +106,7 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className={`absolute left-0 top-0 w-full border-b transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
+            className={`absolute left-0 top-0 w-full border-b bg-black-5 transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{
