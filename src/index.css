@@ -13,9 +13,9 @@
 
     &:checked,
     &:indeterminate {
-      @apply bg-primary-blue-100;
+      @apply bg-blue-100;
       &:hover {
-        @apply bg-primary-blue-120 dark:bg-primary-blue-80;
+        @apply bg-blue-120 dark:bg-blue-80;
       }
     }
   }
