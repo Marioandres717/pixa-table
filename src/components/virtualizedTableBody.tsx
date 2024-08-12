@@ -106,7 +106,7 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className={`absolute left-0 top-0 w-full border-b bg-black-5 transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
+            className={`group absolute left-0 top-0 w-full border-b bg-black-5 transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{
@@ -143,7 +143,7 @@ export function VirtualizedTableBody<TData>({
 
             {/* RIGHT PINNED CELLS */}
             <div
-              className="sticky left-0 top-0 z-10 h-9 -translate-y-9 bg-inherit"
+              className="sticky left-0 top-0 z-10 h-9 -translate-y-9 bg-inherit opacity-0 group-hover:opacity-100"
               style={{
                 position: row.getIsExpanded() ? "absolute" : "sticky",
                 width: row
