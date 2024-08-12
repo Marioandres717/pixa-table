@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import "@tanstack/react-table";
 import {
   SelectionActionOptions,
@@ -5,6 +7,12 @@ import {
   SelectionActionsTableState,
 } from "./features";
 import { RowData } from "@tanstack/react-table";
+import {
+  RowActionOptions,
+  RowActionsInstance,
+  RowActionsTableState,
+  TableRowActionsInstance,
+} from "./features/rowActions/types";
 
 type AlignValue = "left" | "right" | "center";
 
@@ -14,13 +22,21 @@ type ColumnMetaExtras = {
   className?: string;
 };
 declare module "@tanstack/react-table" {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  /* COLUMN META */
   interface ColumnMeta<TData, TValue> extends ColumnMetaExtras {}
 
+  /* SELECTION TABLE FEATURE */
   interface TableState extends SelectionActionsTableState {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface TableOptionsResolved<TData extends RowData>
     extends SelectionActionOptions {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   interface Table<TData extends RowData> extends SelectionActionsInstance {}
+
+  /* ROW ACTIONS TABLE FEATURE */
+  interface TableState extends RowActionsTableState {}
+  interface TableOptionsResolved<TData extends RowData>
+    extends RowActionOptions {}
+
+  interface Table<TData extends RowData> extends RowActionsInstance {}
+
+  interface Row<TData extends RowData> extends TableRowActionsInstance {}
 }

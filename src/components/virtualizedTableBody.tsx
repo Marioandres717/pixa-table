@@ -143,7 +143,7 @@ export function VirtualizedTableBody<TData>({
 
             {/* RIGHT PINNED CELLS */}
             <div
-              className="sticky left-0 top-0 z-10 h-9 -translate-y-9 bg-transparent"
+              className="sticky left-0 top-0 z-10 h-9 -translate-y-9 bg-inherit"
               style={{
                 position: row.getIsExpanded() ? "absolute" : "sticky",
                 width: row

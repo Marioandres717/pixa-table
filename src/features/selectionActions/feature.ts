@@ -1,7 +1,6 @@
 import {
   functionalUpdate,
   makeStateUpdater,
-  Row,
   RowData,
   TableFeature,
   Updater,
@@ -27,10 +26,7 @@ export const SelectionActionsFeature: TableFeature<RowData> = {
       return table.options.onSelectionActionsChange?.(safeUpdater);
     };
 
-    table.onSelectionAction = (
-      action: SelectionAction,
-      data: Row<RowData>[],
-    ) => {
+    table.onSelectionAction = (action, data) => {
       action.onAction(data);
     };
   },

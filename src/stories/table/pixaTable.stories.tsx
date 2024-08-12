@@ -9,6 +9,7 @@ import { InsideResizableContainer as resizeContainerStory } from "./insideResiza
 import { TableWithSelectableRows } from "./tableWithSelectableRows";
 import { TableWithExpandableRows } from "./tableWithExpandableRows";
 import { TableWithManyCols } from "./tableWithManyCols";
+import { TableWithRowActions } from "./tableWithRowActions";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -55,6 +56,8 @@ export const Defaults: Story = {
 export const WithManyCols: Story = TableWithManyCols;
 
 export const WithSelectableRows: Story = TableWithSelectableRows;
+
+export const WithRowActions: Story = TableWithRowActions;
 
 export const WithExpandableRows: Story = TableWithExpandableRows;
 

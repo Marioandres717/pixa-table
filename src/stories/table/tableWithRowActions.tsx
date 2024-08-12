@@ -1,28 +1,30 @@
 import { createColumnHelper, Table } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { IndeterminateCheckbox } from "../../components";
-import { SelectionAction } from "../../features";
 import { usePixaTable } from "../../hooks";
 import { MockDataColumnDefs, MockData } from "../../mocks/handlers/mockData";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
+import { RowAction } from "../../features";
 
 export const columnHelper = createColumnHelper<MockData>();
 
-export const TableWithSelectableRows: Story = {
+export const TableWithRowActions: Story = {
   decorators: [
     (Story, context) => {
-      const selectionActions = useMemo<SelectionAction[]>(() => {
+      const rowActions = useMemo<RowAction[]>(() => {
         return [
           {
             type: "delete",
+            Component: ({ row, onClick }) => (
+              <button onClick={() => onClick(row)}>Delete</button>
+            ),
             onAction: (data) => {
               // eslint-disable-next-line no-console
-              console.info("delete", data);
+              console.info(data);
             },
           },
           {
             type: "edit",
-            isHidden: (data) => data.length > 1,
+            // isHidden: (data) => true,
             onAction: (data) => {
               // eslint-disable-next-line no-console
               console.log("edit", data);
@@ -32,40 +34,33 @@ export const TableWithSelectableRows: Story = {
       }, []);
       const config = useMemo<UsePixaTableOptions>(
         () => ({
-          selectable: true,
+          selectable: false,
           data: context.loaded.data,
-          enableSelectionActions: true,
+          enableRowActions: true,
           columns: [
             columnHelper.display({
-              id: "selection",
-              maxSize: 50,
+              id: "action",
+              size: 100,
               enableSorting: false,
               enableResizing: false,
               enableHiding: false,
-              meta: {
-                className: "border-r-0 px-0",
-              },
-              header({ table }) {
+              header: "",
+              cell: ({ row }) => {
+                // debugger;
+                const actions = row.getRowActions();
                 return (
-                  <IndeterminateCheckbox
-                    {...{
-                      checked: table.getIsAllRowsSelected(),
-                      indeterminate: table.getIsSomeRowsSelected(),
-                      onChange: table.getToggleAllRowsSelectedHandler(),
-                    }}
-                  />
-                );
-              },
-              cell({ row }) {
-                return (
-                  <IndeterminateCheckbox
-                    {...{
-                      checked: row.getIsSelected(),
-                      disabled: !row.getCanSelect(),
-                      indeterminate: row.getIsSomeSelected(),
-                      onChange: row.getToggleSelectedHandler(),
-                    }}
-                  />
+                  <div className="flex gap-1">
+                    {actions.map(({ Component, onAction, type }) => {
+                      if (!Component) return null;
+                      return (
+                        <Component
+                          key={type}
+                          row={row}
+                          onClick={() => onAction(row)}
+                        />
+                      );
+                    })}
+                  </div>
                 );
               },
             }),
@@ -73,12 +68,12 @@ export const TableWithSelectableRows: Story = {
           ],
           state: {
             columnPinning: {
-              left: ["selection"],
+              right: ["action"],
             },
-            selectionActions: selectionActions,
+            rowActions: rowActions,
           },
         }),
-        [context.loaded.data, selectionActions],
+        [context.loaded.data, rowActions],
       );
       const table = usePixaTable<MockData>(config);
       return (
