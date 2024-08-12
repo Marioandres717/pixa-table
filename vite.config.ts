@@ -24,10 +24,12 @@ export default defineConfig((env) => ({
       include: [
         "src/assets",
         "src/components",
+        "src/features",
         "src/hooks",
         "src/utils",
         "src/main.ts",
-        "src/typeDefs",
+        "src/typeDefs.ts",
+        "src/theme.ts",
       ],
     }),
     svgr({
