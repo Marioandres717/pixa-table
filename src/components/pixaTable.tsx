@@ -24,10 +24,8 @@ export function PixaTable<TData>({
   table: table,
   hideHeader = false,
   expandableRowComponent: ExpandRow,
-  pageSizeComponent,
   paginationComponent: PageOptionsComponent = PageOptions,
   filterColumnComponent,
-  // loading = false,
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
@@ -41,7 +39,6 @@ export function PixaTable<TData>({
         <TableToolbar
           className={`col-span-full col-start-1 row-start-1`}
           table={table}
-          paginationPageSizeComponent={pageSizeComponent}
         />
       )}
       <TableSidebar className="col-start-2 row-start-2" table={table} />

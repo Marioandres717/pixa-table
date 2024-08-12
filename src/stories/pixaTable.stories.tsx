@@ -14,6 +14,7 @@ import {
   MockDataManyCols,
   mockDataManyColumnsDefs,
 } from "../mocks/handlers/mockMany";
+import { SelectionAction } from "../features";
 
 type Story = StoryObj<typeof PixaTable>;
 type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -130,10 +131,30 @@ const columnHelper = createColumnHelper<MockData>();
 export const TableWithSelectableRows: Story = {
   decorators: [
     (Story, context) => {
+      const selectionActions = useMemo<SelectionAction[]>(() => {
+        return [
+          {
+            type: "delete",
+            onAction: (data) => {
+              // eslint-disable-next-line no-console
+              console.info("delete", data);
+            },
+          },
+          {
+            type: "edit",
+            isHidden: (data) => data.length > 1,
+            onAction: (data) => {
+              // eslint-disable-next-line no-console
+              console.log("edit", data);
+            },
+          },
+        ];
+      }, []);
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           selectable: true,
           data: context.loaded.data,
+          enableSelectionActions: true,
           columns: [
             columnHelper.display({
               id: "selection",
@@ -193,9 +214,10 @@ export const TableWithSelectableRows: Story = {
               left: ["selection"],
               right: ["action"],
             },
+            selectionActions: selectionActions,
           },
         }),
-        [context.loaded.data],
+        [context.loaded.data, selectionActions],
       );
       const table = usePixaTable<MockData>(config);
       return (
