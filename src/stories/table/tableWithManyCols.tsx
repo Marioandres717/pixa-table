@@ -34,8 +34,9 @@ export const TableWithManyCols: Story = {
         () => ({
           data: context.loaded.data,
           columns: mockDataManyColumnsDefs,
+          theme: context.globals.theme,
         }),
-        [context.loaded.data],
+        [context.loaded.data, context.globals.theme],
       );
       const table = usePixaTable<MockDataManyCols>(config);
       return (

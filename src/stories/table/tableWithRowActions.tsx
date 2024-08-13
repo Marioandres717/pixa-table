@@ -34,6 +34,7 @@ export const TableWithRowActions: Story = {
       }, []);
       const config = useMemo<UsePixaTableOptions>(
         () => ({
+          theme: context.globals.theme,
           selectable: false,
           data: context.loaded.data,
           enableRowActions: true,
@@ -73,7 +74,7 @@ export const TableWithRowActions: Story = {
             rowActions: rowActions,
           },
         }),
-        [context.loaded.data, rowActions],
+        [context.loaded.data, rowActions, context.globals.theme],
       );
       const table = usePixaTable<MockData>(config);
       return (

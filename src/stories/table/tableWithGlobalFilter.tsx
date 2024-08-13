@@ -11,6 +11,7 @@ export const TableWithGlobalFilter: Story = {
       const [globalFilter, setGlobalFilter] = useState<string>("");
       const config = useMemo<UsePixaTableOptions>(
         () => ({
+          theme: context.globals.theme,
           data: context.loaded.data,
           columns: MockDataColumnDefs,
           onGlobalFilterChange: setGlobalFilter,
@@ -24,7 +25,7 @@ export const TableWithGlobalFilter: Story = {
           },
           debugAll: true,
         }),
-        [context.loaded.data, globalFilter],
+        [context.loaded.data, globalFilter, context.globals.theme],
       );
       const table = usePixaTable<MockData>(config);
 

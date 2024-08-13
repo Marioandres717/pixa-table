@@ -13,6 +13,11 @@ import {
   RowActionsTableState,
   TableRowActionsInstance,
 } from "./features/rowActions/types";
+import {
+  ThemeInstance,
+  ThemeOptions,
+  ThemeState,
+} from "./features/theme/types";
 
 type AlignValue = "left" | "right" | "center";
 
@@ -35,8 +40,11 @@ declare module "@tanstack/react-table" {
   interface TableState extends RowActionsTableState {}
   interface TableOptionsResolved<TData extends RowData>
     extends RowActionOptions {}
-
   interface Table<TData extends RowData> extends RowActionsInstance {}
-
   interface Row<TData extends RowData> extends TableRowActionsInstance {}
+
+  /* TABLE THEME FEATURE */
+  interface TableState extends ThemeState {}
+  interface TableOptionsResolved<TData extends RowData> extends ThemeOptions {}
+  interface Table<TData extends RowData> extends ThemeInstance {}
 }

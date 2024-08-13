@@ -33,8 +33,9 @@ const meta: Meta<typeof PixaTable> = {
         () => ({
           data: context.loaded.data,
           columns: MockDataColumnDefs,
+          theme: context.globals.theme,
         }),
-        [context.loaded.data],
+        [context.loaded.data, context.globals.theme],
       );
       const table = usePixaTable<MockData>(config);
       return (

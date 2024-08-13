@@ -29,42 +29,43 @@ export function PixaTable<TData>({
 }: Props<TData>) {
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
-
   return (
-    <div
-      role="table"
-      className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid bg-black-5 font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
-    >
-      {!hideHeader && (
-        <TableToolbar
-          className={`col-span-full col-start-1 row-start-1`}
-          table={table}
-        />
-      )}
-      <TableSidebar className="col-start-2 row-start-2" table={table} />
+    <div className="contents" data-theme={table.getTheme()}>
       <div
-        className="relative col-start-1 row-start-2 overflow-auto"
-        {...{
-          ref: parentRef,
-        }}
+        role="table"
+        className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid bg-black-5 font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
       >
-        <VirtualizedTableHeader
-          table={table}
-          parentRef={parentRef}
-          filterColumnComponent={filterColumnComponent}
-        />
+        {!hideHeader && (
+          <TableToolbar
+            className={`col-span-full col-start-1 row-start-1`}
+            table={table}
+          />
+        )}
+        <TableSidebar className="col-start-2 row-start-2" table={table} />
+        <div
+          className="relative col-start-1 row-start-2 overflow-auto"
+          {...{
+            ref: parentRef,
+          }}
+        >
+          <VirtualizedTableHeader
+            table={table}
+            parentRef={parentRef}
+            filterColumnComponent={filterColumnComponent}
+          />
 
-        <VirtualizedTableBody
-          table={table}
-          parentRef={parentRef}
-          expandableRowComponent={ExpandRow}
-        />
-      </div>
-      {isPaginationEnabled && (
-        <div className="col-span-full row-start-3 flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
-          <PageOptionsComponent table={table} />
+          <VirtualizedTableBody
+            table={table}
+            parentRef={parentRef}
+            expandableRowComponent={ExpandRow}
+          />
         </div>
-      )}
+        {isPaginationEnabled && (
+          <div className="col-span-full row-start-3 flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
+            <PageOptionsComponent table={table} />
+          </div>
+        )}
+      </div>
     </div>
   );
 }

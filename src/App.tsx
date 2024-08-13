@@ -43,6 +43,7 @@ function App() {
 
   const config = useMemo<Partial<TableOptions<MockDataManyCols>>>(
     () => ({
+      theme: "dark",
       getExpandedRowModel: getExpandedRowModel(),
       getFilteredRowModel: getFilteredRowModel(),
       manualPagination: false,

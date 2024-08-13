@@ -13,6 +13,7 @@ export const TableWithExpandableRows: Story = {
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           expandable: true,
+          theme: context.globals.theme,
           data: context.loaded.data,
           columns: [
             columnHelper.display({
@@ -38,7 +39,7 @@ export const TableWithExpandableRows: Story = {
             },
           },
         }),
-        [context.loaded.data],
+        [context.loaded.data, context.globals.theme],
       );
       const table = usePixaTable<MockData>(config);
       return (
