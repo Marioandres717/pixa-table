@@ -10,6 +10,7 @@ import { TableWithSelectableRows } from "./tableWithSelectableRows";
 import { TableWithExpandableRows } from "./tableWithExpandableRows";
 import { TableWithManyCols } from "./tableWithManyCols";
 import { TableWithRowActions } from "./tableWithRowActions";
+import { TableWithGlobalFilter } from "./tableWithGlobalFilter";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -62,3 +63,5 @@ export const WithRowActions: Story = TableWithRowActions;
 export const WithExpandableRows: Story = TableWithExpandableRows;
 
 export const InsideResizableContainer: Story = resizeContainerStory;
+
+export const WithGlobalFilter: Story = TableWithGlobalFilter;
