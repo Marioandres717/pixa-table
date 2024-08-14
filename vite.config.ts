@@ -20,7 +20,7 @@ export default defineConfig((env) => ({
     libInjectCss(),
     dts({
       rollupTypes: true,
-      exclude: ["src/App.tsx", "src/main.tsx"],
+      exclude: ["src/App.tsx", "src/main.tsx", "src/stories/**/*"],
       include: [
         "src/assets",
         "src/components",

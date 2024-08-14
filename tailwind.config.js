@@ -4,7 +4,7 @@ import { theme } from "./src/theme";
 import talwindcssForms from "@tailwindcss/forms";
 
 export default {
-  content: ["./src/**/*.{html,js,ts,jsx,tsx}", "./index.html"],
+  content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
     fontFamily: {
