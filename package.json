@@ -35,7 +35,6 @@
     "react-dom": "17.0.1"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^1.6.1",
     "@ngneat/falso": "^7.2.0",
     "@storybook/addon-essentials": "^8.2.8",
     "@storybook/addon-interactions": "^8.2.8",
@@ -77,9 +76,6 @@
     "workerDirectory": [
       "public"
     ]
-  },
-  "engines": {
-    "yarn": "1.22.22"
   },
   "license": "MIT"
 }
