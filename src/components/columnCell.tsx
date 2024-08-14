@@ -32,7 +32,7 @@ export default function ColumnCell<TData>({
         className,
       )}
     >
-      <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+      <span className="h-full w-full overflow-hidden text-ellipsis whitespace-nowrap">
         {flexRender(column.columnDef.cell, getContext())}
       </span>
     </div>
@@ -46,11 +46,11 @@ function getColumnStyles<TData>({
   getAfter,
   getIsPinned,
 }: Column<TData, RowData> & VirtualItem<Element>) {
-  const { minSize } = columnDef;
+  const { minSize, meta } = columnDef;
   const isPinned = getIsPinned();
   return {
-    textAlign: columnDef.meta?.align,
-    padding: columnDef.meta?.padding,
+    justifyContent: meta?.align,
+    padding: meta?.padding,
     width: size,
     minWidth: minSize,
     // maxWidth: maxSize,

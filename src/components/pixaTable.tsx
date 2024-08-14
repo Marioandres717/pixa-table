@@ -48,11 +48,13 @@ export function PixaTable<TData>({
             ref: parentRef,
           }}
         >
-          <VirtualizedTableHeader
-            table={table}
-            parentRef={parentRef}
-            filterColumnComponent={filterColumnComponent}
-          />
+          {!hideHeader && (
+            <VirtualizedTableHeader
+              table={table}
+              parentRef={parentRef}
+              filterColumnComponent={filterColumnComponent}
+            />
+          )}
 
           <VirtualizedTableBody
             table={table}

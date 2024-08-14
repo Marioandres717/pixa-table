@@ -16,7 +16,7 @@ export const SelectionActionsFeature: TableFeature<RowData> = {
   },
 
   createTable(table) {
-    table.getSelectionActions = () => table.getState().selectionActions;
+    table.getSelectionActions = () => table.getState().selectionActions || [];
 
     table.setSelectionActions = (updater) => {
       const safeUpdater: Updater<SelectionAction[]> = (old) => {
