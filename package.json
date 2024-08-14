@@ -15,9 +15,8 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "start": "vite",
-    "build": "tsc && vite build",
+    "start": "yarn storybook",
+    "build": "export NODE_ENV=production tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "stat": "npx vite-bundle-visualizer",
@@ -63,6 +62,7 @@
     "msw-storybook-addon": "^2.0.3",
     "postcss": "^8.4.39",
     "postcss-nested": "^6.0.1",
+    "postcss-prefix-selector": "^1.16.1",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.5",
     "storybook": "^8.2.8",
@@ -77,6 +77,9 @@
     "workerDirectory": [
       "public"
     ]
+  },
+  "engines": {
+    "yarn": "1.22.22"
   },
   "license": "MIT"
 }
