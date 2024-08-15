@@ -14,10 +14,9 @@ import { DraggableColumn } from "./columnDraggable";
 
 type Props<T> = {
   table: Table<T>;
-  maxHeight?: number;
 };
 
-export function VirtualizedColumnOrdering<T>({ table, maxHeight }: Props<T>) {
+export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
     (Column<T> & VirtualItem<Element>) | null
@@ -98,8 +97,7 @@ export function VirtualizedColumnOrdering<T>({ table, maxHeight }: Props<T>) {
       <SortableContext items={sortedColumns}>
         <div
           ref={scrollableRef}
-          className="overflow-y-auto overflow-x-hidden rounded border bg-black-10 dark:border-black-90 dark:bg-black-100"
-          style={{ maxHeight }}
+          className="max-h-[346px] overflow-y-auto overflow-x-hidden rounded border bg-black-10 dark:border-black-90 dark:bg-black-100"
         >
           <div
             className="relative"

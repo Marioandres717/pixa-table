@@ -5,17 +5,13 @@ type Props<TData> = {
   show: boolean;
   table: Table<TData>;
   onClick: () => void;
-  parentRef: React.RefObject<HTMLDivElement>;
 };
 
 export default function ColumnSettings<TData>({
   show = false,
   onClick,
   table,
-  parentRef,
 }: Props<TData>) {
-  const parentHeight = parentRef.current?.offsetHeight ?? 0;
-
   return (
     <>
       <button
@@ -29,16 +25,11 @@ export default function ColumnSettings<TData>({
       </button>
       {show && (
         <div
-          className={`absolute left-0 top-0 z-20 w-64 -translate-x-64 rounded border bg-black-5 p-4 dark:border-black-90 dark:bg-black-95 dark:drop-shadow-[0_7px_20px_0_rgba(13,22,26,0.15)]`}
-          style={{ height: `${parentHeight}px` }}
+          className={`absolute left-0 top-0 z-20 max-h-[470px] w-64 -translate-x-64 rounded border bg-black-5 p-4 dark:border-black-90 dark:bg-black-95 dark:drop-shadow-[0_7px_20px_0_rgba(13,22,26,0.15)]`}
         >
           <div className="mb-2 font-semibold">Table Settings</div>
           <div>Column order & visibility</div>
-          {/*  -80 for the Table settings header */}
-          <VirtualizedColumnOrdering
-            table={table}
-            maxHeight={parentHeight - 80}
-          />
+          <VirtualizedColumnOrdering table={table} />
         </div>
       )}
     </>

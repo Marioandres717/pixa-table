@@ -18,10 +18,10 @@ export function DraggableColumn<T>({
     getCanHide,
     getIsVisible,
     getToggleVisibilityHandler,
-    columnDef,
     index,
     size,
     start,
+    id,
   } = column;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -44,16 +44,15 @@ export function DraggableColumn<T>({
         top: start,
       };
 
-  const columnLabel =
-    typeof columnDef.header === "string" ? columnDef.header : columnDef.id;
-
   return (
     <div
       data-index={index}
       ref={setNodeRef}
       className={clsx(
         "absolute flex w-[204px] cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
-        getIsVisible() ? "bg-black-20 dark:bg-black-92.5" : "dark:bg-black-95",
+        getIsVisible()
+          ? "bg-black-20 dark:bg-black-92.5"
+          : "bg-black-15 dark:bg-black-95",
       )}
       style={styles}
       onMouseDown={() => setDraggedItem(column)}
@@ -70,15 +69,18 @@ export function DraggableColumn<T>({
           }}
         />
         <span
-          title={columnLabel}
-          className="overflow-hidden text-ellipsis text-nowrap leading-[initial]"
+          title={id}
+          className="overflow-hidden text-ellipsis text-nowrap capitalize leading-[initial]"
         >
-          {columnLabel}
+          {id}
         </span>
       </div>
       <Icon
         icon="reorder"
-        className="!h-3 !w-3 flex-shrink-0 dark:fill-black-85"
+        className={clsx(
+          "!h-3 !w-3 flex-shrink-0",
+          getIsVisible() ? "dark:fill-black-85" : "dark:fill-black-80",
+        )}
       />
     </div>
   );

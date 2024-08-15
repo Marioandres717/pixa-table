@@ -20,7 +20,9 @@ export default function ColumnCell<TData>({
   virtualColumn,
   className,
 }: Props<TData>) {
-  const { column, getContext } = cell;
+  const { column, getContext, getValue } = cell;
+  const cellTitle =
+    String(getValue()) === "undefined" ? column.id : String(getValue());
   return (
     <div
       data-id={virtualColumn.key}
@@ -32,7 +34,10 @@ export default function ColumnCell<TData>({
         className,
       )}
     >
-      <span className="h-full w-full overflow-hidden text-ellipsis whitespace-nowrap">
+      <span
+        title={cellTitle}
+        className="h-full w-full overflow-hidden text-ellipsis whitespace-nowrap"
+      >
         {flexRender(column.columnDef.cell, getContext())}
       </span>
     </div>

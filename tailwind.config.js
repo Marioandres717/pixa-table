@@ -13,6 +13,10 @@ export default {
       mono: fontFamily.mono,
     },
     colors: theme.colors,
+    spacing: theme.spacing,
+    extend: {
+      fontSize: theme.fontSize,
+    },
   },
   plugins: [talwindcssForms],
 };

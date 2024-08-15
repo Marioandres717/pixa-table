@@ -29,7 +29,7 @@ export default function ColumnHeader<TData>({
   filterColumnComponent: Filter = ColumnFilter,
 }: Props<TData>) {
   const {
-    column: { columnDef, getToggleSortingHandler },
+    column: { columnDef, getToggleSortingHandler, id },
     getContext,
   } = header;
 
@@ -39,15 +39,15 @@ export default function ColumnHeader<TData>({
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={clsx(
-        "absolute left-0 top-0 flex max-h-8 items-center border-r px-3 py-2 text-xs uppercase tracking-wider last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+        "text-col-heading absolute left-0 top-0 flex max-h-8 items-center border-r px-3 py-2 uppercase tracking-[0.66px] last:border-r-0 dark:border-black-92.5 dark:text-black-40",
         className,
         columnDef.meta?.className,
       )}
     >
       <span
+        title={id}
         className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
         onClick={getToggleSortingHandler()}
-        title={columnDef.header?.toString()}
       >
         {header.isPlaceholder
           ? null
