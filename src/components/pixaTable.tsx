@@ -32,6 +32,7 @@ export function PixaTable<TData>({
   return (
     <div className="pixa-table contents" data-theme={table.getTheme()}>
       <div
+        data-test-id="pixa-table"
         role="table"
         className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] overflow-hidden rounded-[4px] border border-solid bg-black-5 font-sans text-sm dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
       >
