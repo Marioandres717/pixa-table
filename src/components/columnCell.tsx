@@ -15,7 +15,7 @@ type Props<TData> = {
   className?: string;
 };
 
-export default function ColumnCell<TData>({
+export function ColumnCell<TData>({
   cell,
   virtualColumn,
   className,
@@ -51,14 +51,12 @@ function getColumnStyles<TData>({
   getAfter,
   getIsPinned,
 }: Column<TData, RowData> & VirtualItem<Element>) {
-  const { minSize, meta } = columnDef;
+  const { meta } = columnDef;
   const isPinned = getIsPinned();
   return {
     justifyContent: meta?.align,
     padding: meta?.padding,
     width: size,
-    minWidth: minSize,
-    // maxWidth: maxSize,
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`

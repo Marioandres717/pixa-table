@@ -1,6 +1,6 @@
 import { Table } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { ResizableDiv } from "../../components";
+import { ResizableDiv } from "../../components/resizable";
 import { usePixaTable } from "../../hooks";
 import { MockDataColumnDefs, MockData } from "../../mocks/handlers/mockData";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";

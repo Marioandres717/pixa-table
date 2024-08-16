@@ -4,3 +4,6 @@ export * from "./rowActions/feature";
 export * from "./rowActions/types";
 export * from "./fuzzyFilter/types";
 export * from "./fuzzyFilter/feature";
+export * from "./loading/types";
+export * from "./theme/types";
+export * from "./theme/feature";

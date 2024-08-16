@@ -7,6 +7,7 @@ import {
   VirtualizedTableHeader,
   TableSidebar,
 } from "./";
+import { TableSkeleton } from "./tableSkeleton";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -30,6 +31,7 @@ export function PixaTable<TData>({
   const [, setTriggerRerender] = useState(0);
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
   const parentRef = React.useRef<HTMLDivElement>(null);
+  const isLoading = table.getState().isLoading;
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -48,6 +50,10 @@ export function PixaTable<TData>({
       }
     };
   }, []);
+
+  if (isLoading) {
+    return <TableSkeleton theme={table.getTheme()} />;
+  }
 
   return (
     <div className="pixa-table contents" data-theme={table.getTheme()}>

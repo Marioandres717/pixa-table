@@ -1,23 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
 import "@tanstack/react-table";
+import { RowData } from "@tanstack/react-table";
+
 import {
   SelectionActionOptions,
   SelectionActionsInstance,
   SelectionActionsTableState,
-} from "./features";
-import { RowData } from "@tanstack/react-table";
-import {
   RowActionOptions,
   RowActionsInstance,
   RowActionsTableState,
   TableRowActionsInstance,
-} from "./features/rowActions/types";
-import {
   ThemeInstance,
   ThemeOptions,
   ThemeState,
-} from "./features/theme/types";
+  LoadingState,
+} from "./features";
 
 type AlignValue = "left" | "right" | "center";
 
@@ -47,4 +45,7 @@ declare module "@tanstack/react-table" {
   interface TableState extends ThemeState {}
   interface TableOptionsResolved<TData extends RowData> extends ThemeOptions {}
   interface Table<TData extends RowData> extends ThemeInstance {}
+
+  /* TABLE LOADING STATE */
+  interface TableState extends LoadingState {}
 }

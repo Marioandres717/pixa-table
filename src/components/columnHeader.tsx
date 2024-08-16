@@ -65,14 +65,12 @@ function getColumnStyles<TData>({
   start,
   getAfter,
   getIsPinned,
-  columnDef: { minSize, meta },
+  columnDef: { meta },
 }: Column<TData, RowData> & VirtualItem<Element>) {
   const isPinned = getIsPinned();
 
   return {
     width: size,
-    minWidth: minSize,
-    // maxWidth: maxSize,
     justifyContent: meta?.align || "flex-start",
     transform:
       !isPinned || isPinned === "left"

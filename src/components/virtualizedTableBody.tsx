@@ -2,7 +2,7 @@ import { Row, Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { getPinnedCols, colRangeExtractor, rowRangeExtractor } from "../utils";
-import ColumnCell from "./columnCell";
+import { ColumnCell } from "./columnCell";
 
 type Props<TData> = {
   table: Table<TData>;
