@@ -1,4 +1,4 @@
-import { Column, RowData } from "@tanstack/react-table";
+import { Column, Row, RowData } from "@tanstack/react-table";
 import { Range } from "@tanstack/react-virtual";
 
 export type PinnedCols<TData> = {
@@ -24,10 +24,10 @@ export function getPinnedCols<TData>(
     );
 }
 
-export function rangeExtractor<TData>(
+export function colRangeExtractor<TData>(
   range: Range,
   cols: Column<TData, RowData>[],
-) {
+): number[] {
   const { left, right } = getPinnedCols(cols);
   const pinnedCols = [
     ...left.map((l) => cols.findIndex((col) => col.id === l.id)),
@@ -39,4 +39,23 @@ export function rangeExtractor<TData>(
     .map((col) => cols.findIndex((c) => c.id === col.id));
 
   return [...pinnedCols, ...visibleCols];
+}
+
+export function rowRangeExtractor<TData>(
+  range: Range,
+  rows: Row<TData>[],
+): number[] {
+  const expandedRows = getExpandedRowsIndexes(rows);
+  const visibleRows = rows
+    .slice(range.startIndex, range.endIndex + 1)
+    .filter((row) => !row.getIsExpanded())
+    .map((row) => rows.findIndex((r) => r.id === row.id));
+
+  return [...expandedRows, ...visibleRows];
+}
+
+function getExpandedRowsIndexes<TData>(rows: Row<TData>[]): number[] {
+  return rows
+    .filter((row) => row.getIsExpanded())
+    .map((row) => rows.findIndex((r) => r.id === row.id));
 }

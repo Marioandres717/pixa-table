@@ -1,7 +1,7 @@
 import { Row, Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { getPinnedCols, rangeExtractor } from "../utils";
+import { getPinnedCols, colRangeExtractor, rowRangeExtractor } from "../utils";
 import ColumnCell from "./columnCell";
 
 type Props<TData> = {
@@ -36,6 +36,10 @@ export function VirtualizedTableBody<TData>({
       (i) => (rows[i].getIsExpanded() ? 400 : 36),
       [rows],
     ),
+    rangeExtractor: useCallback(
+      (range) => rowRangeExtractor(range, rows),
+      [rows],
+    ),
   });
 
   const colVirtualizer = useVirtualizer({
@@ -45,7 +49,10 @@ export function VirtualizedTableBody<TData>({
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
-    rangeExtractor: useCallback((range) => rangeExtractor(range, cols), [cols]),
+    rangeExtractor: useCallback(
+      (range) => colRangeExtractor(range, cols),
+      [cols],
+    ),
   });
 
   const parentWidth = parentRef.current?.offsetWidth ?? 0;

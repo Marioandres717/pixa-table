@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Table, Header, RowData } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import { getPinnedCols, rangeExtractor } from "../utils";
+import { getPinnedCols, colRangeExtractor } from "../utils";
 import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
@@ -35,7 +35,10 @@ export function VirtualizedTableHeader<TData>({
     getScrollElement: () => parentRef.current,
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getItemKey: useCallback((i) => cols[i].id, [cols]),
-    rangeExtractor: useCallback((range) => rangeExtractor(range, cols), [cols]),
+    rangeExtractor: useCallback(
+      (range) => colRangeExtractor(range, cols),
+      [cols],
+    ),
   });
 
   const colVirtualizerWidth = colVirtualizer.getTotalSize();

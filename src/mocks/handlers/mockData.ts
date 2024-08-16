@@ -64,7 +64,7 @@ export function generateMockData(n: number) {
   return data;
 }
 
-export const handlersMockData = http.get("/api/mock-data", ({ request }) => {
+export const handlerMockData = http.get("/api/mock-data", ({ request }) => {
   const url = new URL(request.url);
   const skip = url.searchParams.get("skip") || 0;
   const limit = url.searchParams.get("limit") || 10;

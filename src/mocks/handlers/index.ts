@@ -1,4 +1,4 @@
-import { handlersMockData } from "./mockData";
+import { handlerMockData } from "./mockData";
 import { handlerMockDataManyCols } from "./mockMany";
 
-export const handlers = [handlersMockData, handlerMockDataManyCols];
+export const handlers = [handlerMockData, handlerMockDataManyCols];
