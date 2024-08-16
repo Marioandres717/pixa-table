@@ -1,9 +1,10 @@
 import { createColumnHelper, Table } from "@tanstack/react-table";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { ExpandableColumn } from "../../components";
 import { usePixaTable } from "../../hooks";
 import { MockDataColumnDefs, MockData } from "../../mocks/handlers/mockData";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
+import { MockExpandableRow } from "../../mocks/handlers/mockExpandableRow";
 
 export const columnHelper = createColumnHelper<MockData>();
 
@@ -47,39 +48,11 @@ export const TableWithExpandableRows: Story = {
           <Story
             args={{
               table: table as Table<unknown>,
-              expandableRowComponent: () => <ExpandableRow />,
+              expandableRowComponent: () => <MockExpandableRow />,
             }}
           />
         </div>
       );
     },
   ],
-};
-
-const ExpandableRow = () => {
-  const [data, setData] = useState<MockData[]>([]);
-
-  useEffect(() => {
-    fetchData().then((data) => {
-      setData(data.data);
-    });
-  }, []);
-
-  async function fetchData() {
-    const response = await fetch(
-      "/api/mock-data?skip=" + 0 + "&limit=" + 100 + "&fetchSize=" + 100,
-    );
-    const data = await response.json();
-    return { data };
-  }
-  return (
-    <div className="p-4">
-      <h1>Expandable Row</h1>
-      <ul>
-        {data.map((d) => (
-          <li key={d.id}>{d.name}</li>
-        ))}
-      </ul>
-    </div>
-  );
 };
