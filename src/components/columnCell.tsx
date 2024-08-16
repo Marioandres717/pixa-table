@@ -29,14 +29,14 @@ export default function ColumnCell<TData>({
       role="cell"
       style={getColumnStyles({ ...column, ...virtualColumn })}
       className={clsx(
-        "absolute left-0 top-0 flex min-h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5",
+        "absolute left-0 top-0 flex h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5",
         column.columnDef.meta?.className,
         className,
       )}
     >
       <span
         title={cellTitle}
-        className="h-full w-full overflow-hidden text-ellipsis whitespace-nowrap"
+        className="overflow-hidden text-ellipsis whitespace-nowrap"
       >
         {flexRender(column.columnDef.cell, getContext())}
       </span>

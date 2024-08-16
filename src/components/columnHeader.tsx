@@ -39,7 +39,7 @@ export default function ColumnHeader<TData>({
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={clsx(
-        "text-col-heading absolute left-0 top-0 flex max-h-8 items-center border-r px-3 py-2 uppercase tracking-[0.66px] last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+        "absolute left-0 top-0 flex max-h-8 items-center overflow-hidden border-r px-3 py-2 text-col-heading uppercase tracking-[0.66px] last:border-r-0 dark:border-black-92.5 dark:text-black-40",
         className,
         columnDef.meta?.className,
       )}

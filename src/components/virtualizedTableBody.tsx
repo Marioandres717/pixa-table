@@ -24,10 +24,7 @@ export function VirtualizedTableBody<TData>({
     [table, tableState],
   );
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
-  const leftSpace = left.reduce((acc, col) => acc + col.getSize(), 0);
-  const rightSpace = right.reduce((acc, col) => acc + col.getSize(), 0);
-  const availableSpace =
-    parentRef.current?.offsetWidth ?? 0 - leftSpace - rightSpace;
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
@@ -48,18 +45,7 @@ export function VirtualizedTableBody<TData>({
     horizontal: true,
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
-    estimateSize: useCallback(
-      (i) => {
-        const col = cols[i];
-        if (col.getIsPinned()) return col.getSize();
-        const colsNumber = cols.length - left.length - right.length;
-        const singleColWidth = availableSpace / colsNumber;
-        const r =
-          singleColWidth > col.getSize() ? singleColWidth : col.getSize();
-        return r;
-      },
-      [cols, availableSpace, left, right],
-    ),
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     rangeExtractor: useCallback(
       (range) => {
         const pinnedCols = [
@@ -76,7 +62,6 @@ export function VirtualizedTableBody<TData>({
     ),
   });
 
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const rowHeaderWidth =
     parentWidth > colVirtualizer.getTotalSize()
       ? parentWidth
@@ -106,7 +91,7 @@ export function VirtualizedTableBody<TData>({
         return (
           <div
             role="row"
-            className={`group absolute left-0 top-0 border-b bg-black-5 transition-[height] dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
+            className={`group absolute left-0 top-0 border-b bg-black-5 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
             key={viRow.key}
             data-index={viRow.index}
             {...{
@@ -117,6 +102,13 @@ export function VirtualizedTableBody<TData>({
               },
             }}
           >
+            {/* Expandable Row */}
+            {row.getIsExpanded() && ExpandRow && (
+              <div className="absolute left-0 top-9 z-50 w-full border-t dark:border-black-92.5">
+                <ExpandRow row={row} />
+              </div>
+            )}
+
             {/* LEFT PINNED CELLS */}
             <div
               className="sticky left-0 top-0 z-10 bg-inherit"
@@ -182,12 +174,6 @@ export function VirtualizedTableBody<TData>({
                 <ColumnCell key={viCol.key} cell={cell} virtualColumn={viCol} />
               );
             })}
-
-            {row.getIsExpanded() && ExpandRow && (
-              <div className="absolute left-0 top-9 z-50 w-full border-t dark:border-black-92.5">
-                <ExpandRow row={row} />
-              </div>
-            )}
           </div>
         );
       })}

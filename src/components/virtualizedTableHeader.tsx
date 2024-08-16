@@ -27,28 +27,14 @@ export function VirtualizedTableHeader<TData>({
   );
   const state = table.getState();
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
-  const leftSpace = left.reduce((acc, col) => acc + col.getSize(), 0);
-  const rightSpace = right.reduce((acc, col) => acc + col.getSize(), 0);
-  const availableSpace =
-    parentRef.current?.offsetWidth ?? 0 - leftSpace - rightSpace;
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
     overscan: 5,
     horizontal: true,
     getScrollElement: () => parentRef.current,
-    estimateSize: useCallback(
-      (i) => {
-        const col = cols[i];
-        if (col.getIsPinned()) return col.getSize();
-        const colsNumber = cols.length - left.length - right.length;
-        const singleColWidth = availableSpace / colsNumber;
-        const r =
-          singleColWidth > col.getSize() ? singleColWidth : col.getSize();
-        return r;
-      },
-      [cols, availableSpace, left, right],
-    ),
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getItemKey: useCallback((i) => cols[i].id, [cols]),
     rangeExtractor: useCallback(
       (range) => {
@@ -65,8 +51,6 @@ export function VirtualizedTableHeader<TData>({
       [cols, left, right],
     ),
   });
-
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
 
   const colVirtualizerWidth = colVirtualizer.getTotalSize();
 
