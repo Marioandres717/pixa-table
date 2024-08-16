@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Table, Header, RowData } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import { getPinnedCols } from "../utils";
+import { getPinnedCols, rangeExtractor } from "../utils";
 import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
@@ -27,7 +27,6 @@ export function VirtualizedTableHeader<TData>({
   );
   const state = table.getState();
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
@@ -36,24 +35,12 @@ export function VirtualizedTableHeader<TData>({
     getScrollElement: () => parentRef.current,
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     getItemKey: useCallback((i) => cols[i].id, [cols]),
-    rangeExtractor: useCallback(
-      (range) => {
-        const pinnedCols = [
-          ...left.map((l) => cols.findIndex((col) => col.id === l.id)),
-          ...right.map((r) => cols.findIndex((col) => col.id === r.id)),
-        ];
-        const visibleCols = cols
-          .slice(range.startIndex, range.endIndex + 1)
-          .filter((col) => !col.getIsPinned())
-          .map((col) => cols.findIndex((c) => c.id === col.id));
-        return [...pinnedCols, ...visibleCols];
-      },
-      [cols, left, right],
-    ),
+    rangeExtractor: useCallback((range) => rangeExtractor(range, cols), [cols]),
   });
 
   const colVirtualizerWidth = colVirtualizer.getTotalSize();
 
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const rowHeaderWidth =
     parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 

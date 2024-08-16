@@ -1,7 +1,7 @@
 import { Row, Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { getPinnedCols } from "../utils";
+import { getPinnedCols, rangeExtractor } from "../utils";
 import ColumnCell from "./columnCell";
 
 type Props<TData> = {
@@ -24,7 +24,6 @@ export function VirtualizedTableBody<TData>({
     [table, tableState],
   );
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const state = table.getState();
 
   const rowVirtualizer = useVirtualizer({
@@ -46,22 +45,10 @@ export function VirtualizedTableBody<TData>({
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => cols[i].id, [cols]),
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
-    rangeExtractor: useCallback(
-      (range) => {
-        const pinnedCols = [
-          ...left.map((l) => cols.findIndex((col) => col.id === l.id)),
-          ...right.map((r) => cols.findIndex((col) => col.id === r.id)),
-        ];
-        const visibleCols = cols
-          .slice(range.startIndex, range.endIndex + 1)
-          .filter((col) => !col.getIsPinned())
-          .map((col) => cols.findIndex((c) => c.id === col.id));
-        return [...pinnedCols, ...visibleCols];
-      },
-      [cols, left, right],
-    ),
+    rangeExtractor: useCallback((range) => rangeExtractor(range, cols), [cols]),
   });
 
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const rowHeaderWidth =
     parentWidth > colVirtualizer.getTotalSize()
       ? parentWidth
@@ -114,9 +101,7 @@ export function VirtualizedTableBody<TData>({
               className="sticky left-0 top-0 z-10 bg-inherit"
               style={{
                 height: row.getIsExpanded() ? "auto" : "100%",
-                width: row
-                  .getLeftVisibleCells()
-                  .reduce((acc, cell) => acc + cell.column.getSize(), 0),
+                width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
                 position: row.getIsExpanded() ? "absolute" : "sticky",
               }}
             >
@@ -138,9 +123,7 @@ export function VirtualizedTableBody<TData>({
               className="sticky left-0 top-0 z-10 h-9 -translate-y-9 bg-inherit opacity-0 group-hover:opacity-100"
               style={{
                 position: row.getIsExpanded() ? "absolute" : "sticky",
-                width: row
-                  .getRightVisibleCells()
-                  .reduce((acc, cell) => acc + cell.column.getSize(), 0),
+                width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
                 top: row.getIsExpanded() ? 36 : 0,
                 left: row.getIsExpanded()
                   ? rowHeaderWidth -
