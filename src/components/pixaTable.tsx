@@ -11,7 +11,6 @@ import { TableSkeleton } from "./tableSkeleton";
 
 type Props<TData> = {
   table: Table<TData>;
-  loading?: boolean;
   hideHeader?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
   pageSizeComponent?: React.ComponentType<{ table: Table<TData> }>;
