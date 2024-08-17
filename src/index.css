@@ -3,6 +3,15 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  [data-theme="light"] {
+    --table-skeleton: #ced1d3;
+  }
+  [data-theme="dark"] {
+    --table-skeleton: #1a2832;
+  }
+}
+
 @layer utilities {
   input[type="checkbox"]:not(:checked) {
     @apply dark:bg-[#132531];

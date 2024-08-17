@@ -144,6 +144,7 @@ export const theme = {
       60: "#fad2c2",
       50: "#fce4da",
     },
+    "table-skeleton": "var(--table-skeleton)",
   },
   spacing: {
     px: "1px",
