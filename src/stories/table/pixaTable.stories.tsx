@@ -17,8 +17,35 @@ export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
 
 const meta: Meta<typeof PixaTable> = {
-  title: "Table",
+  title: "components/Table",
   component: PixaTable,
+  argTypes: {
+    table: {
+      table: {
+        disable: true,
+      },
+    },
+    expandableRowComponent: {
+      table: {
+        disable: true,
+      },
+    },
+    paginationComponent: {
+      table: {
+        disable: true,
+      },
+    },
+    pageSizeComponent: {
+      table: {
+        disable: true,
+      },
+    },
+    filterColumnComponent: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   loaders: [
     async () => {
       const response = await fetch(
