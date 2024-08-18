@@ -12,6 +12,7 @@ import { TableWithManyCols } from "./tableWithManyCols";
 import { TableWithRowActions } from "./tableWithRowActions";
 import { TableWithGlobalFilter } from "./tableWithGlobalFilter";
 import { TableIsLoading } from "./tableIsLoading";
+import { TableWithCustomPageSize } from "./withCustomPageSize";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -31,11 +32,6 @@ const meta: Meta<typeof PixaTable> = {
       },
     },
     paginationComponent: {
-      table: {
-        disable: true,
-      },
-    },
-    pageSizeComponent: {
       table: {
         disable: true,
       },
@@ -94,5 +90,7 @@ export const WithExpandableRows: Story = TableWithExpandableRows;
 export const InsideResizableContainer: Story = resizeContainerStory;
 
 export const WithGlobalFilter: Story = TableWithGlobalFilter;
+
+export const WithCustomPageSize: Story = TableWithCustomPageSize;
 
 export const IsLoading: Story = TableIsLoading;

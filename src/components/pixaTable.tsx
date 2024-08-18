@@ -13,7 +13,6 @@ type Props<TData> = {
   table: Table<TData>;
   hideHeader?: boolean;
   expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
-  pageSizeComponent?: React.ComponentType<{ table: Table<TData> }>;
   paginationComponent?: React.ComponentType<{ table: Table<TData> }>;
   filterColumnComponent?: React.ComponentType<{
     header: Header<TData, unknown>;

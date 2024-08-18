@@ -6,8 +6,12 @@ import {
   TableOptions,
   RowData,
 } from "@tanstack/react-table";
-import { RowActionsFeature, SelectionActionsFeature } from "../features";
-import { ThemeFeature } from "../features/theme/feature";
+import {
+  RowActionsFeature,
+  SelectionActionsFeature,
+  ThemeFeature,
+  PluggableComponentsFeature,
+} from "../features";
 
 const DEFAULT_TABLE_CONFIG: Partial<TableOptions<RowData>> = {
   getCoreRowModel: getCoreRowModel(),
@@ -20,6 +24,11 @@ export function usePixaTable<TData>(options: Partial<TableOptions<TData>>) {
   return useReactTable<TData>({
     ...DEFAULT_TABLE_CONFIG,
     ...options,
-    _features: [SelectionActionsFeature, RowActionsFeature, ThemeFeature],
+    _features: [
+      SelectionActionsFeature,
+      RowActionsFeature,
+      ThemeFeature,
+      PluggableComponentsFeature,
+    ],
   } as TableOptions<TData>);
 }

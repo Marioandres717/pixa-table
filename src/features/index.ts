@@ -7,3 +7,5 @@ export * from "./fuzzyFilter/feature";
 export * from "./loading/types";
 export * from "./theme/types";
 export * from "./theme/feature";
+export * from "./pluggableComponents/types";
+export * from "./pluggableComponents/feature";
