@@ -1,4 +1,4 @@
-import { Row, Table } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { getPinnedCols, colRangeExtractor, rowRangeExtractor } from "../utils";
@@ -7,14 +7,11 @@ import { ColumnCell } from "./columnCell";
 type Props<TData> = {
   table: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
-  className?: string;
-  expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
 };
 
 export function VirtualizedTableBody<TData>({
   table: table,
   parentRef,
-  expandableRowComponent: ExpandRow,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
   const tableState = table.getState();
@@ -81,7 +78,7 @@ export function VirtualizedTableBody<TData>({
     >
       {viRows.map((viRow) => {
         const row = rows[viRow.index];
-
+        const ExpandableRow = row.getExpandableRow();
         return (
           <div
             role="row"
@@ -97,9 +94,9 @@ export function VirtualizedTableBody<TData>({
             }}
           >
             {/* Expandable Row */}
-            {row.getIsExpanded() && ExpandRow && (
+            {row.getIsExpanded() && ExpandableRow && (
               <div className="absolute left-0 top-9 z-50 w-full border-t dark:border-black-92.5">
-                <ExpandRow row={row} />
+                <ExpandableRow row={row} />
               </div>
             )}
 

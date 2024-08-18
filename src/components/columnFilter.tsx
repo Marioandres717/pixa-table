@@ -4,7 +4,7 @@ import { Icon } from "./icon";
 type Props<TData> = {
   header: Header<TData, RowData>;
 };
-export default function ColumnFilter<TData>({ header }: Props<TData>) {
+export function HeaderFilter<TData>({ header }: Props<TData>) {
   if (!header.column.getCanFilter()) {
     return null;
   }

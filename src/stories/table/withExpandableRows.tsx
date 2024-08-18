@@ -39,6 +39,9 @@ export const TableWithExpandableRows: Story = {
               left: ["expander"],
             },
           },
+          pluggableComponents: {
+            ExpandableRow: MockExpandableRow,
+          },
         }),
         [context.loaded.data, context.globals.theme],
       );
@@ -48,7 +51,6 @@ export const TableWithExpandableRows: Story = {
           <Story
             args={{
               table: table as Table<unknown>,
-              expandableRowComponent: () => <MockExpandableRow />,
             }}
           />
         </div>

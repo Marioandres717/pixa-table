@@ -14,6 +14,7 @@ import { TableWithGlobalFilter } from "./withGlobalFilter";
 import { TableIsLoading } from "./isLoading";
 import { TableWithCustomPageSize } from "./withCustomPageSize";
 import { TableWithCustomPagination } from "./withCustomPagination";
+import { TableWithCustomHeaderFilter } from "./withCustomHeaderFilter";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -23,16 +24,6 @@ const meta: Meta<typeof PixaTable> = {
   component: PixaTable,
   argTypes: {
     table: {
-      table: {
-        disable: true,
-      },
-    },
-    expandableRowComponent: {
-      table: {
-        disable: true,
-      },
-    },
-    filterColumnComponent: {
       table: {
         disable: true,
       },
@@ -75,12 +66,13 @@ export const Defaults: Story = {
   args: {},
 };
 
-export const InsideResizableContainer: Story = resizeContainerStory;
-export const IsLoading: Story = TableIsLoading;
-export const WithCustomPageSize: Story = TableWithCustomPageSize;
-export const WithCustomPagination: Story = TableWithCustomPagination;
-export const WithExpandableRows: Story = TableWithExpandableRows;
-export const WithGlobalFilter: Story = TableWithGlobalFilter;
-export const WithManyCols: Story = TableWithManyCols;
-export const WithRowActions: Story = TableWithRowActions;
-export const WithSelectableRows: Story = TableWithSelectableRows;
+export const InsideResizableContainer = resizeContainerStory;
+export const IsLoading = TableIsLoading;
+export const WithCustomHeaderFilter = TableWithCustomHeaderFilter;
+export const WithCustomPageSize = TableWithCustomPageSize;
+export const WithCustomPagination = TableWithCustomPagination;
+export const WithExpandableRows = TableWithExpandableRows;
+export const WithGlobalFilter = TableWithGlobalFilter;
+export const WithManyCols = TableWithManyCols;
+export const WithRowActions = TableWithRowActions;
+export const WithSelectableRows = TableWithSelectableRows;

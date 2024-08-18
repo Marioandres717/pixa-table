@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { Table, Header, RowData } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { getPinnedCols, colRangeExtractor } from "../utils";
@@ -9,14 +9,10 @@ type Props<TData> = {
   table: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
   className?: string;
-  filterColumnComponent?: React.ComponentType<{
-    header: Header<TData, RowData>;
-  }>;
 };
 
 export function VirtualizedTableHeader<TData>({
   table: table,
-  filterColumnComponent,
   parentRef,
   className,
 }: Props<TData>) {
@@ -132,7 +128,6 @@ export function VirtualizedTableHeader<TData>({
                   header={header}
                   virtualColumn={viCol}
                   state={state}
-                  filterColumnComponent={filterColumnComponent}
                 />
               );
             })}

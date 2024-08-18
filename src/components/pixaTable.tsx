@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Header, Row, Table } from "@tanstack/react-table";
+import { Table } from "@tanstack/react-table";
 import {
   TableToolbar,
   VirtualizedTableBody,
@@ -12,25 +12,18 @@ import { TableSkeleton } from "./tableSkeleton";
 type Props<TData> = {
   table: Table<TData>;
   hideHeader?: boolean;
-  expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
-  filterColumnComponent?: React.ComponentType<{
-    header: Header<TData, unknown>;
-  }>;
 };
 
 export function PixaTable<TData>({
   table: table,
   hideHeader = false,
-  expandableRowComponent: ExpandRow,
-  filterColumnComponent,
 }: Props<TData>) {
   const [, setTriggerRerender] = useState(0);
   const parentRef = React.useRef<HTMLDivElement>(null);
   const isLoading = table.getState().isLoading;
 
   const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
-  const PaginationComponent =
-    table.options.pluggableComponents?.Pagination || Pagination;
+  const PaginationComponent = table.getPagination() || Pagination;
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -75,18 +68,10 @@ export function PixaTable<TData>({
           }}
         >
           {!hideHeader && (
-            <VirtualizedTableHeader
-              table={table}
-              parentRef={parentRef}
-              filterColumnComponent={filterColumnComponent}
-            />
+            <VirtualizedTableHeader table={table} parentRef={parentRef} />
           )}
 
-          <VirtualizedTableBody
-            table={table}
-            parentRef={parentRef}
-            expandableRowComponent={ExpandRow}
-          />
+          <VirtualizedTableBody table={table} parentRef={parentRef} />
         </div>
         {isPaginationEnabled && (
           <div className="col-span-full row-start-3 flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">

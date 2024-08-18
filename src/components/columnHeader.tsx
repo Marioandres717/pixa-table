@@ -9,16 +9,13 @@ import { VirtualItem } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { ColumnResize } from "./columnResize";
 import { HeaderSorting } from "./columnSort";
-import ColumnFilter from "./columnFilter";
+import { HeaderFilter as DefaultFilter } from "./columnFilter";
 
 type Props<TData> = {
   header: Header<TData, RowData>;
   virtualColumn: VirtualItem<Element>;
   state: TableState;
   className?: string;
-  filterColumnComponent?: React.ComponentType<{
-    header: Header<TData, RowData>;
-  }>;
 };
 
 export default function ColumnHeader<TData>({
@@ -26,13 +23,13 @@ export default function ColumnHeader<TData>({
   header,
   state,
   virtualColumn,
-  filterColumnComponent: Filter = ColumnFilter,
 }: Props<TData>) {
   const {
     column: { columnDef, getToggleSortingHandler, id },
     getContext,
+    getHeaderFilter,
   } = header;
-
+  const Filter = getHeaderFilter() || DefaultFilter;
   return (
     <div
       data-id={virtualColumn.key}
