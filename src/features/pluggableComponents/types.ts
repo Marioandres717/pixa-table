@@ -5,6 +5,7 @@ type RowData = any;
 
 export type PluggableComponents = {
   PageSize?: React.ComponentType<{ table: Table<RowData> }>;
+  Pagination?: React.ComponentType<{ table: Table<RowData> }>;
 };
 
 export interface PluggableComponentsOptions {

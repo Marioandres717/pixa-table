@@ -13,8 +13,8 @@ export default function ColumnSettings<TData>({
   onClick,
   table,
 }: Props<TData>) {
-  const PluggablePageSize = table.getPluggableComponents().PageSize;
-  const PageSizeComponent = PluggablePageSize || DefaultPageSize;
+  const PageSizeComponent =
+    table.getPluggableComponents().PageSize || DefaultPageSize;
 
   return (
     <>

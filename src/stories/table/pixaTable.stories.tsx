@@ -6,13 +6,14 @@ import { useMemo } from "react";
 import { usePixaTable } from "../../hooks";
 import { MockData, MockDataColumnDefs } from "../../mocks/handlers/mockData";
 import { InsideResizableContainer as resizeContainerStory } from "./insideResizableContainer";
-import { TableWithSelectableRows } from "./tableWithSelectableRows";
-import { TableWithExpandableRows } from "./tableWithExpandableRows";
-import { TableWithManyCols } from "./tableWithManyCols";
-import { TableWithRowActions } from "./tableWithRowActions";
-import { TableWithGlobalFilter } from "./tableWithGlobalFilter";
-import { TableIsLoading } from "./tableIsLoading";
+import { TableWithSelectableRows } from "./withSelectableRows";
+import { TableWithExpandableRows } from "./withExpandableRows";
+import { TableWithManyCols } from "./withManyCols";
+import { TableWithRowActions } from "./withRowActions";
+import { TableWithGlobalFilter } from "./withGlobalFilter";
+import { TableIsLoading } from "./isLoading";
 import { TableWithCustomPageSize } from "./withCustomPageSize";
+import { TableWithCustomPagination } from "./withCustomPagination";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -27,11 +28,6 @@ const meta: Meta<typeof PixaTable> = {
       },
     },
     expandableRowComponent: {
-      table: {
-        disable: true,
-      },
-    },
-    paginationComponent: {
       table: {
         disable: true,
       },
@@ -79,18 +75,12 @@ export const Defaults: Story = {
   args: {},
 };
 
-export const WithManyCols: Story = TableWithManyCols;
-
-export const WithSelectableRows: Story = TableWithSelectableRows;
-
-export const WithRowActions: Story = TableWithRowActions;
-
-export const WithExpandableRows: Story = TableWithExpandableRows;
-
 export const InsideResizableContainer: Story = resizeContainerStory;
-
-export const WithGlobalFilter: Story = TableWithGlobalFilter;
-
-export const WithCustomPageSize: Story = TableWithCustomPageSize;
-
 export const IsLoading: Story = TableIsLoading;
+export const WithCustomPageSize: Story = TableWithCustomPageSize;
+export const WithCustomPagination: Story = TableWithCustomPagination;
+export const WithExpandableRows: Story = TableWithExpandableRows;
+export const WithGlobalFilter: Story = TableWithGlobalFilter;
+export const WithManyCols: Story = TableWithManyCols;
+export const WithRowActions: Story = TableWithRowActions;
+export const WithSelectableRows: Story = TableWithSelectableRows;
