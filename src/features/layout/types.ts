@@ -2,6 +2,7 @@ export type TableLayout = {
   showFooter?: boolean;
   showHeader?: boolean;
   showSidebar?: boolean;
+  maxHeight?: number | "fluid";
 };
 
 export interface TableLayoutOptions {
@@ -13,4 +14,5 @@ export interface TableLayoutInstance {
   getShowFooter(): boolean;
   getShowHeader(): boolean;
   getShowSidebar(): boolean;
+  getMaxHeight(): number | "fluid";
 }

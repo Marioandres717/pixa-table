@@ -10,6 +10,7 @@ export const TableWithCustomLayout: Story = {
     showHeader: false,
     showFooter: false,
     showSidebar: true,
+    maxHeight: 400,
   },
   argTypes: {
     showHeader: {
@@ -27,6 +28,11 @@ export const TableWithCustomLayout: Story = {
         type: "boolean",
       },
     },
+    maxHeight: {
+      control: {
+        type: "number",
+      },
+    },
   },
   decorators: [
     (Story, context) => {
@@ -40,6 +46,7 @@ export const TableWithCustomLayout: Story = {
             showHeader: args.showHeader,
             showFooter: args.showFooter,
             showSidebar: args.showSidebar,
+            maxHeight: args.maxHeight,
           },
         }),
         [context.loaded.data, context.globals.theme, args],

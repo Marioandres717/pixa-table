@@ -7,6 +7,7 @@ export const LayoutFeature: TableFeature<RowData> = {
         showFooter: true,
         showHeader: true,
         showSidebar: false,
+        maxHeight: "fluid",
       },
     };
   },
@@ -16,6 +17,7 @@ export const LayoutFeature: TableFeature<RowData> = {
       showFooter: table.getShowFooter(),
       showHeader: table.getShowHeader(),
       showSidebar: table.getShowSidebar(),
+      maxHeight: table.getMaxHeight(),
     });
     table.getShowFooter = () =>
       typeof table.options.layout.showFooter === "undefined"
@@ -29,5 +31,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.showSidebar === "undefined"
         ? false
         : table.options.layout.showSidebar;
+    table.getMaxHeight = () =>
+      typeof table.options.layout.maxHeight === "undefined"
+        ? "fluid"
+        : table.options.layout.maxHeight;
   },
 };

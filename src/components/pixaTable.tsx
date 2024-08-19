@@ -19,7 +19,13 @@ export function PixaTable<TData>({ table }: Props<TData>) {
   const [, setTriggerRerender] = useState(0);
   const parentRef = React.useRef<HTMLDivElement>(null);
   const isLoading = table.getState().isLoading;
-  const { showFooter, showHeader, showSidebar } = table.getLayout();
+  const {
+    showFooter,
+    showHeader,
+    showSidebar,
+    maxHeight: mh,
+  } = table.getLayout();
+  const maxHeight = mh === "fluid" ? undefined : mh;
   const PaginationComponent = table.getPagination() || Pagination;
 
   useEffect(() => {
@@ -45,12 +51,17 @@ export function PixaTable<TData>({ table }: Props<TData>) {
   }
 
   return (
-    <div className="pixa-table contents" data-theme={table.getTheme()}>
+    <div
+      className="pixa-table"
+      style={{ display: "contents" }}
+      data-theme={table.getTheme()}
+    >
       <div
         role="table"
         data-test-id="pixa-table"
+        style={{ maxHeight }}
         className={clsx(
-          "h-full w-full rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
+          "h-full min-h-40 w-full rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
           calculateGridTemplate({
             showFooter: showFooter,
             showHeader: showHeader,
@@ -80,6 +91,9 @@ export function PixaTable<TData>({ table }: Props<TData>) {
           })}
           {...{
             ref: parentRef,
+            style: {
+              maxHeight: `calc(${maxHeight}px - ${showFooter && showHeader ? 88 : 46}px - 2px)`, // 2x for border
+            },
           }}
         >
           {showHeader && (
