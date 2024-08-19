@@ -15,6 +15,7 @@ export const TableIsLoading: Story = {
       return (
         <Story
           args={{
+            ...context.args,
             table: table as Table<unknown>,
           }}
         />

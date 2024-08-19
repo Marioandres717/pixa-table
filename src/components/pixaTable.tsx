@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import clsx from "clsx";
 import { Table } from "@tanstack/react-table";
 import {
   TableToolbar,
@@ -8,21 +9,17 @@ import {
   Pagination,
 } from "./";
 import { TableSkeleton } from "./tableSkeleton";
+import { calculateGridTemplate } from "../utils";
 
 type Props<TData> = {
   table: Table<TData>;
-  hideHeader?: boolean;
 };
 
-export function PixaTable<TData>({
-  table: table,
-  hideHeader = false,
-}: Props<TData>) {
+export function PixaTable<TData>({ table }: Props<TData>) {
   const [, setTriggerRerender] = useState(0);
   const parentRef = React.useRef<HTMLDivElement>(null);
   const isLoading = table.getState().isLoading;
-
-  const isPaginationEnabled = table.options.getPaginationRowModel !== undefined;
+  const { showFooter, showHeader, showSidebar } = table.getLayout();
   const PaginationComponent = table.getPagination() || Pagination;
 
   useEffect(() => {
@@ -52,29 +49,47 @@ export function PixaTable<TData>({
       <div
         role="table"
         data-test-id="pixa-table"
-        className="grid h-full w-full grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px] rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10"
+        className={clsx(
+          "h-full w-full rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
+          calculateGridTemplate({
+            showFooter: showFooter,
+            showHeader: showHeader,
+            showSidebar: showSidebar,
+          }),
+        )}
       >
-        {!hideHeader && (
+        {showHeader && (
           <TableToolbar
             className={`col-span-full col-start-1 row-start-1`}
             table={table}
           />
         )}
-        <TableSidebar className="col-start-2 row-start-2" table={table} />
+        {showSidebar && (
+          <TableSidebar
+            className={clsx("col-start-2", {
+              "row-start-2": showHeader,
+              "row-start-1": !showHeader,
+            })}
+            table={table}
+          />
+        )}
         <div
-          className="relative col-start-1 row-start-2 overflow-auto"
+          className={clsx("relative overflow-auto", {
+            "col-start-1": showSidebar,
+            "row-start-1": !showHeader,
+          })}
           {...{
             ref: parentRef,
           }}
         >
-          {!hideHeader && (
+          {showHeader && (
             <VirtualizedTableHeader table={table} parentRef={parentRef} />
           )}
 
           <VirtualizedTableBody table={table} parentRef={parentRef} />
         </div>
-        {isPaginationEnabled && (
-          <div className="col-span-full row-start-3 flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
+        {showFooter && (
+          <div className="col-span-full flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
             <PaginationComponent table={table} />
           </div>
         )}

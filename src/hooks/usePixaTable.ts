@@ -11,6 +11,7 @@ import {
   SelectionActionsFeature,
   ThemeFeature,
   PluggableComponentsFeature,
+  LayoutFeature,
 } from "../features";
 
 const DEFAULT_TABLE_CONFIG: Partial<TableOptions<RowData>> = {
@@ -29,6 +30,7 @@ export function usePixaTable<TData>(options: Partial<TableOptions<TData>>) {
       RowActionsFeature,
       ThemeFeature,
       PluggableComponentsFeature,
+      LayoutFeature,
     ],
   } as TableOptions<TData>);
 }

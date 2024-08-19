@@ -19,6 +19,8 @@ import {
   PluggableComponentsTableInstance,
   PluggableComponentsRowInstance,
   PluggableComponentsHeaderInstance,
+  TableLayoutOptions,
+  TableLayoutInstance,
 } from "./features";
 
 type AlignValue = "left" | "right" | "center";
@@ -50,10 +52,10 @@ declare module "@tanstack/react-table" {
   interface TableOptionsResolved<TData extends RowData> extends ThemeOptions {}
   interface Table<TData extends RowData> extends ThemeInstance {}
 
-  /* TABLE LOADING STATE */
+  /* TABLE LOADING STATE FEATURE */
   interface TableState extends LoadingState {}
 
-  /* TABLE PLUGGALE COMPONENTS */
+  /* TABLE PLUGGALE COMPONENTS FEATURE */
   interface TableOptionsResolved<TData extends RowData>
     extends PluggableComponentsOptions<TData> {}
   interface Table<TData extends RowData>
@@ -62,4 +64,9 @@ declare module "@tanstack/react-table" {
     extends PluggableComponentsRowInstance<TData> {}
   interface Header<TData extends RowData, TValue>
     extends PluggableComponentsHeaderInstance<TData> {}
+
+  /* TABLE LAYOUT FEATURE */
+  interface TableOptionsResolved<TData extends RowData>
+    extends TableLayoutOptions {}
+  interface Table<TData extends RowData> extends TableLayoutInstance {}
 }

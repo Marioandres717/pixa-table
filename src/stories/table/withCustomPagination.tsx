@@ -23,6 +23,7 @@ export const TableWithCustomPagination: Story = {
       return (
         <Story
           args={{
+            ...context.args,
             table: table as Table<unknown>,
           }}
         />

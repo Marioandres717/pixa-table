@@ -59,3 +59,42 @@ function getExpandedRowsIndexes<TData>(rows: Row<TData>[]): number[] {
     .filter((row) => row.getIsExpanded())
     .map((row) => rows.findIndex((r) => r.id === row.id));
 }
+
+export function calculateGridTemplate(options?: {
+  showHeader?: boolean;
+  showFooter?: boolean;
+  showSidebar?: boolean;
+}) {
+  if (
+    !options ||
+    (options.showHeader && options.showFooter && !options.showSidebar)
+  ) {
+    return "grid grid-cols-[1fr] grid-rows-[44px_minMax(44px,auto)_44px]";
+  }
+
+  if (options.showHeader && options.showFooter && options.showSidebar) {
+    return "grid  grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px]";
+  }
+
+  if (options.showHeader && !options.showFooter && !options.showSidebar) {
+    return "grid grid-cols-[1fr] grid-rows-[44px_minMax(44px,auto)]";
+  }
+
+  if (options.showHeader && !options.showFooter && options.showSidebar) {
+    return "grid grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)]";
+  }
+
+  if (!options.showHeader && options.showFooter && !options.showSidebar) {
+    return "grid grid-cols-[1fr] grid-rows-[minMax(44px,auto)_44px]";
+  }
+
+  if (!options.showHeader && options.showFooter && options.showSidebar) {
+    return "grid grid-cols-[1fr,32px] grid-rows-[auto_44px]";
+  }
+
+  if (!options.showHeader && !options.showFooter && options.showSidebar) {
+    return "grid grid-cols-[1fr,32px] grid-rows-[auto]";
+  }
+
+  return "grid grid-cols-[1fr] grid-rows-[auto]";
+}

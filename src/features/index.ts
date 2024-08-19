@@ -9,3 +9,5 @@ export * from "./theme/types";
 export * from "./theme/feature";
 export * from "./pluggableComponents/types";
 export * from "./pluggableComponents/feature";
+export * from "./layout/types";
+export * from "./layout/feature";

@@ -22,6 +22,7 @@ export const InsideResizableContainer: Story = {
           renderProps={() => (
             <Story
               args={{
+                ...context.args,
                 table: table as Table<unknown>,
               }}
             />

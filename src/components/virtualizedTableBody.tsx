@@ -26,7 +26,7 @@ export function VirtualizedTableBody<TData>({
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
     overscan: 5,
-    paddingStart: 32,
+    paddingStart: table.getShowHeader() ? 32 : 0,
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => rows[i].id, [rows]),
     estimateSize: useCallback(

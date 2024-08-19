@@ -4,19 +4,45 @@ import { Story, UsePixaTableOptions } from "./pixaTable.stories";
 import { MockData, MockDataColumnDefs } from "../../mocks/handlers/mockData";
 import { useMemo } from "react";
 
-export const TableWithCustomHeaderFilter: Story = {
+export const TableWithCustomLayout: Story = {
+  // These args are used to test the layout of the table, they are not part of the table props
+  args: {
+    showHeader: false,
+    showFooter: false,
+    showSidebar: true,
+  },
+  argTypes: {
+    showHeader: {
+      control: {
+        type: "boolean",
+      },
+    },
+    showFooter: {
+      control: {
+        type: "boolean",
+      },
+    },
+    showSidebar: {
+      control: {
+        type: "boolean",
+      },
+    },
+  },
   decorators: [
     (Story, context) => {
+      const { args } = context;
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           data: context.loaded.data,
           columns: MockDataColumnDefs,
           theme: context.globals.theme,
-          pluggableComponents: {
-            HeaderFilter: () => <span>filter</span>,
+          layout: {
+            showHeader: args.showHeader,
+            showFooter: args.showFooter,
+            showSidebar: args.showSidebar,
           },
         }),
-        [context.loaded.data, context.globals.theme],
+        [context.loaded.data, context.globals.theme, args],
       );
       const table = usePixaTable<MockData>(config);
 

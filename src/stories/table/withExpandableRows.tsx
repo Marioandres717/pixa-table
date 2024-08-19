@@ -50,6 +50,7 @@ export const TableWithExpandableRows: Story = {
         <div className="h-[500px]">
           <Story
             args={{
+              ...context.args,
               table: table as Table<unknown>,
             }}
           />

@@ -37,6 +37,7 @@ export const TableWithGlobalFilter: Story = {
           />
           <Story
             args={{
+              ...context.args,
               table: table as Table<unknown>,
             }}
           />
