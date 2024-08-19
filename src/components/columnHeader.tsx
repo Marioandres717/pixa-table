@@ -30,6 +30,9 @@ export default function ColumnHeader<TData>({
     getHeaderFilter,
   } = header;
   const Filter = getHeaderFilter() || DefaultFilter;
+  const headerTitle =
+    typeof columnDef.header === "string" ? columnDef.header : id;
+
   return (
     <div
       data-id={virtualColumn.key}
@@ -42,7 +45,7 @@ export default function ColumnHeader<TData>({
       )}
     >
       <span
-        title={id}
+        title={headerTitle}
         className="cursor-pointer overflow-hidden text-ellipsis whitespace-nowrap"
         onClick={getToggleSortingHandler()}
       >

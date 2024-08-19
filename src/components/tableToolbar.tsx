@@ -20,6 +20,7 @@ export function TableToolbar<TData>({ className, table }: Props<TData>) {
 
   return (
     <div
+      role="toolbar"
       className={clsx(
         `flex h-11 items-center justify-between border-b p-2 px-3 dark:border-b-black-92.5 ${areItemsSelected ? "bg-blue-100 text-black-10" : "bg-black-5 dark:bg-black-100"}`,
         className,

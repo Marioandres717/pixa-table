@@ -22,7 +22,10 @@ export function DraggableColumn<T>({
     size,
     start,
     id,
+    columnDef,
   } = column;
+
+  const columnId = typeof columnDef.header === "string" ? columnDef.header : id;
 
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({
@@ -69,10 +72,10 @@ export function DraggableColumn<T>({
           }}
         />
         <span
-          title={id}
+          title={columnId}
           className="overflow-hidden text-ellipsis text-nowrap capitalize leading-[initial]"
         >
-          {id}
+          {columnId}
         </span>
       </div>
       <Icon

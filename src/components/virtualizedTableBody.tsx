@@ -71,6 +71,8 @@ export function VirtualizedTableBody<TData>({
 
   return (
     <div
+      data-test-id="table-body"
+      role="rowgroup"
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
         width: `${rowHeaderWidth}px`,

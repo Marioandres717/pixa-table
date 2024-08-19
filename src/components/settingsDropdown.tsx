@@ -21,7 +21,11 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
   }
 
   return (
-    <div ref={dropdownRef} className="relative">
+    <div
+      data-test-id="table-settings-dropdown"
+      ref={dropdownRef}
+      className="relative"
+    >
       <div
         role="button"
         tabIndex={0}
