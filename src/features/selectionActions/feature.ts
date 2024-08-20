@@ -27,7 +27,7 @@ export const SelectionActionsFeature: TableFeature<RowData> = {
     };
 
     table.onSelectionAction = (action, data) => {
-      action.onAction(data);
+      action.onAction(data, table);
     };
   },
 };

@@ -15,9 +15,10 @@ export const TableWithSelectableRows: Story = {
         return [
           {
             type: "delete",
-            onAction: (data) => {
+            onAction: (data, table) => {
               // eslint-disable-next-line no-console
               console.info("delete", data);
+              table.resetRowSelection();
             },
           },
           {
