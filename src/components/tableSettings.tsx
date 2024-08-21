@@ -19,7 +19,7 @@ export default function TableSettings<TData>({
       )}
     >
       <div className="mb-2 font-semibold">Table Settings</div>
-      <div>Column order & visibility</div>
+      <div className="mb-2">Column order & visibility</div>
       <VirtualizedColumnOrdering table={table} />
       <div className="mt-4 flex max-w-fit flex-col gap-1">
         {!table.getPageSizeComponent() && (
