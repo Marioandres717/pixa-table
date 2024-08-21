@@ -80,7 +80,7 @@ export function VirtualizedTableBody<TData>({
     >
       {viRows.map((viRow) => {
         const row = rows[viRow.index];
-        const ExpandableRow = row.getExpandableRow();
+        const ExpandableRow = row.getExpandableRowComponent();
         return (
           <div
             role="row"
@@ -126,7 +126,7 @@ export function VirtualizedTableBody<TData>({
 
             {/* RIGHT PINNED CELLS */}
             <div
-              className="sticky left-0 top-0 z-10 h-9 -translate-y-[35px] bg-transparent opacity-0 group-hover:opacity-100"
+              className="sticky left-0 top-0 z-10 h-9 -translate-y-[35px] bg-inherit opacity-0 group-hover:opacity-100"
               style={{
                 position: row.getIsExpanded() ? "absolute" : "sticky",
                 width: right.reduce((acc, cell) => acc + cell.getSize(), 0),

@@ -1,7 +1,8 @@
 import { Table } from "@tanstack/react-table";
-import { PageResults } from "./results";
+import { PageResults } from "./pageResults";
 import clsx from "clsx";
 import { SettingsDropdown } from "./settingsDropdown";
+import { PageSize } from "./pageSize";
 
 type Props<TData> = {
   className?: string;
@@ -9,14 +10,14 @@ type Props<TData> = {
 };
 
 export function TableToolbar<TData>({ className, table }: Props<TData>) {
-  const totalItems = table.getRowCount();
-
   const areItemsSelected =
     table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
 
   const numOfItemsSelected = Object.keys(table.getState().rowSelection).length;
 
   const actions = table.getSelectionActions();
+
+  const PageSizeComponent = table.getPageSizeComponent() || PageSize;
 
   return (
     <div
@@ -63,7 +64,11 @@ export function TableToolbar<TData>({ className, table }: Props<TData>) {
           </>
         ) : (
           <>
-            <PageResults totalItems={totalItems} approximateCount={false} />
+            <PageSizeComponent
+              table={table}
+              className="h-6 text-table-base leading-[1.2]"
+            />
+            <PageResults table={table} />
             <SettingsDropdown table={table} />
           </>
         )}

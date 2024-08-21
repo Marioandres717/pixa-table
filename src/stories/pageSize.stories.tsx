@@ -7,8 +7,15 @@ type Story = StoryObj<typeof PageSize>;
 const meta: Meta<typeof PageSize> = {
   title: "components/Page Size",
   component: PageSize,
+  argTypes: {
+    table: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   decorators: [
-    (Story) => {
+    (Story, context) => {
       const table = usePixaTable<unknown>({
         data: [],
         columns: [],
@@ -17,6 +24,7 @@ const meta: Meta<typeof PageSize> = {
       return (
         <Story
           args={{
+            ...context.args,
             table,
           }}
         />

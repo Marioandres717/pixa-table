@@ -9,20 +9,25 @@ export default function TableSettings<TData>({
   table,
   className,
 }: Props<TData>) {
-  const PageSizeComponent = table.getPageSize() || DefaultPageSize;
+  const PageSizeComponent = table.getPageSizeComponent() || DefaultPageSize;
 
   return (
     <div
       className={clsx(
-        "max-h-[500px] w-64 rounded border bg-black-5 p-4 dark:border-black-90 dark:bg-black-95 dark:drop-shadow-[0_7px_20px_0_rgba(13,22,26,0.15)]",
+        "max-h-[500px] w-64 rounded border bg-black-5 p-4 text-table-base text-black-100 dark:border-black-90 dark:bg-black-95 dark:text-black-10 dark:drop-shadow-[0_7px_20px_0_rgba(13,22,26,0.15)]",
         className,
       )}
     >
       <div className="mb-2 font-semibold">Table Settings</div>
       <div>Column order & visibility</div>
       <VirtualizedColumnOrdering table={table} />
-      <div className="mt-4">
-        <PageSizeComponent table={table} />
+      <div className="mt-4 flex max-w-fit flex-col gap-1">
+        {!table.getPageSizeComponent() && (
+          <span className="text-table-base text-black-100 dark:text-black-10">
+            Results per page
+          </span>
+        )}
+        <PageSizeComponent table={table} className="h-8 text-[15px]" />
       </div>
     </div>
   );
