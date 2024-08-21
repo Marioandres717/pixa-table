@@ -21,3 +21,5 @@ export * from "./tableToolbar";
 export * from "./virtualizedColumnOrdering";
 export * from "./virtualizedTableBody";
 export * from "./virtualizedTableHeader";
+export * from "./defaultToolbar";
+export * from "./selectedItemsToolbar";

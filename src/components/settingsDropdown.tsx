@@ -29,14 +29,14 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
       <div
         role="button"
         tabIndex={0}
-        className={`rounded-[3px] p-1 outline-none ${toggleSettings ? "bg-black-10 dark:bg-black-90" : ""}`}
+        className={`flex h-6 w-6 rounded-[3px] p-1 outline-none ${toggleSettings ? "bg-black-10 dark:bg-black-90" : ""}`}
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
       >
         <Icon icon="settings" size={16} className="dark:fill-white" />
       </div>
       {toggleSettings && (
-        <TableSettings table={table} className="absolute right-0 top-8 z-20" />
+        <TableSettings table={table} className="absolute right-0 top-7 z-20" />
       )}
     </div>
   );

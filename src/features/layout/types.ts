@@ -3,6 +3,7 @@ export type TableLayout = {
   showHeader?: boolean;
   showSidebar?: boolean;
   maxHeight?: number | "fluid";
+  showPagination?: "top" | "bottom" | "both" | false;
 };
 
 export interface TableLayoutOptions {
@@ -15,4 +16,5 @@ export interface TableLayoutInstance {
   getShowHeader(): boolean;
   getShowSidebar(): boolean;
   getMaxHeight(): number | "fluid";
+  getShowPagination(): "top" | "bottom" | "both" | false;
 }

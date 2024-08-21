@@ -1,11 +1,13 @@
 import { Table } from "@tanstack/react-table";
+import clsx from "clsx";
 import { useMemo } from "react";
 
 type Props<TData> = {
   table: Table<TData>;
+  className?: string;
 };
 
-export function PageResults<TData>({ table }: Props<TData>) {
+export function PageResults<TData>({ table, className }: Props<TData>) {
   const { pageIndex, pageSize } = table.getState().pagination;
   const totalItems = table.getRowCount();
   const label = useMemo(
@@ -17,7 +19,10 @@ export function PageResults<TData>({ table }: Props<TData>) {
     <span
       role="status"
       aria-live="polite"
-      className="text-nowrap text-table-base font-medium leading-normal text-black-100 dark:text-black-10"
+      className={clsx(
+        "text-nowrap text-table-base font-medium leading-normal text-black-100 dark:text-black-10",
+        className,
+      )}
     >
       {label}
     </span>

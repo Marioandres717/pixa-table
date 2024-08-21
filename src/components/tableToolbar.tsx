@@ -1,8 +1,7 @@
 import { Table } from "@tanstack/react-table";
-import { PageResults } from "./pageResults";
 import clsx from "clsx";
-import { SettingsDropdown } from "./settingsDropdown";
-import { PageSize } from "./pageSize";
+import { DefaultToolbar } from "./defaultToolbar";
+import { SelectedItemsToolbar } from "./selectedItemsToolbar";
 
 type Props<TData> = {
   className?: string;
@@ -13,12 +12,6 @@ export function TableToolbar<TData>({ className, table }: Props<TData>) {
   const areItemsSelected =
     table.getIsSomeRowsSelected() || table.getIsAllRowsSelected();
 
-  const numOfItemsSelected = Object.keys(table.getState().rowSelection).length;
-
-  const actions = table.getSelectionActions();
-
-  const PageSizeComponent = table.getPageSizeComponent() || PageSize;
-
   return (
     <div
       role="toolbar"
@@ -27,52 +20,11 @@ export function TableToolbar<TData>({ className, table }: Props<TData>) {
         className,
       )}
     >
-      <div className="flex w-full items-center justify-between">
-        {areItemsSelected ? (
-          <>
-            <span className="dark:text-white-50 font-medium text-black-10">
-              {numOfItemsSelected} {numOfItemsSelected > 1 ? "Items" : "Item"}{" "}
-              Selected
-            </span>
-
-            <div className="flex items-center gap-2">
-              {actions.map((action) => {
-                const isActionHidden =
-                  typeof action.isHidden === "function"
-                    ? action.isHidden(table.getSelectedRowModel().rows)
-                    : action.isHidden || false;
-
-                return (
-                  <button
-                    key={action.type}
-                    className="rounded bg-transparent py-1 capitalize text-white"
-                    style={{
-                      display: isActionHidden ? "none" : "inherit",
-                    }}
-                    onClick={() =>
-                      table.onSelectionAction(
-                        action,
-                        table.getSelectedRowModel().rows,
-                      )
-                    }
-                  >
-                    {action.type}
-                  </button>
-                );
-              })}
-            </div>
-          </>
-        ) : (
-          <>
-            <PageSizeComponent
-              table={table}
-              className="h-6 text-table-base leading-[1.2]"
-            />
-            <PageResults table={table} />
-            <SettingsDropdown table={table} />
-          </>
-        )}
-      </div>
+      {areItemsSelected ? (
+        <SelectedItemsToolbar table={table} />
+      ) : (
+        <DefaultToolbar table={table} />
+      )}
     </div>
   );
 }

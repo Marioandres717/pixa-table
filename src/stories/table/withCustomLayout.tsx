@@ -7,10 +7,11 @@ import { useMemo } from "react";
 export const TableWithCustomLayout: Story = {
   // These args are used to test the layout of the table, they are not part of the table props
   args: {
-    showHeader: false,
+    showHeader: true,
     showFooter: false,
     showSidebar: true,
     maxHeight: 400,
+    showPagination: "both",
   },
   argTypes: {
     showHeader: {
@@ -33,6 +34,12 @@ export const TableWithCustomLayout: Story = {
         type: "number",
       },
     },
+    showPagination: {
+      control: {
+        type: "check",
+        options: ["top", "bottom", "both", "none"],
+      },
+    },
   },
   decorators: [
     (Story, context) => {
@@ -47,6 +54,7 @@ export const TableWithCustomLayout: Story = {
             showFooter: args.showFooter,
             showSidebar: args.showSidebar,
             maxHeight: args.maxHeight,
+            showPagination: args.showPagination,
           },
         }),
         [context.loaded.data, context.globals.theme, args],

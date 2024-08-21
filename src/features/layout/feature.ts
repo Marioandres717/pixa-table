@@ -8,6 +8,7 @@ export const LayoutFeature: TableFeature<RowData> = {
         showHeader: true,
         showSidebar: false,
         maxHeight: "fluid",
+        showPagination: "bottom",
       },
     };
   },
@@ -18,7 +19,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       showHeader: table.getShowHeader(),
       showSidebar: table.getShowSidebar(),
       maxHeight: table.getMaxHeight(),
+      showPagination: table.getShowPagination(),
     });
+
     table.getShowFooter = () =>
       typeof table.options.layout.showFooter === "undefined"
         ? true
@@ -35,5 +38,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.maxHeight === "undefined"
         ? "fluid"
         : table.options.layout.maxHeight;
+    table.getShowPagination = () =>
+      typeof table.options.layout.showPagination === "undefined"
+        ? "bottom"
+        : table.options.layout.showPagination;
   },
 };

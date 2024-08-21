@@ -24,6 +24,7 @@ export function PixaTable<TData>({ table }: Props<TData>) {
     showHeader,
     showSidebar,
     maxHeight: mh,
+    showPagination,
   } = table.getLayout();
   const maxHeight = mh === "fluid" ? undefined : mh;
   const PaginationComponent = table.getPaginationComponent() || Pagination;
@@ -61,7 +62,7 @@ export function PixaTable<TData>({ table }: Props<TData>) {
         data-test-id="pixa-table"
         style={{ maxHeight }}
         className={clsx(
-          "h-full min-h-40 w-full rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
+          "h-full min-h-40 w-full overflow-x-clip overflow-y-visible rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
           calculateGridTemplate({
             showFooter: showFooter,
             showHeader: showHeader,
@@ -103,8 +104,10 @@ export function PixaTable<TData>({ table }: Props<TData>) {
           <VirtualizedTableBody table={table} parentRef={parentRef} />
         </div>
         {showFooter && (
-          <div className="col-span-full flex h-11 justify-end border-t px-3 py-2 dark:border-black-92.5">
-            <PaginationComponent table={table} />
+          <div className="col-span-full flex h-11 items-center justify-end border-t px-3 py-2 dark:border-black-92.5">
+            {(showPagination === "bottom" || showPagination === "both") && (
+              <PaginationComponent table={table} />
+            )}
           </div>
         )}
       </div>
