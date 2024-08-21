@@ -4,13 +4,16 @@ export const PluggableComponentsFeature: TableFeature<RowData> = {
   createTable(table) {
     table.getPluggableComponents = () =>
       table.options.pluggableComponents || {};
-    table.getPageSize = () => table.getPluggableComponents().PageSize;
-    table.getPagination = () => table.getPluggableComponents().Pagination;
+    table.getPageSizeComponent = () => table.getPluggableComponents().PageSize;
+    table.getPaginationComponent = () =>
+      table.getPluggableComponents().Pagination;
   },
   createHeader(header, table) {
-    header.getHeaderFilter = () => table.getPluggableComponents().HeaderFilter;
+    header.getHeaderFilterComponent = () =>
+      table.getPluggableComponents().HeaderFilter;
   },
   createRow(row, table) {
-    row.getExpandableRow = () => table.getPluggableComponents().ExpandableRow;
+    row.getExpandableRowComponent = () =>
+      table.getPluggableComponents().ExpandableRow;
   },
 };

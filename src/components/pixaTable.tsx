@@ -26,7 +26,7 @@ export function PixaTable<TData>({ table }: Props<TData>) {
     maxHeight: mh,
   } = table.getLayout();
   const maxHeight = mh === "fluid" ? undefined : mh;
-  const PaginationComponent = table.getPagination() || Pagination;
+  const PaginationComponent = table.getPaginationComponent() || Pagination;
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {

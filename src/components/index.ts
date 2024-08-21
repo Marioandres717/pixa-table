@@ -12,7 +12,7 @@ export * from "./icon";
 export * from "./pageSize";
 export * from "./pagination";
 export * from "./pixaTable";
-export * from "./results";
+export * from "./pageResults";
 export * from "./rowActionsColumn";
 export * from "./sortIcon";
 export * from "./tableSidebar";

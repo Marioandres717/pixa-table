@@ -27,9 +27,9 @@ export default function ColumnHeader<TData>({
   const {
     column: { columnDef, getToggleSortingHandler, id },
     getContext,
-    getHeaderFilter,
+    getHeaderFilterComponent,
   } = header;
-  const Filter = getHeaderFilter() || DefaultFilter;
+  const Filter = getHeaderFilterComponent() || DefaultFilter;
   const headerTitle =
     typeof columnDef.header === "string" ? columnDef.header : id;
 

@@ -27,8 +27,21 @@ export const TableWithRowActions: Story = {
             // isHidden: (data) => true,
             onAction: (data) => {
               // eslint-disable-next-line no-console
-              console.log("edit", data);
+              console.log(data);
             },
+            Component: ({ row, onClick }) => (
+              <button onClick={() => onClick(row)}>Edit</button>
+            ),
+          },
+          {
+            type: "clone",
+            onAction: (data) => {
+              // eslint-disable-next-line no-console
+              console.log(data);
+            },
+            Component: ({ row, onClick }) => (
+              <button onClick={() => onClick(row)}>Clone</button>
+            ),
           },
         ];
       }, []);
@@ -41,13 +54,12 @@ export const TableWithRowActions: Story = {
           columns: [
             columnHelper.display({
               id: "action",
-              size: 100,
+              // size: 100,
               enableSorting: false,
               enableResizing: false,
               enableHiding: false,
               header: "",
               cell: ({ row }) => {
-                // debugger;
                 const actions = row.getRowActions();
                 return (
                   <div className="flex gap-1">

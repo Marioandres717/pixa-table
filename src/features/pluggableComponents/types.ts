@@ -13,14 +13,14 @@ export interface PluggableComponentsOptions<TData> {
 
 export interface PluggableComponentsTableInstance<TData> {
   getPluggableComponents: () => PluggableComponents<TData>;
-  getPageSize: () => PluggableComponents<TData>["PageSize"];
-  getPagination: () => PluggableComponents<TData>["Pagination"];
+  getPageSizeComponent: () => PluggableComponents<TData>["PageSize"];
+  getPaginationComponent: () => PluggableComponents<TData>["Pagination"];
 }
 
 export interface PluggableComponentsHeaderInstance<TData> {
-  getHeaderFilter: () => PluggableComponents<TData>["HeaderFilter"];
+  getHeaderFilterComponent: () => PluggableComponents<TData>["HeaderFilter"];
 }
 
 export interface PluggableComponentsRowInstance<TData> {
-  getExpandableRow: () => PluggableComponents<TData>["ExpandableRow"];
+  getExpandableRowComponent: () => PluggableComponents<TData>["ExpandableRow"];
 }
