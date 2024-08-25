@@ -2,7 +2,11 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import { getPinnedCols, colRangeExtractor } from "../utils";
+import {
+  getPinnedCols,
+  colRangeExtractor,
+  divideAvailableSpaceWithColumns,
+} from "../utils";
 import ColumnHeader from "./columnHeader";
 
 type Props<TData> = {
@@ -17,10 +21,16 @@ export function VirtualizedTableHeader<TData>({
   className,
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const cols = useMemo(
-    () => headerGroups[0].headers.map((header) => header.column),
-    [headerGroups],
+    () =>
+      divideAvailableSpaceWithColumns(
+        headerGroups[0].headers.map((header) => header.column),
+        parentWidth,
+      ),
+    [headerGroups, parentWidth],
   );
+
   const state = table.getState();
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
 
@@ -39,7 +49,6 @@ export function VirtualizedTableHeader<TData>({
 
   const colVirtualizerWidth = colVirtualizer.getTotalSize();
 
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const rowHeaderWidth =
     parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 

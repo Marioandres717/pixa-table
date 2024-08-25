@@ -98,3 +98,37 @@ export function calculateGridTemplate(options?: {
 
   return "grid grid-cols-[1fr] grid-rows-[auto]";
 }
+
+export function divideAvailableSpaceWithColumns<TData>(
+  columns: Column<TData, RowData>[],
+  availableWidth: number,
+  columnMinWidth = 150,
+) {
+  // no available space
+  if (
+    columns.reduce((acc, col) => acc + (col.columnDef.size || 0), 0) >
+    availableWidth
+  )
+    return columns;
+
+  for (const column of columns) {
+    if (column.columnDef.grow === false && column.columnDef.size) {
+      availableWidth -= column.columnDef.size;
+    }
+  }
+  const fieldCountWithGrow = columns.filter(
+    (c) => c.columnDef.grow || typeof c.columnDef.grow === "undefined", // we want to default undefined as true
+  ).length;
+
+  const sharedWidth = availableWidth / fieldCountWithGrow;
+  for (const column of columns) {
+    if (column.columnDef.grow !== false) {
+      column.columnDef.size = Math.max(
+        sharedWidth,
+        column.columnDef.minSize || columnMinWidth,
+      );
+    }
+  }
+
+  return columns;
+}

@@ -30,6 +30,11 @@ type ColumnMetaExtras = {
   padding?: string | number;
   className?: string;
 };
+
+interface ColumnSizingColumnDefWithGrow {
+  grow?: boolean;
+}
+
 declare module "@tanstack/react-table" {
   /* COLUMN META */
   interface ColumnMeta<TData, TValue> extends ColumnMetaExtras {}
@@ -69,4 +74,7 @@ declare module "@tanstack/react-table" {
   interface TableOptionsResolved<TData extends RowData>
     extends TableLayoutOptions {}
   interface Table<TData extends RowData> extends TableLayoutInstance {}
+
+  /* COLUMN GROW */
+  interface ColumnSizingColumnDef extends ColumnSizingColumnDefWithGrow {}
 }

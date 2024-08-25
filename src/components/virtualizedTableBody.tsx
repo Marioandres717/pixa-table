@@ -1,7 +1,12 @@
 import { Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { getPinnedCols, colRangeExtractor, rowRangeExtractor } from "../utils";
+import {
+  getPinnedCols,
+  colRangeExtractor,
+  rowRangeExtractor,
+  divideAvailableSpaceWithColumns,
+} from "../utils";
 import { ColumnCell } from "./columnCell";
 
 type Props<TData> = {
@@ -15,10 +20,16 @@ export function VirtualizedTableBody<TData>({
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
   const tableState = table.getState();
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
+
   const cols = useMemo(
-    () => table.getFlatHeaders().map((h) => h.column),
+    () =>
+      divideAvailableSpaceWithColumns(
+        table.getFlatHeaders().map((h) => h.column),
+        parentWidth,
+      ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [table, tableState],
+    [table, tableState, parentWidth],
   );
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const state = table.getState();
@@ -52,7 +63,6 @@ export function VirtualizedTableBody<TData>({
     ),
   });
 
-  const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const rowHeaderWidth =
     parentWidth > colVirtualizer.getTotalSize()
       ? parentWidth
@@ -67,7 +77,7 @@ export function VirtualizedTableBody<TData>({
 
   useEffect(() => {
     colVirtualizer.measure();
-  }, [colVirtualizer, state.columnSizingInfo]);
+  }, [colVirtualizer]);
 
   return (
     <div
@@ -87,17 +97,17 @@ export function VirtualizedTableBody<TData>({
             className={`group absolute left-0 top-0 border-b bg-black-5 hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90 ${row.getIsExpanded() && "dark:!bg-black-95"} ${row.getIsSelected() && "dark:!bg-[#173344]"}`}
             key={viRow.key}
             data-index={viRow.index}
+            ref={(node) => rowVirtualizer.measureElement(node)}
             {...{
               style: {
                 width: rowHeaderWidth,
-                height: `${viRow.size}px`,
                 transform: `translateY(${viRow.start}px)`,
               },
             }}
           >
             {/* Expandable Row */}
             {row.getIsExpanded() && ExpandableRow && (
-              <div className="absolute left-0 top-9 z-50 w-full border-t dark:border-black-92.5">
+              <div className="mt-9 w-full border-t dark:border-black-92.5">
                 <ExpandableRow row={row} />
               </div>
             )}
