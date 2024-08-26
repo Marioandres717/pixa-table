@@ -36,5 +36,5 @@ function getPaginationLabel(
 ): string {
   const start = pageIndex * pageSize + 1;
   const end = Math.min(start + pageSize - 1, total);
-  return `${start}-${end} of ${total} results`;
+  return `${start}-${end} of ${total.toLocaleString()} results`;
 }
