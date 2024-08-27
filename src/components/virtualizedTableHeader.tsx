@@ -71,11 +71,9 @@ export function VirtualizedTableHeader<TData>({
     >
       {headerGroups.map((headerGroup) => (
         <div
+          key={headerGroup.id}
           role="row"
-          className="h-8 border-b bg-black-10 dark:border-black-92.5 dark:bg-black-95"
-          {...{
-            key: headerGroup.id,
-          }}
+          className="flex h-8 border-b bg-black-10 dark:border-black-92.5 dark:bg-black-95"
         >
           {/* LEFT PINNED COLS */}
           <div
@@ -100,14 +98,29 @@ export function VirtualizedTableHeader<TData>({
               })}
           </div>
 
+          {/* NON-PINNED COLS */}
+          <div className="h-full w-full">
+            {headerGroup.headers
+              .filter((header) => !header.column.getIsPinned())
+              .map((header) => {
+                const viCol = viCols.find((viCol) => viCol.key === header.id);
+                if (!viCol) return null;
+                return (
+                  <ColumnHeader
+                    key={viCol.key}
+                    header={header}
+                    virtualColumn={viCol}
+                    state={state}
+                  />
+                );
+              })}
+          </div>
+
           {/* RIGHT PINNED COLS */}
           <div
-            className="sticky left-0 top-0 z-10 h-full -translate-y-8 bg-transparent"
+            className="sticky right-0 top-0 z-10 h-full bg-inherit"
             style={{
               width: right.reduce((acc, col) => acc + col.getSize(), 0),
-              left:
-                parentWidth -
-                right.reduce((acc, col) => acc + col.getSize(), 0),
             }}
           >
             {headerGroup.headers
@@ -125,22 +138,6 @@ export function VirtualizedTableHeader<TData>({
                 );
               })}
           </div>
-
-          {/* NON-PINNED COLS */}
-          {headerGroup.headers
-            .filter((header) => !header.column.getIsPinned())
-            .map((header) => {
-              const viCol = viCols.find((viCol) => viCol.key === header.id);
-              if (!viCol) return null;
-              return (
-                <ColumnHeader
-                  key={viCol.key}
-                  header={header}
-                  virtualColumn={viCol}
-                  state={state}
-                />
-              );
-            })}
         </div>
       ))}
     </div>
