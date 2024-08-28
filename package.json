@@ -1,6 +1,6 @@
 {
   "name": "pixa-table",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "type": "module",
   "main": "./dist/pixa-table.umd.cjs",
   "module": "./dist/pixa-table.js",
