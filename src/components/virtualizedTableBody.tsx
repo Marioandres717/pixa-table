@@ -1,5 +1,6 @@
-import { Table } from "@tanstack/react-table";
 import React, { useCallback, useEffect, useMemo } from "react";
+import clsx from "clsx";
+import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   getPinnedCols,
@@ -8,7 +9,6 @@ import {
   divideAvailableSpaceWithColumns,
 } from "../utils";
 import { ColumnCell } from "./columnCell";
-import clsx from "clsx";
 
 type Props<TData> = {
   table: Table<TData>;
