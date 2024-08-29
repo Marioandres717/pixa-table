@@ -16,6 +16,7 @@ import { TableWithCustomPageSize } from "./withCustomPageSize";
 import { TableWithCustomPagination } from "./withCustomPagination";
 import { TableWithCustomHeaderFilter } from "./withCustomHeaderFilter";
 import { TableWithCustomLayout } from "./withCustomLayout";
+import { TableWithCustomCell } from "./withCustomCell";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -70,6 +71,7 @@ export const Defaults: Story = {
 
 export const InsideResizableContainer = resizeContainerStory;
 export const IsLoading = TableIsLoading;
+export const WithCustomCell = TableWithCustomCell;
 export const WithCustomHeaderFilter = TableWithCustomHeaderFilter;
 export const WithCustomLayout = TableWithCustomLayout;
 export const WithCustomPageSize = TableWithCustomPageSize;

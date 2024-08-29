@@ -107,7 +107,7 @@ export function VirtualizedTableBody<TData>({
               transform: `translateY(${viRow.start}px)`,
             }}
           >
-            <div className="flex">
+            <div className="flex bg-inherit">
               {/* LEFT PINNED CELLS */}
               {left.length > 0 && (
                 <div
