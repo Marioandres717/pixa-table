@@ -20,6 +20,7 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
   const PageSizeComponent = getPageSizeComponent(table);
   const PaginationComponent = getPaginationComponent(table);
   const showPagination = table.getShowPagination();
+  const showTotalResults = table.getShowTotalResults();
 
   return (
     <div className="flex w-full items-center justify-between gap-6">
@@ -30,7 +31,7 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
         />
       </div>
 
-      <PageResults table={table} className="mx-auto" />
+      {showTotalResults && <PageResults table={table} />}
 
       <div className="flex flex-1 justify-end gap-6">
         {(showPagination === "top" || showPagination === "both") && (

@@ -23,3 +23,5 @@ export * from "./virtualizedTableBody";
 export * from "./virtualizedTableHeader";
 export * from "./defaultToolbar";
 export * from "./selectedItemsToolbar";
+export * from "./virtualizedHeaderRow";
+export * from "./virtualizedRow";

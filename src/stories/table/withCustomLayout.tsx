@@ -12,6 +12,7 @@ export const TableWithCustomLayout: Story = {
     showSidebar: true,
     maxHeight: 400,
     showPagination: "both",
+    showTotalResults: false,
   },
   argTypes: {
     showHeader: {
@@ -40,6 +41,11 @@ export const TableWithCustomLayout: Story = {
         options: ["top", "bottom", "both", "none"],
       },
     },
+    showTotalResults: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
   decorators: [
     (Story, context) => {
@@ -55,6 +61,7 @@ export const TableWithCustomLayout: Story = {
             showSidebar: args.showSidebar,
             maxHeight: args.maxHeight,
             showPagination: args.showPagination,
+            showTotalResults: args.showTotalResults,
           },
         }),
         [context.loaded.data, context.globals.theme, args],

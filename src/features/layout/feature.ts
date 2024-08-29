@@ -9,6 +9,7 @@ export const LayoutFeature: TableFeature<RowData> = {
         showSidebar: false,
         maxHeight: "fluid",
         showPagination: "bottom",
+        showTotalResults: true,
       },
     };
   },
@@ -20,6 +21,7 @@ export const LayoutFeature: TableFeature<RowData> = {
       showSidebar: table.getShowSidebar(),
       maxHeight: table.getMaxHeight(),
       showPagination: table.getShowPagination(),
+      showTotalResults: table.getShowTotalResults(),
     });
 
     table.getShowFooter = () =>
@@ -42,5 +44,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.showPagination === "undefined"
         ? "bottom"
         : table.options.layout.showPagination;
+    table.getShowTotalResults = () =>
+      typeof table.options.layout.showTotalResults === "undefined"
+        ? true
+        : table.options.layout.showTotalResults;
   },
 };

@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
+import { getFilteredRowModel, Table } from "@tanstack/react-table";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
 import { MockData, MockDataColumnDefs } from "../../mocks/handlers/mockData";
 import { usePixaTable } from "../../hooks";
-import { getFilteredRowModel, Table } from "@tanstack/react-table";
-import { fuzzyFilter } from "../../features/fuzzyFilter/feature";
+import { fuzzyFilter } from "../../features";
 
 export const TableWithGlobalFilter: Story = {
   decorators: [
@@ -23,7 +23,6 @@ export const TableWithGlobalFilter: Story = {
           filterFns: {
             fuzzy: fuzzyFilter,
           },
-          debugAll: true,
         }),
         [context.loaded.data, globalFilter, context.globals.theme],
       );
