@@ -35,15 +35,14 @@ export default function VirtualizedRow<TData>({
       )}
       ref={(node) => rowVirtualizer.measureElement(node)}
       style={{
-        // width: rowHeaderWidth,
         transform: `translateY(${viRow.start}px)`,
       }}
     >
-      <div className="flex">
+      <div className="flex bg-inherit">
         {/* LEFT PINNED CELLS */}
         {left.length > 0 && (
           <div
-            className="sticky left-0 z-10 h-[35px] bg-inherit"
+            className="pointer-events-none sticky left-0 z-10 h-[35px] bg-transparent"
             style={{
               width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
             }}
@@ -72,7 +71,7 @@ export default function VirtualizedRow<TData>({
         {/* RIGHT PINNED CELLS */}
         {right.length > 0 && (
           <div
-            className="sticky right-0 z-10 h-[35px] bg-inherit opacity-0 group-hover:opacity-100"
+            className="pointer-events-none sticky right-0 z-10 h-[35px] bg-transparent opacity-0 group-hover:opacity-100"
             style={{
               width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
             }}

@@ -26,36 +26,28 @@ export function ColumnCell<TData>({
   return (
     <div
       data-id={virtualColumn.key}
+      title={cellTitle}
       role="cell"
       style={getColumnStyles({ ...column, ...virtualColumn })}
       className={clsx(
-        "absolute left-0 top-0 flex h-9 items-center overflow-hidden border-r px-3 py-2 last:border-r-0 dark:border-black-92.5",
+        "absolute left-0 top-0 flex h-full overflow-hidden whitespace-nowrap border-r px-3 py-2 last:border-r-0 dark:border-black-92.5",
         column.columnDef.meta?.className,
         className,
       )}
     >
-      <span
-        title={cellTitle}
-        className="overflow-hidden text-ellipsis whitespace-nowrap"
-      >
-        {flexRender(column.columnDef.cell, getContext())}
-      </span>
+      {flexRender(column.columnDef.cell, getContext())}
     </div>
   );
 }
 
 function getColumnStyles<TData>({
-  columnDef,
   size,
   start,
   getAfter,
   getIsPinned,
 }: Column<TData, RowData> & VirtualItem<Element>) {
-  const { meta } = columnDef;
   const isPinned = getIsPinned();
   return {
-    justifyContent: meta?.align,
-    padding: meta?.padding,
     width: size,
     transform:
       !isPinned || isPinned === "left"

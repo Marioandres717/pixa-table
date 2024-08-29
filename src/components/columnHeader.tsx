@@ -39,9 +39,9 @@ export default function ColumnHeader<TData>({
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={clsx(
-        "absolute left-0 top-0 flex max-h-8 items-center overflow-hidden border-r px-3 py-2 text-col-heading uppercase tracking-[0.66px] last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+        "absolute left-0 top-0 flex h-full items-center overflow-hidden border-r px-3 py-2 text-col-heading uppercase tracking-[0.66px] last:border-r-0 dark:border-black-92.5 dark:text-black-40",
         className,
-        columnDef.meta?.className,
+        columnDef.meta?.headerClassName,
       )}
     >
       <span
@@ -65,13 +65,11 @@ function getColumnStyles<TData>({
   start,
   getAfter,
   getIsPinned,
-  columnDef: { meta },
 }: Column<TData, RowData> & VirtualItem<Element>) {
   const isPinned = getIsPinned();
 
   return {
     width: size,
-    justifyContent: meta?.align || "flex-start",
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`

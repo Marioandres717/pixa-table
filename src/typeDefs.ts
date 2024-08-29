@@ -23,11 +23,8 @@ import {
   TableLayoutInstance,
 } from "./features";
 
-type AlignValue = "left" | "right" | "center";
-
 type ColumnMetaExtras = {
-  align?: AlignValue;
-  padding?: string | number;
+  headerClassName?: string;
   className?: string;
 };
 
