@@ -80,7 +80,7 @@ export function VirtualizedTableBody<TData>({
 
   return (
     <div
-      data-test-id="table-body"
+      data-testid="table-body"
       role="rowgroup"
       className="relative"
       style={{
@@ -111,7 +111,7 @@ export function VirtualizedTableBody<TData>({
               {/* LEFT PINNED CELLS */}
               {left.length > 0 && (
                 <div
-                  className="sticky left-0 z-10 h-[35px] bg-inherit"
+                  className="sticky left-0 z-20 h-[35px] bg-inherit"
                   style={{
                     width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
                   }}
@@ -131,7 +131,7 @@ export function VirtualizedTableBody<TData>({
               )}
 
               {/* NON-PINNED CELLS */}
-              <div className="h-[35px] w-full">
+              <div className="h-[35px] w-full bg-inherit">
                 {row.getCenterVisibleCells().map((cell) => {
                   const viCol = viCols.find((c) => c.key === cell.column.id);
                   if (!viCol) return null;
@@ -148,7 +148,7 @@ export function VirtualizedTableBody<TData>({
               {/* RIGHT PINNED CELLS */}
               {right.length > 0 && (
                 <div
-                  className="sticky right-0 z-10 h-[35px] bg-inherit opacity-0 group-hover:opacity-100"
+                  className="sticky right-0 z-20 h-[35px] bg-inherit opacity-0 group-hover:opacity-100"
                   style={{
                     width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
                   }}

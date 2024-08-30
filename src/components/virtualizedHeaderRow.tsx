@@ -32,7 +32,7 @@ export default function VirtualizedHeaderRow<TData>({
     >
       {/* LEFT PINNED COLS */}
       <div
-        className="pointer-events-none sticky left-0 top-0 z-10 h-full bg-transparent"
+        className="sticky left-0 top-0 z-10 h-full bg-transparent"
         style={{
           width: left.reduce((acc, col) => acc + col.getSize(), 0),
         }}
@@ -73,7 +73,7 @@ export default function VirtualizedHeaderRow<TData>({
 
       {/* RIGHT PINNED COLS */}
       <div
-        className="pointer-events-none sticky right-0 top-0 z-10 h-full bg-transparent"
+        className="sticky right-0 top-0 z-10 h-full bg-transparent"
         style={{
           width: right.reduce((acc, col) => acc + col.getSize(), 0),
         }}

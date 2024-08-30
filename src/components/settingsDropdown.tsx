@@ -22,7 +22,7 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
 
   return (
     <div
-      data-test-id="table-settings-dropdown"
+      data-testid="table-settings-dropdown"
       ref={dropdownRef}
       className="relative"
     >

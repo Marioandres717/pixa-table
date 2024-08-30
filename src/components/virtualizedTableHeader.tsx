@@ -55,7 +55,7 @@ export function VirtualizedTableHeader<TData>({
 
   return (
     <div
-      data-test-id="table-header"
+      data-testid="table-header"
       role="rowgroup"
       className={clsx("sticky top-0 z-10 h-8", className)}
       {...{

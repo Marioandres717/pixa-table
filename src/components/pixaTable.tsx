@@ -59,7 +59,7 @@ export function PixaTable<TData>({ table }: Props<TData>) {
     >
       <div
         role="table"
-        data-test-id="pixa-table"
+        data-testid="pixa-table"
         style={{ maxHeight }}
         className={clsx(
           "h-full min-h-40 w-full overflow-x-clip overflow-y-visible rounded-[4px] border border-solid bg-black-5 font-sans text-table-base dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
@@ -86,6 +86,7 @@ export function PixaTable<TData>({ table }: Props<TData>) {
           />
         )}
         <div
+          data-testid="table-scroll-container"
           className={clsx("relative overflow-auto", {
             "col-start-1": showSidebar,
             "row-start-1": !showHeader,
