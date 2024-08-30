@@ -11,7 +11,7 @@ export const TableWithCustomLayout: Story = {
     showFooter: false,
     showSidebar: true,
     maxHeight: 400,
-    showPagination: "both",
+    showPagination: false,
     showTotalResults: false,
   },
   argTypes: {

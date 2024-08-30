@@ -9,10 +9,14 @@ type Props<TData> = {
 
 export function PageResults<TData>({ table, className }: Props<TData>) {
   const { pageIndex, pageSize } = table.getState().pagination;
+  const showPagination = table.getShowPagination();
   const totalItems = table.getRowCount();
   const label = useMemo(
-    () => getPaginationLabel(totalItems, pageIndex, pageSize),
-    [totalItems, pageIndex, pageSize],
+    () =>
+      showPagination
+        ? getPaginationLabel(totalItems, pageIndex, pageSize)
+        : `${totalItems.toLocaleString()} results`,
+    [totalItems, pageIndex, pageSize, showPagination],
   );
 
   return (

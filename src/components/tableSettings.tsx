@@ -10,6 +10,7 @@ export default function TableSettings<TData>({
   className,
 }: Props<TData>) {
   const PageSizeComponent = table.getPageSizeComponent() || DefaultPageSize;
+  const showPagination = table.getShowPagination();
 
   return (
     <div
@@ -21,14 +22,14 @@ export default function TableSettings<TData>({
       <div className="mb-2 font-semibold">Table Settings</div>
       <div className="mb-2">Column order & visibility</div>
       <VirtualizedColumnOrdering table={table} />
-      <div className="mt-4 flex max-w-fit flex-col gap-1">
-        {!table.getPageSizeComponent() && (
+      {showPagination && (
+        <div className="mt-4 flex max-w-fit flex-col gap-1">
           <span className="text-table-base text-black-100 dark:text-black-10">
             Results per page
           </span>
-        )}
-        <PageSizeComponent table={table} className="h-8 text-[15px]" />
-      </div>
+          <PageSizeComponent table={table} className="h-8 text-[15px]" />
+        </div>
+      )}
     </div>
   );
 }

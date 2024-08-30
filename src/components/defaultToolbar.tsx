@@ -25,10 +25,12 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
   return (
     <div className="flex w-full items-center justify-between gap-6">
       <div className="h-6 flex-1">
-        <PageSizeComponent
-          table={table}
-          className={"h-6 text-table-base leading-[1.2]"}
-        />
+        {showPagination && (
+          <PageSizeComponent
+            table={table}
+            className={"h-6 text-table-base leading-[1.2]"}
+          />
+        )}
       </div>
 
       {showTotalResults && <PageResults table={table} />}
