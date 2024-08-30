@@ -89,7 +89,7 @@ export default function VirtualizedRow<TData>({
 
       {/* Expandable Row */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="w-full border-t dark:border-black-92.5">
+        <div className="mt-1 w-full border-t dark:border-black-92.5">
           <ExpandableRow row={row} />
         </div>
       )}
