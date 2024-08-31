@@ -3,10 +3,15 @@ import clsx from "clsx";
 
 type Props<TData> = {
   table: Table<TData>;
+  pageOptions?: number[];
   className?: string;
 };
 
-export function PageSize<TData>({ table, className }: Props<TData>) {
+export function PageSize<TData>({
+  table,
+  className,
+  pageOptions = [10, 25, 50, 100, 250, 500],
+}: Props<TData>) {
   return (
     <select
       role="listbox"
@@ -17,7 +22,7 @@ export function PageSize<TData>({ table, className }: Props<TData>) {
       onChange={(e) => table.setPageSize(Number(e.target.value))}
       value={table.getState().pagination.pageSize}
     >
-      {[10, 25, 50, 100, 250, 1000].map((option) => (
+      {pageOptions.map((option) => (
         <option key={option} value={option}>
           {option}
         </option>

@@ -3,6 +3,7 @@ import { usePixaTable } from "../../hooks";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
 import { MockData, MockDataColumnDefs } from "../../mocks/handlers/mockData";
 import { useMemo } from "react";
+import { PageSize } from "../../components";
 
 export const TableWithCustomPageSize: Story = {
   decorators: [
@@ -14,16 +15,11 @@ export const TableWithCustomPageSize: Story = {
           theme: context.globals.theme,
           pluggableComponents: {
             PageSize: ({ table }) => (
-              <select
-                onChange={(e) => table.setPageSize(Number(e.target.value))}
-                value={table.getState().pagination.pageSize}
-              >
-                {[10, 25, 50, 100, 250].map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
+              <PageSize
+                table={table}
+                className="w-20 cursor-pointer rounded-[3px] px-2 py-1 focus:ring-1 dark:border-black-80 dark:bg-peach-100 dark:text-blue-60"
+                pageOptions={[10, 25, 50, 100, 250, 500, 1000, 5000]}
+              />
             ),
           },
         }),
