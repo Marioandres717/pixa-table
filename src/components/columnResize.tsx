@@ -1,20 +1,21 @@
 import { Header } from "@tanstack/react-table";
 
-import styles from "./columnResize.module.css";
-
 type Props<T> = {
   header: Header<T, unknown>;
 };
 
 export function ColumnResize<T>({ header }: Props<T>) {
+  const {
+    column: { getIsResizing, getCanResize },
+    getResizeHandler,
+  } = header;
+  if (!getCanResize()) return null;
   return (
     <div
+      className={`absolute right-0 top-0 h-full w-1 cursor-col-resize select-none opacity-0 hover:opacity-100 ${getIsResizing() ? "bg-aqua-120 dark:bg-aqua-100" : "bg-black-85"}`}
       {...{
-        onMouseDown: header.getResizeHandler(),
-        onTouchStart: header.getResizeHandler(),
-        className: `${styles.resizer} ${
-          header.column.getIsResizing() ? styles["is-resizing"] : ""
-        }`,
+        onMouseDown: getResizeHandler(),
+        onTouchStart: getResizeHandler(),
       }}
     />
   );

@@ -1,11 +1,10 @@
 import React, { useState, useEffect, PropsWithChildren } from "react";
-import styles from "./resizable.module.css";
 
 type Props = {
   renderProps: (props: { width: number; height: number }) => React.ReactNode;
 };
 
-const ResizableDiv = ({ renderProps }: PropsWithChildren<Props>) => {
+export function ResizableDiv({ renderProps }: PropsWithChildren<Props>) {
   const [width, setWidth] = useState(750);
   const [height, setHeight] = useState(600);
   const [isResizing, setIsResizing] = useState(false);
@@ -37,16 +36,17 @@ const ResizableDiv = ({ renderProps }: PropsWithChildren<Props>) => {
 
   return (
     <div
-      className={styles["resizable-div"]}
+      className="relative m-2 rounded-md border p-4 dark:border-black-92.5"
       style={{ width: `${width}px`, height: `${height}px` }}
     >
-      <div className={styles.resizer} onMouseDown={handleMouseDown}></div>
+      <div
+        className="absolute bottom-0 right-0 z-10 h-3 w-3 cursor-nwse-resize bg-blue-100"
+        onMouseDown={handleMouseDown}
+      ></div>
       {renderProps({
         width,
         height,
       })}
     </div>
   );
-};
-
-export default ResizableDiv;
+}

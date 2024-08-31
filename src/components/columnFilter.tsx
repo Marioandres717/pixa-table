@@ -1,21 +1,16 @@
-import { Header } from "@tanstack/react-table";
+import { Header, RowData } from "@tanstack/react-table";
 import { Icon } from "./icon";
 
-import styles from "./columnFilter.module.css";
-
 type Props<TData> = {
-  header: Header<TData, unknown>;
+  header: Header<TData, RowData>;
 };
-export default function ColumnFilter<TData>({ header }: Props<TData>) {
+export function HeaderFilter<TData>({ header }: Props<TData>) {
   if (!header.column.getCanFilter()) {
     return null;
   }
   return (
-    <Icon
-      icon="filter"
-      color="var(--ml-gray-400)"
-      size={16}
-      className={styles.filter}
-    />
+    <div className="cursor-pointer">
+      <Icon icon="filter" size={16} className="fill-black-70" />
+    </div>
   );
 }

@@ -1,6 +1,6 @@
 {
   "name": "pixa-table",
-  "version": "0.0.17",
+  "version": "0.0.27",
   "type": "module",
   "main": "./dist/pixa-table.umd.cjs",
   "module": "./dist/pixa-table.js",
@@ -15,34 +15,56 @@
     }
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "start": "yarn storybook",
+    "build": "export NODE_ENV=production tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "stat": "npx vite-bundle-visualizer"
+    "stat": "npx vite-bundle-visualizer",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/sortable": "^8.0.0",
+    "@fontsource/hind": "^5.0.13",
+    "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/react-table": "^8.17.3",
     "@tanstack/react-virtual": "^3.2.0",
+    "clsx": "^2.1.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@ngneat/falso": "^7.2.0",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/addon-themes": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/react-vite": "^8.2.9",
+    "@storybook/test": "^8.2.9",
     "@svgr/plugin-svgo": "^8.1.0",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/react": "17",
     "@types/react-dom": "17",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
+    "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "msw": "^2.2.13",
+    "eslint-plugin-storybook": "^0.8.0",
+    "msw": "^2.3.5",
+    "msw-storybook-addon": "^2.0.3",
+    "postcss": "^8.4.39",
     "postcss-nested": "^6.0.1",
-    "prettier": "^3.2.5",
+    "postcss-prefix-selector": "^1.16.1",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.5",
+    "storybook": "^8.2.9",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
     "vite": "^5.2.0",
     "vite-plugin-dts": "^3.8.1",
@@ -53,5 +75,6 @@
     "workerDirectory": [
       "public"
     ]
-  }
+  },
+  "license": "MIT"
 }

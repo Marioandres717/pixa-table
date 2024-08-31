@@ -1,102 +1,177 @@
-import { Cell, Row, Table, flexRender } from "@tanstack/react-table";
-import React, { useEffect } from "react";
-import styles from "../templates/anomali/index.module.css";
-import { gridGenerator } from "../utils";
+import React, { useCallback, useEffect, useMemo } from "react";
+import clsx from "clsx";
+import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
+import {
+  getPinnedCols,
+  colRangeExtractor,
+  rowRangeExtractor,
+  divideAvailableSpaceWithColumns,
+} from "../utils";
+import { ColumnCell } from "./columnCell";
 
 type Props<TData> = {
-  tableInstance: Table<TData>;
+  table: Table<TData>;
   parentRef: React.RefObject<HTMLDivElement>;
-  expandableRowComponent?: React.ComponentType<{ row: Row<TData> }>;
-  disableRowHover?: boolean;
 };
 
 export function VirtualizedTableBody<TData>({
-  tableInstance: table,
+  table: table,
   parentRef,
-  expandableRowComponent: ExpandRow,
-  disableRowHover,
 }: Props<TData>) {
   const rows = table.getRowModel().rows;
+  const tableState = table.getState();
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
+
+  const cols = useMemo(
+    () =>
+      divideAvailableSpaceWithColumns(
+        table.getFlatHeaders().map((h) => h.column),
+        parentWidth,
+      ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [table, tableState, parentWidth],
+  );
+  const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 40,
-    getScrollElement: () => parentRef.current,
     overscan: 5,
-    measureElement:
-      typeof window !== "undefined" &&
-      navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element?.getBoundingClientRect().height
-        : undefined,
+    getScrollElement: () => parentRef.current,
+    getItemKey: useCallback((i) => rows[i].id, [rows]),
+    estimateSize: useCallback(
+      (i) => (rows[i].getIsExpanded() ? 1600 : 36),
+      [rows],
+    ),
+    rangeExtractor: useCallback(
+      (range) => rowRangeExtractor(range, rows),
+      [rows],
+    ),
   });
+
+  const colVirtualizer = useVirtualizer({
+    count: cols.length,
+    overscan: 5,
+    horizontal: true,
+    getScrollElement: () => parentRef.current,
+    getItemKey: useCallback((i) => cols[i].id, [cols]),
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
+    rangeExtractor: useCallback(
+      (range) => colRangeExtractor(range, cols),
+      [cols],
+    ),
+  });
+
+  const rowHeaderWidth =
+    parentWidth > colVirtualizer.getTotalSize()
+      ? parentWidth
+      : colVirtualizer.getTotalSize();
+
+  const viRows = rowVirtualizer.getVirtualItems();
+  const viCols = colVirtualizer.getVirtualItems();
 
   useEffect(() => {
     rowVirtualizer.measure();
   }, [rows, rowVirtualizer]);
 
-  const viRows = rowVirtualizer.getVirtualItems();
-
-  function getCellClassNames<TData>(cell: Cell<TData, unknown>) {
-    let classNames = styles.td;
-    if (cell.column.id.match(/expander/i)) {
-      classNames += ` ${styles["td-expander"]}`;
-    }
-    if (cell.column.id.match(/selection/i)) {
-      classNames += ` ${styles["td-selection"]}`;
-    }
-    return classNames;
-  }
-
-  if (rows.length === 0) {
-    return (
-      <div className={styles["tbody-no-data"]}>
-        <div className={styles["no-data"]}>No Results</div>
-      </div>
-    );
-  }
+  useEffect(() => {
+    colVirtualizer.measure();
+  }, [colVirtualizer]);
 
   return (
     <div
-      className={styles.tbody}
+      data-testid="table-body"
+      role="rowgroup"
+      className="relative"
       style={{
         height: `${rowVirtualizer.getTotalSize()}px`,
+        width: `${rowHeaderWidth}px`,
       }}
     >
-      {viRows.map((virtualItem) => {
-        const row = rows[virtualItem.index];
-        const rowClassNames = `${styles.tr} ${
-          row.getIsSelected() ? styles["tr-selected"] : ""
-        } ${disableRowHover ? styles["tr-disable-hover"] : ""}`;
-
+      {viRows.map((viRow) => {
+        const row = rows[viRow.index];
+        const ExpandableRow = row.getExpandableRowComponent();
         return (
           <div
-            key={virtualItem.key}
-            data-index={virtualItem.index}
+            role="row"
+            key={viRow.key}
+            data-index={viRow.index}
+            className={clsx(
+              "group absolute left-0 top-0 flex flex-col border-b bg-black-5 hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90",
+              { "dark:!bg-black-95": row.getIsExpanded() },
+              { "dark:!bg-[#173344]": row.getIsSelected() },
+            )}
             ref={(node) => rowVirtualizer.measureElement(node)}
-            {...{
-              className: rowClassNames,
-              style: {
-                gridTemplateColumns: gridGenerator(table),
-                transform: `translateY(${virtualItem.start}px)`,
-              },
+            style={{
+              width: rowHeaderWidth,
+              transform: `translateY(${viRow.start}px)`,
             }}
           >
-            {row.getVisibleCells().map((cell) => (
-              <div
-                className={getCellClassNames(cell)}
-                style={{
-                  textAlign: cell.column.columnDef.meta?.align,
-                  padding: cell.column.columnDef.meta?.padding,
-                }}
-                key={cell.id}
-              >
-                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+            <div className="flex bg-inherit">
+              {/* LEFT PINNED CELLS */}
+              {left.length > 0 && (
+                <div
+                  className="sticky left-0 z-20 h-[35px] bg-inherit"
+                  style={{
+                    width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
+                  }}
+                >
+                  {row.getLeftVisibleCells().map((cell) => {
+                    const viCol = viCols.find((c) => c.key === cell.column.id);
+                    if (!viCol) return null;
+                    return (
+                      <ColumnCell
+                        key={viCol.key}
+                        cell={cell}
+                        virtualColumn={viCol}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* NON-PINNED CELLS */}
+              <div className="h-[35px] w-full bg-inherit">
+                {row.getCenterVisibleCells().map((cell) => {
+                  const viCol = viCols.find((c) => c.key === cell.column.id);
+                  if (!viCol) return null;
+                  return (
+                    <ColumnCell
+                      key={viCol.key}
+                      cell={cell}
+                      virtualColumn={viCol}
+                    />
+                  );
+                })}
               </div>
-            ))}
-            {row.getIsExpanded() && ExpandRow && (
-              <div className={styles["tr-expandable"]}>
-                <ExpandRow row={row} />
+
+              {/* RIGHT PINNED CELLS */}
+              {right.length > 0 && (
+                <div
+                  className="sticky right-0 z-20 h-[35px] bg-inherit opacity-0 group-hover:opacity-100"
+                  style={{
+                    width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
+                  }}
+                >
+                  {row.getRightVisibleCells().map((cell) => {
+                    const viCol = viCols.find((c) => c.key === cell.column.id);
+                    if (!viCol) return null;
+                    return (
+                      <ColumnCell
+                        key={viCol.key}
+                        cell={cell}
+                        virtualColumn={viCol}
+                      />
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Expandable Row */}
+            {row.getIsExpanded() && ExpandableRow && (
+              <div className="w-full border-t dark:border-black-92.5">
+                <ExpandableRow row={row} />
               </div>
             )}
           </div>

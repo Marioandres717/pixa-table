@@ -1,8 +1,9 @@
 import { HTMLProps, useEffect, useRef } from "react";
+import clsx from "clsx";
 
 export function IndeterminateCheckbox({
   indeterminate,
-  className = "",
+  className,
   ...rest
 }: { indeterminate?: boolean } & HTMLProps<HTMLInputElement>) {
   const ref = useRef<HTMLInputElement>(null!);
@@ -15,10 +16,13 @@ export function IndeterminateCheckbox({
 
   return (
     <input
+      name="selectable-col"
       type="checkbox"
       ref={ref}
-      className={className}
-      style={{ cursor: "pointer" }}
+      className={clsx(
+        "!size-5 cursor-pointer rounded-sm border border-solid border-black-80 checked:bg-blue-100 indeterminate:bg-blue-100 checked:hover:bg-blue-120 indeterminate:hover:bg-blue-120 focus:ring-0 focus:ring-offset-0 dark:checked:hover:bg-blue-80 dark:indeterminate:hover:bg-blue-80",
+        className,
+      )}
       {...rest}
     />
   );
