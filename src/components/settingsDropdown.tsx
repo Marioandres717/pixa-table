@@ -1,21 +1,15 @@
 import { Table } from "@tanstack/react-table";
 import { useRef, useState } from "react";
 import { Icon } from "./icon";
-import { ColumnOrdering } from "./columnOrdering";
-
-import styles from "./settingsDropdown.module.css";
 import { useOnclickOutside } from "../hooks/useOnClickOutside";
 import { useOnCloseEscape } from "../hooks/useOnCloseEscape";
+import TableSettings from "./tableSettings";
 
 type Props<T> = {
-  tableInstance: Table<T>;
-  paginationPageSizeComponent?: React.ComponentType<{ table: Table<T> }>;
+  table: Table<T>;
 };
 
-export function SettingsDropdown<T>({
-  tableInstance,
-  paginationPageSizeComponent: PageSizeOptions = PageSizeComponent,
-}: Props<T>) {
+export function SettingsDropdown<T>({ table }: Props<T>) {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [toggleSettings, setToggleSettings] = useState(false);
 
@@ -27,50 +21,23 @@ export function SettingsDropdown<T>({
   }
 
   return (
-    <div ref={dropdownRef} className={styles["settings-dropdown-container"]}>
+    <div
+      data-testid="table-settings-dropdown"
+      ref={dropdownRef}
+      className="relative"
+    >
       <div
         role="button"
         tabIndex={0}
-        className={`${styles["setting-dropdown-btn"]} ${
-          toggleSettings ? styles["button-opened"] : ""
-        }`}
+        className={`flex h-6 w-6 rounded-[3px] p-1 outline-none ${toggleSettings ? "bg-black-10 dark:bg-black-90" : ""}`}
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
       >
-        <Icon icon="settings" color="var(--ml-text-color)" size={16} />
+        <Icon icon="settings" size={16} className="dark:fill-white" />
       </div>
       {toggleSettings && (
-        <div className={styles.dropdown}>
-          <span className={styles.title}>Table Settings</span>
-          <div className={styles["column-ordering-setting"]}>
-            <span className={styles.subtitle}>
-              Column Position & Visibility
-            </span>
-            <div className={styles["content-list"]}>
-              <ColumnOrdering tableInstance={tableInstance} />
-            </div>
-          </div>
-          {PageSizeOptions && <PageSizeOptions table={tableInstance} />}
-        </div>
+        <TableSettings table={table} className="absolute right-0 top-7 z-20" />
       )}
-    </div>
-  );
-}
-
-export function PageSizeComponent<T>({ table }: { table: Table<T> }) {
-  return (
-    <div className={styles.option}>
-      <span className={styles.subtitle}>Rows per page</span>
-      <select
-        onChange={(e) => table.setPageSize(Number(e.target.value))}
-        value={table.getState().pagination.pageSize}
-      >
-        {[10, 25, 50, 100, 250].map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
     </div>
   );
 }

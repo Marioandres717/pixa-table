@@ -1,62 +1,77 @@
-import { Table, flexRender, Header } from "@tanstack/react-table";
-import { gridGenerator } from "../utils";
-import { ColumnResize } from "./columnResize";
-import { ColumnSort } from "./columnSort";
-
-import styles from "./tableHeader.module.css";
-import ColumnFilter from "./columnFilter";
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Table } from "@tanstack/react-table";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import clsx from "clsx";
+import { colRangeExtractor, divideAvailableSpaceWithColumns } from "../utils";
+import VirtualizedHeaderRow from "./virtualizedHeaderRow";
 
 type Props<TData> = {
-  tableInstance: Table<TData>;
-  filterColumnComponent?: React.ComponentType<{
-    header: Header<TData, unknown>;
-  }>;
+  table: Table<TData>;
+  parentRef: React.RefObject<HTMLDivElement>;
+  className?: string;
 };
 
 export function VirtualizedTableHeader<TData>({
-  tableInstance,
-  filterColumnComponent: Filter = ColumnFilter,
+  table: table,
+  parentRef,
+  className,
 }: Props<TData>) {
-  const headerGroups = tableInstance.getHeaderGroups();
+  const headerGroups = table.getHeaderGroups();
+  const parentWidth = parentRef.current?.offsetWidth ?? 0;
+  const cols = useMemo(
+    () =>
+      divideAvailableSpaceWithColumns(
+        headerGroups[0].headers.map((header) => header.column),
+        parentWidth,
+      ),
+    [headerGroups, parentWidth],
+  );
+
+  const state = table.getState();
+
+  const colVirtualizer = useVirtualizer({
+    count: cols.length,
+    overscan: 5,
+    horizontal: true,
+    getScrollElement: () => parentRef.current,
+    estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
+    getItemKey: useCallback((i) => cols[i].id, [cols]),
+    rangeExtractor: useCallback(
+      (range) => colRangeExtractor(range, cols),
+      [cols],
+    ),
+  });
+
+  const colVirtualizerWidth = colVirtualizer.getTotalSize();
+
+  const rowHeaderWidth =
+    parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
+
+  const viCols = colVirtualizer.getVirtualItems();
+
+  useEffect(() => {
+    colVirtualizer.measure();
+  }, [colVirtualizer, state.columnSizingInfo]);
 
   return (
-    <div className={styles.thead}>
+    <div
+      data-testid="table-header"
+      role="rowgroup"
+      className={clsx("sticky top-0 z-10 h-8", className)}
+      {...{
+        style: {
+          width: `${rowHeaderWidth}px`,
+        },
+      }}
+    >
       {headerGroups.map((headerGroup) => (
-        <div
-          {...{
-            key: headerGroup.id,
-            className: styles.tr,
-            style: {
-              gridTemplateColumns: gridGenerator(tableInstance),
-            },
-          }}
-        >
-          {headerGroup.headers.map((header) => (
-            <div
-              className={`${styles.th} ${header.id.match(/expander/i) ? styles["th-expander"] : ""} ${header.id.match(/selection/i) ? styles["th-selection"] : ""}`}
-              key={header.id}
-              style={{
-                justifyContent: header.column.columnDef.meta?.align,
-              }}
-            >
-              <ColumnSort
-                header={header}
-                multiSort={tableInstance.getState().sorting.length > 1}
-              >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
-              </ColumnSort>
-              <div className={styles["filter-wrapper"]}>
-                {header.column.getCanFilter() && <Filter header={header} />}
-              </div>
-              {header.column.getCanResize() && <ColumnResize header={header} />}
-            </div>
-          ))}
-        </div>
+        <VirtualizedHeaderRow
+          key={headerGroup.id}
+          cols={cols}
+          headerGroup={headerGroup}
+          state={state}
+          viCols={viCols}
+        />
       ))}
     </div>
   );

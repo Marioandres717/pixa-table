@@ -1,174 +1,19 @@
-:root {
-  --ml-white: #ffffff;
-  --ml-off-white: #f5f5f5;
-  --ml-white-rgb: #{hexToRGB(#ffffff)};
-  --ml-black: #0d161a;
-  --ml-black-rgb: #{hexToRGB(#0d161a)};
+/* @import "@fontsource/hind"; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-  --ml-gray-050: #edeeee;
-  --ml-gray-100: #e5e7e8;
-  --ml-gray-200: #ced1d3;
-  --ml-gray-300: #b5babd;
-  --ml-gray-400: #9ea4a8;
-  --ml-gray-500: #858d92;
-  --ml-gray-600: #6e777d;
-  --ml-gray-700: #556067;
-  --ml-gray-800: #3e4a52;
-  --ml-gray-900: #25333c;
-  --ml-gray-950: #132531;
-  --ml-gray: #0e1d27;
-
-  --ml-blue-100: #e5f4fc;
-  --ml-blue-200: #cceafa;
-  --ml-blue-300: #b2e0f7;
-  --ml-blue-400: #99d5f4;
-  --ml-blue-500: #7fcbf1;
-  --ml-blue-600: #66c0ee;
-  --ml-blue-700: #4cb6eb;
-  --ml-blue-800: #33abe8;
-  --ml-blue-900: #19a1e5;
-  --ml-blue: #0097e3;
-  --ml-dark-blue: #066698;
-
-  --ml-green-100: #eef9f9;
-  --ml-green-200: #ddf3f2;
-  --ml-green-300: #ccedec;
-  --ml-green-400: #bce7e5;
-  --ml-green-500: #aae1df;
-  --ml-green-600: #9adbd8;
-  --ml-green-700: #89d5d2;
-  --ml-green-800: #78cfcb;
-  --ml-green-900: #67c9c5;
-  --ml-green: #57c4bf;
-  --ml-dark-green: #2b6260;
-
-  --ml-yellow-100: #fff9e5;
-  --ml-yellow-200: #fff3cd;
-  --ml-yellow-300: #ffec84;
-  --ml-yellow-400: #ffe69b;
-  --ml-yellow-500: #ffe082;
-  --ml-yellow-600: #ffda6a;
-  --ml-yellow-700: #ffd350;
-  --ml-yellow-800: #ffcd38;
-  --ml-yellow-900: #ffc71f;
-  --ml-yellow: #ffc107;
-  --ml-dark-yellow: #9f8014;
-
-  --ml-red-100: #fae9e9;
-  --ml-red-200: #f5d4d4;
-  --ml-red-300: #f0bebf;
-  --ml-red-400: #eba9aa;
-  --ml-red-500: #e59395;
-  --ml-red-600: #e07e80;
-  --ml-red-700: #d8686a;
-  --ml-red-800: #d65356;
-  --ml-red-900: #d03d40;
-  --ml-red: #cc292c;
-  --ml-dark-red: #80242a;
-
-  --ml-orange: #fe9a13;
-  --ml-orange-2: #ff7e00;
-  --ml-light-green: #b7d641;
-  --ml-light-green-50: #81bc3e;
-  --ml-light-green-100: #74b528;
-  --ml-light-green-150: #68af17;
-  --ml-light-green-300: #579213;
-
-  --ml-sort-icon: #5fead9;
-  --ml-skeleton-light-color: #22333f;
-  --ml-skeleton-color: #1a2832;
-
-  --ml-layout-spacing-1: 16px;
-  --ml-layout-spacing-2: 24px;
-  --ml-layout-spacing-3: 32px;
-  --ml-layout-spacing-4: 48px;
-  --ml-layout-spacing-5: 64px;
-  --ml-layout-spacing-6: 96px;
-  --ml-layout-spacing-7: 160px;
-
-  --ml-component-spacing-1: 2px;
-  --ml-component-spacing-2: 4px;
-  --ml-component-spacing-3: 8px;
-  --ml-component-spacing-4: 12px;
-  --ml-component-spacing-5: 16px;
-  --ml-component-spacing-6: 24px;
-  --ml-component-spacing-7: 32px;
-  --ml-component-spacing-8: 40px;
-  --ml-component-spacing-9: 48px;
+@layer base {
+  [data-theme="light"] {
+    --table-skeleton: #ced1d3;
+  }
+  [data-theme="dark"] {
+    --table-skeleton: #1a2832;
+  }
 }
 
-div[data-pixa-theme="light"] {
-  --ml-background-color: var(--ml-white);
-  --ml-text-color: var(--ml-gray);
-  --ml-text-color-secondary: var(--ml-gray-600);
-  --ml-border-color: var(--ml-gray-100);
-  --ml-background-color-secondary: var(--ml-off-white);
-  --ml-theme-gray-050: var(--ml-gray-050);
-  --ml-theme-gray-100: var(--ml-gray-100);
-  --ml-theme-gray-200: var(--ml-gray-200);
-  --ml-theme-gray-300: var(--ml-gray-300);
-  --ml-theme-gray-900: var(--ml-gray-900);
-  --ml-skeleton-light-color: #e5e7e8;
-  --ml-skeleton-color: #ced1d3;
-  --ml-sort-icon: var(--ml-green-900);
-}
-
-div[data-pixa-theme="dark"] {
-  --ml-background-color: var(--ml-gray);
-  --ml-text-color: var(--ml-white);
-  --ml-text-color-secondary: var(--ml-gray-300);
-  --ml-border-color: var(--ml-gray-900);
-  --ml-background-color-secondary: var(--ml-gray);
-  --ml-theme-gray-050: var(--ml-gray);
-  --ml-theme-gray-100: var(--ml-gray-950);
-  --ml-theme-gray-200: var(--ml-gray-900);
-  --ml-theme-gray-300: var(--ml-gray-600);
-  --ml-theme-gray-900: var(--ml-gray-500);
-  --ml-skeleton-light-color: #22333f;
-  --ml-skeleton-color: #1a2832;
-  --ml-sort-icon: #5fead9;
-}
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-@font-face {
-  font-family: "Hind";
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-  src: url("./assets/fonts/ml_hind_light.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Hind";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./assets/fonts/ml_hind_regular.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Hind";
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url("./assets/fonts/ml_hind_medium.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Hind";
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url("./assets/fonts/ml_hind_semibold.woff2") format("woff2");
-}
-@font-face {
-  font-family: "Hind";
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url("./assets/fonts/ml_hind_bold.woff2") format("woff2");
+@layer utilities {
+  input[type="checkbox"]:not(:checked) {
+    @apply dark:bg-[#132531];
+  }
 }

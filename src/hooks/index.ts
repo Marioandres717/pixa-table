@@ -1,2 +1,3 @@
-export { useOnclickOutside } from "./useOnClickOutside";
-export { useOnCloseEscape } from "./useOnCloseEscape";
+export * from "./usePixaTable";
+export * from "./useOnClickOutside";
+export * from "./useOnCloseEscape";

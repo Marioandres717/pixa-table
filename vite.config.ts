@@ -20,16 +20,16 @@ export default defineConfig((env) => ({
     libInjectCss(),
     dts({
       rollupTypes: true,
-      exclude: ["src/App.tsx", "src/main.tsx"],
+      exclude: ["src/App.tsx", "src/main.tsx", "src/stories/**/*"],
       include: [
+        "src/assets",
         "src/components",
-        "src/configs",
-        "src/templates",
+        "src/features",
+        "src/hooks",
         "src/utils",
         "src/main.ts",
-        "src/assets",
-        "src/hooks",
-        "src/typeDefs",
+        "src/typeDefs.ts",
+        "src/theme.ts",
       ],
     }),
     svgr({
@@ -51,12 +51,11 @@ export default defineConfig((env) => ({
       fileName: "pixa-table",
     },
     rollupOptions: {
-      external: ["react", "react-dom", "@tanstack/react-table"],
+      external: ["react", "react-dom"],
       output: {
         globals: {
           react: "React",
           "react-dom": "ReactDOM",
-          "@tanstack/react-table": "ReactTable",
         },
       },
     },
