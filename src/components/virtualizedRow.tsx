@@ -4,24 +4,29 @@ import { Column, Row, RowData } from "@tanstack/react-table";
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { getPinnedCols } from "../utils";
 import { ColumnCell } from "./columnCell";
+import RowActions from "./rowActions";
 
 type Props<TData> = {
   row: Row<TData>;
   cols: Column<TData, RowData>[];
   viRow: VirtualItem<Element>;
-  viCols: VirtualItem<Element>[];
+  colVirtualizer: Virtualizer<HTMLDivElement, Element>;
   rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
+  rowWidth: number;
 };
 
-export default function VirtualizedRow<TData>({
+export function VirtualizedRow<TData>({
   row,
   cols,
   viRow,
   rowVirtualizer,
-  viCols,
+  colVirtualizer,
+  rowWidth,
 }: Props<TData>) {
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const ExpandableRow = row.getExpandableRowComponent();
+  const viCols = colVirtualizer.getVirtualItems();
+  const rowActions = row.getRowActions();
 
   return (
     <div
@@ -35,6 +40,7 @@ export default function VirtualizedRow<TData>({
       )}
       ref={(node) => rowVirtualizer.measureElement(node)}
       style={{
+        width: `${rowWidth}px`,
         transform: `translateY(${viRow.start}px)`,
       }}
     >
@@ -42,7 +48,7 @@ export default function VirtualizedRow<TData>({
         {/* LEFT PINNED CELLS */}
         {left.length > 0 && (
           <div
-            className="pointer-events-none sticky left-0 z-10 h-[35px] bg-transparent"
+            className="sticky left-0 z-20 h-[35px] bg-inherit"
             style={{
               width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
             }}
@@ -58,7 +64,7 @@ export default function VirtualizedRow<TData>({
         )}
 
         {/* NON-PINNED CELLS */}
-        <div className="h-[35px] w-full">
+        <div className="h-[35px] w-full bg-inherit">
           {row.getCenterVisibleCells().map((cell) => {
             const viCol = viCols.find((c) => c.key === cell.column.id);
             if (!viCol) return null;
@@ -71,7 +77,7 @@ export default function VirtualizedRow<TData>({
         {/* RIGHT PINNED CELLS */}
         {right.length > 0 && (
           <div
-            className="pointer-events-none sticky right-0 z-10 h-[35px] bg-transparent opacity-0 group-hover:opacity-100"
+            className="sticky right-0 z-20 h-[35px] bg-inherit"
             style={{
               width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
             }}
@@ -85,11 +91,14 @@ export default function VirtualizedRow<TData>({
             })}
           </div>
         )}
+
+        {/* ROW ACTIONS */}
+        {rowActions.length > 0 && <RowActions row={row} />}
       </div>
 
       {/* Expandable Row */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="mt-1 w-full border-t dark:border-black-92.5">
+        <div className="w-full border-t dark:border-black-92.5">
           <ExpandableRow row={row} />
         </div>
       )}

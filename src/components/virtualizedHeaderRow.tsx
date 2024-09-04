@@ -5,25 +5,25 @@ import {
   RowData,
   TableState,
 } from "@tanstack/react-table";
-import { VirtualItem } from "@tanstack/react-virtual";
 import ColumnHeader from "./columnHeader";
 import { getPinnedCols } from "../utils";
+import { Virtualizer } from "@tanstack/react-virtual";
 
 type Props<TData> = {
   cols: Column<TData, RowData>[];
   headerGroup: HeaderGroup<TData>;
   state: TableState;
-  viCols: VirtualItem<Element>[];
+  colVirtualizer: Virtualizer<HTMLDivElement, Element>;
 };
 
 export default function VirtualizedHeaderRow<TData>({
   cols,
   headerGroup,
   state,
-  viCols,
+  colVirtualizer,
 }: Props<TData>) {
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
-
+  const viCols = colVirtualizer.getVirtualItems();
   return (
     <div
       key={headerGroup.id}
@@ -73,7 +73,7 @@ export default function VirtualizedHeaderRow<TData>({
 
       {/* RIGHT PINNED COLS */}
       <div
-        className="sticky right-0 top-0 z-10 h-full bg-transparent"
+        className="sticky right-0 top-0 z-10 h-full bg-inherit"
         style={{
           width: right.reduce((acc, col) => acc + col.getSize(), 0),
         }}
