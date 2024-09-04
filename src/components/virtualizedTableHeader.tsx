@@ -17,6 +17,7 @@ export function VirtualizedTableHeader<TData>({
   className,
 }: Props<TData>) {
   const headerGroups = table.getHeaderGroups();
+  const state = table.getState();
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const cols = useMemo(
     () =>
@@ -26,8 +27,6 @@ export function VirtualizedTableHeader<TData>({
       ),
     [headerGroups, parentWidth],
   );
-
-  const state = table.getState();
 
   const colVirtualizer = useVirtualizer({
     count: cols.length,
@@ -47,8 +46,6 @@ export function VirtualizedTableHeader<TData>({
   const rowHeaderWidth =
     parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 
-  const viCols = colVirtualizer.getVirtualItems();
-
   useEffect(() => {
     colVirtualizer.measure();
   }, [colVirtualizer, state.columnSizingInfo]);
@@ -58,10 +55,8 @@ export function VirtualizedTableHeader<TData>({
       data-testid="table-header"
       role="rowgroup"
       className={clsx("sticky top-0 z-10 h-8", className)}
-      {...{
-        style: {
-          width: `${rowHeaderWidth}px`,
-        },
+      style={{
+        width: `${rowHeaderWidth}px`,
       }}
     >
       {headerGroups.map((headerGroup) => (
@@ -70,7 +65,7 @@ export function VirtualizedTableHeader<TData>({
           cols={cols}
           headerGroup={headerGroup}
           state={state}
-          viCols={viCols}
+          colVirtualizer={colVirtualizer}
         />
       ))}
     </div>
