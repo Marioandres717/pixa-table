@@ -4,6 +4,7 @@ import { Column, Row, RowData } from "@tanstack/react-table";
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { getPinnedCols } from "../utils";
 import { ColumnCell } from "./columnCell";
+import RowActions from "./rowActions";
 
 type Props<TData> = {
   row: Row<TData>;
@@ -25,6 +26,7 @@ export function VirtualizedRow<TData>({
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const ExpandableRow = row.getExpandableRowComponent();
   const viCols = colVirtualizer.getVirtualItems();
+  const rowActions = row.getRowActions();
 
   return (
     <div
@@ -89,6 +91,9 @@ export function VirtualizedRow<TData>({
             })}
           </div>
         )}
+
+        {/* ROW ACTIONS */}
+        {rowActions.length > 0 && <RowActions row={row} />}
       </div>
 
       {/* Expandable Row */}

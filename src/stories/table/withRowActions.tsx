@@ -15,7 +15,7 @@ export const TableWithRowActions: Story = {
           {
             type: "delete",
             Component: ({ row, onClick }) => (
-              <button onClick={() => onClick(row)}>Delete</button>
+              <span onClick={() => onClick(row)}>Delete</span>
             ),
             onAction: (data) => {
               // eslint-disable-next-line no-console
@@ -30,7 +30,7 @@ export const TableWithRowActions: Story = {
               console.log(data);
             },
             Component: ({ row, onClick }) => (
-              <button onClick={() => onClick(row)}>Edit</button>
+              <span onClick={() => onClick(row)}>Edit</span>
             ),
           },
           {
@@ -40,51 +40,20 @@ export const TableWithRowActions: Story = {
               console.log(data);
             },
             Component: ({ row, onClick }) => (
-              <button onClick={() => onClick(row)}>Clone</button>
+              <span onClick={() => onClick(row)}>Clone</span>
             ),
           },
         ];
       }, []);
+
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           theme: context.globals.theme,
           selectable: false,
           data: context.loaded.data,
           enableRowActions: true,
-          columns: [
-            columnHelper.display({
-              id: "action",
-              // size: 100,
-              enableSorting: false,
-              enableResizing: false,
-              enableHiding: false,
-              header: "",
-              cell: ({ row }) => {
-                const actions = row.getRowActions();
-                return (
-                  <div className="flex gap-1">
-                    {actions.map(({ Component, onAction, type }) => {
-                      if (!Component) return null;
-                      return (
-                        <Component
-                          key={type}
-                          row={row}
-                          onClick={() => onAction(row)}
-                        />
-                      );
-                    })}
-                  </div>
-                );
-              },
-            }),
-            ...MockDataColumnDefs,
-          ],
-          state: {
-            columnPinning: {
-              right: ["action"],
-            },
-            rowActions: rowActions,
-          },
+          columns: MockDataColumnDefs,
+          rowActions,
         }),
         [context.loaded.data, rowActions, context.globals.theme],
       );

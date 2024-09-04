@@ -9,7 +9,6 @@ import {
   SelectionActionsTableState,
   RowActionOptions,
   RowActionsInstance,
-  RowActionsTableState,
   TableRowActionsInstance,
   ThemeInstance,
   ThemeOptions,
@@ -43,7 +42,6 @@ declare module "@tanstack/react-table" {
   interface Table<TData extends RowData> extends SelectionActionsInstance {}
 
   /* ROW ACTIONS TABLE FEATURE */
-  interface TableState extends RowActionsTableState {}
   interface TableOptionsResolved<TData extends RowData>
     extends RowActionOptions {}
   interface Table<TData extends RowData> extends RowActionsInstance {}

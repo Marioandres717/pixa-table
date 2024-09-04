@@ -1,30 +1,15 @@
-import {
-  functionalUpdate,
-  makeStateUpdater,
-  RowData,
-  TableFeature,
-  Updater,
-} from "@tanstack/react-table";
-import { RowAction } from "./types";
+import { RowData, TableFeature } from "@tanstack/react-table";
 
 export const RowActionsFeature: TableFeature<RowData> = {
-  getDefaultOptions(table) {
+  getDefaultOptions() {
     return {
-      enableRowActions: true,
-      onRowActionsChange: makeStateUpdater("rowActions", table),
+      enableRowActions: false,
+      rowActions: [],
     };
   },
 
   createTable(table) {
-    table.getRowActions = () => table.getState().rowActions;
-
-    table.setRowActions = (updater) => {
-      const safeUpdater: Updater<RowAction[]> = (old) => {
-        const newState = functionalUpdate(updater, old);
-        return newState;
-      };
-      return table.options.onRowActionsChange?.(safeUpdater);
-    };
+    table.getRowActions = () => table.options.rowActions;
 
     table.onRowAction = (action, data) => {
       action.onAction(data);

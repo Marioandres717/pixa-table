@@ -73,7 +73,7 @@ export default function VirtualizedHeaderRow<TData>({
 
       {/* RIGHT PINNED COLS */}
       <div
-        className="sticky right-0 top-0 z-10 h-full bg-transparent"
+        className="sticky right-0 top-0 z-10 h-full bg-inherit"
         style={{
           width: right.reduce((acc, col) => acc + col.getSize(), 0),
         }}
