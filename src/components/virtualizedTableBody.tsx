@@ -20,6 +20,7 @@ export function VirtualizedTableBody<TData>({
   const rows = table.getRowModel().rows;
   const tableState = table.getState();
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
+  const { rowHeight = 36, expandableRowHeight = 100 } = table.getLayout();
 
   const cols = useMemo(
     () =>
@@ -37,8 +38,16 @@ export function VirtualizedTableBody<TData>({
     getScrollElement: () => parentRef.current,
     getItemKey: useCallback((i) => rows[i].id, [rows]),
     estimateSize: useCallback(
-      (i) => (rows[i].getIsExpanded() ? 1600 : 36),
-      [rows],
+      (i) => {
+        if (rows[i].getIsExpanded()) {
+          return expandableRowHeight;
+        }
+        if (rowHeight === "dynamic") {
+          return 36;
+        }
+        return rowHeight;
+      },
+      [rows, expandableRowHeight, rowHeight],
     ),
     rangeExtractor: useCallback(
       (range) => rowRangeExtractor(range, rows),
@@ -91,6 +100,7 @@ export function VirtualizedTableBody<TData>({
             rowVirtualizer={rowVirtualizer}
             colVirtualizer={colVirtualizer}
             rowWidth={rowWidth}
+            table={table}
           />
         );
       })}

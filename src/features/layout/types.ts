@@ -5,6 +5,8 @@ export type TableLayout = {
   maxHeight?: number | "fluid";
   showPagination?: "top" | "bottom" | "both" | false;
   showTotalResults?: boolean;
+  rowHeight?: number | "dynamic";
+  expandableRowHeight?: number;
 };
 
 export interface TableLayoutOptions {
@@ -19,4 +21,6 @@ export interface TableLayoutInstance {
   getMaxHeight(): number | "fluid";
   getShowPagination(): "top" | "bottom" | "both" | false;
   getShowTotalResults(): boolean;
+  getRowHeight(): number | "dynamic";
+  getExpandableRowHeight(): number;
 }
