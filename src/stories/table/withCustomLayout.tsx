@@ -62,6 +62,7 @@ export const TableWithCustomLayout: Story = {
             maxHeight: args.maxHeight,
             showPagination: args.showPagination,
             showTotalResults: args.showTotalResults,
+            rowHeight: 64,
           },
         }),
         [context.loaded.data, context.globals.theme, args],

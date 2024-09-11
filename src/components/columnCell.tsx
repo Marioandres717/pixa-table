@@ -1,24 +1,37 @@
-import { Cell, Column, flexRender, RowData } from "@tanstack/react-table";
+import {
+  Cell,
+  Column,
+  flexRender,
+  RowData,
+  Table,
+} from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
 import clsx from "clsx";
+import { calculateHeightOfCells } from "../utils";
 
 type Props<TData> = {
   cell: Cell<TData, RowData>;
   virtualColumn: VirtualItem<Element>;
+  table: Table<TData>;
 };
 
-export function ColumnCell<TData>({ cell, virtualColumn }: Props<TData>) {
+export function ColumnCell<TData>({
+  cell,
+  virtualColumn,
+  table,
+}: Props<TData>) {
   const { column, getContext, getValue } = cell;
   const cellTitle =
     String(getValue()) === "undefined" ? column.id : String(getValue());
+
   return (
     <div
       data-id={virtualColumn.key}
       title={cellTitle}
       role="cell"
-      style={getColumnStyles({ ...column, ...virtualColumn })}
+      style={getColumnStyles({ ...column, ...virtualColumn, ...table })}
       className={clsx(
-        "absolute left-0 top-0 flex h-full max-h-[35px] overflow-hidden whitespace-nowrap border-r bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
+        "absolute left-0 top-0 flex h-full items-center overflow-hidden whitespace-nowrap border-r bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
         column.columnDef.meta?.className,
       )}
     >
@@ -32,10 +45,18 @@ function getColumnStyles<TData>({
   start,
   getAfter,
   getIsPinned,
-}: Column<TData, RowData> & VirtualItem<Element>) {
+  getLayout,
+}: Column<TData, RowData> & VirtualItem<Element> & Table<TData>) {
   const isPinned = getIsPinned();
+  const { rowHeight = 36 } = getLayout();
+  const cellHeight =
+    rowHeight === "dynamic"
+      ? calculateHeightOfCells(36)
+      : calculateHeightOfCells(rowHeight);
+
   return {
     width: size,
+    maxHeight: cellHeight,
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`

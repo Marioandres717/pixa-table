@@ -42,6 +42,10 @@ export const TableWithExpandableRows: Story = {
           pluggableComponents: {
             ExpandableRow: MockExpandableRow,
           },
+          layout: {
+            rowHeight: "dynamic",
+            expandableRowHeight: 500,
+          },
         }),
         [context.loaded.data, context.globals.theme],
       );
