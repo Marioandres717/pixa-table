@@ -14,12 +14,13 @@ import {
   ThemeOptions,
   ThemeState,
   LoadingState,
+  LoadingOptions,
   PluggableComponentsOptions,
   PluggableComponentsTableInstance,
   PluggableComponentsRowInstance,
   PluggableComponentsHeaderInstance,
-  TableLayoutOptions,
-  TableLayoutInstance,
+  LayoutOptions,
+  LayoutInstance,
 } from "./features";
 
 type ColumnMetaExtras = {
@@ -54,7 +55,8 @@ declare module "@tanstack/react-table" {
 
   /* TABLE LOADING STATE FEATURE */
   interface TableState extends LoadingState {}
-
+  interface TableOptionsResolved<TData extends RowData>
+    extends LoadingOptions {}
   /* TABLE PLUGGALE COMPONENTS FEATURE */
   interface TableOptionsResolved<TData extends RowData>
     extends PluggableComponentsOptions<TData> {}
@@ -66,9 +68,8 @@ declare module "@tanstack/react-table" {
     extends PluggableComponentsHeaderInstance<TData> {}
 
   /* TABLE LAYOUT FEATURE */
-  interface TableOptionsResolved<TData extends RowData>
-    extends TableLayoutOptions {}
-  interface Table<TData extends RowData> extends TableLayoutInstance {}
+  interface TableOptionsResolved<TData extends RowData> extends LayoutOptions {}
+  interface Table<TData extends RowData> extends LayoutInstance {}
 
   /* COLUMN GROW */
   interface ColumnSizingColumnDef extends ColumnSizingColumnDefWithGrow {}

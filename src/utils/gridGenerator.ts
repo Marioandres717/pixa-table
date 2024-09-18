@@ -1,4 +1,4 @@
-import { Column, Row, RowData, Table } from "@tanstack/react-table";
+import { Cell, Column, Header, Row, RowData } from "@tanstack/react-table";
 import { Range } from "@tanstack/react-virtual";
 
 export type PinnedCols<TData> = {
@@ -137,13 +137,66 @@ export function calculateHeightOfCells(rowHeight: number) {
   return `calc(${rowHeight}px - 1px)`; // 1px is the border
 }
 
-export const gridGenerator = <TData>(table: Table<TData>) => {
-  const visibleColumns = table.getVisibleFlatColumns();
-  return visibleColumns
-    .map((i, idx) =>
-      visibleColumns.length === idx + 1
-        ? `minmax(${i.getSize()}px ,auto)`
-        : `${i.getSize()}px`,
+export function tableBodygridGenerator<TData>(
+  cells: Cell<TData, RowData>[],
+  rowActionsEnabled?: boolean,
+) {
+  return (
+    cells
+      .map((cell, idx) =>
+        cells.length === idx + 1
+          ? `minmax(${cell.column.getSize()}px ,auto)`
+          : `${cell.column.getSize()}px`,
+      )
+      .join(" ") + (rowActionsEnabled ? "min-content" : "")
+  );
+}
+
+export function tableHeaderGridGenerator<TData>(
+  headers: Header<TData, RowData>[],
+) {
+  return headers
+    .map((header, idx) =>
+      headers.length === idx + 1
+        ? `minmax(${header.getSize()}px ,auto)`
+        : `${header.getSize()}px`,
     )
     .join(" ");
-};
+}
+
+export function getCellPinnedStyles<TData>({
+  getIsPinned,
+  getAfter,
+  getStart,
+}: Column<TData, RowData>): React.CSSProperties {
+  const isPinned = getIsPinned();
+  if (!isPinned) return {};
+
+  const styles: React.CSSProperties = {
+    backgroundColor: "inherit",
+    position: "sticky",
+    zIndex: 5,
+  };
+
+  if (isPinned === "left") {
+    styles.left = getStart(isPinned);
+    return styles;
+  } else {
+    styles.right = getAfter(isPinned);
+    styles.borderLeftWidth = 1;
+    styles.borderLeftStyle = "solid";
+    styles.borderRightWidth = 0;
+    return styles;
+  }
+}
+
+export function calculateRowWidth<TData>(
+  cells: Cell<TData, RowData>[],
+  enableRowActions: boolean,
+) {
+  const rowWidth = cells.reduce((acc, cell) => acc + cell.column.getSize(), 0);
+  if (enableRowActions) {
+    return rowWidth + 112 /* max width for row actions */;
+  }
+  return rowWidth;
+}

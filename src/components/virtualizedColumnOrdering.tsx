@@ -19,10 +19,10 @@ type Props<T> = {
 export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
-    (Column<T> & VirtualItem) | null
+    (Column<T> & VirtualItem<Element>) | null
   >(null);
   const { columnOrder } = table.getState();
-  const columns = table.getAllColumns().filter((col) => !col.getIsPinned());
+  const columns = table.getAllColumns();
 
   const sortedColumns: Column<T, unknown>[] =
     columnOrder.length > 0
@@ -82,6 +82,7 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
       index,
       end,
       lane,
+      measureElement: () => {},
     });
   }
 

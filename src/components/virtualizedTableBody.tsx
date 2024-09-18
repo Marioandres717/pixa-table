@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   colRangeExtractor,
   rowRangeExtractor,
   divideAvailableSpaceWithColumns,
+  calculateRowWidth,
 } from "../utils";
 import { VirtualizedRow } from "./virtualizedRow";
 
@@ -21,6 +22,7 @@ export function VirtualizedTableBody<TData>({
   const tableState = table.getState();
   const parentWidth = parentRef.current?.offsetWidth ?? 0;
   const { rowHeight = 36, expandableRowHeight = 100 } = table.getLayout();
+  const isDynamicRowHeight = rowHeight === "dynamic";
 
   const cols = useMemo(
     () =>
@@ -42,12 +44,12 @@ export function VirtualizedTableBody<TData>({
         if (rows[i].getIsExpanded()) {
           return expandableRowHeight;
         }
-        if (rowHeight === "dynamic") {
+        if (isDynamicRowHeight) {
           return 36;
         }
         return rowHeight;
       },
-      [rows, expandableRowHeight, rowHeight],
+      [rows, isDynamicRowHeight, rowHeight, expandableRowHeight],
     ),
     rangeExtractor: useCallback(
       (range) => rowRangeExtractor(range, rows),
@@ -56,6 +58,7 @@ export function VirtualizedTableBody<TData>({
   });
 
   const colVirtualizer = useVirtualizer({
+    enabled: !isDynamicRowHeight,
     count: cols.length,
     overscan: 5,
     horizontal: true,
@@ -68,16 +71,18 @@ export function VirtualizedTableBody<TData>({
     ),
   });
 
-  const colVirtualizerWidth = colVirtualizer.getTotalSize();
+  const colVirtualizerWidth =
+    isDynamicRowHeight && rows.length > 0
+      ? calculateRowWidth(
+          rows[0].getVisibleCells(),
+          rows[0].getRowActions().length > 0,
+        )
+      : colVirtualizer.getTotalSize();
 
   const rowWidth =
     parentWidth > colVirtualizerWidth ? parentWidth : colVirtualizerWidth;
 
   const viRows = rowVirtualizer.getVirtualItems();
-
-  useEffect(() => {
-    rowVirtualizer.measure();
-  }, [rows, rowVirtualizer]);
 
   return (
     <div

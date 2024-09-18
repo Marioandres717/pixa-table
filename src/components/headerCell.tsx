@@ -3,6 +3,7 @@ import { HeaderSorting } from "./columnSort";
 import { ColumnResize } from "./columnResize";
 import { HeaderFilter as DefaultFilter } from "./columnFilter";
 import clsx from "clsx";
+import { getCellPinnedStyles } from "../utils";
 
 type Props<TData> = {
   header: Header<TData, RowData>;
@@ -28,6 +29,7 @@ export function HeaderCell<TData>({ className, header, state }: Props<TData>) {
         className,
         columnDef.meta?.headerClassName,
       )}
+      style={getCellPinnedStyles(header.column)}
     >
       <span
         title={headerTitle}

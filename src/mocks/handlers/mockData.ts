@@ -5,6 +5,8 @@ import {
   randSubscriptionPlan,
   incrementalDate,
   incrementalNumber,
+  randText,
+  // randJSON,
 } from "@ngneat/falso";
 import { createColumnHelper } from "@tanstack/react-table";
 import { http, HttpResponse } from "msw";
@@ -16,6 +18,8 @@ export type MockData = {
   address: string;
   date: string;
   subscription: string;
+  longText: string;
+  // json: Record<string, unknown>;
 };
 
 const columnHelper = createColumnHelper<MockData>();
@@ -45,6 +49,14 @@ export const MockDataColumnDefs = [
     id: "subscription",
     header: "Subscription",
   }),
+  columnHelper.accessor("longText", {
+    id: "longText",
+    header: "Long Text",
+  }),
+  // columnHelper.accessor("json", {
+  //   id: "json",
+  //   header: "JSON",
+  // }),
 ];
 
 export function generateMockData(n: number) {
@@ -59,6 +71,8 @@ export function generateMockData(n: number) {
       email: randEmail(),
       address: randAddress().country,
       subscription: randSubscriptionPlan(),
+      longText: randText({ length: i < 50 ? i : 50 }),
+      // json: JSON.stringify(randJSON()),
     });
   }
   return data;

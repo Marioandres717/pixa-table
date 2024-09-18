@@ -7,7 +7,7 @@ module.exports = ({ env }) => {
       tailwindcss: {},
       "postcss-prefix-selector": isProduction && {
         // tailwind come with is own css reset (preflight), we don't want for consuming apps to have their css reset by tailwind
-        prefix: ":where(.pixa-table)",
+        prefix: ":where(.pxt)",
         transform(prefix, selector, prefixedSelector) {
           // Apply the prefix to all selectors
           return prefixedSelector;

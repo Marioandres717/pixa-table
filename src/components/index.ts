@@ -30,3 +30,7 @@ export * from "./headerCell";
 export * from "./row";
 export * from "./headerRow";
 export * from "./tableBody";
+export * from "./tableHeader";
+export * from "./tableLayout";
+export * from "./virtualizedDynamicHeightRowContent";
+export * from "./virtualizedFixedHeightRowContent";

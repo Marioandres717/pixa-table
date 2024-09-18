@@ -15,7 +15,7 @@ export const TableWithCustomCell: Story = {
             meta: {
               headerClassName: "justify-end bg-green-40 text-black-170",
               className:
-                "justify-center bg-blue-40 text-black text-wrap whitespace-wrap !p-0 text-black-170",
+                "justify-center bg-blue-40 text-black dark:text-blue-80 text-wrap whitespace-wrap !p-0 text-black-170",
             },
           })),
           theme: context.globals.theme,

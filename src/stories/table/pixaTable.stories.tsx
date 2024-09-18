@@ -11,13 +11,14 @@ import { TableWithExpandableRows } from "./withExpandableRows";
 import { TableWithManyCols } from "./withManyCols";
 import { TableWithRowActions } from "./withRowActions";
 import { TableWithGlobalFilter } from "./withGlobalFilter";
-import { TableIsLoading } from "./isLoading";
+import { TableIsLoadingSkeleton } from "./isLoadingSkeleton";
 import { TableWithCustomPageSize } from "./withCustomPageSize";
 import { TableWithCustomPagination } from "./withCustomPagination";
 import { TableWithCustomHeaderFilter } from "./withCustomHeaderFilter";
 import { TableWithCustomLayout } from "./withCustomLayout";
 import { TableWithCustomCell } from "./withCustomCell";
 import { TableWithVirtualizationDisabled } from "./withVirtualizationDisabled";
+import { TableWithDynamicRowHeight } from "./withDynamicRowHeight";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -71,7 +72,7 @@ export const Defaults: Story = {
 };
 
 export const InsideResizableContainer = resizeContainerStory;
-export const IsLoading = TableIsLoading;
+export const IsLoading = TableIsLoadingSkeleton;
 export const WithCustomCell = TableWithCustomCell;
 export const WithCustomHeaderFilter = TableWithCustomHeaderFilter;
 export const WithCustomLayout = TableWithCustomLayout;
@@ -83,3 +84,4 @@ export const WithManyCols = TableWithManyCols;
 export const WithRowActions = TableWithRowActions;
 export const WithSelectableRows = TableWithSelectableRows;
 export const WithVirtualizationDisabled = TableWithVirtualizationDisabled;
+export const WithDynamicRowHeight = TableWithDynamicRowHeight;

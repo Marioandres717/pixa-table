@@ -7,6 +7,8 @@ export const PluggableComponentsFeature: TableFeature<RowData> = {
     table.getPageSizeComponent = () => table.getPluggableComponents().PageSize;
     table.getPaginationComponent = () =>
       table.getPluggableComponents().Pagination;
+    table.getViewOptionsComponent = () =>
+      table.getPluggableComponents().ViewOptions;
   },
   createHeader(header, table) {
     header.getHeaderFilterComponent = () =>
