@@ -1,6 +1,6 @@
 {
   "name": "@marioandres717/pixa-table",
-  "version": "0.0.30",
+  "version": "0.0.31",
   "type": "module",
   "module": "./dist/pixa-table.js",
   "files": [
