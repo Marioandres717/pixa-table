@@ -19,7 +19,7 @@ type Props<T> = {
 export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
-    (Column<T> & VirtualItem<Element>) | null
+    (Column<T> & VirtualItem) | null
   >(null);
   const { columnOrder } = table.getState();
   const columns = table.getAllColumns().filter((col) => !col.getIsPinned());
@@ -72,8 +72,8 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
   }
 
   // Add dragged item to virtual items if it's not in virtual items, so it can be visible while dragging
-  const virtualItemIsInView = viColumns.find((c) => c.key === draggedItem?.key);
-  if (!virtualItemIsInView && draggedItem) {
+  const VirtualItemIsInView = viColumns.find((c) => c.key === draggedItem?.key);
+  if (!VirtualItemIsInView && draggedItem) {
     const { key, size, start, index, end, lane } = draggedItem;
     viColumns.push({
       key,
@@ -82,9 +82,6 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
       index,
       end,
       lane,
-      measureElement: function (): void {
-        throw new Error("Function not implemented.");
-      },
     });
   }
 
