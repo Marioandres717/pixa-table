@@ -1,8 +1,8 @@
 {
   "name": "@marioandres717/pixa-table",
-  "version": "0.0.31",
+  "version": "0.0.0-semantically-released",
   "type": "module",
-  "module": "./dist/pixa-table.js",
+  "module": "./dist/main.js",
   "files": [
     "dist"
   ],
@@ -67,6 +67,7 @@
     "prettier-plugin-tailwindcss": "^0.6.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "semantic-release": "^24.1.1",
     "storybook": "^8.3.1",
     "tailwindcss": "^3.4.4",
     "typescript": "^5.2.2",
