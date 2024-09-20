@@ -7,8 +7,8 @@ on:
       - completed # Trigger this workflow after the CI workflow is completed
 
 permissions:
-  contents: read # for checkout
-
+  contents: write # for checkout
+  packages: write # for npm publish
 jobs:
   release:
     # Only run if CI workflow was successful and push was to main
