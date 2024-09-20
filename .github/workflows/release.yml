@@ -19,7 +19,7 @@ jobs:
       contents: write # to publish a GitHub release
       issues: write # to comment on released issues
       pull-requests: write # to comment on released pull requests
-      id-token: write # for OIDC for npm provenance
+      packages: write # to publish a GitHub package
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
