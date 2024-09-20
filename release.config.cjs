@@ -1,0 +1,9 @@
+// eslint-disable-next-line no-undef
+module.exports = {
+  branches: ["main"],
+  plugins: [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/github",
+  ],
+};
