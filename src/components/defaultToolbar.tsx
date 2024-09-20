@@ -24,7 +24,7 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
 
   return (
     <div className="flex w-full items-center justify-between gap-6">
-      <div className="h-6 flex-1">
+      <div className="flex h-6 flex-1">
         {showPagination && (
           <PageSizeComponent
             table={table}

@@ -8,12 +8,9 @@ import svgr from "vite-plugin-svgr";
 // https://vitejs.dev/config/
 export default defineConfig((env) => ({
   define: {
-    "process.env": {
-      NODE_ENV:
-        env.command === "build"
-          ? { "process.env.NODE_ENV": "'production'" }
-          : { "process.env.NODE_ENV": "'development'" },
-    },
+    "process.env.NODE_ENV": JSON.stringify(
+      env.command === "build" ? "production" : "development",
+    ),
   },
   plugins: [
     react(),
@@ -48,16 +45,10 @@ export default defineConfig((env) => ({
       entry: resolve(__dirname, "src/main.ts"),
       formats: ["es"],
       name: "pixaTable",
-      fileName: "pixa-table",
+      fileName: "main",
     },
     rollupOptions: {
-      external: ["react", "react-dom"],
-      output: {
-        globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
-        },
-      },
+      external: ["react", "react/jsx-runtime", "react-dom", "react-dom/client"],
     },
   },
 }));

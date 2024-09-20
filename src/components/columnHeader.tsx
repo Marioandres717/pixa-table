@@ -13,7 +13,7 @@ import { HeaderFilter as DefaultFilter } from "./columnFilter";
 
 type Props<TData> = {
   header: Header<TData, RowData>;
-  virtualColumn: VirtualItem<Element>;
+  virtualColumn: VirtualItem;
   state: TableState;
   className?: string;
 };
@@ -65,7 +65,7 @@ function getColumnStyles<TData>({
   start,
   getAfter,
   getIsPinned,
-}: Column<TData, RowData> & VirtualItem<Element>) {
+}: Column<TData, RowData> & VirtualItem) {
   const isPinned = getIsPinned();
 
   return {

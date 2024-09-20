@@ -1,4 +1,4 @@
-name: lint, build and check formatting
+name: code quality
 
 on:
   push:
@@ -12,13 +12,16 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: "lts/*"
           cache: "yarn"
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Lint
         run: yarn lint
 
@@ -27,13 +30,15 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: "lts/*"
           cache: "yarn"
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Build
         run: yarn build
 
@@ -42,12 +47,15 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: "lts/*"
           cache: "yarn"
+
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
+
       - name: Check Formatting
         run: yarn format:check

@@ -6,8 +6,8 @@ import { IndeterminateCheckbox } from "./checkbox";
 import { Icon } from "./icon";
 
 type DraggableColumnProps<TData> = {
-  column: Column<TData> & VirtualItem<Element>;
-  setDraggedItem: (item: (Column<TData> & VirtualItem<Element>) | null) => void;
+  column: Column<TData> & VirtualItem;
+  setDraggedItem: (item: (Column<TData> & VirtualItem) | null) => void;
 };
 
 export function DraggableColumn<T>({

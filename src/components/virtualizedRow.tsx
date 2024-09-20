@@ -9,7 +9,7 @@ import RowActions from "./rowActions";
 type Props<TData> = {
   row: Row<TData>;
   cols: Column<TData, RowData>[];
-  viRow: VirtualItem<Element>;
+  viRow: VirtualItem;
   colVirtualizer: Virtualizer<HTMLDivElement, Element>;
   rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
   rowWidth: number;
