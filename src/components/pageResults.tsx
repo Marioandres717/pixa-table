@@ -24,7 +24,7 @@ export function PageResults<TData>({ table, className }: Props<TData>) {
       role="status"
       aria-live="polite"
       className={clsx(
-        "text-nowrap text-table-base font-medium leading-normal text-black-100 dark:text-black-10",
+        "text-nowrap text-table-base leading-normal text-black-100 dark:text-black-10",
         className,
       )}
     >

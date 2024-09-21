@@ -15,7 +15,7 @@ export default function TableSettings<TData>({
   return (
     <div
       className={clsx(
-        "max-h-[500px] w-64 rounded border bg-black-5 p-4 text-table-base text-black-100 dark:border-black-90 dark:bg-black-95 dark:text-black-10 dark:drop-shadow-[0_7px_20px_0_rgba(13,22,26,0.15)]",
+        "max-h-[500px] w-64 rounded border border-black-20 bg-white p-4 text-table-base text-black-100 drop-shadow-lg dark:border-black-90 dark:bg-black-95 dark:text-black-10",
         className,
       )}
     >

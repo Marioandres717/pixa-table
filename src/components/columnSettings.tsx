@@ -19,7 +19,7 @@ export default function ColumnSettings<TData>({
         type="button"
         tabIndex={-1}
         role="tab"
-        className={`h-full max-h-36 w-full cursor-pointer dark:border-black-92.5 ${show ? "border-b dark:bg-black-140" : ""}`}
+        className={`h-full max-h-36 w-full cursor-pointer border-black-20 dark:border-black-92.5 ${show ? "border-b dark:bg-black-140" : ""}`}
       >
         <div className="rotate-90">Columns</div>
       </button>

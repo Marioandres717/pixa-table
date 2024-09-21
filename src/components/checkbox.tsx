@@ -20,7 +20,7 @@ export function IndeterminateCheckbox({
       type="checkbox"
       ref={ref}
       className={clsx(
-        "!size-5 cursor-pointer rounded-sm border border-solid border-black-80 checked:bg-blue-100 indeterminate:bg-blue-100 checked:hover:bg-blue-120 indeterminate:hover:bg-blue-120 focus:ring-0 focus:ring-offset-0 dark:checked:hover:bg-blue-80 dark:indeterminate:hover:bg-blue-80",
+        "!size-5 cursor-pointer rounded-[3px] border border-solid border-black-40 checked:bg-blue-120 indeterminate:bg-blue-120 hover:!border-current focus:ring-0 focus:ring-offset-0 dark:border-black-80 dark:checked:bg-blue-100 dark:indeterminate:bg-blue-100",
         className,
       )}
       {...rest}
