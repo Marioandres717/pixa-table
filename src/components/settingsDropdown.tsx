@@ -4,6 +4,7 @@ import { Icon } from "./icon";
 import { useOnclickOutside } from "../hooks/useOnClickOutside";
 import { useOnCloseEscape } from "../hooks/useOnCloseEscape";
 import TableSettings from "./tableSettings";
+import clsx from "clsx";
 
 type Props<T> = {
   table: Table<T>;
@@ -29,7 +30,9 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
       <div
         role="button"
         tabIndex={0}
-        className={`flex h-6 w-6 rounded-[3px] p-1 outline-none ${toggleSettings ? "bg-black-10 dark:bg-black-90" : ""}`}
+        className={clsx("flex h-6 w-6 rounded-[3px] p-1 outline-none", {
+          "bg-black-20 dark:bg-black-90": toggleSettings,
+        })}
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
       >

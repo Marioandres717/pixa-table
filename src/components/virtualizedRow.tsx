@@ -41,9 +41,9 @@ export function VirtualizedRow<TData>({
       key={viRow.key}
       data-index={viRow.index}
       className={clsx(
-        "group absolute left-0 top-0 flex flex-col border-b bg-black-5 hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90",
+        "group absolute left-0 top-0 flex flex-col border-b border-black-20 bg-white hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90",
         { "dark:!bg-black-95": row.getIsExpanded() },
-        { "dark:!bg-[#173344]": row.getIsSelected() },
+        { "!bg-blue-30/10 dark:!bg-[#173344]": row.getIsSelected() },
       )}
       ref={(node) => isDynamicRowHeight && rowVirtualizer.measureElement(node)}
       style={{
@@ -128,7 +128,7 @@ export function VirtualizedRow<TData>({
 
       {/* Expandable Row */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="w-full border-t dark:border-black-92.5">
+        <div className="w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
           <ExpandableRow row={row} />
         </div>
       )}

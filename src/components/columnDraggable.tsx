@@ -53,9 +53,10 @@ export function DraggableColumn<T>({
       ref={setNodeRef}
       className={clsx(
         "absolute flex w-[204px] cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
-        getIsVisible()
-          ? "bg-black-20 dark:bg-black-92.5"
-          : "bg-black-15 dark:bg-black-95",
+        {
+          "bg-white dark:bg-black-92.5": getIsVisible(),
+          "bg-white dark:bg-black-95": !getIsVisible(),
+        },
       )}
       style={styles}
       onMouseDown={() => setDraggedItem(column)}

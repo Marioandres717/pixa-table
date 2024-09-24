@@ -60,7 +60,9 @@ export function Pagination<TData>({ table }: Props<TData>) {
         <Button
           key={option}
           className={clsx(
-            pageIndex === option - 1 ? "!bg-aqua-120 !text-black-100" : "",
+            pageIndex === option - 1
+              ? "!bg-black-30 !text-black-100 dark:!bg-aqua-120"
+              : "",
           )}
           onClick={() => onPageChange(option - 1)}
         >
