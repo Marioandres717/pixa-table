@@ -7,6 +7,7 @@ export type TableLayout = {
   showTotalResults?: boolean;
   rowHeight?: number | "dynamic";
   expandableRowHeight?: number;
+  enableVirtualization?: boolean;
 };
 
 export interface TableLayoutOptions {
@@ -23,4 +24,5 @@ export interface TableLayoutInstance {
   getShowTotalResults(): boolean;
   getRowHeight(): number | "dynamic";
   getExpandableRowHeight(): number;
+  getEnableVirtualization(): boolean;
 }

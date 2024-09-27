@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { Column, Row, RowData, Table } from "@tanstack/react-table";
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { calculateHeightOfCells, getPinnedCols } from "../utils";
-import { ColumnCell } from "./columnCell";
+import { VirtualizedRowCell } from "./virtualizedRowCell";
 import RowActions from "./rowActions";
 
 type Props<TData> = {
@@ -75,7 +75,7 @@ export function VirtualizedRow<TData>({
               const viCol = viCols.find((c) => c.key === cell.column.id);
               if (!viCol) return null;
               return (
-                <ColumnCell
+                <VirtualizedRowCell
                   key={viCol.key}
                   cell={cell}
                   virtualColumn={viCol}
@@ -97,7 +97,7 @@ export function VirtualizedRow<TData>({
             const viCol = viCols.find((c) => c.key === cell.column.id);
             if (!viCol) return null;
             return (
-              <ColumnCell
+              <VirtualizedRowCell
                 key={viCol.key}
                 cell={cell}
                 virtualColumn={viCol}
@@ -120,7 +120,7 @@ export function VirtualizedRow<TData>({
               const viCol = viCols.find((c) => c.key === cell.column.id);
               if (!viCol) return null;
               return (
-                <ColumnCell
+                <VirtualizedRowCell
                   key={viCol.key}
                   cell={cell}
                   virtualColumn={viCol}

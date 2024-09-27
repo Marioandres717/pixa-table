@@ -3,7 +3,7 @@ import { Table } from "@tanstack/react-table";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { colRangeExtractor, divideAvailableSpaceWithColumns } from "../utils";
-import VirtualizedHeaderRow from "./virtualizedHeaderRow";
+import { VirtualizedHeaderRow } from "./virtualizedHeaderRow";
 
 type Props<TData> = {
   table: Table<TData>;
