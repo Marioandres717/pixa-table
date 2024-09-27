@@ -9,7 +9,8 @@ export const RowActionsFeature: TableFeature<RowData> = {
   },
 
   createTable(table) {
-    table.getRowActions = () => table.options.rowActions;
+    table.getRowActions = () =>
+      table.options.enableRowActions ? table.options.rowActions : [];
 
     table.onRowAction = (action, data) => {
       action.onAction(data);
