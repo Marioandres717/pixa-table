@@ -1,15 +1,15 @@
-import { Row as TanRow, Table } from "@tanstack/react-table";
+import { Row, Table } from "@tanstack/react-table";
 import RowActions from "./rowActions";
 import clsx from "clsx";
 import { RowCell } from "./rowCell";
 import { gridGenerator } from "../utils";
 
 type Props<TData> = {
-  row: TanRow<TData>;
+  row: Row<TData>;
   table: Table<TData>;
 };
 
-export function Row<TData>({ row, table }: Props<TData>) {
+export function DataRow<TData>({ row, table }: Props<TData>) {
   // const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const ExpandableRow = row.getExpandableRowComponent();
   const rowActions = row.getRowActions();

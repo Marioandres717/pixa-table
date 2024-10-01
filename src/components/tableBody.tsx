@@ -1,5 +1,5 @@
 import { Table } from "@tanstack/react-table";
-import { Row } from "./row";
+import { DataRow } from "./row";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -11,7 +11,7 @@ export function TableBody<TData>({ table }: Props<TData>) {
   return (
     <div data-testid="table-body" role="rowgroup">
       {rows.map((row) => (
-        <Row key={row.id} row={row} table={table} />
+        <DataRow key={row.id} row={row} table={table} />
       ))}
     </div>
   );
