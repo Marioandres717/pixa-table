@@ -15,7 +15,7 @@ type Props<TData> = {
   table: Table<TData>;
 };
 
-export function ColumnCell<TData>({
+export function VirtualizedRowCell<TData>({
   cell,
   virtualColumn,
   table,

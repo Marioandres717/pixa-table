@@ -5,7 +5,7 @@ import {
   RowData,
   TableState,
 } from "@tanstack/react-table";
-import ColumnHeader from "./columnHeader";
+import { VirtualizedHeaderCell } from "./virtualizedHeaderCell";
 import { getPinnedCols } from "../utils";
 import { Virtualizer } from "@tanstack/react-virtual";
 
@@ -16,7 +16,7 @@ type Props<TData> = {
   colVirtualizer: Virtualizer<HTMLDivElement, Element>;
 };
 
-export default function VirtualizedHeaderRow<TData>({
+export function VirtualizedHeaderRow<TData>({
   cols,
   headerGroup,
   state,
@@ -43,7 +43,7 @@ export default function VirtualizedHeaderRow<TData>({
             const viCol = viCols.find((viCol) => viCol.key === header.id);
             if (!viCol) return null;
             return (
-              <ColumnHeader
+              <VirtualizedHeaderCell
                 key={viCol.key}
                 header={header}
                 virtualColumn={viCol}
@@ -61,7 +61,7 @@ export default function VirtualizedHeaderRow<TData>({
             const viCol = viCols.find((viCol) => viCol.key === header.id);
             if (!viCol) return null;
             return (
-              <ColumnHeader
+              <VirtualizedHeaderCell
                 key={viCol.key}
                 header={header}
                 virtualColumn={viCol}
@@ -84,7 +84,7 @@ export default function VirtualizedHeaderRow<TData>({
             const viCol = viCols.find((viCol) => viCol.key === header.id);
             if (!viCol) return null;
             return (
-              <ColumnHeader
+              <VirtualizedHeaderCell
                 key={viCol.key}
                 header={header}
                 virtualColumn={viCol}

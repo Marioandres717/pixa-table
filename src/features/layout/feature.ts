@@ -12,6 +12,7 @@ export const LayoutFeature: TableFeature<RowData> = {
         showTotalResults: true,
         rowHeight: 36,
         expandableRowHeight: 100,
+        enableVirtualization: true,
       },
     };
   },
@@ -26,6 +27,7 @@ export const LayoutFeature: TableFeature<RowData> = {
       showTotalResults: table.getShowTotalResults(),
       rowHeight: table.getRowHeight(),
       expandableRowHeight: table.getExpandableRowHeight(),
+      enableVirtualization: table.getEnableVirtualization(),
     });
 
     table.getShowFooter = () =>
@@ -60,5 +62,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.expandableRowHeight === "undefined"
         ? 100
         : table.options.layout.expandableRowHeight;
+    table.getEnableVirtualization = () =>
+      typeof table.options.layout.enableVirtualization === "undefined"
+        ? true
+        : table.options.layout.enableVirtualization;
   },
 };

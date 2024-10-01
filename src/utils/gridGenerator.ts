@@ -1,4 +1,4 @@
-import { Column, Row, RowData } from "@tanstack/react-table";
+import { Column, Row, RowData, Table } from "@tanstack/react-table";
 import { Range } from "@tanstack/react-virtual";
 
 export type PinnedCols<TData> = {
@@ -136,3 +136,14 @@ export function divideAvailableSpaceWithColumns<TData>(
 export function calculateHeightOfCells(rowHeight: number) {
   return `calc(${rowHeight}px - 1px)`; // 1px is the border
 }
+
+export const gridGenerator = <TData>(table: Table<TData>) => {
+  const visibleColumns = table.getVisibleFlatColumns();
+  return visibleColumns
+    .map((i, idx) =>
+      visibleColumns.length === idx + 1
+        ? `minmax(${i.getSize()}px ,auto)`
+        : `${i.getSize()}px`,
+    )
+    .join(" ");
+};

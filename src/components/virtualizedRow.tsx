@@ -1,9 +1,9 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import clsx from "clsx";
 import { Column, Row, RowData, Table } from "@tanstack/react-table";
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { calculateHeightOfCells, getPinnedCols } from "../utils";
-import { ColumnCell } from "./columnCell";
+import { VirtualizedRowCell } from "./virtualizedRowCell";
 import RowActions from "./rowActions";
 
 type Props<TData> = {
@@ -35,6 +35,15 @@ export function VirtualizedRow<TData>({
     ? calculateHeightOfCells(36)
     : calculateHeightOfCells(rowHeight);
 
+  const measureRow = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (isDynamicRowHeight && node) {
+        rowVirtualizer.measureElement(node);
+      }
+    },
+    [isDynamicRowHeight, rowVirtualizer],
+  );
+
   return (
     <div
       role="row"
@@ -45,7 +54,7 @@ export function VirtualizedRow<TData>({
         { "dark:!bg-black-95": row.getIsExpanded() },
         { "!bg-blue-30/10 dark:!bg-[#173344]": row.getIsSelected() },
       )}
-      ref={(node) => isDynamicRowHeight && rowVirtualizer.measureElement(node)}
+      ref={measureRow}
       style={{
         height: isDynamicRowHeight ? undefined : `${viRow.size}px`,
         width: `${rowWidth}px`,
@@ -66,7 +75,7 @@ export function VirtualizedRow<TData>({
               const viCol = viCols.find((c) => c.key === cell.column.id);
               if (!viCol) return null;
               return (
-                <ColumnCell
+                <VirtualizedRowCell
                   key={viCol.key}
                   cell={cell}
                   virtualColumn={viCol}
@@ -88,7 +97,7 @@ export function VirtualizedRow<TData>({
             const viCol = viCols.find((c) => c.key === cell.column.id);
             if (!viCol) return null;
             return (
-              <ColumnCell
+              <VirtualizedRowCell
                 key={viCol.key}
                 cell={cell}
                 virtualColumn={viCol}
@@ -111,7 +120,7 @@ export function VirtualizedRow<TData>({
               const viCol = viCols.find((c) => c.key === cell.column.id);
               if (!viCol) return null;
               return (
-                <ColumnCell
+                <VirtualizedRowCell
                   key={viCol.key}
                   cell={cell}
                   virtualColumn={viCol}
@@ -126,7 +135,7 @@ export function VirtualizedRow<TData>({
         {rowActions.length > 0 && <RowActions row={row} />}
       </div>
 
-      {/* Expandable Row */}
+      {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
         <div className="w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
           <ExpandableRow row={row} />
