@@ -1,31 +1,49 @@
-import { Row, Table } from "@tanstack/react-table";
-import RowActions from "./rowActions";
 import clsx from "clsx";
+import { useCallback } from "react";
+import { Row, Table } from "@tanstack/react-table";
+import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
+import { tableBodygridGenerator } from "../utils";
+import RowActions from "./rowActions";
 import { RowCell } from "./rowCell";
-import { tableBodygridGenerator, calculateRowWidth } from "../utils";
 
 type Props<TData> = {
   row: Row<TData>;
+  viRow: VirtualItem<Element>;
+  rowWidth: number;
   table: Table<TData>;
+  rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
 };
 
-export function DataRow<TData>({ row, table }: Props<TData>) {
-  const ExpandableRow = row.getExpandableRowComponent();
+export function VirtualizedDynamicHeightRow<TData>({
+  row,
+  viRow,
+  rowWidth,
+  table,
+  rowVirtualizer,
+}: Props<TData>) {
   const rowActions = row.getRowActions();
-  const { rowHeight = 36 } = table.getLayout();
-  const isDynamicHeight = rowHeight === "dynamic";
+  const ExpandableRow = row.getExpandableRowComponent();
+  const measureRow = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (!node) return;
+      rowVirtualizer.measureElement(node);
+    },
+    [rowVirtualizer],
+  );
 
   return (
     <div
       role="row"
+      data-index={viRow.index}
+      ref={measureRow}
       className={clsx(
-        "pxt-row group min-h-9 min-w-full",
+        "pxt-row group absolute left-0 top-0",
         { "pxt-row-expanded": row.getIsExpanded() },
         { "pxt-row-selected": row.getIsSelected() },
       )}
       style={{
-        height: isDynamicHeight ? "auto" : rowHeight,
-        width: calculateRowWidth(row.getVisibleCells(), rowActions.length > 0),
+        width: `${rowWidth}px`,
+        transform: `translate3d(0, ${viRow.start}px, 0)`,
       }}
     >
       <div
@@ -44,7 +62,6 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
         {/* ROW ACTIONS */}
         {rowActions.length > 0 && <RowActions row={row} />}
       </div>
-
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
         <div className="w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">

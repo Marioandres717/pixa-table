@@ -16,4 +16,16 @@
   input[type="checkbox"]:not(:checked) {
     @apply dark:bg-[#132531];
   }
+
+  .pxt-row {
+    @apply flex flex-col border-b border-black-20 bg-white hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90;
+  }
+
+  .pxt-row-expanded {
+    @apply dark:!bg-black-95;
+  }
+
+  .pxt-row-selected {
+    @apply !bg-blue-30 dark:!bg-[#173344];
+  }
 }

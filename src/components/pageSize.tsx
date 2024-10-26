@@ -10,7 +10,7 @@ type Props<TData> = {
 export function PageSize<TData>({
   table,
   className,
-  pageOptions = [10, 25, 50, 100, 250, 500],
+  pageOptions = [10, 25, 50, 100, 250, 500, 1000],
 }: Props<TData>) {
   return (
     <select

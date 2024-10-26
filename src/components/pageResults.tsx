@@ -8,7 +8,9 @@ type Props<TData> = {
 };
 
 export function PageResults<TData>({ table, className }: Props<TData>) {
-  const { pageIndex, pageSize } = table.getState().pagination;
+  const {
+    pagination: { pageIndex, pageSize } = { pageIndex: 0, pageSize: 0 },
+  } = table.getState();
   const showPagination = table.getShowPagination();
   const totalItems = table.getRowCount();
   const label = useMemo(

@@ -4,11 +4,10 @@ import { ExpandableColumn } from "../../components";
 import { usePixaTable } from "../../hooks";
 import { MockDataColumnDefs, MockData } from "../../mocks/handlers/mockData";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
-import { MockExpandableRow } from "../../mocks/handlers/mockExpandableRow";
 
-const columnHelper = createColumnHelper<MockData>();
+export const columnHelper = createColumnHelper<MockData>();
 
-export const TableWithExpandableRows: Story = {
+export const TableWithDynamicRowHeight: Story = {
   decorators: [
     (Story, context) => {
       const config = useMemo<UsePixaTableOptions>(
@@ -39,26 +38,22 @@ export const TableWithExpandableRows: Story = {
               left: ["expander"],
             },
           },
-          pluggableComponents: {
-            ExpandableRow: MockExpandableRow,
-          },
           layout: {
             rowHeight: "dynamic",
-            expandableRowHeight: 500,
+            enableVirtualization: false,
+            maxHeight: 500,
           },
         }),
         [context.loaded.data, context.globals.theme],
       );
       const table = usePixaTable<MockData>(config);
       return (
-        <div className="h-[500px]">
-          <Story
-            args={{
-              ...context.args,
-              table: table as Table<unknown>,
-            }}
-          />
-        </div>
+        <Story
+          args={{
+            ...context.args,
+            table: table as Table<unknown>,
+          }}
+        />
       );
     },
   ],

@@ -1,4 +1,4 @@
-export type TableLayout = {
+export type Layout = {
   showFooter?: boolean;
   showHeader?: boolean;
   showSidebar?: boolean;
@@ -8,14 +8,15 @@ export type TableLayout = {
   rowHeight?: number | "dynamic";
   expandableRowHeight?: number;
   enableVirtualization?: boolean;
+  showViewOptions?: boolean;
 };
 
-export interface TableLayoutOptions {
-  layout: TableLayout;
+export interface LayoutOptions {
+  layout: Layout;
 }
 
-export interface TableLayoutInstance {
-  getLayout(): TableLayout;
+export interface LayoutInstance {
+  getLayout(): Layout;
   getShowFooter(): boolean;
   getShowHeader(): boolean;
   getShowSidebar(): boolean;
@@ -25,4 +26,5 @@ export interface TableLayoutInstance {
   getRowHeight(): number | "dynamic";
   getExpandableRowHeight(): number;
   getEnableVirtualization(): boolean;
+  getShowViewOptions(): boolean;
 }

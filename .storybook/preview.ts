@@ -32,6 +32,8 @@ const preview: Preview = {
       attributeName: "data-theme",
     }),
   ],
+
+  tags: ["autodocs"],
 };
 
 export default preview;

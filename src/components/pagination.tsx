@@ -8,7 +8,8 @@ type Props<TData> = {
 };
 
 export function Pagination<TData>({ table }: Props<TData>) {
-  const pageIndex = table.getState().pagination.pageIndex;
+  const { pagination: { pageIndex } = { pageIndex: 0 }, isLoading = false } =
+    table.getState();
   const { getPageOptions, getCanPreviousPage, getCanNextPage } = table;
   const { start, end } = pageRange(pageIndex, getPageOptions().length);
   const pageOptionsState = nextPages(start, end);
@@ -52,7 +53,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
           e.preventDefault();
           onPageChange(pageIndex - 1);
         }}
-        disabled={!getCanPreviousPage()}
+        disabled={!getCanPreviousPage() || isLoading}
       >
         <Icon icon="arrow-new" size={12} className="rotate-180 fill-current" />
       </Button>
@@ -65,6 +66,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
               : "",
           )}
           onClick={() => onPageChange(option - 1)}
+          disabled={isLoading}
         >
           {option}
         </Button>
@@ -74,7 +76,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
           e.preventDefault();
           onPageChange(pageIndex + 1);
         }}
-        disabled={!getCanNextPage()}
+        disabled={!getCanNextPage() || isLoading}
       >
         <Icon icon="arrow-new" size={12} className="fill-current" />
       </Button>
