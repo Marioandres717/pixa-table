@@ -5,7 +5,7 @@ import { VirtualizedFixedHeightRow } from "./virtualizedFixedHeightRowContent";
 
 type Props<TData> = {
   row: Row<TData>;
-  viRow: VirtualItem<Element>;
+  viRow: VirtualItem;
   colVirtualizer: Virtualizer<HTMLDivElement, Element>;
   rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
   rowWidth: number;

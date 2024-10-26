@@ -51,4 +51,7 @@ export default defineConfig((env) => ({
       external: ["react", "react/jsx-runtime", "react-dom", "react-dom/client"],
     },
   },
+  test: {
+    environment: "jsdom",
+  },
 }));

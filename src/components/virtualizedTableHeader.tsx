@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { Table } from "@tanstack/react-table";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { useVirtualizer, Range } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { colRangeExtractor, divideAvailableSpaceWithColumns } from "../utils";
 import { VirtualizedHeaderRow } from "./virtualizedHeaderRow";
@@ -34,9 +34,9 @@ export function VirtualizedTableHeader<TData>({
     horizontal: true,
     getScrollElement: () => parentRef.current,
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
-    getItemKey: useCallback((i) => cols[i].id, [cols]),
+    getItemKey: useCallback((i: number) => cols[i].id, [cols]),
     rangeExtractor: useCallback(
-      (range) => colRangeExtractor(range, cols),
+      (range: Range) => colRangeExtractor(range, cols),
       [cols],
     ),
   });

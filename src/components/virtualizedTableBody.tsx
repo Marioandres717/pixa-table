@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import { Table } from "@tanstack/react-table";
-import { useVirtualizer } from "@tanstack/react-virtual";
+import { Range, useVirtualizer } from "@tanstack/react-virtual";
 import {
   colRangeExtractor,
   rowRangeExtractor,
@@ -38,7 +38,7 @@ export function VirtualizedTableBody<TData>({
     count: rows.length,
     overscan: 5,
     getScrollElement: () => parentRef.current,
-    getItemKey: useCallback((i) => rows[i].id, [rows]),
+    getItemKey: useCallback((i: number) => rows[i].id, [rows]),
     estimateSize: useCallback(
       (i) => {
         if (rows[i].getIsExpanded()) {
@@ -52,7 +52,7 @@ export function VirtualizedTableBody<TData>({
       [rows, isDynamicRowHeight, rowHeight, expandableRowHeight],
     ),
     rangeExtractor: useCallback(
-      (range) => rowRangeExtractor(range, rows),
+      (range: Range) => rowRangeExtractor(range, rows),
       [rows],
     ),
   });
@@ -63,10 +63,10 @@ export function VirtualizedTableBody<TData>({
     overscan: 5,
     horizontal: true,
     getScrollElement: () => parentRef.current,
-    getItemKey: useCallback((i) => cols[i].id, [cols]),
+    getItemKey: useCallback((i: number) => cols[i].id, [cols]),
     estimateSize: useCallback((i) => cols[i].getSize(), [cols]),
     rangeExtractor: useCallback(
-      (range) => colRangeExtractor(range, cols),
+      (range: Range) => colRangeExtractor(range, cols),
       [cols],
     ),
   });
@@ -98,7 +98,7 @@ export function VirtualizedTableBody<TData>({
         const row = rows[viRow.index];
         return (
           <VirtualizedRow
-            key={viRow.key}
+            key={viRow.key.toString()}
             row={row}
             cols={cols}
             viRow={viRow}

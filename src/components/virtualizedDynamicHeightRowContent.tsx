@@ -8,7 +8,7 @@ import { RowCell } from "./rowCell";
 
 type Props<TData> = {
   row: Row<TData>;
-  viRow: VirtualItem<Element>;
+  viRow: VirtualItem;
   rowWidth: number;
   table: Table<TData>;
   rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
