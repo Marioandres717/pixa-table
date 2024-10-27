@@ -53,6 +53,6 @@ function getWhiteSpaceWrapping(
   rowHeight?: number | "dynamic" | undefined,
 ) {
   return rowHeight === "dynamic" && getIsExpanded()
-    ? "whitespace-normal h-full"
+    ? "whitespace-normal break-all h-full"
     : "whitespace-nowrap h-[35px]";
 }

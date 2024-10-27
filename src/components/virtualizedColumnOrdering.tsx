@@ -19,7 +19,7 @@ type Props<T> = {
 export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
   const scrollableRef = useRef<HTMLDivElement>(null);
   const [draggedItem, setdraggedItem] = useState<
-    (Column<T> & VirtualItem<Element>) | null
+    (Column<T> & VirtualItem) | null
   >(null);
   const { columnOrder } = table.getState();
   const columns = table.getAllColumns();
@@ -82,7 +82,6 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
       index,
       end,
       lane,
-      measureElement: () => {},
     });
   }
 
@@ -106,7 +105,7 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
               if (!col) return null;
               return (
                 <DraggableColumn
-                  key={c.key}
+                  key={c.key.toString()}
                   column={{ ...col, ...c }}
                   setDraggedItem={setdraggedItem}
                 />

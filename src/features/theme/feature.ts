@@ -24,8 +24,5 @@ export const ThemeFeature: TableFeature<RowData> = {
       };
       return table.options.onThemeChange?.(safeUpdater);
     };
-    table.onThemeChange = (theme) => {
-      table.onThemeChange?.(theme);
-    };
   },
 };

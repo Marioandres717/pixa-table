@@ -11,7 +11,7 @@ import { calculateHeightOfCells } from "../utils";
 
 type Props<TData> = {
   cell: Cell<TData, RowData>;
-  virtualColumn: VirtualItem<Element>;
+  virtualColumn: VirtualItem;
   table: Table<TData>;
 };
 
@@ -50,7 +50,7 @@ function getColumnStyles<TData>({
   getAfter,
   getIsPinned,
   getLayout,
-}: Column<TData, RowData> & VirtualItem<Element> & Table<TData>) {
+}: Column<TData, RowData> & VirtualItem & Table<TData>) {
   const isPinned = getIsPinned();
   const { rowHeight = 36 } = getLayout();
   const cellHeight =

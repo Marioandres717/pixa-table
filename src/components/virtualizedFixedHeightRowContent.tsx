@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 type Props<TData> = {
   row: Row<TData>;
-  viRow: VirtualItem<Element>;
+  viRow: VirtualItem;
   cols: Column<TData, RowData>[];
   rowWidth: number;
   table: Table<TData>;
@@ -63,7 +63,7 @@ export function VirtualizedFixedHeightRow<TData>({
               if (!viCol) return null;
               return (
                 <VirtualizedRowCell
-                  key={viCol.key}
+                  key={viCol.key.toString()}
                   cell={cell}
                   virtualColumn={viCol}
                   table={table}
@@ -85,7 +85,7 @@ export function VirtualizedFixedHeightRow<TData>({
             if (!viCol) return null;
             return (
               <VirtualizedRowCell
-                key={viCol.key}
+                key={viCol.key.toString()}
                 cell={cell}
                 virtualColumn={viCol}
                 table={table}
@@ -108,7 +108,7 @@ export function VirtualizedFixedHeightRow<TData>({
               if (!viCol) return null;
               return (
                 <VirtualizedRowCell
-                  key={viCol.key}
+                  key={viCol.key.toString()}
                   cell={cell}
                   virtualColumn={viCol}
                   table={table}

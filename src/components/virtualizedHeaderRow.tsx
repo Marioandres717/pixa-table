@@ -44,7 +44,7 @@ export function VirtualizedHeaderRow<TData>({
             if (!viCol) return null;
             return (
               <VirtualizedHeaderCell
-                key={viCol.key}
+                key={viCol.key.toString()}
                 header={header}
                 virtualColumn={viCol}
                 state={state}
@@ -62,7 +62,7 @@ export function VirtualizedHeaderRow<TData>({
             if (!viCol) return null;
             return (
               <VirtualizedHeaderCell
-                key={viCol.key}
+                key={viCol.key.toString()}
                 header={header}
                 virtualColumn={viCol}
                 state={state}
@@ -85,7 +85,7 @@ export function VirtualizedHeaderRow<TData>({
             if (!viCol) return null;
             return (
               <VirtualizedHeaderCell
-                key={viCol.key}
+                key={viCol.key.toString()}
                 header={header}
                 virtualColumn={viCol}
                 state={state}
