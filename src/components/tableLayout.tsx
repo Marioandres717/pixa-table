@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import clsx from "clsx";
 import { Table } from "@tanstack/react-table";
 import { calculateGridTemplate } from "../utils";
@@ -19,10 +19,10 @@ export function TableLayout<TData>({ table }: Props<TData>) {
   const parentRef = useRef<HTMLDivElement>(null);
   const [, setTriggerRerender] = useState(0);
 
-  const handleResize = useCallback(
-    () => setTriggerRerender((prev) => prev + 1),
-    [],
-  );
+  // const handleResize = useCallback(
+  //   () => setTriggerRerender((prev) => prev + 1),
+  //   [],
+  // );
 
   const {
     showFooter,
@@ -36,7 +36,10 @@ export function TableLayout<TData>({ table }: Props<TData>) {
 
   const PaginationComponent = table.getPaginationComponent() || Pagination;
   const isDynamicRowHeight = rowHeight === "dynamic";
-  useResizeObserver(parentRef, handleResize);
+  // useResizeObserver(parentRef, handleResize);
+  useEffect(() => {
+    setTriggerRerender((prev) => prev + 1);
+  }, [parentRef.current]);
 
   return (
     <div

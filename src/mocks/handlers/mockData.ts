@@ -12,23 +12,23 @@ import { createColumnHelper } from "@tanstack/react-table";
 import { http, HttpResponse } from "msw";
 
 export type MockData = {
-  id: number;
+  // id: number;
   name: string;
   email: string;
   address: string;
-  date: string;
-  subscription: string;
-  longText: string;
+  // date: string;
+  // subscription: string;
+  // longText: string;
   // json: Record<string, unknown>;
 };
 
 const columnHelper = createColumnHelper<MockData>();
 
 export const MockDataColumnDefs = [
-  columnHelper.accessor("id", {
-    id: "id",
-    header: "ID",
-  }),
+  // columnHelper.accessor("id", {
+  //   id: "id",
+  //   header: "ID",
+  // }),
   columnHelper.accessor("name", {
     id: "name",
     header: "Name",
@@ -41,18 +41,18 @@ export const MockDataColumnDefs = [
     id: "address",
     header: "Address",
   }),
-  columnHelper.accessor("date", {
-    id: "date",
-    header: "Date",
-  }),
-  columnHelper.accessor("subscription", {
-    id: "subscription",
-    header: "Subscription",
-  }),
-  columnHelper.accessor("longText", {
-    id: "longText",
-    header: "Long Text",
-  }),
+  // columnHelper.accessor("date", {
+  //   id: "date",
+  //   header: "Date",
+  // }),
+  // columnHelper.accessor("subscription", {
+  //   id: "subscription",
+  //   header: "Subscription",
+  // }),
+  // columnHelper.accessor("longText", {
+  //   id: "longText",
+  //   header: "Long Text",
+  // }),
   // columnHelper.accessor("json", {
   //   id: "json",
   //   header: "JSON",
