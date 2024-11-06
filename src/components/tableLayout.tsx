@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback } from "react";
 import clsx from "clsx";
 import { Table } from "@tanstack/react-table";
 import { calculateGridTemplate } from "../utils";
@@ -18,12 +18,6 @@ type Props<TData> = {
 export function TableLayout<TData>({ table }: Props<TData>) {
   const parentRef = useRef<HTMLDivElement>(null);
   const [, setTriggerRerender] = useState(0);
-
-  // const handleResize = useCallback(
-  //   () => setTriggerRerender((prev) => prev + 1),
-  //   [],
-  // );
-
   const {
     showFooter,
     showHeader,
@@ -31,15 +25,14 @@ export function TableLayout<TData>({ table }: Props<TData>) {
     showPagination,
     enableVirtualization,
     maxHeight,
-    rowHeight,
   } = table.getLayout();
 
+  const handleResize = useCallback(
+    () => setTriggerRerender((prev) => prev + 1),
+    [],
+  );
+  useResizeObserver(parentRef, handleResize);
   const PaginationComponent = table.getPaginationComponent() || Pagination;
-  const isDynamicRowHeight = rowHeight === "dynamic";
-  // useResizeObserver(parentRef, handleResize);
-  useEffect(() => {
-    setTriggerRerender((prev) => prev + 1);
-  }, [parentRef.current]);
 
   return (
     <div
@@ -81,15 +74,15 @@ export function TableLayout<TData>({ table }: Props<TData>) {
           maxHeight: `calc(${maxHeight}px - ${showFooter && showHeader ? 88 : 46}px - 2px)`, // 2x for border
         }}
       >
-        {showHeader && enableVirtualization && !isDynamicRowHeight && (
+        {showHeader && enableVirtualization && (
           <VirtualizedTableHeader table={table} parentRef={parentRef} />
         )}
-        {showHeader && (!enableVirtualization || isDynamicRowHeight) && (
-          <TableHeader table={table} />
-        )}
+        {showHeader && !enableVirtualization && <TableHeader table={table} />}
+
         {enableVirtualization && (
           <VirtualizedTableBody table={table} parentRef={parentRef} />
         )}
+
         {!enableVirtualization && <TableBody table={table} />}
       </div>
       {showFooter && (
