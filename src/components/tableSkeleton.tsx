@@ -16,7 +16,7 @@ export function TableSkeleton({ theme }: { theme: Theme }) {
   return (
     <div
       data-testid="pixa-table-skeleton"
-      className="pixa-table mx-auto w-full overflow-hidden p-2"
+      className="pxt mx-auto w-full overflow-hidden p-2"
     >
       <div data-theme={theme} className="flex animate-pulse flex-col gap-4">
         {/* TOP ROW */}
