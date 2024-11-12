@@ -6,7 +6,6 @@ import { RowData } from "@tanstack/react-table";
 import {
   SelectionActionOptions,
   SelectionActionsInstance,
-  SelectionActionsTableState,
   RowActionOptions,
   RowActionsInstance,
   TableRowActionsInstance,
@@ -37,7 +36,6 @@ declare module "@tanstack/react-table" {
   interface ColumnMeta<TData, TValue> extends ColumnMetaExtras {}
 
   /* SELECTION TABLE FEATURE */
-  interface TableState extends SelectionActionsTableState {}
   interface TableOptionsResolved<TData extends RowData>
     extends SelectionActionOptions {}
   interface Table<TData extends RowData> extends SelectionActionsInstance {}
@@ -57,6 +55,7 @@ declare module "@tanstack/react-table" {
   interface TableState extends LoadingState {}
   interface TableOptionsResolved<TData extends RowData>
     extends LoadingOptions {}
+
   /* TABLE PLUGGALE COMPONENTS FEATURE */
   interface TableOptionsResolved<TData extends RowData>
     extends PluggableComponentsOptions<TData> {}

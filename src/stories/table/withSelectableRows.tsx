@@ -14,20 +14,15 @@ export const TableWithSelectableRows: Story = {
       const selectionActions = useMemo<SelectionAction[]>(() => {
         return [
           {
-            type: "delete",
-            onAction: (data, table) => {
-              // eslint-disable-next-line no-console
-              console.info("delete", data);
+            name: "delete",
+            onAction: (_, table) => {
               table.resetRowSelection();
             },
           },
           {
-            type: "edit",
+            name: "edit",
             isHidden: (data) => data.length > 1,
-            onAction: (data) => {
-              // eslint-disable-next-line no-console
-              console.log("edit", data);
-            },
+            onAction: () => {},
           },
         ];
       }, []);
@@ -37,6 +32,7 @@ export const TableWithSelectableRows: Story = {
           selectable: true,
           data: context.loaded.data,
           enableSelectionActions: true,
+          selectionActions,
           columns: [
             columnHelper.display({
               id: "selection",
@@ -77,7 +73,6 @@ export const TableWithSelectableRows: Story = {
             columnPinning: {
               left: ["selection"],
             },
-            selectionActions: selectionActions,
           },
         }),
         [context.loaded.data, selectionActions, context.globals.theme],

@@ -1,4 +1,5 @@
 import { Table } from "@tanstack/react-table";
+import { SelectionAction } from "../features";
 
 type SelectedItemsToolbarProps<TData> = {
   table: Table<TData>;
@@ -8,8 +9,18 @@ export function SelectedItemsToolbar<TData>({
   table,
 }: SelectedItemsToolbarProps<TData>) {
   const numOfItemsSelected = Object.keys(table.getState().rowSelection).length;
-
   const actions = table.getSelectionActions();
+
+  const handleAction = (action: SelectionAction) => {
+    action.onAction(table.getSelectedRowModel().rows, table);
+  };
+
+  const isActionHidden = (action: SelectionAction) => {
+    return typeof action.isHidden === "function"
+      ? action.isHidden(table.getSelectedRowModel().rows)
+      : action.isHidden || false;
+  };
+
   return (
     <div className="flex w-full items-center justify-between">
       <span className="dark:text-white-50 font-medium text-black-10">
@@ -19,26 +30,16 @@ export function SelectedItemsToolbar<TData>({
 
       <div className="flex items-center gap-2">
         {actions.map((action) => {
-          const isActionHidden =
-            typeof action.isHidden === "function"
-              ? action.isHidden(table.getSelectedRowModel().rows)
-              : action.isHidden || false;
-
           return (
             <button
-              key={action.type}
+              key={action.name}
               className="rounded bg-transparent py-1 capitalize text-white"
               style={{
-                display: isActionHidden ? "none" : "inherit",
+                display: isActionHidden(action) ? "none" : "inherit",
               }}
-              onClick={() =>
-                table.onSelectionAction(
-                  action,
-                  table.getSelectedRowModel().rows,
-                )
-              }
+              onClick={() => handleAction(action)}
             >
-              {action.type}
+              {action.name}
             </button>
           );
         })}
