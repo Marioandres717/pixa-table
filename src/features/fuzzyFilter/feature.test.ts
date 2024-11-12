@@ -1,8 +1,5 @@
-import { describe, it } from "vitest";
 import { fuzzyFilter } from "./feature";
-import { renderHook } from "@testing-library/react";
 import { usePixaTable } from "../../hooks";
-import { fn } from "@storybook/test";
 
 describe("fuzzyFilter feature", () => {
   const {

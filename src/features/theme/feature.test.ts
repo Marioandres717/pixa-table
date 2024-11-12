@@ -1,6 +1,3 @@
-import { describe, it } from "vitest";
-import { fn } from "@storybook/test";
-import { renderHook } from "@testing-library/react";
 import { usePixaTable } from "../../hooks";
 
 describe("theme feature", () => {

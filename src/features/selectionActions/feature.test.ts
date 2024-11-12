@@ -1,7 +1,4 @@
-import { renderHook } from "@testing-library/react";
 import { usePixaTable } from "../../hooks";
-import { describe, it } from "vitest";
-import { fn } from "@storybook/test";
 
 describe("selection actions feature", () => {
   const {
