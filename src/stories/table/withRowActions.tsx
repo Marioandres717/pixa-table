@@ -13,7 +13,7 @@ export const TableWithRowActions: Story = {
       const rowActions = useMemo<RowAction[]>(() => {
         return [
           {
-            type: "delete",
+            name: "delete",
             Component: ({ row, onClick }) => (
               <span onClick={() => onClick(row)}>Delete</span>
             ),
@@ -23,7 +23,7 @@ export const TableWithRowActions: Story = {
             },
           },
           {
-            type: "edit",
+            name: "edit",
             // isHidden: (data) => true,
             onAction: (data) => {
               // eslint-disable-next-line no-console
@@ -34,7 +34,7 @@ export const TableWithRowActions: Story = {
             ),
           },
           {
-            type: "clone",
+            name: "clone",
             onAction: (data) => {
               // eslint-disable-next-line no-console
               console.log(data);
@@ -49,7 +49,6 @@ export const TableWithRowActions: Story = {
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           theme: context.globals.theme,
-          selectable: false,
           data: context.loaded.data,
           enableRowActions: true,
           columns: MockDataColumnDefs,
