@@ -14,6 +14,8 @@ export const LayoutFeature: TableFeature<RowData> = {
         expandableRowHeight: 100,
         enableVirtualization: true,
         showViewOptions: false,
+        scrollableContainerRef: null,
+        scrollMargin: 0,
       },
     };
   },
@@ -30,6 +32,8 @@ export const LayoutFeature: TableFeature<RowData> = {
       expandableRowHeight: table.getExpandableRowHeight(),
       enableVirtualization: table.getEnableVirtualization(),
       showViewOptions: table.getShowViewOptions(),
+      scrollableContainerRef: table.getScrollableContainerRef(),
+      scrollMargin: table.getScrollMargin(),
     });
 
     table.getShowFooter = () =>
@@ -72,5 +76,13 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.showViewOptions === "undefined"
         ? false
         : table.options.layout.showViewOptions;
+    table.getScrollableContainerRef = () =>
+      typeof table.options.layout.scrollableContainerRef === "undefined"
+        ? null
+        : table.options.layout.scrollableContainerRef;
+    table.getScrollMargin = () =>
+      typeof table.options.layout.scrollMargin === "undefined"
+        ? 0
+        : table.options.layout.scrollMargin;
   },
 };

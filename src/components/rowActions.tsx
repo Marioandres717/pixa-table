@@ -29,12 +29,9 @@ export default function RowActions<TData>({
         .filter(({ isHidden }) =>
           typeof isHidden === "function" ? !isHidden(row) : !isHidden,
         )
-        .map(
-          ({ Component, onAction }, i) =>
-            Component && (
-              <Component key={i} row={row} onClick={() => onAction(row)} />
-            ),
-        )}
+        .map(({ Component, onAction, name }) => (
+          <Component key={name} row={row} onClick={() => onAction(row)} />
+        ))}
     </div>
   );
 }

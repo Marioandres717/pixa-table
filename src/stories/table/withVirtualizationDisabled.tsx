@@ -38,7 +38,7 @@ export const TableWithVirtualizationDisabled: Story = {
             {
               Component: () => <button>Click me</button>,
               onAction: () => {},
-              type: "primary",
+              name: "primary",
             },
           ],
           layout: {

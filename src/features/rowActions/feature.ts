@@ -8,17 +8,7 @@ export const RowActionsFeature: TableFeature<RowData> = {
     };
   },
 
-  createTable(table) {
-    table.getRowActions = () =>
-      table.options.enableRowActions ? table.options.rowActions : [];
-
-    table.onRowAction = (action, data) => {
-      action.onAction(data);
-    };
-  },
-
   createRow(row, table) {
-    row.getRowActions = () => table.getRowActions();
-    row.onRowAction = (action) => table.onRowAction(action, row);
+    row.getRowActions = () => table.options.rowActions;
   },
 };

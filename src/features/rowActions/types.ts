@@ -4,7 +4,7 @@ import { Row } from "@tanstack/react-table";
 type RowData = any;
 
 export type RowAction = {
-  type: string;
+  name: string;
   onAction: (row: Row<RowData>) => void;
   isHidden?: boolean | ((Row: Row<RowData>) => boolean);
   Component: React.ComponentType<{
@@ -18,12 +18,6 @@ export interface RowActionOptions {
   rowActions: RowAction[];
 }
 
-export interface RowActionsInstance {
-  getRowActions: () => RowAction[];
-  onRowAction: (action: RowAction, data: Row<RowData>) => void;
-}
-
 export interface TableRowActionsInstance {
   getRowActions: () => RowAction[];
-  onRowAction: (action: RowAction) => void;
 }

@@ -26,7 +26,7 @@ export default function ColumnSettings<TData>({
       {show && (
         <TableSettings
           table={table}
-          className="absolute left-0 top-0 z-20 -translate-x-64"
+          className="absolute left-0 top-0 z-50 -translate-x-64"
         />
       )}
     </>

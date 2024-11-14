@@ -4,9 +4,12 @@ export const PluggableComponentsFeature: TableFeature<RowData> = {
   createTable(table) {
     table.getPluggableComponents = () =>
       table.options.pluggableComponents || {};
+
     table.getPageSizeComponent = () => table.getPluggableComponents().PageSize;
+
     table.getPaginationComponent = () =>
       table.getPluggableComponents().Pagination;
+
     table.getViewOptionsComponent = () =>
       table.getPluggableComponents().ViewOptions;
   },
