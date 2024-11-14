@@ -25,14 +25,18 @@ export function TableLayout<TData>({ table }: Props<TData>) {
     showPagination,
     enableVirtualization,
     maxHeight,
+    scrollableContainerRef,
   } = table.getLayout();
-
+  const PaginationComponent = table.getPaginationComponent() || Pagination;
   const handleResize = useCallback(
     () => setTriggerRerender((prev) => prev + 1),
     [],
   );
-  useResizeObserver(parentRef, handleResize);
-  const PaginationComponent = table.getPaginationComponent() || Pagination;
+  const scrollableRef = scrollableContainerRef
+    ? scrollableContainerRef
+    : parentRef;
+
+  useResizeObserver(scrollableRef, handleResize);
 
   return (
     <div
@@ -69,18 +73,18 @@ export function TableLayout<TData>({ table }: Props<TData>) {
           "col-start-1": showSidebar,
           "row-start-1": !showHeader,
         })}
-        ref={parentRef}
+        ref={!scrollableContainerRef ? parentRef : undefined}
         style={{
           maxHeight: `calc(${maxHeight}px - ${showFooter && showHeader ? 88 : 46}px - 2px)`, // 2x for border
         }}
       >
         {showHeader && enableVirtualization && (
-          <VirtualizedTableHeader table={table} parentRef={parentRef} />
+          <VirtualizedTableHeader table={table} parentRef={scrollableRef} />
         )}
         {showHeader && !enableVirtualization && <TableHeader table={table} />}
 
         {enableVirtualization && (
-          <VirtualizedTableBody table={table} parentRef={parentRef} />
+          <VirtualizedTableBody table={table} parentRef={scrollableRef} />
         )}
 
         {!enableVirtualization && <TableBody table={table} />}

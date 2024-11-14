@@ -9,6 +9,8 @@ export type Layout = {
   expandableRowHeight?: number;
   enableVirtualization?: boolean;
   showViewOptions?: boolean;
+  scrollableContainerRef?: React.RefObject<HTMLDivElement> | null;
+  scrollMargin?: number;
 };
 
 export interface LayoutOptions {
@@ -27,4 +29,6 @@ export interface LayoutInstance {
   getExpandableRowHeight(): number;
   getEnableVirtualization(): boolean;
   getShowViewOptions(): boolean;
+  getScrollableContainerRef(): React.RefObject<HTMLDivElement> | null;
+  getScrollMargin(): number;
 }

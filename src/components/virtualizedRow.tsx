@@ -44,6 +44,7 @@ export function VirtualizedRow<TData>({
       rowWidth={rowWidth}
       table={table}
       colVirtualizer={colVirtualizer}
+      rowVirtualizer={rowVirtualizer}
       cols={cols}
     />
   );

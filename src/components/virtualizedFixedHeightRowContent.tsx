@@ -13,15 +13,17 @@ type Props<TData> = {
   rowWidth: number;
   table: Table<TData>;
   colVirtualizer: Virtualizer<HTMLDivElement, Element>;
+  rowVirtualizer: Virtualizer<HTMLDivElement, Element>;
 };
 
 export function VirtualizedFixedHeightRow<TData>({
+  cols,
   row,
   viRow,
   rowWidth,
   table,
   colVirtualizer,
-  cols,
+  rowVirtualizer,
 }: Props<TData>) {
   const { left, right } = useMemo(() => getPinnedCols(cols), [cols]);
   const rowActions = row.getRowActions();
@@ -45,7 +47,7 @@ export function VirtualizedFixedHeightRow<TData>({
       style={{
         height: `${viRow.size}px`,
         width: `${rowWidth}px`,
-        transform: `translate3d(0, ${viRow.start}px, 0)`,
+        transform: `translate3d(0, ${viRow.start - rowVirtualizer.options.scrollMargin}px, 0)`,
       }}
     >
       <div className="flex bg-inherit">

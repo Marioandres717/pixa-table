@@ -12,16 +12,22 @@ describe("layout feature", () => {
 
   it("should have default layout options", ({ expect }) => {
     const layout = config.getLayout();
-    expect(layout.showFooter).toBe(true);
-    expect(layout.showHeader).toBe(true);
-    expect(layout.showSidebar).toBe(false);
-    expect(layout.maxHeight).toBe("fluid");
-    expect(layout.showPagination).toBe("bottom");
-    expect(layout.showTotalResults).toBe(true);
-    expect(layout.rowHeight).toBe(36);
-    expect(layout.expandableRowHeight).toBe(100);
-    expect(layout.enableVirtualization).toBe(true);
-    expect(layout.showViewOptions).toBe(false);
+    expect(layout).toMatchInlineSnapshot(`
+      {
+        "enableVirtualization": true,
+        "expandableRowHeight": 100,
+        "maxHeight": "fluid",
+        "rowHeight": 36,
+        "scrollMargin": 0,
+        "scrollableContainerRef": null,
+        "showFooter": true,
+        "showHeader": true,
+        "showPagination": "bottom",
+        "showSidebar": false,
+        "showTotalResults": true,
+        "showViewOptions": false,
+      }
+    `);
   });
 
   it("should allow overriding layout options", ({ expect }) => {
@@ -35,18 +41,28 @@ describe("layout feature", () => {
     config.options.layout.expandableRowHeight = 200;
     config.options.layout.enableVirtualization = false;
     config.options.layout.showViewOptions = true;
-
+    config.options.layout.scrollableContainerRef = {
+      current: document.createElement("div"),
+    };
     const layout = config.getLayout();
-    expect(layout.showFooter).toBe(false);
-    expect(layout.rowHeight).toBe(50);
-    expect(layout.showHeader).toBe(false);
-    expect(layout.showSidebar).toBe(true);
-    expect(layout.maxHeight).toBe(333);
-    expect(layout.showPagination).toBe("both");
-    expect(layout.showTotalResults).toBe(false);
-    expect(layout.expandableRowHeight).toBe(200);
-    expect(layout.enableVirtualization).toBe(false);
-    expect(layout.showViewOptions).toBe(true);
+    expect(layout).toMatchInlineSnapshot(`
+      {
+        "enableVirtualization": false,
+        "expandableRowHeight": 200,
+        "maxHeight": 333,
+        "rowHeight": 50,
+        "scrollMargin": 0,
+        "scrollableContainerRef": {
+          "current": <div />,
+        },
+        "showFooter": false,
+        "showHeader": false,
+        "showPagination": "both",
+        "showSidebar": true,
+        "showTotalResults": false,
+        "showViewOptions": true,
+      }
+    `);
   });
 
   it("get default values if set to undefined", ({ expect }) => {
@@ -60,17 +76,24 @@ describe("layout feature", () => {
     config.options.layout.expandableRowHeight = undefined;
     config.options.layout.enableVirtualization = undefined;
     config.options.layout.showViewOptions = undefined;
+    config.options.layout.scrollableContainerRef = undefined;
 
     const layout = config.getLayout();
-    expect(layout.showFooter).toBe(true);
-    expect(layout.rowHeight).toBe(36);
-    expect(layout.showHeader).toBe(true);
-    expect(layout.showSidebar).toBe(false);
-    expect(layout.maxHeight).toBe("fluid");
-    expect(layout.showPagination).toBe("bottom");
-    expect(layout.showTotalResults).toBe(true);
-    expect(layout.expandableRowHeight).toBe(100);
-    expect(layout.enableVirtualization).toBe(true);
-    expect(layout.showViewOptions).toBe(false);
+    expect(layout).toMatchInlineSnapshot(`
+      {
+        "enableVirtualization": true,
+        "expandableRowHeight": 100,
+        "maxHeight": "fluid",
+        "rowHeight": 36,
+        "scrollMargin": 0,
+        "scrollableContainerRef": null,
+        "showFooter": true,
+        "showHeader": true,
+        "showPagination": "bottom",
+        "showSidebar": false,
+        "showTotalResults": true,
+        "showViewOptions": false,
+      }
+    `);
   });
 });
