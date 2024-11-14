@@ -39,7 +39,7 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
         <Icon icon="settings" size={16} className="dark:fill-white" />
       </div>
       {toggleSettings && (
-        <TableSettings table={table} className="absolute right-0 top-7 z-20" />
+        <TableSettings table={table} className="absolute right-0 top-7 z-50" />
       )}
     </div>
   );
