@@ -44,7 +44,7 @@ export function TableLayout<TData>({ table }: Props<TData>) {
       data-testid="pixa-table"
       style={{ maxHeight }}
       className={clsx(
-        "h-full min-h-40 w-full overflow-x-clip overflow-y-visible rounded-[4px] border border-solid border-black-20 bg-white font-sans text-table-base text-black-100 dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
+        "min-h-40 w-full overflow-x-clip overflow-y-visible rounded-[4px] border border-solid border-black-20 bg-white font-sans text-table-base text-black-100 dark:border-black-92.5 dark:bg-black-100 dark:text-black-10",
         calculateGridTemplate({
           showFooter,
           showHeader,
