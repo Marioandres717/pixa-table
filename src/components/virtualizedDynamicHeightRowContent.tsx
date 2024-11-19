@@ -43,7 +43,7 @@ export function VirtualizedDynamicHeightRow<TData>({
       )}
       style={{
         width: `${rowWidth}px`,
-        transform: `translate3d(0, ${viRow.start}px, 0)`,
+        transform: `translate3d(0, ${viRow.start - rowVirtualizer.options.scrollMargin}px, 0)`,
       }}
     >
       <div
