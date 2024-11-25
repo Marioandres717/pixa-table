@@ -11,7 +11,7 @@ export const TableWithCustomLayout: Story = {
     showFooter: false,
     showSidebar: true,
     maxHeight: 400,
-    showPagination: false,
+    showPagination: "both",
     showTotalResults: false,
     showTitle: "My Table",
   },
@@ -38,8 +38,7 @@ export const TableWithCustomLayout: Story = {
     },
     showPagination: {
       control: {
-        type: "check",
-        options: ["top", "bottom", "both", "none"],
+        type: "text",
       },
     },
     showTotalResults: {

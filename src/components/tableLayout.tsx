@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { Table } from "@tanstack/react-table";
 import { calculateGridTemplate } from "../utils";
 import { TableHeader } from "./tableHeader";
-import { Pagination } from "./pagination";
 import { TableToolbar } from "./tableToolbar";
 import { TableSidebar } from "./tableSidebar";
 import { VirtualizedTableHeader } from "./virtualizedTableHeader";
@@ -11,6 +10,7 @@ import { VirtualizedTableBody } from "./virtualizedTableBody";
 import { TableBody } from "./tableBody";
 import { useResizeObserver } from "../hooks";
 import { TableTitle } from "./tableTitle";
+import { TableFooter } from "./tableFooter";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -23,13 +23,12 @@ export function TableLayout<TData>({ table }: Props<TData>) {
     showFooter,
     showHeader,
     showSidebar,
-    showPagination,
     showTitle,
     enableVirtualization,
     maxHeight,
     scrollableContainerRef,
   } = table.getLayout();
-  const PaginationComponent = table.getPaginationComponent() || Pagination;
+
   const handleResize = useCallback(
     () => setTriggerRerender((prev) => prev + 1),
     [],
@@ -95,13 +94,8 @@ export function TableLayout<TData>({ table }: Props<TData>) {
 
         {!enableVirtualization && <TableBody table={table} />}
       </div>
-      {showFooter && (
-        <div className="col-span-full flex h-11 items-center justify-end border-t border-black-20 bg-black-10 px-3 py-2 dark:border-black-92.5 dark:bg-black-100">
-          {(showPagination === "bottom" || showPagination === "both") && (
-            <PaginationComponent table={table} />
-          )}
-        </div>
-      )}
+
+      {showFooter && <TableFooter table={table} className="col-span-full" />}
     </div>
   );
 }
