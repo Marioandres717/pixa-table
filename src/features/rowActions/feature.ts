@@ -9,6 +9,7 @@ export const RowActionsFeature: TableFeature<RowData> = {
   },
 
   createRow(row, table) {
-    row.getRowActions = () => table.options.rowActions;
+    row.getRowActions = () =>
+      table.options.enableRowActions ? table.options.rowActions : [];
   },
 };
