@@ -1,5 +1,6 @@
 import { Cell, Column, Header, Row, RowData } from "@tanstack/react-table";
 import { Range } from "@tanstack/react-virtual";
+import { Layout } from "../features";
 
 export type PinnedCols<TData> = {
   left: Column<TData, RowData>[];
@@ -60,28 +61,69 @@ function getExpandedRowsIndexes<TData>(rows: Row<TData>[]): number[] {
     .map((row) => rows.findIndex((r) => r.id === row.id));
 }
 
-export function calculateGridTemplate(options?: {
-  showHeader?: boolean;
-  showFooter?: boolean;
-  showSidebar?: boolean;
-}) {
+export function calculateGridTemplate(options?: Layout) {
   if (
     !options ||
-    (options.showHeader && options.showFooter && !options.showSidebar)
+    (options.showHeader &&
+      options.showFooter &&
+      !options.showSidebar &&
+      !options.showTitle)
   ) {
     return "grid grid-cols-[1fr] grid-rows-[44px_minMax(44px,auto)_44px]";
   }
 
-  if (options.showHeader && options.showFooter && options.showSidebar) {
+  if (
+    options.showHeader &&
+    options.showFooter &&
+    options.showSidebar &&
+    !options.showTitle
+  ) {
     return "grid  grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)_44px]";
   }
 
-  if (options.showHeader && !options.showFooter && !options.showSidebar) {
+  if (
+    options.showHeader &&
+    !options.showFooter &&
+    !options.showSidebar &&
+    !options.showTitle
+  ) {
     return "grid grid-cols-[1fr] grid-rows-[44px_minMax(44px,auto)]";
   }
 
-  if (options.showHeader && !options.showFooter && options.showSidebar) {
+  if (
+    options.showHeader &&
+    !options.showFooter &&
+    options.showSidebar &&
+    !options.showTitle
+  ) {
     return "grid grid-cols-[1fr,32px] grid-rows-[44px_minMax(44px,auto)]";
+  }
+
+  if (
+    options.showHeader &&
+    options.showFooter &&
+    !options.showSidebar &&
+    options.showTitle
+  ) {
+    return "grid grid-cols-[1fr] grid-rows-[44px_44px_minMax(44px,auto)_44px]";
+  }
+
+  if (
+    options.showHeader &&
+    options.showFooter &&
+    options.showSidebar &&
+    options.showTitle
+  ) {
+    return "grid grid-cols-[1fr,32px] grid-rows-[44px_44px_minMax(44px,auto)_44px]";
+  }
+
+  if (
+    options.showHeader &&
+    !options.showFooter &&
+    options.showSidebar &&
+    options.showTitle
+  ) {
+    return "grid grid-cols-[1fr,32px] grid-rows-[44px_44px_minMax(44px,auto)]";
   }
 
   if (!options.showHeader && options.showFooter && !options.showSidebar) {

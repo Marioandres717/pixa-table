@@ -11,6 +11,7 @@ export type Layout = {
   showViewOptions?: boolean;
   scrollableContainerRef?: React.RefObject<HTMLDivElement> | null;
   scrollMargin?: number;
+  showTitle?: boolean | string;
 };
 
 export interface LayoutOptions {
@@ -31,4 +32,5 @@ export interface LayoutInstance {
   getShowViewOptions(): boolean;
   getScrollableContainerRef(): React.RefObject<HTMLDivElement> | null;
   getScrollMargin(): number;
+  getShowTitle(): boolean | string;
 }

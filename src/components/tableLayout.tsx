@@ -10,6 +10,7 @@ import { VirtualizedTableHeader } from "./virtualizedTableHeader";
 import { VirtualizedTableBody } from "./virtualizedTableBody";
 import { TableBody } from "./tableBody";
 import { useResizeObserver } from "../hooks";
+import { TableTitle } from "./tableTitle";
 
 type Props<TData> = {
   table: Table<TData>;
@@ -23,6 +24,7 @@ export function TableLayout<TData>({ table }: Props<TData>) {
     showHeader,
     showSidebar,
     showPagination,
+    showTitle,
     enableVirtualization,
     maxHeight,
     scrollableContainerRef,
@@ -49,9 +51,13 @@ export function TableLayout<TData>({ table }: Props<TData>) {
           showFooter,
           showHeader,
           showSidebar,
+          showTitle,
         }),
       )}
     >
+      {showHeader && showTitle && (
+        <TableTitle table={table} className="col-span-full row-start-1" />
+      )}
       {showHeader && (
         <TableToolbar
           className="col-span-full col-start-1 row-start-1"

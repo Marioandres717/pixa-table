@@ -85,5 +85,14 @@ describe("gridGenerator utility file", () => {
     ).toMatchInlineSnapshot(
       `"grid grid-cols-[1fr] grid-rows-[44px_minMax(44px,auto)_44px]"`,
     );
+
+    expect(
+      calculateGridTemplate({
+        showFooter: true,
+        showHeader: true,
+        showSidebar: true,
+        showTitle: true,
+      }),
+    ).toMatchInlineSnapshot(`"grid grid-cols-[1fr,32px] grid-rows-[44px_44px_minMax(44px,auto)_44px]"`);
   });
 });

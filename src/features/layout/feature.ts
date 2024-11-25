@@ -16,6 +16,7 @@ export const LayoutFeature: TableFeature<RowData> = {
         showViewOptions: false,
         scrollableContainerRef: null,
         scrollMargin: 0,
+        showTitle: false,
       },
     };
   },
@@ -34,6 +35,7 @@ export const LayoutFeature: TableFeature<RowData> = {
       showViewOptions: table.getShowViewOptions(),
       scrollableContainerRef: table.getScrollableContainerRef(),
       scrollMargin: table.getScrollMargin(),
+      showTitle: table.getShowTitle(),
     });
 
     table.getShowFooter = () =>
@@ -84,5 +86,9 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.scrollMargin === "undefined"
         ? 0
         : table.options.layout.scrollMargin;
+    table.getShowTitle = () =>
+      typeof table.options.layout.showTitle === "undefined"
+        ? false
+        : table.options.layout.showTitle;
   },
 };

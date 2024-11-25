@@ -13,6 +13,7 @@ export const TableWithCustomLayout: Story = {
     maxHeight: 400,
     showPagination: false,
     showTotalResults: false,
+    showTitle: "My Table",
   },
   argTypes: {
     showHeader: {
@@ -46,6 +47,11 @@ export const TableWithCustomLayout: Story = {
         type: "boolean",
       },
     },
+    showTitle: {
+      control: {
+        type: "text",
+      },
+    },
   },
   decorators: [
     (Story, context) => {
@@ -62,6 +68,7 @@ export const TableWithCustomLayout: Story = {
             maxHeight: args.maxHeight,
             showPagination: args.showPagination,
             showTotalResults: args.showTotalResults,
+            showTitle: args.showTitle,
             rowHeight: 64,
           },
         }),

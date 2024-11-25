@@ -34,3 +34,4 @@ export * from "./tableHeader";
 export * from "./tableLayout";
 export * from "./virtualizedDynamicHeightRowContent";
 export * from "./virtualizedFixedHeightRowContent";
+export * from "./tableTitle";
