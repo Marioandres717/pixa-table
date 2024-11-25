@@ -9,6 +9,9 @@ export const SelectionActionsFeature: TableFeature<RowData> = {
   },
 
   createTable(table) {
-    table.getSelectionActions = () => table.options.selectionActions;
+    table.getSelectionActions = () =>
+      table.options.enableSelectionActions
+        ? table.options.selectionActions
+        : [];
   },
 };
