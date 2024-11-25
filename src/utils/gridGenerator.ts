@@ -242,3 +242,14 @@ export function calculateRowWidth<TData>(
   }
   return rowWidth;
 }
+
+export function calculateTableBodyHeight(layout: Layout) {
+  const { showHeader, showFooter, showTitle, maxHeight } = layout;
+  if (!maxHeight || maxHeight === "fluid") return "auto";
+  let height = maxHeight;
+  if (showHeader) height -= 44;
+  if (showTitle && showHeader) height -= 44;
+  if (showFooter) height -= 44;
+
+  return `calc(${height}px - 2px)`; // 2x for border
+}
