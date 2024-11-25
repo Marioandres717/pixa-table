@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     "@storybook/addon-themes",
     "@storybook/addon-mdx-gfm",
     "@storybook/addon-coverage",
+    "@chromatic-com/storybook"
   ],
 
   framework: {
