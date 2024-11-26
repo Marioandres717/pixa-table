@@ -11,8 +11,9 @@ export const TableWithCustomLayout: Story = {
     showFooter: false,
     showSidebar: true,
     maxHeight: 400,
-    showPagination: false,
+    showPagination: "both",
     showTotalResults: false,
+    showTitle: "My Table",
   },
   argTypes: {
     showHeader: {
@@ -37,13 +38,17 @@ export const TableWithCustomLayout: Story = {
     },
     showPagination: {
       control: {
-        type: "check",
-        options: ["top", "bottom", "both", "none"],
+        type: "text",
       },
     },
     showTotalResults: {
       control: {
         type: "boolean",
+      },
+    },
+    showTitle: {
+      control: {
+        type: "text",
       },
     },
   },
@@ -62,6 +67,7 @@ export const TableWithCustomLayout: Story = {
             maxHeight: args.maxHeight,
             showPagination: args.showPagination,
             showTotalResults: args.showTotalResults,
+            showTitle: args.showTitle,
             rowHeight: 64,
           },
         }),

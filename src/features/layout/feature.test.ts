@@ -24,6 +24,7 @@ describe("layout feature", () => {
         "showHeader": true,
         "showPagination": "bottom",
         "showSidebar": false,
+        "showTitle": false,
         "showTotalResults": true,
         "showViewOptions": false,
       }
@@ -44,6 +45,8 @@ describe("layout feature", () => {
     config.options.layout.scrollableContainerRef = {
       current: document.createElement("div"),
     };
+    config.options.layout.scrollMargin = 20;
+    config.options.layout.showTitle = "My Table";
     const layout = config.getLayout();
     expect(layout).toMatchInlineSnapshot(`
       {
@@ -51,7 +54,7 @@ describe("layout feature", () => {
         "expandableRowHeight": 200,
         "maxHeight": 333,
         "rowHeight": 50,
-        "scrollMargin": 0,
+        "scrollMargin": 20,
         "scrollableContainerRef": {
           "current": <div />,
         },
@@ -59,6 +62,7 @@ describe("layout feature", () => {
         "showHeader": false,
         "showPagination": "both",
         "showSidebar": true,
+        "showTitle": "My Table",
         "showTotalResults": false,
         "showViewOptions": true,
       }
@@ -85,15 +89,25 @@ describe("layout feature", () => {
         "expandableRowHeight": 100,
         "maxHeight": "fluid",
         "rowHeight": 36,
-        "scrollMargin": 0,
+        "scrollMargin": 20,
         "scrollableContainerRef": null,
         "showFooter": true,
         "showHeader": true,
         "showPagination": "bottom",
         "showSidebar": false,
+        "showTitle": "My Table",
         "showTotalResults": true,
         "showViewOptions": false,
       }
     `);
+  });
+
+  it("should have showTitle as true if table actions are enabled", ({
+    expect,
+  }) => {
+    config.options.enableTableActions = true;
+    config.options.layout.showTitle = false;
+    const layout = config.getLayout();
+    expect(layout.showTitle).toBe(true);
   });
 });
