@@ -101,4 +101,13 @@ describe("layout feature", () => {
       }
     `);
   });
+
+  it("should have showTitle as true if table actions are enabled", ({
+    expect,
+  }) => {
+    config.options.enableTableActions = true;
+    config.options.layout.showTitle = false;
+    const layout = config.getLayout();
+    expect(layout.showTitle).toBe(true);
+  });
 });

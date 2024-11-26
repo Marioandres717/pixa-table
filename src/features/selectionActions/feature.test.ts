@@ -38,9 +38,8 @@ describe("selection actions feature", () => {
   });
 
   it("should be able to get selection actions", ({ expect }) => {
-    const selectionActions = config.getSelectionActions();
     expect(config.options.enableSelectionActions).toBe(true);
-    expect(selectionActions).toEqual(selectionActions);
+    expect(config.getSelectionActions()).toEqual(selectionActions);
   });
 
   it("should return empty row actions if enableRowActions option is disabled", ({

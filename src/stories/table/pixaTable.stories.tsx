@@ -20,6 +20,7 @@ import { TableWithCustomCell } from "./withCustomCell";
 import { TableWithVirtualizationDisabled } from "./withVirtualizationDisabled";
 import { TableWithDynamicRowHeight } from "./withDynamicRowHeight";
 import { TableWithCustomScrollableContainer } from "./withCustomScrollableContainer";
+import { WithTableActions as TableWithActions } from "./withTableActions";
 
 export type Story = StoryObj<typeof PixaTable>;
 export type UsePixaTableOptions = Parameters<typeof usePixaTable<MockData>>[0];
@@ -87,3 +88,4 @@ export const WithSelectableRows = TableWithSelectableRows;
 export const WithVirtualizationDisabled = TableWithVirtualizationDisabled;
 export const WithDynamicRowHeight = TableWithDynamicRowHeight;
 export const WithCustomScrollableContainer = TableWithCustomScrollableContainer;
+export const WithTableActions = TableWithActions;

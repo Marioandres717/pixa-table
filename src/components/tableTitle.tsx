@@ -11,6 +11,7 @@ export function TableTitle<TData>({
   table,
   className,
 }: TableTitleProps<TData>) {
+  const tableActions = table.getTableActions();
   return (
     <div
       className={clsx(
@@ -22,8 +23,18 @@ export function TableTitle<TData>({
         {table.getShowTitle()}
       </div>
 
-      <div className="">
-        <Button onClick={() => console.log("first")}>New</Button>
+      <div className="flex gap-1">
+        {tableActions
+          .filter((action) => !action.isHidden)
+          .map((action) => (
+            <Button
+              key={action.name}
+              className="border border-solid border-blue-100 bg-transparent py-2 !text-blue-100"
+              onClick={() => action.onAction(table)}
+            >
+              {action.name}
+            </Button>
+          ))}
       </div>
     </div>
   );

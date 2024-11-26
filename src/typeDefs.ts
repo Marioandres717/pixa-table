@@ -20,6 +20,10 @@ import {
   LayoutOptions,
   LayoutInstance,
 } from "./features";
+import {
+  TableActionOptions,
+  TableActionsInstance,
+} from "./features/tableActions/types";
 
 type ColumnMetaExtras = {
   headerClassName?: string;
@@ -70,4 +74,9 @@ declare module "@tanstack/react-table" {
 
   /* COLUMN GROW */
   interface ColumnSizingColumnDef extends ColumnSizingColumnDefWithGrow {}
+
+  /* TABLE ACTIONS FEATURE */
+  interface TableOptionsResolved<TData extends RowData>
+    extends TableActionOptions<TData> {}
+  interface Table<TData extends RowData> extends TableActionsInstance<TData> {}
 }

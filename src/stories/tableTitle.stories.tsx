@@ -14,6 +14,15 @@ const meta: Meta<typeof TableTitle<MockData>> = {
         columns: [],
         data: [],
         theme: context.globals.theme,
+        enableTableActions: true,
+        tableActions: [
+          {
+            name: "action 1",
+            onAction: (table) => {
+              alert(table.getTableActions()[0].name);
+            },
+          },
+        ],
         layout: {
           showTitle: "My Table",
         },

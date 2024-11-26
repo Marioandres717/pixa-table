@@ -86,9 +86,13 @@ export const LayoutFeature: TableFeature<RowData> = {
       typeof table.options.layout.scrollMargin === "undefined"
         ? 0
         : table.options.layout.scrollMargin;
-    table.getShowTitle = () =>
-      typeof table.options.layout.showTitle === "undefined"
-        ? false
-        : table.options.layout.showTitle;
+    table.getShowTitle = () => {
+      if (table.options.enableTableActions) return true;
+      if (typeof table.options.layout.showTitle === "undefined") {
+        return false;
+      } else {
+        return table.options.layout.showTitle;
+      }
+    };
   },
 };
