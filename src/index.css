@@ -14,7 +14,7 @@
 
 @layer utilities {
   input[type="checkbox"]:not(:checked) {
-    @apply dark:bg-[#132531];
+    @apply dark:!bg-[#132531];
   }
 
   .pxt-row {
