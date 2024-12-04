@@ -108,6 +108,7 @@ export function VirtualizedColumnOrdering<T>({ table }: Props<T>) {
                   key={c.key.toString()}
                   column={{ ...col, ...c }}
                   setDraggedItem={setdraggedItem}
+                  table={table}
                 />
               );
             })}

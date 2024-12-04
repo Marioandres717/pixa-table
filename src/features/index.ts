@@ -11,3 +11,7 @@ export * from "./pluggableComponents/types";
 export * from "./pluggableComponents/feature";
 export * from "./layout/types";
 export * from "./layout/feature";
+export * from "./tableActions/types";
+export * from "./tableActions/feature";
+export * from "./columnOrdering/type";
+export * from "./columnOrdering/feature";
