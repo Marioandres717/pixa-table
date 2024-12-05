@@ -24,6 +24,7 @@ import {
   TableActionOptions,
   TableActionsInstance,
 } from "./features/tableActions/types";
+import { ColumnOrderingExtended } from "./features/columnOrdering/type";
 
 type ColumnMetaExtras = {
   headerClassName?: string;
@@ -79,4 +80,8 @@ declare module "@tanstack/react-table" {
   interface TableOptionsResolved<TData extends RowData>
     extends TableActionOptions<TData> {}
   interface Table<TData extends RowData> extends TableActionsInstance<TData> {}
+
+  /* COLUMN ORDERING FEATURE */
+  interface TableOptionsResolved<TData extends RowData>
+    extends ColumnOrderingExtended {}
 }

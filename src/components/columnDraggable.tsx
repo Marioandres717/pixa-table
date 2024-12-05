@@ -1,5 +1,5 @@
 import { useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { Column } from "@tanstack/react-table";
+import { Column, Table } from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
 import clsx from "clsx";
 import { IndeterminateCheckbox } from "./checkbox";
@@ -8,11 +8,13 @@ import { Icon } from "./icon";
 type DraggableColumnProps<TData> = {
   column: Column<TData> & VirtualItem;
   setDraggedItem: (item: (Column<TData> & VirtualItem) | null) => void;
+  table: Table<TData>;
 };
 
 export function DraggableColumn<T>({
   column,
   setDraggedItem,
+  table,
 }: DraggableColumnProps<T>) {
   const {
     getCanHide,
@@ -31,6 +33,7 @@ export function DraggableColumn<T>({
     useSortable({
       id: column.id,
       strategy: verticalListSortingStrategy,
+      disabled: !table.options.enableColumnOrdering,
     });
 
   const styles = transform
@@ -52,10 +55,12 @@ export function DraggableColumn<T>({
       data-index={index}
       ref={setNodeRef}
       className={clsx(
-        "absolute flex w-[204px] cursor-move items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
+        "absolute flex w-[204px] items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
         {
           "bg-white dark:bg-black-92.5": getIsVisible(),
           "bg-white dark:bg-black-95": !getIsVisible(),
+          "cursor-move": table.options.enableColumnOrdering,
+          "cursor-not-allowed": !table.options.enableColumnOrdering,
         },
       )}
       style={styles}
@@ -70,6 +75,10 @@ export function DraggableColumn<T>({
             disabled: !getCanHide(),
             checked: getIsVisible(),
             onChange: getToggleVisibilityHandler(),
+            className: clsx({
+              "cursor-pointer": table.options.enableHiding,
+              "cursor-not-allowed": !table.options.enableHiding,
+            }),
           }}
         />
         <span

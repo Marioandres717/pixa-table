@@ -30,18 +30,14 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
 
   return (
     <div className="flex w-full items-center justify-between gap-6">
-      <div className="h-6 flex-1">
-        <>
-          {showPagination && (
-            <PageSizeComponent
-              table={table}
-              className={
-                "display-[inline-block] h-6 text-table-base leading-[1.2]"
-              }
-            />
-          )}
-        </>
-        <>{showViewOptions && <ViewOptionsComponent table={table} />}</>
+      <div className="flex h-6 flex-1 items-center gap-2.5">
+        {showPagination && (
+          <PageSizeComponent
+            table={table}
+            className="inline-block h-6 text-table-base leading-[1.2]"
+          />
+        )}
+        {showViewOptions && <ViewOptionsComponent table={table} />}
       </div>
 
       {showTotalResults && <PageResults table={table} />}

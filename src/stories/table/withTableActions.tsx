@@ -38,6 +38,8 @@ export const WithTableActions: Story = {
           tableActions: tableActions,
           data: context.loaded.data,
           columns: MockDataColumnDefs,
+          enableColumnOrdering: false,
+          enableHiding: false,
         }),
         [context.loaded.data, tableActions, context.globals.theme],
       );
