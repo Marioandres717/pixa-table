@@ -31,7 +31,7 @@ export const TableWithCustomScrollableContainer: Story = {
           },
           initialState: {
             pagination: {
-              pageSize: 1000,
+              pageSize: 250,
             },
           },
         }),
