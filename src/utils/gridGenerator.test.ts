@@ -1,18 +1,11 @@
 // sum.test.js
 import { describe, it } from "vitest";
 import {
-  calculateHeightOfCells,
   calculateGridTemplate,
   calculateTableBodyHeight,
 } from "./gridGenerator";
 
 describe("gridGenerator utility file", () => {
-  it("should return the correct height of cells, by subtracting 1px for the border", ({
-    expect,
-  }) => {
-    expect(calculateHeightOfCells(36)).toBe("calc(36px - 1px)");
-  });
-
   it("should match grid template layout", ({ expect }) => {
     expect(
       calculateGridTemplate({

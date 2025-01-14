@@ -18,7 +18,11 @@
   }
 
   .pxt-row {
-    @apply flex flex-col border-b border-black-20 bg-white hover:bg-black-10 dark:border-black-92.5 dark:bg-black-100 dark:hover:bg-black-90;
+    @apply flex min-w-full flex-col bg-white hover:bg-black-10 dark:bg-black-100 dark:hover:bg-black-90;
+  }
+
+  .pxt-row-border-b {
+    @apply border-b border-black-20 dark:border-black-92.5;
   }
 
   .pxt-row-expanded {
@@ -27,5 +31,9 @@
 
   .pxt-row-selected {
     @apply !bg-blue-30 dark:!bg-[#173344];
+  }
+
+  .pxt-pinned-cell {
+    @apply bg-white group-hover:bg-black-10 dark:bg-black-100 dark:group-hover:bg-black-90;
   }
 }

@@ -37,7 +37,7 @@ export function VirtualizedDynamicHeightRow<TData>({
       data-index={viRow.index}
       ref={measureRow}
       className={clsx(
-        "pxt-row group absolute left-0 top-0",
+        "pxt-row pxt-row-border-b group absolute left-0 top-0",
         { "pxt-row-expanded": row.getIsExpanded() },
         { "pxt-row-selected": row.getIsSelected() },
       )}

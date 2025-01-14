@@ -17,7 +17,7 @@ export default function RowActions<TData>({
     <div
       role="cell"
       className={clsx(
-        "sticky right-0 z-30 flex h-[35px] max-w-28 justify-end gap-1 whitespace-nowrap bg-inherit px-3 py-2",
+        "sticky right-0 z-30 flex h-full max-w-28 justify-end gap-1 whitespace-nowrap bg-inherit px-3 py-2",
         {
           "opacity-0": displayOnhover,
           "group-hover:opacity-100": displayOnhover,

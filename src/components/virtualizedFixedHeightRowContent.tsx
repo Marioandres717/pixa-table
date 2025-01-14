@@ -3,7 +3,7 @@ import { Column, Row, RowData, Table } from "@tanstack/react-table";
 import { VirtualItem, Virtualizer } from "@tanstack/react-virtual";
 import { VirtualizedRowCell } from "./virtualizedRowCell";
 import RowActions from "./rowActions";
-import { calculateHeightOfCells, getPinnedCols } from "../utils";
+import { getPinnedCols } from "../utils";
 import { useMemo } from "react";
 
 type Props<TData> = {
@@ -30,17 +30,14 @@ export function VirtualizedFixedHeightRow<TData>({
   const viCols = colVirtualizer.getVirtualItems();
   const ExpandableRow = row.getExpandableRowComponent();
   const { rowHeight = 36 } = table.getLayout();
-  const cellHeight =
-    rowHeight === "dynamic"
-      ? calculateHeightOfCells(36)
-      : calculateHeightOfCells(rowHeight);
+  const cellHeight = rowHeight === "dynamic" ? 36 : rowHeight;
 
   return (
     <div
       role="row"
       data-index={viRow.index}
       className={clsx(
-        "pxt-row group absolute left-0 top-0",
+        "pxt-row pxt-row-border-b group absolute left-0 top-0",
         { "pxt-row-expanded": row.getIsExpanded() },
         { "pxt-row-selected": row.getIsSelected() },
       )}
@@ -50,11 +47,11 @@ export function VirtualizedFixedHeightRow<TData>({
         transform: `translate3d(0, ${viRow.start - rowVirtualizer.options.scrollMargin}px, 0)`,
       }}
     >
-      <div className="flex bg-inherit">
+      <div className="flex">
         {/* LEFT PINNED CELLS */}
         {left.length > 0 && (
           <div
-            className="sticky left-0 z-20 bg-inherit"
+            className="sticky left-0 z-20"
             style={{
               height: cellHeight,
               width: left.reduce((acc, cell) => acc + cell.getSize(), 0),
@@ -77,7 +74,7 @@ export function VirtualizedFixedHeightRow<TData>({
 
         {/* NON-PINNED CELLS */}
         <div
-          className="w-full bg-inherit"
+          className="w-full"
           style={{
             height: cellHeight,
           }}
@@ -99,7 +96,7 @@ export function VirtualizedFixedHeightRow<TData>({
         {/* RIGHT PINNED CELLS */}
         {right.length > 0 && (
           <div
-            className="sticky right-0 z-20 bg-inherit"
+            className="sticky right-0 z-20"
             style={{
               height: cellHeight,
               width: right.reduce((acc, cell) => acc + cell.getSize(), 0),
@@ -121,7 +118,9 @@ export function VirtualizedFixedHeightRow<TData>({
         )}
 
         {/* ROW ACTIONS */}
-        {rowActions.length > 0 && <RowActions row={row} />}
+        {rowActions.length > 0 && (
+          <RowActions row={row} className="pxt-pinned-cell" />
+        )}
       </div>
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (

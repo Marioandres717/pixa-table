@@ -7,7 +7,6 @@ import {
 } from "@tanstack/react-table";
 import { VirtualItem } from "@tanstack/react-virtual";
 import clsx from "clsx";
-import { calculateHeightOfCells } from "../utils";
 
 type Props<TData> = {
   cell: Cell<TData, RowData>;
@@ -35,7 +34,7 @@ export function VirtualizedRowCell<TData>({
         ...table,
       })}
       className={clsx(
-        "absolute left-0 top-0 flex h-full items-center overflow-hidden whitespace-nowrap border-r border-black-20 bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
+        "pxt-pinned-cell pxt-row-border-b absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap border-r border-black-20 bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
         column.columnDef.meta?.className,
       )}
     >
@@ -53,12 +52,11 @@ function getColumnStyles<TData>({
 }: Column<TData, RowData> & VirtualItem & Table<TData>) {
   const isPinned = getIsPinned();
   const { rowHeight = 36 } = getLayout();
-  const cellHeight =
-    rowHeight === "dynamic" ? "auto" : calculateHeightOfCells(rowHeight);
+  const cellHeight = rowHeight === "dynamic" ? "auto" : rowHeight;
 
   return {
     width: size,
-    maxHeight: cellHeight,
+    height: cellHeight,
     transform:
       !isPinned || isPinned === "left"
         ? `translate3d(${start}px, 0, 0)`
