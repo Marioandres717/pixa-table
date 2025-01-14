@@ -54,5 +54,5 @@ function getWhiteSpaceWrapping(
 ) {
   return rowHeight === "dynamic" && getIsExpanded()
     ? "whitespace-normal break-all h-full"
-    : "whitespace-nowrap h-[35px]";
+    : "whitespace-nowrap h-9";
 }

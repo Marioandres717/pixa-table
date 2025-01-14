@@ -175,10 +175,6 @@ export function divideAvailableSpaceWithColumns<TData>(
   return columns;
 }
 
-export function calculateHeightOfCells(rowHeight: number) {
-  return `calc(${rowHeight}px - 1px)`; // 1px is the border
-}
-
 export function tableBodygridGenerator<TData>(
   cells: Cell<TData, RowData>[],
   rowActionsEnabled?: boolean,

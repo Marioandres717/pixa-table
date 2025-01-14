@@ -19,7 +19,7 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
     <div
       role="row"
       className={clsx(
-        "pxt-row group min-h-9 min-w-full",
+        "pxt-row group",
         { "pxt-row-expanded": row.getIsExpanded() },
         { "pxt-row-selected": row.getIsSelected() },
       )}
@@ -29,7 +29,7 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
       }}
     >
       <div
-        className="grid h-full bg-inherit"
+        className="pxt-row-border-b grid h-full bg-inherit"
         style={{
           gridTemplateColumns: tableBodygridGenerator(
             row.getVisibleCells(),
