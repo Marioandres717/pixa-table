@@ -26,7 +26,8 @@
     "test:coverage": "vitest --coverage",
     "test-storybook": "test-storybook",
     "test-storybook:watch": "test-storybook --watch",
-    "test-storybook:coverage": "test-storybook -- --coverage"
+    "test-storybook:coverage": "test-storybook -- --coverage",
+    "chromatic": "npx chromatic --project-token=chpt_3312b6d7d169c2c"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
