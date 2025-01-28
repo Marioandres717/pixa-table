@@ -81,7 +81,7 @@ export function TableLayout<TData>({ table }: Props<TData>) {
       )}
       <div
         data-testid="table-scroll-container"
-        className={clsx("relative col-start-1 overflow-auto", {
+        className={clsx("relative col-start-1 overflow-auto scrollbar", {
           "row-start-1": !showHeader,
           "row-start-2": showHeader && !showTitle,
           "row-start-3": showHeader && showTitle,

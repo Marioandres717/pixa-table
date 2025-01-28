@@ -187,4 +187,20 @@ export const theme = {
     "col-heading": ["11px", "normal"],
     "table-base": ["13px", "normal"],
   },
+  scrollbar: {
+    width: "8px",
+    track: "transparent",
+    thumb: "#f3f4f4",
+    thumbHover: "#a3a3a3",
+    corner: "transparent",
+    border: "1px solid #cfd2d4",
+    borderRadius: "4px",
+    dark: {
+      track: "transparent",
+      thumb: "#1a2832",
+      thumbHover: "#a3a3a3",
+      corner: "transparent",
+      border: "1px solid #1a2832",
+    },
+  },
 };
