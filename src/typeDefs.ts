@@ -29,6 +29,7 @@ import { ColumnOrderingExtended } from "./features/columnOrdering/type";
 type ColumnMetaExtras = {
   headerClassName?: string;
   className?: string;
+  showOnHover?: boolean;
 };
 
 interface ColumnSizingColumnDefWithGrow {

@@ -12,17 +12,18 @@ type Props<TData> = {
   cell: Cell<TData, RowData>;
   virtualColumn: VirtualItem;
   table: Table<TData>;
+  className?: string;
 };
 
 export function VirtualizedRowCell<TData>({
   cell,
   virtualColumn,
   table,
+  className,
 }: Props<TData>) {
   const { column, getContext, getValue } = cell;
   const cellTitle =
     String(getValue()) === "undefined" ? column.id : String(getValue());
-
   return (
     <div
       data-id={virtualColumn.key}
@@ -34,11 +35,25 @@ export function VirtualizedRowCell<TData>({
         ...table,
       })}
       className={clsx(
-        "pxt-pinned-cell pxt-row-border-b absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap border-r border-black-20 bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
+        "pxt-row-border-b absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap border-r border-black-20 bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
+        {
+          "pxt-pinned-cell": column.getIsPinned(),
+        },
         column.columnDef.meta?.className,
+        className,
       )}
     >
-      {flexRender(column.columnDef.cell, getContext())}
+      <span
+        className={clsx(
+          "pointer-events-none inline-block group-hover:pointer-events-auto",
+          {
+            "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
+              column.columnDef.meta?.showOnHover,
+          },
+        )}
+      >
+        {flexRender(column.columnDef.cell, getContext())}
+      </span>
     </div>
   );
 }

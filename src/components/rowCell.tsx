@@ -32,11 +32,23 @@ export function RowCell<TData>({ cell, table }: Props<TData>) {
         "flex items-start overflow-hidden border-r border-black-20 bg-transparent px-3 py-2 last:border-r-0 dark:border-black-92.5 dark:bg-inherit",
         whiteSpaceWrapping,
         column.columnDef.meta?.className,
-        { "border-r-0": column.getIsLastColumn() },
+        {
+          "border-r-0": column.getIsLastColumn(),
+        },
       )}
       style={getCellPinnedStyles(cell.column)}
     >
-      {flexRender(column.columnDef.cell, getContext())}
+      <span
+        className={clsx(
+          "pointer-events-none inline-block group-hover:pointer-events-auto",
+          {
+            "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
+              column.columnDef.meta?.showOnHover,
+          },
+        )}
+      >
+        {flexRender(column.columnDef.cell, getContext())}
+      </span>
     </div>
   );
 }

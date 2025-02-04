@@ -179,27 +179,56 @@ export function tableBodygridGenerator<TData>(
   cells: Cell<TData, RowData>[],
   rowActionsEnabled?: boolean,
 ) {
-  return (
-    cells
-      .map((cell, idx) =>
-        cells.length === idx + 1
-          ? `minmax(${cell.column.getSize()}px ,auto)`
-          : `${cell.column.getSize()}px`,
-      )
-      .join(" ") + (rowActionsEnabled ? "min-content" : "")
-  );
+  const indexLastColNotPinned = cells.reduce((acc, curr, idx) => {
+    if (!curr.column.getIsPinned()) {
+      return idx;
+    }
+    return acc;
+  }, -1);
+
+  let grid = cells
+    .map((cell) => {
+      if (indexLastColNotPinned === cells.indexOf(cell)) {
+        return `auto`;
+      } else {
+        return `${cell.column.getSize()}px`;
+      }
+    })
+    .join(" ");
+
+  if (rowActionsEnabled) {
+    grid += " min-content";
+  }
+
+  return grid;
 }
 
 export function tableHeaderGridGenerator<TData>(
   headers: Header<TData, RowData>[],
+  rowActionsEnabled?: boolean,
 ) {
-  return headers
-    .map((header, idx) =>
-      headers.length === idx + 1
-        ? `minmax(${header.getSize()}px ,auto)`
-        : `${header.getSize()}px`,
-    )
+  const indexLastColNotPinned = headers.reduce((acc, curr, idx) => {
+    if (!curr.column.getIsPinned()) {
+      return idx;
+    }
+    return acc;
+  }, -1);
+
+  let grid = headers
+    .map((header) => {
+      if (indexLastColNotPinned === headers.indexOf(header)) {
+        return `auto`;
+      } else {
+        return `${header.column.getSize()}px`;
+      }
+    })
     .join(" ");
+
+  if (rowActionsEnabled) {
+    grid += " min-content";
+  }
+
+  return grid;
 }
 
 export function getCellPinnedStyles<TData>({
