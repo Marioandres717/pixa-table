@@ -6,6 +6,7 @@ import {
   incrementalDate,
   incrementalNumber,
   randText,
+  seed,
   // randJSON,
 } from "@ngneat/falso";
 import { createColumnHelper } from "@tanstack/react-table";
@@ -63,6 +64,7 @@ export function generateMockData(n: number) {
   const data = [];
   const id = incrementalNumber();
   const date = incrementalDate();
+  seed("mock-data");
   for (let i = 0; i < n; i++) {
     data.push({
       id: id(),

@@ -8,7 +8,7 @@ import { fuzzyFilter } from "../../features";
 export const TableWithGlobalFilter: Story = {
   decorators: [
     (Story, context) => {
-      const [globalFilter, setGlobalFilter] = useState<string>("");
+      const [globalFilter, setGlobalFilter] = useState<string>("jenkins");
       const config = useMemo<UsePixaTableOptions>(
         () => ({
           theme: context.globals.theme,

@@ -73,6 +73,12 @@ export const TableWithSelectableRows: Story = {
             columnPinning: {
               left: ["selection"],
             },
+            rowSelection: {
+              "0": true,
+              "1": true,
+              "2": true,
+              "3": true,
+            },
           },
         }),
         [context.loaded.data, selectionActions, context.globals.theme],

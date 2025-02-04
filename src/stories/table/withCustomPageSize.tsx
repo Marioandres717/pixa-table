@@ -13,12 +13,18 @@ export const TableWithCustomPageSize: Story = {
           data: context.loaded.data,
           columns: MockDataColumnDefs,
           theme: context.globals.theme,
+          state: {
+            pagination: {
+              pageSize: 5000,
+              pageIndex: 0,
+            },
+          },
           pluggableComponents: {
             PageSize: ({ table }) => (
               <PageSize
                 table={table}
                 className="w-20 cursor-pointer rounded-[3px] px-2 py-1 focus:ring-1 dark:border-black-80 dark:bg-peach-100 dark:text-blue-60"
-                pageOptions={[10, 25, 50, 100, 250, 500, 1000, 5000]}
+                pageOptions={[5000]}
               />
             ),
           },
