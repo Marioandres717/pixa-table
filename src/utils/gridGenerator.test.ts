@@ -1,4 +1,3 @@
-// sum.test.js
 import { describe, it } from "vitest";
 import {
   calculateGridTemplate,

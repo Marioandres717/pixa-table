@@ -66,6 +66,10 @@ export function VirtualizedFixedHeightRow<TData>({
                   cell={cell}
                   virtualColumn={viCol}
                   table={table}
+                  className={clsx({
+                    "pxt-row-expanded": row.getIsExpanded(),
+                    "pxt-row-selected": row.getIsSelected(),
+                  })}
                 />
               );
             })}
@@ -119,7 +123,13 @@ export function VirtualizedFixedHeightRow<TData>({
 
         {/* ROW ACTIONS */}
         {rowActions.length > 0 && (
-          <RowActions row={row} className="pxt-pinned-cell" />
+          <RowActions
+            row={row}
+            className={clsx({
+              "pxt-row-expanded": row.getIsExpanded(),
+              "pxt-row-selected": row.getIsSelected(),
+            })}
+          />
         )}
       </div>
       {/* EXPANDABLE ROW */}
