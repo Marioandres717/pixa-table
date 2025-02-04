@@ -37,6 +37,12 @@ export const TableWithDynamicRowHeight: Story = {
             columnPinning: {
               left: ["expander"],
             },
+            expanded: {
+              "0": true,
+              "1": true,
+              "2": true,
+              "4": true,
+            },
           },
           layout: {
             rowHeight: "dynamic",

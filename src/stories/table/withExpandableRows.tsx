@@ -38,6 +38,10 @@ export const TableWithExpandableRows: Story = {
             columnPinning: {
               left: ["expander"],
             },
+            expanded: {
+              "0": true,
+              "1": true,
+            },
           },
           pluggableComponents: {
             ExpandableRow: MockExpandableRow,

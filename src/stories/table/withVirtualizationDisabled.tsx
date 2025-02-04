@@ -33,7 +33,7 @@ export const TableWithVirtualizationDisabled: Story = {
             }),
             ...MockDataColumnDefs,
           ],
-          enableRowActions: true,
+          // enableRowActions: true,
           rowActions: [
             {
               Component: () => <button>Click me</button>,
