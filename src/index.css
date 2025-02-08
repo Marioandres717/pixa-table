@@ -3,6 +3,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --border-width: thin;
+}
+
 @layer base {
   [data-theme="light"] {
     --table-skeleton: #ced1d3;
@@ -21,8 +25,12 @@
     @apply flex min-w-full flex-col bg-white hover:bg-black-10 dark:bg-black-100 dark:hover:bg-black-90;
   }
 
-  .pxt-row-border-b {
-    @apply border-b border-black-20 dark:border-black-92.5;
+  .pxt-border-b-row {
+    @apply border-b-row border-black-20 dark:border-black-92.5;
+  }
+
+  .pxt-border-cell {
+    @apply border-b-row border-r-row border-black-20 last:border-r-0 dark:border-black-92.5;
   }
 
   .pxt-row-expanded {

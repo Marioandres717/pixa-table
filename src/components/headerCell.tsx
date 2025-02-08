@@ -25,7 +25,7 @@ export function HeaderCell<TData>({ className, header, state }: Props<TData>) {
     <div
       role="columnheader"
       className={clsx(
-        "relative flex h-full items-center overflow-hidden border-r border-black-20 px-3 py-2 text-col-heading uppercase tracking-[0.66px] text-black-50 last:border-r-0 dark:border-black-92.5 dark:text-black-40",
+        "pxt-border-cell relative flex h-full items-center overflow-hidden px-3 py-2 text-col-heading uppercase tracking-[0.66px] text-black-50 dark:text-black-40",
         className,
         columnDef.meta?.headerClassName,
       )}

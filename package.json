@@ -34,7 +34,8 @@
     "@dnd-kit/sortable": "^8.0.0",
     "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/react-table": "^8.20.5",
-    "@tanstack/react-virtual": "^3.10.8"
+    "@tanstack/react-virtual": "^3.10.8",
+    "zoom-level": "^2.5.0"
   },
   "peerDependencies": {
     "clsx": "^2.1.1",

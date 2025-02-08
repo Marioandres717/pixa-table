@@ -35,9 +35,10 @@ export function VirtualizedRowCell<TData>({
         ...table,
       })}
       className={clsx(
-        "pxt-row-border-b absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap border-r border-black-20 bg-inherit px-3 py-2 last:border-r-0 hover:z-10 dark:border-black-92.5",
+        "pxt-border-cell absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap bg-inherit px-3 py-2 hover:z-10",
         {
           "pxt-pinned-cell": column.getIsPinned(),
+          "border-r-0": column.getIsLastColumn(),
         },
         column.columnDef.meta?.className,
         className,

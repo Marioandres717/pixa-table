@@ -1,4 +1,10 @@
 export const theme = {
+  borderWidth: {
+    thin: "thin",
+    medium: "medium",
+    thick: "thick",
+    row: "var(--border-width)",
+  },
   colors: {
     transparent: "transparent",
     current: "currentColor",
