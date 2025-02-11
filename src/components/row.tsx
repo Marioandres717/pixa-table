@@ -47,7 +47,7 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
 
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
+        <div className="pxt-border-b-row w-full border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
           <ExpandableRow row={row} />
         </div>
       )}

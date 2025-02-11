@@ -24,6 +24,8 @@ export function VirtualizedRowCell<TData>({
   const { column, getContext, getValue } = cell;
   const cellTitle =
     String(getValue()) === "undefined" ? column.id : String(getValue());
+  const cellContent = flexRender(column.columnDef.cell, getContext());
+
   return (
     <div
       data-id={virtualColumn.key}
@@ -38,23 +40,27 @@ export function VirtualizedRowCell<TData>({
         "pxt-border-cell absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap bg-inherit px-3 py-2 hover:z-10",
         {
           "pxt-pinned-cell": column.getIsPinned(),
-          "border-r-0": column.getIsLastColumn(),
+          "!border-r-0": column.getIsLastColumn(),
         },
         column.columnDef.meta?.className,
         className,
       )}
     >
-      <span
-        className={clsx(
-          "pointer-events-none inline-block group-hover:pointer-events-auto",
-          {
-            "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
-              column.columnDef.meta?.showOnHover,
-          },
-        )}
-      >
-        {flexRender(column.columnDef.cell, getContext())}
-      </span>
+      {typeof cellContent === "string" ? (
+        <span
+          className={clsx(
+            "pointer-events-none inline-block group-hover:pointer-events-auto",
+            {
+              "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
+                column.columnDef.meta?.showOnHover,
+            },
+          )}
+        >
+          {cellContent}
+        </span>
+      ) : (
+        cellContent
+      )}
     </div>
   );
 }

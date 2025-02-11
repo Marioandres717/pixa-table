@@ -34,7 +34,7 @@
   }
 
   .pxt-row-expanded {
-    @apply dark:!bg-black-95;
+    @apply !bg-black-10 dark:!bg-black-95;
   }
 
   .pxt-row-selected {

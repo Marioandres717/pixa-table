@@ -28,7 +28,7 @@ export function VirtualizedHeaderRow<TData>({
     <div
       key={headerGroup.id}
       role="row"
-      className="pxt-border-b-row flex h-8 bg-black-5 dark:bg-black-95"
+      className="flex h-8 bg-black-5 dark:bg-black-95"
     >
       {/* LEFT PINNED COLS */}
       <div

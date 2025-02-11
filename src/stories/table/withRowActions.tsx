@@ -4,6 +4,7 @@ import { usePixaTable } from "../../hooks";
 import { MockDataColumnDefs, MockData } from "../../mocks/handlers/mockData";
 import { Story, UsePixaTableOptions } from "./pixaTable.stories";
 import { RowAction } from "../../features";
+import { IndeterminateCheckbox } from "../../components";
 
 export const columnHelper = createColumnHelper<MockData>();
 
@@ -51,8 +52,53 @@ export const TableWithRowActions: Story = {
           theme: context.globals.theme,
           data: context.loaded.data,
           enableRowActions: true,
-          columns: MockDataColumnDefs,
+          columns: [
+            columnHelper.display({
+              id: "selection",
+              maxSize: 50,
+              enableSorting: false,
+              enableResizing: false,
+              enableHiding: false,
+              meta: {
+                className: "border-r-0 px-0",
+              },
+              header({ table }) {
+                return (
+                  <IndeterminateCheckbox
+                    {...{
+                      checked: table.getIsAllRowsSelected(),
+                      indeterminate: table.getIsSomeRowsSelected(),
+                      onChange: table.getToggleAllRowsSelectedHandler(),
+                    }}
+                  />
+                );
+              },
+              cell({ row }) {
+                return (
+                  <IndeterminateCheckbox
+                    {...{
+                      checked: row.getIsSelected(),
+                      disabled: !row.getCanSelect(),
+                      indeterminate: row.getIsSomeSelected(),
+                      onChange: row.getToggleSelectedHandler(),
+                    }}
+                  />
+                );
+              },
+            }),
+            ...MockDataColumnDefs,
+          ],
           rowActions,
+          enableRowSelection: true,
+          state: {
+            columnPinning: {
+              left: ["selection"],
+            },
+            rowSelection: {
+              "0": true,
+              "1": true,
+            },
+          },
         }),
         [context.loaded.data, rowActions, context.globals.theme],
       );

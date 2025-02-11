@@ -21,6 +21,7 @@ export function RowCell<TData>({ cell, table }: Props<TData>) {
     row: { getIsExpanded },
   } = cell;
   const cellTitle = getCellTitle(getValue, column);
+  const cellContent = flexRender(column.columnDef.cell, getContext());
   const { rowHeight } = table.getLayout();
   const whiteSpaceWrapping = getWhiteSpaceWrapping(getIsExpanded, rowHeight);
 
@@ -33,22 +34,26 @@ export function RowCell<TData>({ cell, table }: Props<TData>) {
         whiteSpaceWrapping,
         column.columnDef.meta?.className,
         {
-          "border-r-0": column.getIsLastColumn(),
+          "!border-r-0": column.getIsLastColumn(),
         },
       )}
       style={getCellPinnedStyles(cell.column)}
     >
-      <span
-        className={clsx(
-          "pointer-events-none inline-block group-hover:pointer-events-auto",
-          {
-            "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
-              column.columnDef.meta?.showOnHover,
-          },
-        )}
-      >
-        {flexRender(column.columnDef.cell, getContext())}
-      </span>
+      {typeof cellContent === "string" ? (
+        <span
+          className={clsx(
+            "pointer-events-none inline-block group-hover:pointer-events-auto",
+            {
+              "sr-only opacity-0 group-hover:not-sr-only group-hover:opacity-100":
+                column.columnDef.meta?.showOnHover,
+            },
+          )}
+        >
+          {cellContent}
+        </span>
+      ) : (
+        cellContent
+      )}
     </div>
   );
 }
