@@ -12,7 +12,7 @@ export function HeaderRow<TData>({
   return (
     <div
       role="row"
-      className="grid h-8 min-w-full border-b border-black-20 bg-black-5 dark:border-black-92.5 dark:bg-black-95"
+      className="grid h-8 min-w-full bg-black-5 dark:border-black-92.5 dark:bg-black-95"
       style={{
         gridTemplateColumns: tableHeaderGridGenerator(headers),
         width: calculateRowWidth(headers, enableRowActions),

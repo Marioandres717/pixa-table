@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback } from "react";
 import clsx from "clsx";
 import { Table } from "@tanstack/react-table";
+import { zoomLevel } from "zoom-level";
 import { calculateGridTemplate, calculateTableBodyHeight } from "../utils";
 import { TableHeader } from "./tableHeader";
 import { TableToolbar } from "./tableToolbar";
@@ -29,10 +30,16 @@ export function TableLayout<TData>({ table }: Props<TData>) {
     scrollableContainerRef,
   } = table.getLayout();
 
-  const handleResize = useCallback(
-    () => setTriggerRerender((prev) => prev + 1),
-    [],
-  );
+  const handleResize = useCallback(() => {
+    setTriggerRerender((prev) => prev + 1);
+    const zoomlvl = zoomLevel();
+    if (zoomlvl < 2) {
+      document.documentElement.style.setProperty("--border-width", "medium");
+    } else {
+      document.documentElement.style.setProperty("--border-width", "thin");
+    }
+  }, []);
+
   const scrollableRef = scrollableContainerRef
     ? scrollableContainerRef
     : parentRef;

@@ -122,19 +122,11 @@ export function VirtualizedFixedHeightRow<TData>({
         )}
 
         {/* ROW ACTIONS */}
-        {rowActions.length > 0 && (
-          <RowActions
-            row={row}
-            className={clsx({
-              "pxt-row-expanded": row.getIsExpanded(),
-              "pxt-row-selected": row.getIsSelected(),
-            })}
-          />
-        )}
+        {rowActions.length > 0 && <RowActions row={row} />}
       </div>
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
+        <div className="pxt-border-b-row w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
           <ExpandableRow row={row} />
         </div>
       )}

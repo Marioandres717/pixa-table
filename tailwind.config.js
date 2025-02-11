@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-import { fontFamily } from "tailwindcss/defaultTheme";
+import { fontFamily, borderWidth } from "tailwindcss/defaultTheme";
 import { theme } from "./src/theme";
 import talwindcssForms from "@tailwindcss/forms";
 
@@ -17,6 +17,7 @@ export default {
     extend: {
       fontSize: theme.fontSize,
       scrollbar: theme.scrollbar,
+      borderWidth: { ...borderWidth, ...theme.borderWidth },
     },
   },
   plugins: [
