@@ -40,13 +40,13 @@ export function VirtualizedRowCell<TData>({
         "pxt-border-cell absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap bg-inherit px-3 py-2 hover:z-10",
         {
           "pxt-pinned-cell": column.getIsPinned(),
-          "!border-r-0": column.getIsLastColumn(),
+          "!border-r-0": column.getIsLastColumn("center"),
         },
         column.columnDef.meta?.className,
         className,
       )}
     >
-      {typeof cellContent === "string" ? (
+      {typeof cellContent === "string" || column.columnDef.meta?.showOnHover ? (
         <span
           className={clsx(
             "pointer-events-none inline-block group-hover:pointer-events-auto",
