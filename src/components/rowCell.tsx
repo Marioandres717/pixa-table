@@ -34,12 +34,12 @@ export function RowCell<TData>({ cell, table }: Props<TData>) {
         whiteSpaceWrapping,
         column.columnDef.meta?.className,
         {
-          "!border-r-0": column.getIsLastColumn(),
+          "!border-r-0": column.getIsLastColumn("center"),
         },
       )}
       style={getCellPinnedStyles(cell.column)}
     >
-      {typeof cellContent === "string" ? (
+      {typeof cellContent === "string" || column.columnDef.meta?.showOnHover ? (
         <span
           className={clsx(
             "pointer-events-none inline-block group-hover:pointer-events-auto",

@@ -26,6 +26,9 @@ export function HeaderCell<TData>({ className, header, state }: Props<TData>) {
       role="columnheader"
       className={clsx(
         "pxt-border-cell relative flex h-full items-center overflow-hidden px-3 py-2 text-col-heading uppercase tracking-[0.66px] text-black-50 dark:text-black-40",
+        {
+          "!border-r-0": header.column.getIsLastColumn("center"),
+        },
         className,
         columnDef.meta?.headerClassName,
       )}
