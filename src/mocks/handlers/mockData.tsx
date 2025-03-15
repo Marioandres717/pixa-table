@@ -63,12 +63,11 @@ export const MockDataColumnDefs = [
 export function generateMockData(n: number) {
   const data = [];
   const id = incrementalNumber();
-  const date = incrementalDate();
   seed("mock-data");
   for (let i = 0; i < n; i++) {
     data.push({
       id: id(),
-      date: date(),
+      date: "9999-99-99T99:99:99.999Z",
       name: randCompanyName(),
       email: randEmail(),
       address: randAddress().country,
