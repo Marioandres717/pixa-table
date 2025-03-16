@@ -25,11 +25,13 @@ const meta: Meta<typeof Pagination> = {
       });
 
       return (
-        <Story
-          args={{
-            table,
-          }}
-        />
+        <div className="pxt">
+          <Story
+            args={{
+              table,
+            }}
+          />
+        </div>
       );
     },
   ],

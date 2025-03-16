@@ -28,11 +28,13 @@ const meta: Meta<typeof TableTitle<MockData>> = {
         },
       });
       return (
-        <Story
-          args={{
-            table,
-          }}
-        />
+        <div className="pxt">
+          <Story
+            args={{
+              table,
+            }}
+          />
+        </div>
       );
     },
   ],

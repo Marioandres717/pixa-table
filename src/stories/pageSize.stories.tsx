@@ -22,12 +22,14 @@ const meta: Meta<typeof PageSize> = {
       });
 
       return (
-        <Story
-          args={{
-            ...context.args,
-            table,
-          }}
-        />
+        <div className="pxt">
+          <Story
+            args={{
+              ...context.args,
+              table,
+            }}
+          />
+        </div>
       );
     },
   ],

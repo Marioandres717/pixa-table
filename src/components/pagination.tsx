@@ -47,7 +47,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
   }
 
   return (
-    <div className="flex gap-1">
+    <div className="flex w-max gap-1 bg-black-10 dark:bg-black-100">
       <Button
         onClick={(e) => {
           e.preventDefault();

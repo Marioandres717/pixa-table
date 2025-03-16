@@ -25,11 +25,13 @@ const meta: Meta<typeof TableToolbar<MockData>> = {
         theme: context.globals.theme,
       });
       return (
-        <Story
-          args={{
-            table,
-          }}
-        />
+        <div className="pxt">
+          <Story
+            args={{
+              table,
+            }}
+          />
+        </div>
       );
     },
   ],
