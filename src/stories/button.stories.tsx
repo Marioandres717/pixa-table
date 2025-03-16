@@ -19,8 +19,8 @@ export const Defaults: Story = {
   play: async ({ args, canvasElement }) => {
     const canvas = within(canvasElement);
     const button = canvas.getByRole("button", { name: /click me/i });
-    expect(button).toBeVisible();
-    expect(button).toHaveTextContent(/click me/i);
+    await expect(button).toBeVisible();
+    await expect(button).toHaveTextContent(/click me/i);
     await userEvent.click(button);
     await expect(args.onClick).toHaveBeenCalled();
   },
