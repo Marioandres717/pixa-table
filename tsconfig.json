@@ -19,7 +19,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["vitest/globals", "./src/vite-env.d.ts"]
+    "types": [
+      "vitest/globals",
+      "./src/vite-env.d.ts",
+      "@testing-library/jest-dom"
+    ]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

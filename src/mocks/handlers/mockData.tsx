@@ -60,7 +60,7 @@ export const MockDataColumnDefs = [
   // }),
 ];
 
-export function generateMockData(n: number) {
+export function generateMockData(n: number): MockData[] {
   const data = [];
   const id = incrementalNumber();
   seed("mock-data");
@@ -70,9 +70,9 @@ export function generateMockData(n: number) {
       date: "9999-99-99T99:99:99.999Z",
       name: randCompanyName(),
       email: randEmail(),
-      address: randAddress().country,
+      address: randAddress().country || "Unknown",
       subscription: randSubscriptionPlan(),
-      longText: randText({ length: i < 50 ? i : 50 }),
+      longText: randText({ length: i < 50 ? i : 50 }).join(" "),
       // json: JSON.stringify(randJSON()),
     });
   }
