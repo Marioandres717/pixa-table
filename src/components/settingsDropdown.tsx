@@ -3,7 +3,7 @@ import { useRef, useState } from "react";
 import { Icon } from "./icon";
 import { useOnclickOutside } from "../hooks/useOnClickOutside";
 import { useOnCloseEscape } from "../hooks/useOnCloseEscape";
-import TableSettings from "./tableSettings";
+import { TableSettings } from "./tableSettings";
 import clsx from "clsx";
 
 type Props<T> = {

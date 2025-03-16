@@ -5,10 +5,7 @@ import clsx from "clsx";
 
 type Props<TData> = { table: Table<TData>; className?: string };
 
-export default function TableSettings<TData>({
-  table,
-  className,
-}: Props<TData>) {
+export function TableSettings<TData>({ table, className }: Props<TData>) {
   const PageSizeComponent = table.getPageSizeComponent() || DefaultPageSize;
   const showPagination = table.getShowPagination();
 
