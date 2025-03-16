@@ -60,5 +60,9 @@ export default defineConfig((env) => ({
     globals: true,
     environment: "happy-dom",
     setupFiles: ["/setupTest.ts", "@testing-library/jest-dom/vitest"],
+    coverage: {
+      include: ["src/**/*"],
+      exclude: ["src/stories/**/*", "src/mocks/**/*"],
+    },
   },
 }));
