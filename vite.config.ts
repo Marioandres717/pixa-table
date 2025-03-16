@@ -53,7 +53,7 @@ export default defineConfig((env) => ({
   },
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: ["/setupTest.ts"],
+    environment: "happy-dom",
+    setupFiles: ["/setupTest.ts", "@testing-library/jest-dom/vitest"],
   },
 }));
