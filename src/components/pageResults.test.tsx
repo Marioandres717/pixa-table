@@ -1,11 +1,12 @@
 import { PageResults } from "./pageResults";
 import { usePixaTable } from "../hooks";
-import { generateMockData, MockData } from "../mocks/handlers/mockData";
-
-type HookReturnType = ReturnType<typeof usePixaTable<MockData>>;
+import {
+  generateMockData,
+  RenderHookUsePixaTable,
+} from "../mocks/handlers/mockData";
 
 describe("PageResults", () => {
-  let hook: ReturnType<typeof renderHook<HookReturnType, unknown>>;
+  let hook: RenderHookUsePixaTable;
   beforeEach(() => {
     hook = renderHook(() =>
       usePixaTable({
@@ -47,11 +48,10 @@ describe("PageResults", () => {
     expect(status).toHaveClass("custom-class");
   });
 
-  it("updates label when pagination changes", () => {
-    hook.result.current.setPageIndex(1);
-    hook.rerender();
-    const { getByRole } = render(<PageResults table={hook.result.current} />);
-    const status = getByRole("status");
+  it("updates label when pagination changes", async () => {
+    await act(async () => hook.result.current.setPageIndex(1));
+    render(<PageResults table={hook.result.current} />);
+    const status = sc.getByRole("status");
     expect(status).toBeVisible();
     expect(status).toHaveTextContent("11-20 of 30 results");
   });

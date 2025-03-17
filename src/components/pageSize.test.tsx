@@ -1,46 +1,49 @@
 import { PageSize } from "./pageSize";
 import { usePixaTable } from "../hooks";
+import { MockData, RenderHookUsePixaTable } from "../mocks/handlers/mockData";
 
 describe("PageSize", () => {
-  it("renders correctly with default page options", () => {
-    const { result } = renderHook(() =>
-      usePixaTable({ data: [], columns: mockDataColumnDefs }),
+  let hook: RenderHookUsePixaTable;
+  beforeEach(() => {
+    hook = renderHook(() =>
+      usePixaTable({
+        data: [] as MockData[],
+        columns: mockDataColumnDefs,
+      }),
     );
-    render(<PageSize table={result.current} />);
-    const listbox = sc.getByRole("listbox");
+  });
+
+  it("renders correctly with default page options", () => {
+    const { getByRole } = render(<PageSize table={hook.result.current} />);
+    const listbox = getByRole("listbox");
     expect(listbox).toBeVisible();
     expect(listbox).toHaveValue("10");
     expect(listbox.children).toHaveLength(7);
   });
 
   it("renders correctly with custom page options", () => {
-    const { result } = renderHook(() =>
-      usePixaTable({ data: [], columns: mockDataColumnDefs }),
-    );
     const customOptions = [5, 15, 30];
-    render(<PageSize table={result.current} pageOptions={customOptions} />);
-    const listbox = sc.getByRole("listbox");
+    const { getByRole } = render(
+      <PageSize table={hook.result.current} pageOptions={customOptions} />,
+    );
+    const listbox = getByRole("listbox");
     expect(listbox).toBeVisible();
     expect(listbox).toHaveValue("5");
     expect(listbox.children).toHaveLength(3);
   });
 
   it("changes page size on selection", () => {
-    const { result } = renderHook(() =>
-      usePixaTable({ data: [], columns: mockDataColumnDefs }),
-    );
-    render(<PageSize table={result.current} />);
-    const listbox = sc.getByRole("listbox");
+    const { getByRole } = render(<PageSize table={hook.result.current} />);
+    const listbox = getByRole("listbox");
     fireEvent.change(listbox, { target: { value: "25" } });
-    expect(result.current.getState().pagination.pageSize).toBe(25);
+    expect(hook.result.current.getState().pagination.pageSize).toBe(25);
   });
 
   it("applies custom className", () => {
-    const { result } = renderHook(() =>
-      usePixaTable({ data: [], columns: mockDataColumnDefs }),
+    const { getByRole } = render(
+      <PageSize table={hook.result.current} className="custom-class" />,
     );
-    render(<PageSize table={result.current} className="custom-class" />);
-    const listbox = sc.getByRole("listbox");
+    const listbox = getByRole("listbox");
     expect(listbox).toHaveClass("custom-class");
   });
 });

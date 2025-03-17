@@ -4,6 +4,7 @@ import { createMockColumn } from "./src/utils/testUtilities";
 import userEvent from "@testing-library/user-event";
 import { screen, within } from "@testing-library/dom";
 import { MockDataColumnDefs } from "./src/mocks/handlers/mockData";
+import { act } from "@testing-library/react";
 
 globalThis.fn = vitest.fn;
 globalThis.renderHook = renderHook;
@@ -17,3 +18,4 @@ globalThis.vitest = vitest;
 globalThis.sc = screen;
 globalThis.mockDataColumnDefs = MockDataColumnDefs;
 globalThis.fireEvent = fireEvent;
+globalThis.act = act;

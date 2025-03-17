@@ -13,6 +13,7 @@ declare global {
   const sc: typeof import("@testing-library/dom").screen;
   const mockDataColumnDefs: typeof import("./src/mocks/handlers/mockData").MockDataColumnDefs;
   const fireEvent: typeof import("@testing-library/react").fireEvent;
+  const act: typeof import("@testing-library/react").act;
 }
 
 export {};

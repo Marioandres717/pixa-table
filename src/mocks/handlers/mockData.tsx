@@ -11,6 +11,7 @@ import {
 } from "@ngneat/falso";
 import { createColumnHelper } from "@tanstack/react-table";
 import { http, HttpResponse } from "msw";
+import { usePixaTable } from "../../hooks";
 
 export type MockData = {
   id: number;
@@ -89,3 +90,8 @@ export const handlerMockData = http.get("/api/mock-data", ({ request }) => {
     status: 200,
   });
 });
+
+export type HookReturnType = ReturnType<typeof usePixaTable<MockData>>;
+export type RenderHookUsePixaTable = ReturnType<
+  typeof renderHook<HookReturnType, unknown>
+>;
