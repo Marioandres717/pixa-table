@@ -23,7 +23,7 @@ export function SelectedItemsToolbar<TData>({
 
   return (
     <div className="flex w-full items-center justify-between">
-      <span className="text-white">
+      <span role="status" className="font-medium text-white">
         {numOfItemsSelected} {numOfItemsSelected > 1 ? "Items" : "Item"}{" "}
         Selected
       </span>

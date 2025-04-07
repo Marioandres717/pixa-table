@@ -22,7 +22,7 @@ export default [
       "**/.eslintrc.cjs",
       "public/mockServiceWorker.js",
       "**/coverage",
-      "storybook-static",
+      "**/storybook-static",
     ],
   },
   ...fixupConfigRules(

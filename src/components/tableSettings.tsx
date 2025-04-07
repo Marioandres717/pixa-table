@@ -5,15 +5,14 @@ import clsx from "clsx";
 
 type Props<TData> = { table: Table<TData>; className?: string };
 
-export default function TableSettings<TData>({
-  table,
-  className,
-}: Props<TData>) {
+export function TableSettings<TData>({ table, className }: Props<TData>) {
   const PageSizeComponent = table.getPageSizeComponent() || DefaultPageSize;
   const showPagination = table.getShowPagination();
 
   return (
     <div
+      data-testid="table-settings"
+      role="dialog"
       className={clsx(
         "max-h-[500px] w-64 rounded p-4 drop-shadow-lg bg-surface text b dark:bg-surface-elevated",
         className,

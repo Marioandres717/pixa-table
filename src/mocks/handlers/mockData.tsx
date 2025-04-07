@@ -3,7 +3,7 @@ import {
   randAddress,
   randCompanyName,
   randSubscriptionPlan,
-  incrementalDate,
+  // incrementalDate,
   incrementalNumber,
   randText,
   seed,
@@ -11,6 +11,7 @@ import {
 } from "@ngneat/falso";
 import { createColumnHelper } from "@tanstack/react-table";
 import { http, HttpResponse } from "msw";
+import { usePixaTable } from "../../hooks";
 
 export type MockData = {
   id: number;
@@ -60,20 +61,19 @@ export const MockDataColumnDefs = [
   // }),
 ];
 
-export function generateMockData(n: number) {
+export function generateMockData(n: number): MockData[] {
   const data = [];
   const id = incrementalNumber();
-  const date = incrementalDate();
   seed("mock-data");
   for (let i = 0; i < n; i++) {
     data.push({
       id: id(),
-      date: date(),
+      date: "9999-99-99T99:99:99.999Z",
       name: randCompanyName(),
       email: randEmail(),
-      address: randAddress().country,
+      address: randAddress().country || "Unknown",
       subscription: randSubscriptionPlan(),
-      longText: randText({ length: i < 50 ? i : 50 }),
+      longText: randText({ length: i < 50 ? i : 50 }).join(" "),
       // json: JSON.stringify(randJSON()),
     });
   }
@@ -90,3 +90,8 @@ export const handlerMockData = http.get("/api/mock-data", ({ request }) => {
     status: 200,
   });
 });
+
+export type HookReturnType = ReturnType<typeof usePixaTable<MockData>>;
+export type RenderHookUsePixaTable = ReturnType<
+  typeof renderHook<HookReturnType, unknown>
+>;
