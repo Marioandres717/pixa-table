@@ -17,7 +17,12 @@ export default defineConfig((env) => ({
     libInjectCss(),
     dts({
       rollupTypes: true,
-      exclude: ["src/App.tsx", "src/main.tsx", "src/stories/**/*"],
+      exclude: [
+        "src/App.tsx",
+        "src/main.tsx",
+        "src/stories/**/*",
+        "src/mocks/**/*",
+      ],
       include: [
         "src/assets",
         "src/components",
@@ -53,7 +58,11 @@ export default defineConfig((env) => ({
   },
   test: {
     globals: true,
-    environment: "jsdom",
-    setupFiles: ["/setupTest.ts"],
+    environment: "happy-dom",
+    setupFiles: ["/setupTest.ts", "@testing-library/jest-dom/vitest"],
+    coverage: {
+      include: ["src/**/*"],
+      exclude: ["src/stories/**/*", "src/mocks/**/*"],
+    },
   },
 }));

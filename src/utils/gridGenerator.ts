@@ -16,7 +16,7 @@ export function getPinnedCols<TData>(
       (acc, col) => {
         if (col.getIsPinned() === "left") {
           acc.left.push(col);
-        } else {
+        } else if (col.getIsPinned() === "right") {
           acc.right.push(col);
         }
         return acc;
@@ -30,29 +30,29 @@ export function colRangeExtractor<TData>(
   cols: Column<TData, RowData>[],
 ): number[] {
   const { left, right } = getPinnedCols(cols);
-  const pinnedCols = [
+  const indexedPinnedColumns = [
     ...left.map((l) => cols.findIndex((col) => col.id === l.id)),
     ...right.map((r) => cols.findIndex((col) => col.id === r.id)),
   ];
-  const visibleCols = cols
+  const indexedVisibleCols = cols
     .slice(range.startIndex, range.endIndex + 1)
     .filter((col) => !col.getIsPinned())
     .map((col) => cols.findIndex((c) => c.id === col.id));
 
-  return [...pinnedCols, ...visibleCols];
+  return [...indexedPinnedColumns, ...indexedVisibleCols];
 }
 
 export function rowRangeExtractor<TData>(
   range: Range,
   rows: Row<TData>[],
 ): number[] {
-  const expandedRows = getExpandedRowsIndexes(rows);
-  const visibleRows = rows
+  const indexedExpandedRows = getExpandedRowsIndexes(rows);
+  const indexedVisibleRows = rows
     .slice(range.startIndex, range.endIndex + 1)
     .filter((row) => !row.getIsExpanded())
     .map((row) => rows.findIndex((r) => r.id === row.id));
 
-  return [...expandedRows, ...visibleRows];
+  return [...indexedExpandedRows, ...indexedVisibleRows];
 }
 
 function getExpandedRowsIndexes<TData>(rows: Row<TData>[]): number[] {
@@ -148,16 +148,18 @@ export function divideAvailableSpaceWithColumns<TData>(
 ) {
   // no available space
   if (
-    columns.reduce((acc, col) => acc + (col.columnDef.size || 0), 0) >
-    availableWidth
+    columns.reduce((acc, col) => {
+      const { size = columnMinWidth, minSize = columnMinWidth } = col.columnDef;
+      col.columnDef.size = size < minSize ? minSize : size;
+      return acc + col.columnDef.size!;
+    }, 0) > availableWidth
   )
     return columns;
 
   for (const column of columns) {
-    if (column.columnDef.grow === false && column.columnDef.size) {
-      availableWidth -= column.columnDef.size;
-    }
+    availableWidth -= column.columnDef.size!;
   }
+
   const fieldCountWithGrow = columns.filter(
     (c) => c.columnDef.grow || typeof c.columnDef.grow === "undefined", // we want to default undefined as true
   ).length;
@@ -165,10 +167,7 @@ export function divideAvailableSpaceWithColumns<TData>(
   const sharedWidth = availableWidth / fieldCountWithGrow;
   for (const column of columns) {
     if (column.columnDef.grow !== false) {
-      column.columnDef.size = Math.max(
-        sharedWidth,
-        column.columnDef.minSize || columnMinWidth,
-      );
+      column.columnDef.size! += sharedWidth;
     }
   }
 

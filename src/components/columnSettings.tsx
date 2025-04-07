@@ -1,5 +1,5 @@
 import { Table } from "@tanstack/react-table";
-import TableSettings from "./tableSettings";
+import { TableSettings } from "./tableSettings";
 
 type Props<TData> = {
   show: boolean;

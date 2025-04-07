@@ -16,12 +16,14 @@ export const TableIsLoadingSkeleton: Story = {
       });
 
       return (
-        <Story
-          args={{
-            ...context.args,
-            table: table as Table<unknown>,
-          }}
-        />
+        <div className="pxt">
+          <Story
+            args={{
+              ...context.args,
+              table: table as Table<unknown>,
+            }}
+          />
+        </div>
       );
     },
   ],

@@ -17,7 +17,10 @@ function getPaginationComponent<TData>(table: Table<TData>) {
 }
 
 function getViewOptionsComponent<TData>(table: Table<TData>) {
-  return table.getViewOptionsComponent() || (() => <span></span>);
+  return (
+    table.getViewOptionsComponent() ||
+    (() => <span data-testid="view-options"></span>)
+  );
 }
 
 export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {

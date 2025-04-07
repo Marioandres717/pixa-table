@@ -19,7 +19,7 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
     <div
       role="row"
       className={clsx(
-        "pxt-row group",
+        "pxt-row group min-h-9",
         { "pxt-row-expanded": row.getIsExpanded() },
         { "pxt-row-selected": row.getIsSelected() },
       )}

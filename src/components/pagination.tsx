@@ -47,8 +47,13 @@ export function Pagination<TData>({ table }: Props<TData>) {
   }
 
   return (
-    <div className="flex gap-1">
+    <div
+      data-testid="pagination"
+      aria-label="pagination"
+      className="flex w-max gap-1 bg-black-10 dark:bg-black-100"
+    >
       <Button
+        data-testid="previous"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex - 1);
@@ -72,6 +77,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
         </Button>
       ))}
       <Button
+        data-testid="next"
         onClick={(e) => {
           e.preventDefault();
           onPageChange(pageIndex + 1);
