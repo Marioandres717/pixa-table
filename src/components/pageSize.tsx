@@ -16,7 +16,7 @@ export function PageSize<TData>({
     <select
       role="listbox"
       className={clsx(
-        "w-20 cursor-pointer rounded-[3px] px-2 py-1 focus:ring-0 dark:border-black-80 dark:bg-[#25333C] dark:text-black-10",
+        "w-20 cursor-pointer rounded-[3px] px-2 py-1 focus:ring-0 dark:bg-surface-elevated dark:b-strong",
         className,
       )}
       onChange={(e) => table.setPageSize(Number(e.target.value))}
