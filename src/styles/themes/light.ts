@@ -5,7 +5,7 @@ export const lightTheme = {
     base: primitiveColors.white,
     elevated: primitiveColors.black[5],
     overlay: primitiveColors.black[10],
-    canvas: primitiveColors.black[100],
+    inverted: primitiveColors.black[100],
   },
   text: {
     primary: primitiveColors.black[100],

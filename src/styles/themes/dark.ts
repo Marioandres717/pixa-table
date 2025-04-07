@@ -5,7 +5,7 @@ export const darkTheme = {
     base: primitiveColors.black[100],
     elevated: primitiveColors.black[95],
     overlay: primitiveColors.black[92.5],
-    canvas: primitiveColors.white,
+    inverted: primitiveColors.white,
   },
   text: {
     primary: primitiveColors.black[10],

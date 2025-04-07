@@ -8,7 +8,10 @@
     --surface-base: theme("colors.light.surface.base");
     --surface-elevated: theme("colors.light.surface.elevated");
     --surface-overlay: theme("colors.light.surface.overlay");
+    --surface-inverted: theme("colors.light.surface.inverted");
     --border-primary: theme("colors.light.border.primary");
+    --border-subtle: theme("colors.light.border.subtle");
+    --border-strong: theme("colors.light.border.strong");
     --text-primary: theme("colors.light.text.primary");
     --text-secondary: theme("colors.light.text.secondary");
     --interaction-hover: theme("colors.light.interaction.hover");
@@ -20,7 +23,10 @@
     --surface-base: theme("colors.dark.surface.base");
     --surface-elevated: theme("colors.dark.surface.elevated");
     --surface-overlay: theme("colors.dark.surface.overlay");
+    --surface-inverted: theme("colors.dark.surface.inverted");
     --border-primary: theme("colors.dark.border.primary");
+    --border-subtle: theme("colors.dark.border.subtle");
+    --border-strong: theme("colors.dark.border.strong");
     --text-primary: theme("colors.dark.text.primary");
     --text-secondary: theme("colors.dark.text.secondary");
     --interaction-hover: theme("colors.dark.interaction.hover");

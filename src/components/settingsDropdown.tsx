@@ -31,12 +31,16 @@ export function SettingsDropdown<T>({ table }: Props<T>) {
         role="button"
         tabIndex={0}
         className={clsx("flex h-6 w-6 rounded-[3px] p-1 outline-none", {
-          "bg-black-20 dark:bg-black-90": toggleSettings,
+          "bg-interaction-active": toggleSettings,
         })}
         onClick={toggleSettingsHandler}
         onKeyDown={toggleSettingsHandler}
       >
-        <Icon icon="settings" size={16} className="dark:fill-white" />
+        <Icon
+          icon="settings"
+          size={16}
+          className="dark:fill-surface-inverted"
+        />
       </div>
       {toggleSettings && (
         <TableSettings table={table} className="absolute right-0 top-7 z-50" />

@@ -12,16 +12,15 @@ export function TableTitle<TData>({
   className,
 }: TableTitleProps<TData>) {
   const tableActions = table.getTableActions();
+  const title = table.options.layout.showTitle;
   return (
     <div
       className={clsx(
-        "flex h-11 shrink-0 items-center justify-between border-b border-black-20 border-b-black-20 bg-black-10 px-3 py-2 dark:border-black-92.5 dark:bg-black-100",
+        "flex h-11 shrink-0 items-center justify-between bg-surface-overlay px-3 py-2 b-b dark:bg-surface",
         className,
       )}
     >
-      <div className="mx-auto text-table-base font-normal text-black-100 dark:text-black-10">
-        {table.getShowTitle()}
-      </div>
+      <div className="mx-auto font-normal text">{title}</div>
 
       <div className="flex gap-1">
         {tableActions

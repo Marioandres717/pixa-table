@@ -155,7 +155,7 @@ export const theme = {
     base: "var(--surface-base)",
     elevated: "var(--surface-elevated)",
     overlay: "var(--surface-overlay)",
-    canvas: "var(--surface-canvas)",
+    inverted: "var(--surface-inverted)",
   },
   text: {
     primary: "var(--text-primary)",

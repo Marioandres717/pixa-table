@@ -14,8 +14,8 @@ export const semanticShortcuts: PluginCreator = ({ addUtilities }) => {
     ".bg-surface-overlay": {
       "background-color": "var(--surface-overlay)",
     },
-    ".bg-surface-canvas": {
-      "background-color": "var(--surface-canvas)",
+    ".bg-surface-inverted": {
+      "background-color": "var(--surface-inverted)",
     },
 
     /* ======================

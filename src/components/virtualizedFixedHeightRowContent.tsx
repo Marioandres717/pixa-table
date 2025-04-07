@@ -117,6 +117,12 @@ export function VirtualizedFixedHeightRow<TData>({
                   cell={cell}
                   virtualColumn={viCol}
                   table={table}
+                  className={clsx({
+                    "bg-surface group-hover:bg-interaction-hover": true,
+                    "hover-bg": row.getIsExpanded(),
+                    "!active-bg": row.getIsSelected(),
+                    "b-b": cell.column.getIsPinned(),
+                  })}
                 />
               );
             })}
