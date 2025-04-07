@@ -17,10 +17,9 @@ export default function RowActions<TData>({
     <div
       role="cell"
       className={clsx(
-        "pxt-border-cell sticky right-0 z-30 h-9 bg-transparent px-3 py-2 group-hover:bg-black-10 dark:group-hover:bg-black-90",
+        "pxt-border-cell sticky right-0 z-30 h-9 bg-transparent px-3 py-2 b-b group-hover:bg-interaction-hover",
         {
-          "h-full items-start group-hover:bg-interaction-hover":
-            row.getIsExpanded(),
+          "h-full items-start": row.getIsExpanded(),
           "group-hover:active-bg": row.getIsSelected(),
         },
         className,

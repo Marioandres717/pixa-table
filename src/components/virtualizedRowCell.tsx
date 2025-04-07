@@ -28,9 +28,10 @@ export function VirtualizedRowCell<TData>({
 
   return (
     <div
-      data-id={virtualColumn.key}
-      title={cellTitle}
       role="cell"
+      data-id={virtualColumn.key}
+      data-active={cell.row.getIsSelected()}
+      title={cellTitle}
       style={getColumnStyles({
         ...column,
         ...virtualColumn,
@@ -39,14 +40,11 @@ export function VirtualizedRowCell<TData>({
       className={clsx(
         "pxt-border-cell absolute left-0 top-0 flex items-center overflow-hidden whitespace-nowrap bg-inherit px-3 py-2 hover:z-10",
         {
-          "bg-surface group-hover:bg-interaction-hover": column.getIsPinned(),
-          "group-hover:active-bg": cell.row.getIsSelected(),
           "!border-r-0": column.getIsLastColumn("center"),
         },
         column.columnDef.meta?.className,
         className,
       )}
-      data-active={cell.row.getIsSelected()}
     >
       {typeof cellContent === "string" || column.columnDef.meta?.showOnHover ? (
         <span

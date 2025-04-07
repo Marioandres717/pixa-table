@@ -67,10 +67,11 @@ export function VirtualizedFixedHeightRow<TData>({
                   virtualColumn={viCol}
                   table={table}
                   className={clsx({
+                    "bg-surface group-hover:bg-interaction-hover": true,
                     "hover-bg": row.getIsExpanded(),
-                    "active-bg": row.getIsSelected(),
+                    "!active-bg": row.getIsSelected(),
+                    "b-b": cell.column.getIsPinned(),
                   })}
-                  data-active={row.getIsSelected()}
                 />
               );
             })}
