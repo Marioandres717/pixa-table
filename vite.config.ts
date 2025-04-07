@@ -26,7 +26,7 @@ export default defineConfig((env) => ({
         "src/utils",
         "src/main.ts",
         "src/typeDefs.ts",
-        "src/theme.ts",
+        "src/styles",
       ],
     }),
     svgr({

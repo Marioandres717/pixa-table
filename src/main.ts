@@ -5,5 +5,5 @@ export * from "./components";
 export * from "./utils";
 export * from "./hooks";
 export * from "./features";
-export * from "./theme";
+export * from "./styles/themes";
 export * from "./typeDefs";
