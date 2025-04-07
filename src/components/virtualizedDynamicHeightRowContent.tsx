@@ -36,15 +36,15 @@ export function VirtualizedDynamicHeightRow<TData>({
       role="row"
       data-index={viRow.index}
       ref={measureRow}
-      className={clsx(
-        "pxt-row pxt-row-border-b group absolute left-0 top-0",
-        { "pxt-row-expanded": row.getIsExpanded() },
-        { "pxt-row-selected": row.getIsSelected() },
-      )}
+      className={clsx("pxt-row group absolute left-0 top-0 b-b", {
+        "hover-bg": row.getIsExpanded(),
+        "active-bg": row.getIsSelected(),
+      })}
       style={{
         width: `${rowWidth}px`,
         transform: `translate3d(0, ${viRow.start - rowVirtualizer.options.scrollMargin}px, 0)`,
       }}
+      data-active={row.getIsSelected()}
     >
       <div
         className="grid h-full bg-inherit"
@@ -64,7 +64,7 @@ export function VirtualizedDynamicHeightRow<TData>({
       </div>
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="pxt-border-b-row w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
+        <div className="w-full bg-surface-elevated b-t">
           <ExpandableRow row={row} />
         </div>
       )}

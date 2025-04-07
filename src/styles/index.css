@@ -1,0 +1,23 @@
+/* @import "@fontsource/hind"; */
+@import "./theme-vars.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --border-width: thin;
+}
+
+@layer utilities {
+  input[type="checkbox"]:not(:checked) {
+    @apply dark:!bg-[#132531];
+  }
+
+  .pxt-row {
+    @apply flex min-w-full flex-col bg-surface hover-bg;
+  }
+
+  .pxt-border-cell {
+    @apply b-r last:border-r-0;
+  }
+}

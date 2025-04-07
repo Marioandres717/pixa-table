@@ -1,0 +1,30 @@
+@layer base {
+  :root {
+    --font-sans: theme("fontFamily.sans");
+    --font-size: theme("fontSize.base");
+  }
+  [data-theme="light"] {
+    --table-skeleton: #ced1d3;
+    --surface-base: theme("colors.light.surface.base");
+    --surface-elevated: theme("colors.light.surface.elevated");
+    --surface-overlay: theme("colors.light.surface.overlay");
+    --border-primary: theme("colors.light.border.primary");
+    --text-primary: theme("colors.light.text.primary");
+    --text-secondary: theme("colors.light.text.secondary");
+    --interaction-hover: theme("colors.light.interaction.hover");
+    --interaction-active: theme("colors.light.interaction.active");
+    --interaction-accent: theme("colors.light.interaction.accent");
+  }
+  [data-theme="dark"] {
+    --table-skeleton: #1a2832;
+    --surface-base: theme("colors.dark.surface.base");
+    --surface-elevated: theme("colors.dark.surface.elevated");
+    --surface-overlay: theme("colors.dark.surface.overlay");
+    --border-primary: theme("colors.dark.border.primary");
+    --text-primary: theme("colors.dark.text.primary");
+    --text-secondary: theme("colors.dark.text.secondary");
+    --interaction-hover: theme("colors.dark.interaction.hover");
+    --interaction-active: theme("colors.dark.interaction.active");
+    --interaction-accent: theme("colors.dark.interaction.accent");
+  }
+}

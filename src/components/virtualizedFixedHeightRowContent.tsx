@@ -36,16 +36,16 @@ export function VirtualizedFixedHeightRow<TData>({
     <div
       role="row"
       data-index={viRow.index}
-      className={clsx(
-        "pxt-row pxt-row-border-b group absolute left-0 top-0",
-        { "pxt-row-expanded": row.getIsExpanded() },
-        { "pxt-row-selected": row.getIsSelected() },
-      )}
+      className={clsx("pxt-row group absolute left-0 top-0 b-b", {
+        "hover-bg": row.getIsExpanded(),
+        "active-bg": row.getIsSelected(),
+      })}
       style={{
         height: `${viRow.size}px`,
         width: `${rowWidth}px`,
         transform: `translate3d(0, ${viRow.start - rowVirtualizer.options.scrollMargin}px, 0)`,
       }}
+      data-active={row.getIsSelected()}
     >
       <div className="flex">
         {/* LEFT PINNED CELLS */}
@@ -67,9 +67,10 @@ export function VirtualizedFixedHeightRow<TData>({
                   virtualColumn={viCol}
                   table={table}
                   className={clsx({
-                    "pxt-row-expanded": row.getIsExpanded(),
-                    "pxt-row-selected": row.getIsSelected(),
+                    "hover-bg": row.getIsExpanded(),
+                    "active-bg": row.getIsSelected(),
                   })}
+                  data-active={row.getIsSelected()}
                 />
               );
             })}
@@ -126,7 +127,7 @@ export function VirtualizedFixedHeightRow<TData>({
       </div>
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="pxt-border-b-row w-full border-t border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
+        <div className="w-full bg-surface-elevated b-t">
           <ExpandableRow row={row} />
         </div>
       )}

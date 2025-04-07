@@ -34,7 +34,7 @@ export function DefaultToolbar<TData>({ table }: DefaultToolbarProps<TData>) {
         {showPagination && (
           <PageSizeComponent
             table={table}
-            className="inline-block h-6 text-table-base leading-[1.2]"
+            className="inline-block h-6 leading-[1.2] text"
           />
         )}
         {showViewOptions && <ViewOptionsComponent table={table} />}

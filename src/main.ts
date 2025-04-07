@@ -1,4 +1,4 @@
-import "./index.css";
+import "./styles/index.css";
 
 export * from "@tanstack/react-table";
 export * from "./components";

@@ -19,12 +19,13 @@ export default function RowActions<TData>({
       className={clsx(
         "pxt-border-cell sticky right-0 z-30 h-9 bg-transparent px-3 py-2 group-hover:bg-black-10 dark:group-hover:bg-black-90",
         {
-          "group-hover:pxt-row-expanded h-full items-start":
+          "h-full items-start group-hover:bg-interaction-hover":
             row.getIsExpanded(),
-          "group-hover:pxt-row-selected": row.getIsSelected(),
+          "group-hover:active-bg": row.getIsSelected(),
         },
         className,
       )}
+      data-active={row.getIsSelected()}
     >
       <div
         className={clsx(

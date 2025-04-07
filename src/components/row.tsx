@@ -18,18 +18,18 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
   return (
     <div
       role="row"
-      className={clsx(
-        "pxt-row group",
-        { "pxt-row-expanded": row.getIsExpanded() },
-        { "pxt-row-selected": row.getIsSelected() },
-      )}
+      className={clsx("pxt-row group", {
+        "hover-bg": row.getIsExpanded(),
+        "active-bg": row.getIsSelected(),
+      })}
       style={{
         height: isDynamicHeight ? "auto" : rowHeight,
         width: calculateRowWidth(row.getVisibleCells(), rowActions.length > 0),
       }}
+      data-active={row.getIsSelected()}
     >
       <div
-        className="pxt-row-border-b grid h-full bg-inherit"
+        className="grid h-full bg-inherit b-b"
         style={{
           gridTemplateColumns: tableBodygridGenerator(
             row.getVisibleCells(),
@@ -47,7 +47,7 @@ export function DataRow<TData>({ row, table }: Props<TData>) {
 
       {/* EXPANDABLE ROW */}
       {row.getIsExpanded() && ExpandableRow && (
-        <div className="pxt-border-b-row w-full border-black-20 bg-white dark:border-black-92.5 dark:bg-black-95">
+        <div className="w-full bg-surface-elevated">
           <ExpandableRow row={row} />
         </div>
       )}
