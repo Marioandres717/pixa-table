@@ -144,10 +144,9 @@ export const primitiveColors = {
     60: "#fad2c2",
     50: "#fce4da",
   },
-  brand: {},
 } as const;
 
-export const theme = {
+export const baseTheme = {
   ...primitiveColors,
   "table-skeleton": "var(--table-skeleton)",
   // 2. SEMANTIC NAMES (references palette directly)

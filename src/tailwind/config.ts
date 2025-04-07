@@ -1,10 +1,10 @@
 import type { Config } from "tailwindcss";
 import { fontFamily, borderWidth } from "tailwindcss/defaultTheme";
-import { theme as themeBase } from "../styles/themes/base";
+import { baseTheme as themeBase } from "../styles/themes/base";
 import { darkTheme, lightTheme } from "../styles/themes";
 import { plugins } from "./plugins";
 
-const config: Config = {
+export const config: Config = {
   content: ["./src/**/*.{html,js,ts,jsx,tsx}"],
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
@@ -89,5 +89,3 @@ const config: Config = {
   },
   plugins: plugins,
 };
-
-export default config;

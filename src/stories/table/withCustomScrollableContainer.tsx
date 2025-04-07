@@ -41,8 +41,11 @@ export const TableWithCustomScrollableContainer: Story = {
       const table = usePixaTable<MockData>(config);
 
       return (
-        <div ref={ref} className="h-screen w-full overflow-auto bg-black-40">
-          <div className="size-40 text-7xl font-bold uppercase">
+        <div
+          ref={ref}
+          className="h-screen w-full overflow-auto bg-surface-inverted"
+        >
+          <div className="size-40 text-7xl font-bold uppercase text-secondary">
             scrollable container
           </div>
           <div className="flex space-x-4">

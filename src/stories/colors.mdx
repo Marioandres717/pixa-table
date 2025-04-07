@@ -1,11 +1,12 @@
 import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
-import { theme } from "../theme";
+import { config } from "../tailwind/config";
+import {primitiveColors} from "../styles/themes"
 
 <Meta title="tokens/Colors" />
 
 <ColorPalette>
 
-    {Object.entries(theme.colors).map(([name, value], i) => (
+    {Object.entries(primitiveColors).map(([name, value], i) => (
        i > 3 &&  <ColorItem key={name} title={name} colors={value} />
     ))}
 
