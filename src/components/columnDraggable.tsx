@@ -57,8 +57,8 @@ export function DraggableColumn<T>({
       className={clsx(
         "absolute flex w-[204px] items-center justify-between gap-3 rounded-sm py-[6px] pl-[6px] pr-2",
         {
-          "bg-white dark:bg-black-92.5": getIsVisible(),
-          "bg-white dark:bg-black-95": !getIsVisible(),
+          "bg-surface dark:bg-surface-overlay": getIsVisible(),
+          "bg-surface dark:bg-surface-elevated": !getIsVisible(),
           "cursor-move": table.options.enableColumnOrdering,
           "cursor-not-allowed": !table.options.enableColumnOrdering,
         },

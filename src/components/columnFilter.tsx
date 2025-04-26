@@ -10,7 +10,7 @@ export function HeaderFilter<TData>({ header }: Props<TData>) {
   }
   return (
     <div className="cursor-pointer">
-      <Icon icon="filter" size={16} className="fill-black-70" />
+      <Icon icon="filter" size={16} className="fill-text-secondary" />
     </div>
   );
 }

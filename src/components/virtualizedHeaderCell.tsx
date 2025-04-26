@@ -39,7 +39,7 @@ export function VirtualizedHeaderCell<TData>({
       role="columnheader"
       style={getColumnStyles({ ...header.column, ...virtualColumn })}
       className={clsx(
-        "pxt-border-cell absolute left-0 top-0 flex h-full items-center overflow-hidden px-3 py-2 text-col-heading uppercase tracking-[0.66px] text-black-50 dark:text-black-40",
+        "pxt-border-cell absolute left-0 top-0 flex h-full items-center overflow-hidden px-3 py-2 text-col-heading uppercase tracking-[0.66px] text-secondary",
         {
           "!border-r-0": header.column.getIsLastColumn("center"),
         },

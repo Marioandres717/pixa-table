@@ -25,10 +25,7 @@ export function PageResults<TData>({ table, className }: Props<TData>) {
     <span
       role="status"
       aria-live="polite"
-      className={clsx(
-        "text-nowrap text-table-base leading-normal text-black-100 dark:text-black-10",
-        className,
-      )}
+      className={clsx("text-nowrap leading-normal text", className)}
     >
       {label}
     </span>
@@ -40,6 +37,7 @@ function getPaginationLabel(
   pageIndex: number,
   pageSize: number,
 ): string {
+  if (total === 0) return "0 results";
   const start = pageIndex * pageSize + 1;
   const end = Math.min(start + pageSize - 1, total);
   return `${start}-${end} of ${total.toLocaleString()} results`;

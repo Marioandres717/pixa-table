@@ -36,11 +36,11 @@ export function ResizableDiv({ renderProps }: PropsWithChildren<Props>) {
 
   return (
     <div
-      className="relative m-2 rounded-md border p-4 dark:border-black-92.5"
+      className="relative m-2 rounded-md p-4 b"
       style={{ width: `${width}px`, height: `${height}px` }}
     >
       <div
-        className="absolute bottom-0 right-0 z-10 h-3 w-3 cursor-nwse-resize bg-blue-100"
+        className="absolute bottom-0 right-0 z-10 h-3 w-3 cursor-nwse-resize bg-interaction-accent"
         onMouseDown={handleMouseDown}
       ></div>
       {renderProps({
