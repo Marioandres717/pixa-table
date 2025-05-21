@@ -12,12 +12,7 @@ export function TableSidebar<TData>({ className, table }: Props<TData>) {
   const [tabSelected, setTabSelected] = useState<"columns" | "">("");
 
   return (
-    <div
-      className={clsx(
-        "relative flex flex-col border-l border-black-20 dark:border-black-92.5",
-        className,
-      )}
-    >
+    <div className={clsx("relative flex flex-col b-l", className)}>
       <ColumnSettings
         show={tabSelected === "columns"}
         table={table}

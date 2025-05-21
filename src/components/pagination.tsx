@@ -50,7 +50,7 @@ export function Pagination<TData>({ table }: Props<TData>) {
     <div
       data-testid="pagination"
       aria-label="pagination"
-      className="flex w-max gap-1 bg-black-10 dark:bg-black-100"
+      className="flex w-max gap-1"
     >
       <Button
         data-testid="previous"

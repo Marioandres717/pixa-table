@@ -14,7 +14,7 @@ export function TableSettings<TData>({ table, className }: Props<TData>) {
       data-testid="table-settings"
       role="dialog"
       className={clsx(
-        "max-h-[500px] w-64 rounded border border-black-20 bg-white p-4 text-table-base text-black-100 drop-shadow-lg dark:border-black-90 dark:bg-black-95 dark:text-black-10",
+        "max-h-[500px] w-64 rounded p-4 drop-shadow-lg bg-surface text b dark:bg-surface-elevated",
         className,
       )}
     >
@@ -23,9 +23,7 @@ export function TableSettings<TData>({ table, className }: Props<TData>) {
       <VirtualizedColumnOrdering table={table} />
       {showPagination && (
         <div className="mt-4 flex max-w-fit flex-col gap-1">
-          <span className="text-table-base text-black-100 dark:text-black-10">
-            Results per page
-          </span>
+          <span className="text">Results per page</span>
           <PageSizeComponent table={table} className="h-8 text-[15px]" />
         </div>
       )}

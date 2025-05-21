@@ -11,7 +11,7 @@ export function ExpandableColumn({ isExpanded, toggleExpanded }: Props) {
       <Icon
         icon="arrow-new"
         size="12px"
-        className={`fill-blue-100 ${isExpanded && "rotate-90"}`}
+        className={`fill-interaction-accent ${isExpanded && "rotate-90"}`}
       />
     </span>
   );
