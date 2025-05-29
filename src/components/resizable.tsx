@@ -36,17 +36,17 @@ export function ResizableDiv({ renderProps }: PropsWithChildren<Props>) {
 
   return (
     <div
-      className="relative m-2 rounded-md p-4 b"
+      className="relative m-2 overflow-auto rounded-md p-4 b"
       style={{ width: `${width}px`, height: `${height}px` }}
     >
-      <div
-        className="absolute bottom-0 right-0 z-10 h-3 w-3 cursor-nwse-resize bg-interaction-accent"
-        onMouseDown={handleMouseDown}
-      ></div>
       {renderProps({
         width,
         height,
       })}
+      <div
+        className="absolute bottom-0 right-0 z-10 h-3 w-3 cursor-nwse-resize bg-interaction-accent"
+        onMouseDown={handleMouseDown}
+      />
     </div>
   );
 }

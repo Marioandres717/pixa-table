@@ -16,7 +16,7 @@ export function TableToolbar<TData>({ className, table }: Props<TData>) {
     <div
       role="toolbar"
       className={clsx(
-        `flex h-11 items-center justify-between bg-surface-overlay p-2 px-3 b-b dark:bg-surface`,
+        `flex h-11 w-full items-center justify-between overflow-hidden bg-surface-overlay p-2 px-3 b-b dark:bg-surface`,
         {
           "!bg-interaction-accent": areItemsSelected,
         },
