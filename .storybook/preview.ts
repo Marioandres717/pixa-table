@@ -1,5 +1,5 @@
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-vite";
 import { initialize } from "msw-storybook-addon";
 
 import "../src/styles/index.css"; // Import Tailwind CSS

@@ -5,12 +5,10 @@ const config: StorybookConfig = {
 
   addons: [
     "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
     "@storybook/addon-themes",
-    "@storybook/addon-mdx-gfm",
     "@storybook/addon-coverage",
     "@chromatic-com/storybook",
+    "@storybook/addon-docs",
   ],
 
   framework: {

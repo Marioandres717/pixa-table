@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { TableTitle } from "../components";
 import { usePixaTable } from "../hooks";
 import { MockData } from "../mocks/handlers/mockData";
