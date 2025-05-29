@@ -1,8 +1,8 @@
-import { Meta, StoryObj } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react-vite";
 import { TableToolbar } from "../components";
 import { usePixaTable } from "../hooks";
 import { MockData, MockDataColumnDefs } from "../mocks/handlers/mockData";
-import { within, expect, userEvent } from "@storybook/test";
+import { within, expect, userEvent } from "storybook/test";
 
 type Story = StoryObj<typeof TableToolbar>;
 
