@@ -14,7 +14,7 @@ export function TableFooter<TData>({ table, className }: Props<TData>) {
   return (
     <div
       className={clsx(
-        "flex h-11 items-center justify-end px-3 py-2 bg-surface b-t",
+        "flex h-11 w-full items-center justify-end overflow-hidden px-3 py-2 bg-surface b-t",
         className,
       )}
     >
